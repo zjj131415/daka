@@ -89,14 +89,14 @@
         }
       }
     }
-    
+
   }
 </style>
 
 <template>
   <view class="notice">
     <view class="notice-img">
-      <image mode="aspectFill" src="http://www.huanqiuyoucai.com//uploads/20170822/5b27aebe621cfd1ba26eec3d74d559e1.jpg"></image>
+      <image mode="aspectFill" src="http://img.hotyq.com/recruit/95/106/210695/437911e2c3e74d4aae83f6e5258e51ef.jpg!q60"></image>
     </view>
     <view class="view-info">
       <view class="notice-tit">{{notice.title}}</view>
