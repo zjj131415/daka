@@ -7,3 +7,12 @@ node_modules/
 #package.json
 #src/
 #wepy.config.js
+src/
+#wepy.config.js
+.DS_Store
+#.editorconfig
+#.eslintignore
+#.eslintrc.js
+#.npmignore
+#.wepycache
+#.wepyignore
