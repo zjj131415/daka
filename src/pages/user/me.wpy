@@ -1,14 +1,96 @@
 <style lang="less" scoped>
-
+  .flex1 {
+    flex:1;
+  }
+  .container {
+    background-color: #F7F7F7;
+    .user-head {
+      height: 240rpx;
+      background: url("//m.360buyimg.com/mobilecms/jfs/t3397/99/1458444016/44744/18cde4df/582819beNe89ce16d.png") no-repeat 100%;
+      .avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        .user-avatar {
+          width: 140rpx;
+          height: 140rpx;
+          margin-left: 30rpx;
+          border-radius: 100%;
+        }
+        .user-name {
+          margin-left: 20rpx;
+          font-size: 20px;
+          color: #ffffff;
+        }
+      }
+    }
+    .list {
+      margin-top: 26rpx;
+      background-color: #ffffff;
+      .option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100rpx;
+        border-bottom: 1rpx solid #EEEEEE;
+        image {
+          margin-left: 24rpx;
+          width: 70rpx;
+          height: 70rpx;
+          border-radius: 100%;
+        }
+        .description {
+          margin-left: 24rpx;
+          font-size: 18px;
+        }
+      }
+    }
+  }
 </style>
 <template>
-    <view>dqdqd</view>
+  <view class="container">
+    <view class="user-head">
+      <view class="avatar">
+        <image class="user-avatar" src="{{userInfo.avatarUrl}}"></image>
+        <viem class="user-name">{{userInfo.nickName}}</viem>
+        <view class="flex1"></view>
+      </view>
+    </view>
+    <view class="list">
+      <view class="option" wx:for="{{list}}">
+        <image src="../../images/box.png"></image>
+        <view class="description">{{item}}</view>
+        <view class="flex1"></view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>
-import wepy from "wepy";
-export default class Me extends wepy.page {
-  
-}
+  import wepy from "wepy";
+
+  export default class Me extends wepy.page {
+    data = {
+      userInfo: {},
+      list: ["我的主页","我发布的通告","我的账户","我要认证","旗下大咖","分享朋友圈"]
+    }
+
+    onShow() {
+      console.log('show')
+      const self = this;
+      // wepy.login();
+      wepy.getUserInfo({
+        success(res) {
+          console.log(res)
+          console.log(JSON.stringify(res.userInfo))
+          self.setData({
+            userInfo: res.userInfo
+          })
+        }
+      })
+    }
+  }
 </script>
 

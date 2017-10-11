@@ -9,7 +9,7 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index',
-      'pages/me',
+      'pages/user/home',
       'pages/user/me',
     ],
     window: {
@@ -32,7 +32,7 @@ export default class extends wepy.app {
         iconPath: "images/camera.png",
         selectedIconPath: "images/camera.png"
       }, {
-        pagePath: "pages/index",
+        pagePath: "pages/user/home",
         text: "大咖",
         iconPath: "images/行李箱.png",
         selectedIconPath: "images/行李箱.png"
