@@ -1,0 +1,61 @@
+<style lang="less" scoped>
+.user-header {
+  height: 280rpx;
+  position: relative;
+  overflow: hidden;
+  .bg-img {
+    width: 100%;
+    position: absolute;
+  }
+}
+  .photo {
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140rpx;
+    height: 140rpx;
+    border-radius: 100%;
+    overflow: hidden;
+    image {
+      max-width: 100%;
+      max-height: 100%
+    }
+  }
+</style>
+
+<template>
+  <view class="user-header">
+    <view class="bg-img">
+      <image src="//m.360buyimg.com/mobilecms/jfs/t3397/99/1458444016/44744/18cde4df/582819beNe89ce16d.png"></image>
+    </view>
+    <view class="photo">
+      <image src={{userInfo.avatarUrl}}></image>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from "wepy";
+export default class Index extends wepy.page {
+  data = {
+    userInfo: {
+
+    }
+  }
+  onLoad() {
+    console.log('show')
+    const self = this;
+    // wepy.login();
+    wepy.getUserInfo({
+      success (res) {
+        console.log(res)
+        self.setData({
+          userInfo: res.userInfo
+        })
+      }
+    })
+  }
+}
+</script>
+

@@ -1,0 +1,14 @@
+<style lang="less" scoped>
+
+</style>
+<template>
+    <view>dqdqd</view>
+</template>
+
+<script>
+import wepy from "wepy";
+export default class Me extends wepy.page {
+  
+}
+</script>
+

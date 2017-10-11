@@ -1,0 +1,63 @@
+<style lang="less">
+
+</style>
+
+<script>
+import wepy from 'wepy'
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/index',
+      'pages/me',
+      'pages/user/me',
+    ],
+    window: {
+      navigationBarBackgroundColor: "#dc3b23",
+      // navigationBarTextStyle: "black",
+      navigationBarTitleText: "大咖秀",
+      backgroundColor: "#f7f7f7",
+      backgroundTextStyle: "dark",
+      enablePullDownRefresh: true,
+      onReachBottomDistance: 20
+    },
+    tabBar: {
+      backgroundColor: "#fff",
+      color: "#717171",
+      selectedColor: "#dc3b23",
+      position: 'bottom',
+      list: [{
+        pagePath: "pages/index",
+        text: "大咖秀",
+        iconPath: "images/camera.png",
+        selectedIconPath: "images/camera.png"
+      }, {
+        pagePath: "pages/index",
+        text: "大咖",
+        iconPath: "images/行李箱.png",
+        selectedIconPath: "images/行李箱.png"
+      }, {
+        pagePath: "pages/index",
+        text: "发动态",
+        iconPath: "images/starbucks.png",
+        selectedIconPath: "images/starbucks.png"
+      }, {
+        pagePath: "pages/index",
+        text: "通告",
+        iconPath: "images/shop.png",
+        selectedIconPath: "images/shop.png"
+      }, {
+        pagePath: "pages/user/me",
+        text: "我的",
+        iconPath: "images/shop.png",
+        selectedIconPath: "images/shop.png"
+      }]
+    },
+    // debug: true
+  }
+
+  globalData = {
+    userInfo: null
+  }
+}
+</script>
