@@ -1,0 +1,118 @@
+<style lang="less" scoped>
+  .flex1 {
+    flex:1;
+  }
+  .container {
+    /*background-color: #F7F7F7;*/
+    .user-head {
+      /*min-height: 240rpx;*/
+      padding-top: 20rpx;
+      padding-bottom: 20rpx;
+      background: url("//m.360buyimg.com/mobilecms/jfs/t3397/99/1458444016/44744/18cde4df/582819beNe89ce16d.png") no-repeat 100%;
+      .avatar {
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        .user-avatar {
+          display: block;
+          width: 140rpx;
+          height: 140rpx;
+          margin: 0 auto;
+          border-radius: 100%;
+        }
+        .user-name {
+          box-sizing: border-box;
+          display: block;
+          width: 100%;
+          margin: 0 auto;
+          margin-top: 20rpx;
+          padding-left: 10rpx;
+          padding-right: 10rpx;
+          line-height: 24px;
+          text-align: center;
+          font-size: 17px;
+          color: #ffffff;
+        }
+      }
+    }
+    .tab {
+      display: flex;
+      height: 80rpx;
+      line-height: 80rpx;
+      padding-top: 10rpx;
+      padding-bottom: 10rpx;
+      text-align: center;
+      background-color: #ffffff;
+      border-bottom: 1rpx solid #F0F0F0;
+      .tab-list {
+        border-right: 1rpx solid #F0F0F0;
+      }
+      .tab-list.active {
+        color: #DD6767;
+      }
+      .tab-list:nth-of-type(3) {
+        border-right: 1rpx solid #F0F0F0;
+      }
+    }
+    .exhibition {
+      padding: 10rpx;
+      line-height: 48rpx;
+      font-size: 16px;
+      text-indent: 68rpx;
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="user-head">
+      <view class="avatar">
+        <image class="user-avatar" src="{{userInfo.avatarUrl}}"></image>
+        <viem class="user-name">{{area}}</viem>
+      </view>
+    </view>
+    <view class="tab">
+      <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{list}}" wx:key="{{index}}" bindtap="tab_list">{{item}}</view>
+    </view>
+    <view class="exhibition" hidden="{{activeIndex != 0}}">
+      千乡万才科技（中国）有限公司是一家社会创投型企业。公司始创于2002年，主要致力于面向中小型企业的“CISS跨网通”OA办公系统、进销存管理系统、crm管理系统、网站建设、工作流表单系统等产品的研发与服务，以及关怀西部的公益事业。公司总部位于北京，另在天津设有分公司，目前员工总人数100余人。公司隶属于“泛明日”团队，团队成员还包括天津星达兴文化科技有限公司、明日科技（中国）有限公司、晴明科技公司、明日工作室和千乡万才科技（武威）有限公司。
+    </view>
+    <view class="exhibition" hidden="{{activeIndex != 1}}">
+      作品
+    </view>
+    <view class="exhibition" hidden="{{activeIndex != 2}}">
+      大咖秀
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Home extends wepy.page {
+    data = {
+      userInfo: {},
+      area: "重庆市渝北区龙山街道渝安龙都",
+      list: ["简介","作品","大咖秀"],
+      activeIndex: 0
+    }
+
+    onShow() {
+      console.log('show')
+      const self = this;
+      // wepy.login();
+      wepy.getUserInfo({
+        success(res) {
+          console.log(res)
+          console.log(JSON.stringify(res.userInfo))
+          self.setData({
+            userInfo: res.userInfo
+          })
+        }
+      })
+    }
+    tab_list(e) {
+      this.activeIndex = e.target.id;
+    }
+  }
+</script>
+
