@@ -1,37 +1,153 @@
 <style lang="less" scoped>
-.user-header {
-  height: 280rpx;
-  position: relative;
-  overflow: hidden;
-  .bg-img {
-    width: 100%;
-    position: absolute;
-  }
-}
-  .photo {
-    position: relative;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 140rpx;
-    height: 140rpx;
-    border-radius: 100%;
-    overflow: hidden;
-    image {
-      max-width: 100%;
-      max-height: 100%
+  .notice {
+    width: 750rpx;
+    .notice-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      image {
+        width: 100%;
+        height: 360rpx;
+      }
     }
+    .notice-tit {
+      padding: 20rpx 30rpx;
+      font-size: 40rpx;
+      color: #333;
+      background: #fff;
+    }
+    .notice-detail {
+      padding: 10rpx 30rpx;
+      background: #fff;
+      border-top: 1px solid #f5f5f5;
+      border-bottom: 1px solid #f5f5f5;
+      .detail-item {
+        display: flex;
+        align-items: center;
+        height: 50rpx;
+        margin: 0 auto;
+      }
+      .tit {
+        margin-right: 20rpx;
+        font-size: 30rpx;
+        color: #ababab;
+      }
+      .cont {
+        font-size: 30rpx;
+        color: #333;
+      }
+      .daka {
+        margin-right: 16rpx;
+        color: #dc3b23;
+        font-size: 34rpx;
+        vertical-align: middle
+      }
+    }
+    .apply {
+      margin-top: 20rpx;
+      background: #fff;
+      .apply-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 80rpx;
+        padding: 0 30rpx;
+        border-bottom: 1px solid #f5f5f5;
+        .text {
+          font-size: 30rpx;
+          color: #666;
+        }
+        .tit-icon {
+          margin-right: 16rpx;
+          color: #dc3b23;
+          font-size: 34rpx;
+          vertical-align: middle
+        }
+        .num-icon {
+          color: #666;
+          font-size: 28rpx;
+          vertical-align: middle
+        }
+      }
+      .apply-list {
+        padding: 20rpx 15rpx;
+        display: flex;
+        // align-items: center;
+        .apply-item {
+          display: block;
+          float: left;
+          width: 100rpx;
+          height: 100rpx;
+          border-radius: 100%;
+          overflow: hidden;
+          margin: 0 15rpx;
+          image {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+    
   }
 </style>
 
 <template>
-  <view class="user-header">
-    <view class="bg-img">
-      <image src="//m.360buyimg.com/mobilecms/jfs/t3397/99/1458444016/44744/18cde4df/582819beNe89ce16d.png"></image>
+  <view class="notice">
+    <view class="notice-img">
+      <image mode="aspectFill" src="http://www.huanqiuyoucai.com//uploads/20170822/5b27aebe621cfd1ba26eec3d74d559e1.jpg"></image>
     </view>
-    <view class="photo">
-      <image src={{userInfo.avatarUrl}}></image>
+    <view class="view-info">
+      <view class="notice-tit">{{notice.title}}</view>
+    </view>
+    <view class="notice-detail">
+      <view class="detail-item">
+        <view class="daka icon-timefill"></view>
+        <text class="tit">截止时间</text>
+        <text class="cont">{endTime}</text>
+        <!-- <text>dqdq</text> -->
+      </view>
+      <view class="detail-item">
+        <view class="daka icon-locationfill"></view>
+        <text class="tit">工作地点</text>
+        <text class="cont">北京</text>
+        <!-- <text>dqdq</text> -->
+      </view>
+      <view class="detail-item">
+        <view class="daka icon-timefill"></view>
+        <text class="tit">性别要求</text>
+        <text class="cont">不限</text>
+        <!-- <text>dqdq</text> -->
+      </view>
+      <view class="detail-item">
+        <view class="daka icon-qr_code_light"></view>
+        <text class="tit">通告类型</text>
+        <text class="cont">影视组讯</text>
+        <!-- <text>dqdq</text> -->
+      </view>
+    </view>
+    <view class="apply">
+      <view class="apply-header">
+        <view>
+          <text class="daka icon-brandfill tit-icon"></text>
+          <text class="text">已报名</text>
+        </view>
+        <view>
+          <text class="text">100人</text>
+          <!-- <text class="daka icon-right num-icon"></text> -->
+        </view>
+      </view>
+      <scroll-view scroll-x>
+        <view class="apply-list">
+          <view class="apply-item">
+            <image src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+          </view>
+          <view class="apply-item">
+            <image src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+          </view>
+        </view>
+      </scroll-view>
     </view>
   </view>
 </template>
@@ -39,22 +155,9 @@
 import wepy from "wepy";
 export default class Index extends wepy.page {
   data = {
-    userInfo: {
-
+    notice: {
+      title: '为了美化微信小程序，可以适当用的字体图标。'
     }
-  }
-  onLoad() {
-    console.log('show')
-    const self = this;
-    // wepy.login();
-    wepy.getUserInfo({
-      success (res) {
-        console.log(res)
-        self.setData({
-          userInfo: res.userInfo
-        })
-      }
-    })
   }
 }
 </script>

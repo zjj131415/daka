@@ -1,5 +1,38 @@
 <style lang="less">
 
+
+@font-face {font-family: "daka";
+  src: url('//at.alicdn.com/t/font_438584_3mr3gqt48qn9izfr.eot?t=1507737547421'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_438584_3mr3gqt48qn9izfr.eot?t=1507737547421#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff;charset=utf-8;base64,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') format('woff'),
+  url('//at.alicdn.com/t/font_438584_3mr3gqt48qn9izfr.ttf?t=1507737547421') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_438584_3mr3gqt48qn9izfr.svg?t=1507737547421#daka') format('svg'); /* iOS 4.1- */
+}
+
+.daka {
+  font-family:"daka" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-locationfill:before { content: "\e650"; }
+
+.icon-timefill:before { content: "\e65e"; }
+
+.icon-right:before { content: "\e6a3"; }
+
+.icon-brandfill:before { content: "\e712"; }
+
+.icon-apps:before { content: "\e729"; }
+
+.icon-qr_code_light:before { content: "\e7f8"; }
+
+
+page {
+  background: #f7f7f7;
+}
 </style>
 
 <script>
@@ -13,12 +46,12 @@ export default class extends wepy.app {
       'pages/user/me',
     ],
     window: {
-      navigationBarBackgroundColor: "#dc3b23",
+      navigationBarBackgroundColor: '#dc3b23',
       // navigationBarTextStyle: "black",
-      navigationBarTitleText: "大咖秀",
-      backgroundColor: "#f7f7f7",
+      navigationBarTitleText: '大咖秀',
+      backgroundColor: '#000',
       backgroundTextStyle: "dark",
-      enablePullDownRefresh: true,
+      // enablePullDownRefresh: true,
       onReachBottomDistance: 20
     },
     tabBar: {
@@ -53,7 +86,7 @@ export default class extends wepy.app {
         selectedIconPath: "images/shop.png"
       }]
     },
-    // debug: true
+    debug: true
   }
 
   globalData = {
