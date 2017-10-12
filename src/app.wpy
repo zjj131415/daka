@@ -64,6 +64,7 @@ export default class extends wepy.app {
       'pages/index',
       'pages/user/home',
       'pages/user/me',
+      'pages/user/person',
       'pages/find/index'
     ],
     window: {
