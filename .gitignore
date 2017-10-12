@@ -7,7 +7,6 @@ node_modules/
 #package.json
 #src/
 #wepy.config.js
-src/
 #wepy.config.js
 .DS_Store
 #.editorconfig

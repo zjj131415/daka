@@ -1,0 +1,153 @@
+<style lang="less" scoped>
+  .find-iem {
+    background: #fff;
+    margin-bottom: 10rpx;
+
+    .find-header {
+      display: flex;
+      align-items: center;
+      padding: 0 30rpx;
+    }
+    .find-img {
+      width: 90rpx;
+      height: 90rpx;
+      border-radius: 100%;
+      overflow: hidden;
+      image {
+        width: 100%;
+        height: 100%;;
+      }
+    }
+    .find-name-tag {
+      padding: 20rpx 10rpx;
+      .find-name {
+        padding-left: 10rpx;
+        margin-bottom: 10rpx;
+        font-size: 28rpx;
+        color: #416194;
+      }
+      .find-tags {
+        display: flex;
+        align-items: center;
+      }
+      .find-tag {
+        padding: 3rpx 15rpx;
+        margin: 0 10rpx;
+        background: #eee;
+        border-radius: 8rpx;
+        font-size: 26rpx;
+        color: #808080;
+      }
+    }
+    .find-cont {
+      .find-cont-text {
+        padding: 10rpx 30rpx;
+        font-size: 30rpx;
+        color: #5f5f5f;
+      }
+    }
+    .find-actions {
+      height: 70rpx;
+      border-top: 1px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      align-items: center;
+      .action-item {
+        flex: 1;
+        height: 46rpx;
+        border-right: 1px solid #eaeaea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26rpx;
+        color: #898989;
+        &::before {
+          margin-right: 10rpx;
+          font-size: 32rpx;
+          color: #898989;
+        }
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="find-iem" wx:for="{{findArray}}" wx:key="index">
+    <view class="find-header">
+      <view class="find-img">
+        <image src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+      </view>
+      <view class="find-name-tag">
+        <view class="find-name">{{item.user.name}}</view>
+        <view class="find-tags">
+          <text class="find-tag" wx:for="{{item.user.tags}}" wx:key="index">{{item}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="find-cont">
+      <view class="find-cont-text">
+        <text>{{item.cont.text}}</text>
+      </view>
+      <view>
+        <image @tap="haha" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
+      </view>
+      <view class="find-actions">
+        <view class="action-item daka icon-share_light">
+          分享
+        </view>
+        <view class="action-item daka icon-comment">
+          评论
+        </view>
+        <view class="action-item daka icon-appreciate">
+          点赞
+        </view>
+         <view class="action-item daka icon-refund">
+          打赏
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from "wepy";
+export default class Index extends wepy.page {
+  data = {
+    findArray: [
+      {
+        user: {
+          name: '追风少年',
+          tags: ['模特', '演员']
+        },
+        cont: {
+          text: `”不那么好过的日子里
+          要学会每天给自己一个开心的理由
+          哪怕只是阳光很暖
+          点亮很足“
+          世界晚安👄`
+        }
+      }, {
+         user: {
+          name: '追风少年',
+          tags: ['模特', '演员']
+        },
+        cont: {
+          text: `作为一个有情怀的人，总能够写出好文章\n`
+        }
+      }
+    ]
+  }
+  methods = {
+    haha() {
+      wx.previewImage({
+        current: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', // 当前显示图片的http链接
+        urls: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg'] // 需要预览的图片http链接列表
+      })
+
+    }
+  }
+}
+</script>
+
