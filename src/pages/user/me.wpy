@@ -73,6 +73,13 @@
       </view>
     </view>
     <view class="list">
+      <navigator url="/pages/user/person">
+        <view class="option">
+          <image src="../../images/box.png"></image>
+          <view class="description">我的大咖秀</view>
+          <view class="arrow flex1 daka icon-right"></view>
+        </view>
+      </navigator>
       <view class="option" wx:for="{{list}}">
         <image src="../../images/box.png"></image>
         <view class="description">{{item}}</view>
