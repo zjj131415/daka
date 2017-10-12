@@ -18,7 +18,7 @@ module.exports = {
   },
   // add your custom rules here
   'rules': {
-    "quotes": [0],
+    "quotes": 0,
     "semi": [0],
     "no-multiple-empty-lines": [0],
     "no-trailing-spaces": [0],
