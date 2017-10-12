@@ -20,8 +20,15 @@
         }
         .user-name {
           margin-left: 20rpx;
-          font-size: 20px;
+          font-size: 40rpx;
           color: #ffffff;
+        }
+        .arrow {
+          padding-right: 40rpx;
+          text-align: right;
+        }
+        .arrow.icon-right {
+          color: #f1f1f1;
         }
       }
     }
@@ -43,7 +50,14 @@
         }
         .description {
           margin-left: 24rpx;
-          font-size: 18px;
+          font-size: 36rpx;
+        }
+        .arrow {
+          padding-right: 40rpx;
+          text-align: right;
+        }
+        .arrow.icon-right {
+          color: #999999;
         }
       }
     }
@@ -55,14 +69,14 @@
       <view class="avatar">
         <image class="user-avatar" src="{{userInfo.avatarUrl}}"></image>
         <viem class="user-name">{{userInfo.nickName}}</viem>
-        <view class="flex1"></view>
+        <view class="arrow flex1 daka icon-right"></view>
       </view>
     </view>
     <view class="list">
       <view class="option" wx:for="{{list}}">
         <image src="../../images/box.png"></image>
         <view class="description">{{item}}</view>
-        <view class="flex1"></view>
+        <view class="arrow flex1 daka icon-right"></view>
       </view>
     </view>
   </view>
@@ -74,7 +88,7 @@
   export default class Me extends wepy.page {
     data = {
       userInfo: {},
-      list: ["我的主页","我发布的通告","我的账户","我要认证","旗下大咖","分享朋友圈"]
+      list: ["我的主页", "我发布的通告", "我的账户", "我要认证", "旗下大咖", "分享朋友圈"]
     }
 
     onShow() {

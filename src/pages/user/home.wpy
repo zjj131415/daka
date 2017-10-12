@@ -28,9 +28,9 @@
           margin-top: 20rpx;
           padding-left: 10rpx;
           padding-right: 10rpx;
-          line-height: 24px;
+          line-height: 48rpx;
           text-align: center;
-          font-size: 17px;
+          font-size: 34rpx;
           color: #ffffff;
         }
       }
@@ -57,7 +57,7 @@
     .exhibition {
       padding: 10rpx;
       line-height: 48rpx;
-      font-size: 16px;
+      font-size: 32rpx;
       text-indent: 68rpx;
     }
   }
@@ -71,7 +71,7 @@
       </view>
     </view>
     <view class="tab">
-      <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{list}}" wx:key="{{index}}" bindtap="tab_list">{{item}}</view>
+      <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{list}}" wx:key="{{index}}" bindtap="tabList">{{item}}</view>
     </view>
     <view class="exhibition" hidden="{{activeIndex != 0}}">
       千乡万才科技（中国）有限公司是一家社会创投型企业。公司始创于2002年，主要致力于面向中小型企业的“CISS跨网通”OA办公系统、进销存管理系统、crm管理系统、网站建设、工作流表单系统等产品的研发与服务，以及关怀西部的公益事业。公司总部位于北京，另在天津设有分公司，目前员工总人数100余人。公司隶属于“泛明日”团队，团队成员还包括天津星达兴文化科技有限公司、明日科技（中国）有限公司、晴明科技公司、明日工作室和千乡万才科技（武威）有限公司。
@@ -92,7 +92,7 @@
     data = {
       userInfo: {},
       area: "重庆市渝北区龙山街道渝安龙都",
-      list: ["简介","作品","大咖秀"],
+      list: ["简介", "作品", "大咖秀"],
       activeIndex: 0
     }
 
@@ -110,7 +110,7 @@
         }
       })
     }
-    tab_list(e) {
+    tabList(e) {
       this.activeIndex = e.target.id;
     }
   }
