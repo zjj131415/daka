@@ -33,6 +33,9 @@
 import { DatePicker } from 'antd';
 ReactDOM.render(<DatePicker />, mountNode);
 ```
+```bash
+npm i react react-dom@16.0.0
+```
 
 > 注意
 > - 🤔🤔🤔🤔🤔🤔🤔
