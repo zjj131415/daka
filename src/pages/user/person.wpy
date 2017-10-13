@@ -1,4 +1,7 @@
 <style lang="less" scoped>
+  page {
+    background-color: #ffffff;
+  }
   .flex1 {
     flex:1;
   }
@@ -33,16 +36,16 @@
           color: #ffffff;
           .user-name {
             display: inline-block;
-            font-size: 44rpx;
+            font-size: 32rpx;
           }
           .user-province {
             display: inline-block;
             margin-left:20rpx;
-            font-size: 34rpx;
+            font-size: 26rpx;
           }
           .user-rank {
             margin-top: 10rpx;
-            font-size: 34rpx;
+            font-size: 26rpx;
             .list {
               display: inline-block;
               margin-left: 20rpx;
@@ -61,6 +64,7 @@
       background-color: #ffffff;
       border-bottom: 1rpx solid #F0F0F0;
       .tab-list {
+        font-size: 30rpx;
         border-right: 1rpx solid #F0F0F0;
       }
       .tab-list.active {
@@ -72,8 +76,10 @@
     }
     .exhibition {
       padding: 10rpx;
+      padding-bottom: 216rpx;
       line-height: 48rpx;
       font-size: 32rpx;
+      background-color: #ffffff;
       .video {
         .myVideo {
           display: block;
@@ -130,6 +136,80 @@
           }
         }
       }
+      .experience {
+        margin-top:20rpx;
+        padding-left:20rpx;
+        line-height:70rpx;
+        font-size:28rpx;
+        color:#BDC4BF;
+      }
+      .schedule {
+        padding: 30rpx;
+        background-color: #ffffff;
+        .area {
+          display: flex;
+          .daka {
+            width: 80rpx;
+          }
+          .word{
+            display: block;
+            .matter {
+              font-size: 30rpx;
+              color: #4B4B4B;
+            }
+          }
+        }
+      }
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height:216rpx;
+        padding: 20rpx;
+        box-sizing:border-box;
+        background-color: #FAFAFA;
+        .btn-group {
+          display: flex;
+          .btn {
+            &:nth-of-type(1) {
+               padding-right: 10rpx;
+             }
+            &:nth-of-type(2) {
+               padding-left: 10rpx;
+             }
+            button {
+              height: 80rpx;
+              line-height: 80rpx;
+              text-align: center;
+              border-radius: 0;
+              font-size: 30rpx;
+              color: #ffffff;
+              background-color: #F16412;
+              .daka {
+                display: inline-block;
+                font-size: 32rpx;
+                margin-right: 20rpx;
+              }
+            }
+          }
+        }
+        .contact {
+          height: 80rpx;
+          line-height: 80rpx;
+          margin-top: 20rpx;
+          text-align: center;
+          border-radius: 0;
+          font-size: 30rpx;
+          color: #ffffff;
+          background-color: #F16412;
+          .daka {
+            display: inline-block;
+            font-size: 32rpx;
+            margin-right: 20rpx;
+          }
+        }
+      }
     }
   }
 </style>
@@ -168,16 +248,73 @@
       </view>
       <view class="images">
         <view class="images-box" wx:for="{{imagesSrc}}">
-          <image src="{{item.src}}" mode="widthFix"></image>
+          <image @tap="preview" src="{{item.src}}" mode="widthFix"></image>
         </view>
       </view>
       <view class="means">演艺经历</view>
+      <text class="experience">服务项目</text>
+      <view class="footer">
+        <view class="btn-group">
+          <view class="btn flex1">
+            <button><view class="daka icon-bianji"></view>编辑资料</button>
+          </view>
+          <view class="btn flex1">
+            <button>分享到朋友圈</button>
+          </view>
+        </view>
+        <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>
+      </view>
     </view>
     <view class="exhibition" hidden="{{activeIndex != 1}}">
-      作品
+      <view class="schedule">
+        <view class="area">
+          <view class="daka icon-refund"></view>
+          <view class="word flex1">
+            <view class="matter">起始时间：2017年10月24日14:00</view>
+            <view class="matter">结束时间：2017年10月24日16:00</view>
+            <view class="matter">地点：重庆市江北区金源大饭店</view>
+            <view class="matter">活动名称：走秀活动</view>
+            <view class="matter">注意事项：请提前到会场请提前到会场请提前到会场请提前到会场</view>
+          </view>
+        </view>
+      </view>
+      <view class="schedule">
+        <view class="area">
+          <view class="daka icon-refund"></view>
+          <view class="word flex1">
+            <view class="matter">起始时间：2017年10月24日14:00</view>
+            <view class="matter">结束时间：2017年10月24日16:00</view>
+            <view class="matter">地点：重庆市江北区金源大饭店</view>
+            <view class="matter">活动名称：走秀活动</view>
+            <view class="matter">注意事项：请提前到会场请提前到会场请提前到会场请提前到会场</view>
+          </view>
+        </view>
+      </view>
+      <view class="footer">
+        <view class="btn-group">
+          <view class="btn flex1">
+            <button><view class="daka icon-bianji"></view>增加档期</button>
+          </view>
+          <view class="btn flex1">
+            <button>删除档期</button>
+          </view>
+        </view>
+        <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>
+      </view>
     </view>
     <view class="exhibition" hidden="{{activeIndex != 2}}">
       大咖秀
+      <view class="footer">
+        <view class="btn-group">
+          <view class="btn flex1">
+            <button><view class="daka icon-bianji"></view>编辑资料</button>
+          </view>
+          <view class="btn flex1">
+            <button>分享到朋友圈</button>
+          </view>
+        </view>
+        <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>
+      </view>
     </view>
   </view>
 </template>
@@ -187,8 +324,7 @@
 
   export default class Person extends wepy.page {
     config = {
-      navigationBarTitleText: '我的1',
-      backgroundColor: '#ffffff'
+      navigationBarTitleText: '大咖秀'
     }
     data = {
       userInfo: {},
@@ -212,6 +348,24 @@
         {src: '../../images/avatar/avatar7.jpg'},
         {src: '../../images/avatar/avatar8.jpg'},
         {src: '../../images/avatar/avatar9.jpg'}]
+    }
+
+    methods = {
+      preview() {
+        wx.previewImage({
+          current: '',
+          urls: [
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg',
+            '../../images/avatar/avatar2.jpg',
+            '../../images/avatar/avatar3.jpg',
+            '../../images/avatar/avatar4.jpg',
+            '../../images/avatar/avatar5.jpg',
+            '../../images/avatar/avatar6.jpg',
+            '../../images/avatar/avatar7.jpg',
+            '../../images/avatar/avatar8.jpg',
+            '../../images/avatar/avatar9.jpg']
+        })
+      }
     }
 
     onShow() {

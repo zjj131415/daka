@@ -45,6 +45,7 @@
       background-color: #ffffff;
       border-bottom: 1rpx solid #F0F0F0;
       .tab-list {
+        font-size: 30rpx;
         border-right: 1rpx solid #F0F0F0;
       }
       .tab-list.active {
@@ -56,9 +57,9 @@
     }
     .exhibition {
       padding: 10rpx;
-      line-height: 48rpx;
-      font-size: 32rpx;
-      text-indent: 68rpx;
+      line-height: 42rpx;
+      font-size: 28rpx;
+      text-indent: 52rpx;
     }
   }
 </style>

@@ -42,15 +42,17 @@
         width: 100%;
         height: 100rpx;
         border-bottom: 1rpx solid #EEEEEE;
-        image {
+        .option-icon {
           margin-left: 24rpx;
-          width: 70rpx;
-          height: 70rpx;
+          /*width: 70rpx;*/
+          /*height: 70rpx;*/
+          font-size: 60rpx;
+          color: red;
           border-radius: 100%;
         }
         .description {
           margin-left: 24rpx;
-          font-size: 36rpx;
+          font-size: 30rpx;
         }
         .arrow {
           padding-right: 40rpx;
@@ -73,18 +75,26 @@
       </view>
     </view>
     <view class="list">
-      <navigator url="/pages/user/person">
+      <!--<navigator url="/pages/user/person">-->
+        <!--<view class="option">-->
+          <!--<image src="../../images/box.png"></image>-->
+          <!--<view class="description">我的大咖秀</view>-->
+          <!--<view class="arrow flex1 daka icon-right"></view>-->
+        <!--</view>-->
+      <!--</navigator>-->
+      <!--<view class="option" wx:for="{{list}}">-->
+        <!--<image src="../../images/box.png"></image>-->
+        <!--<view class="description">{{item}}</view>-->
+        <!--<view class="arrow flex1 daka icon-right"></view>-->
+      <!--</view>-->
+      <navigator url="{{item.url}}" wx:for="{{list}}">
         <view class="option">
-          <image src="../../images/box.png"></image>
-          <view class="description">我的大咖秀</view>
+          <view class="option-icon daka {{item.icon}}"></view>
+          <!--<image src="{{item.imgsrc}}"></image>-->
+          <view class="description">{{item.title}}</view>
           <view class="arrow flex1 daka icon-right"></view>
         </view>
       </navigator>
-      <view class="option" wx:for="{{list}}">
-        <image src="../../images/box.png"></image>
-        <view class="description">{{item}}</view>
-        <view class="arrow flex1 daka icon-right"></view>
-      </view>
     </view>
   </view>
 </template>
@@ -95,7 +105,13 @@
   export default class Me extends wepy.page {
     data = {
       userInfo: {},
-      list: ["我的主页", "我发布的通告", "我的账户", "我要认证", "旗下大咖", "分享朋友圈"]
+      list: [
+        {title: '我的主页', icon: 'icon-home', url: '/pages/user/person'},
+        {title: '我的账户', icon: 'icon-zhanghu', url: '/pages/user/person'},
+        {title: '我要认证', icon: 'icon-renzheng', url: '/pages/user/person'},
+        {title: '我报名的', icon: 'icon-baoming', url: '/pages/user/person'},
+        {title: '我发布的', icon: 'icon-fabu', url: '/pages/user/person'},
+        {title: '旗下大咖', icon: 'icon-daka', url: '/pages/user/person'}]
     }
 
     onShow() {
