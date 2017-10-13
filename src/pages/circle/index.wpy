@@ -81,45 +81,13 @@
 </style>
 
 <template>
-  <view class="find-iem" wx:for="{{findArray}}" wx:key="index">
-    <view class="find-header">
-      <view class="find-img">
-        <image src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
-      </view>
-      <view class="find-name-tag">
-        <view class="find-name">{{item.user.name}}</view>
-        <view class="find-tags">
-          <text class="find-tag" wx:for="{{item.user.tags}}" wx:key="index">{{item}}</text>
-        </view>
-      </view>
-    </view>
-    <view class="find-cont">
-      <view class="find-cont-text">
-        <text>{{item.cont.text}}</text>
-      </view>
-      <view class="find-cont-img">
-        <image @tap="haha" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
-      </view>
-      <view class="find-actions">
-        <view class="action-item daka icon-share_light">
-          分享
-        </view>
-        <view class="action-item daka icon-comment">
-          评论
-        </view>
-        <view class="action-item daka icon-appreciate">
-          点赞
-        </view>
-         <view class="action-item daka icon-refund">
-          打赏
-        </view>
-      </view>
-    </view>
+  <view>
+    <image src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3837272286,2819063308&fm=27&gp=0.jpg"></image>
   </view>
 </template>
 <script>
 import wepy from "wepy";
-export default class Index extends wepy.page {
+export default class Indexw extends wepy.page {
   data = {
     findArray: [
       {
