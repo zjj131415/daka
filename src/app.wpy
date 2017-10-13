@@ -81,7 +81,8 @@ export default class extends wepy.app {
       'pages/user/home',
       'pages/user/me',
       'pages/user/person',
-      'pages/find/index'
+      'pages/find/index',
+      'pages/circle/index'
     ],
     window: {
       navigationBarBackgroundColor: '#dc3b23',
@@ -103,7 +104,7 @@ export default class extends wepy.app {
         iconPath: "images/camera.png",
         selectedIconPath: "images/camera.png"
       }, {
-        pagePath: "pages/user/home",
+        pagePath: "pages/circle/index",
         text: "大咖",
         iconPath: "images/行李箱.png",
         selectedIconPath: "images/行李箱.png"
