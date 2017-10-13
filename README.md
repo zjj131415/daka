@@ -27,3 +27,9 @@
 
 ** 粗体
 * 斜体
+
+# 代码块
+`{contentState, entityKey, offsetKey} = this.props,
+       __data = contentState.getEntity(entityKey).getData(),
+       multiple = __data.multiple,
+       {model, selectedKeys, defaultValue, textColor, decoratorColor} = __data;`
