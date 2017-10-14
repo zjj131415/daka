@@ -1,0 +1,61 @@
+<style lang="less" scoped>
+  .container {
+    background-color: #fff;
+    .scroll-head {
+      width: 100%;
+      /*height: 80rpx;*/
+      padding-top: 20rpx;
+      padding-bottom: 20rpx;
+      font-size: 0;
+      white-space: nowrap;
+      .scroll-view {
+        display: inline-block;
+        height: 54rpx;
+        line-height: 54rpx;
+        margin-right: 20rpx;
+        border-radius: 10px;
+        border: 1px solid #CAD1DD;
+        text-align: center;
+        font-size: 30rpx;
+        &:first-child {
+          margin-left: 20rpx;
+        }
+        &.active {
+          background-color: #D43F22;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <scroll-view scroll-x class="scroll-head">
+        <button class="scroll-view active" plain>精选</button>
+        <button class="scroll-view" plain>机构</button>
+        <button class="scroll-view" plain>校园艺人</button>
+        <button class="scroll-view" plain>演员</button>
+        <button class="scroll-view" plain>演员</button>
+    </scroll-view>
+    <view class="person">
+      
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Artist extends wepy.page {
+    config = {
+      navigationBarTitleText: '旗下大咖'
+    }
+    data = {
+      userInfo: {},
+      area: "重庆市渝北区龙山街道渝安龙都",
+      list: ["简介", "作品", "大咖秀"],
+      activeIndex: 0
+    }
+  }
+</script>
+

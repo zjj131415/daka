@@ -91,6 +91,7 @@ export default class extends wepy.app {
       'pages/user/home',
       'pages/user/me',
       'pages/user/person',
+      'pages/user/artist',
       'pages/find/index',
       'pages/circle/index'
     ],
