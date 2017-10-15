@@ -60,6 +60,14 @@
         background: #fff;
         border-bottom: 1px solid #f5f5f5;
       }
+      .cell-hd {
+         display: flex;
+        align-items: center;
+        image {
+          width: 37rpx;
+          height: 37rpx;
+        }
+      }
       .cell-bd {
         flex: 1;
         margin-left: 20rpx;
@@ -88,7 +96,7 @@
     <view class="cells">
       <navigator class="cell-link" url="{{item.url}}" wx:for="{{list}}" wx:key="key">
         <view class="cell">
-          <view class="cell-hd daka {{item.icon}}"></view>
+          <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
           <view class="cell-bd">{{item.title}}</view>
           <view class="cell-ft daka icon-right"></view>
         </view>

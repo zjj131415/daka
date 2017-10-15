@@ -117,14 +117,14 @@ export default class extends wepy.app {
       position: 'bottom',
       list: [{
         pagePath: "pages/find/index",
-        text: "大咖秀",
-        iconPath: "images/camera.png",
-        selectedIconPath: "images/camera.png"
+        text: "大咖",
+        iconPath: "images/icons/people.png",
+        selectedIconPath: "images/icons/people_active.png"
       }, {
         pagePath: "pages/circle/index",
-        text: "大咖",
-        iconPath: "images/行李箱.png",
-        selectedIconPath: "images/行李箱.png"
+        text: "大咖秀",
+        iconPath: "images/icons/find.png",
+        selectedIconPath: "images/icons/find_active.png"
       }, {
         pagePath: "pages/index",
         text: "发动态",
@@ -133,13 +133,13 @@ export default class extends wepy.app {
       }, {
         pagePath: "pages/index",
         text: "通告",
-        iconPath: "images/shop.png",
-        selectedIconPath: "images/shop.png"
+        iconPath: "images/icons/notice.png",
+        selectedIconPath: "images/icons/notice_active.png"
       }, {
         pagePath: "pages/user/me",
         text: "我的",
-        iconPath: "images/shop.png",
-        selectedIconPath: "images/shop.png"
+        iconPath: "images/icons/me.png",
+        selectedIconPath: "images/icons/me_active.png"
       }]
     },
     debug: true
