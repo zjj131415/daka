@@ -11,6 +11,23 @@ export default class testMixin extends wepy.mixin {
     }
   }
 
+  globalData = {
+    userInfo: null
+  }
+
+  $getUserInfo(cb) {
+    const that = this
+    if (this.globalData.userInfo) {
+      return this.globalData.userInfo
+    }
+    wepy.getUserInfo({
+      success (res) {
+        that.globalData.userInfo = res.userInfo
+        cb && cb(res.userInfo)
+      }
+    })
+  }
+
   onShow() {
     console.log('mixin onShow')
   }

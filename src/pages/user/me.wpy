@@ -88,10 +88,15 @@
 
 <script>
   import wepy from "wepy";
+  import user from '../../mixins/user'
 
   export default class Me extends wepy.page {
+    mixins = [user]
     data = {
-      userInfo: {},
+      userInfo: {
+        nickName: '加载中...',
+        avatarUrl: '../../images/avatar/icon-avatar@2x.png'
+      },
       list: [
         {title: '我的主页', icon: 'icon-home', url: '/pages/user/home'},
         {title: '我的账户', icon: 'icon-zhanghu', url: '/pages/user/account'},
@@ -101,18 +106,23 @@
         {title: '旗下大咖', icon: 'icon-daka', url: '/pages/user/artist'}]
     }
 
+    computed = {
+      nickName() {
+//        const info = this.getObject(this.userInfo)
+        const info = this.userInfo
+        // 名称或头像不为空的，才认为是授权用户
+        return (info.nickName || info.avatarUrl) ? info.nickName : '未授权用户'
+      }
+    }
+
     onShow() {
-      console.log('show')
-      const self = this;
-      // wepy.login();
-      wepy.getUserInfo({
-        success(res) {
-          console.log(res)
-          console.log(JSON.stringify(res.userInfo))
-          self.setData({
-            userInfo: res.userInfo
-          })
-        }
+      // 初始化页面数据
+      this.$getUserInfo((info) => {
+          this.userInfo.nickName = info.nickName
+          this.userInfo.avatarUrl = info.avatarUrl
+//        const uinfo = this.getObject(info)
+//        const userInfo = this.getObject(this.userInfo)
+//        this.userInfo = Object.assign({}, userInfo, uinfo)
       })
     }
   }

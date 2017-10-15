@@ -431,13 +431,19 @@
 
 <script>
   import wepy from "wepy";
+  import user from '../../mixins/user'
 
   export default class Home extends wepy.page {
+    mixins = [user]
     config = {
       navigationBarTitleText: '大咖秀'
     }
     data = {
-      userInfo: {},
+      // userInfo: {},
+      userInfo: {
+        nickName: '加载中...',
+        avatarUrl: '../../images/avatar/icon-avatar@2x.png'
+      },
       area: "重庆市渝北区龙山街道渝安龙都",
       list: ["档案", "档期", "大咖秀"],
       activeIndex: 0,
@@ -487,20 +493,22 @@
       }
     }
 
+    computed = {
+      nickName() {
+        const info = this.userInfo
+        // 名称或头像不为空的，才认为是授权用户
+        return (info.nickName || info.avatarUrl) ? info.nickName : '未授权用户'
+      }
+    }
+
     onShow() {
-      console.log('show')
-      const self = this;
-      // wepy.login();
-      wepy.getUserInfo({
-        success(res) {
-          console.log(res)
-          console.log(JSON.stringify(res.userInfo))
-          self.setData({
-            userInfo: res.userInfo
-          })
-        }
+      // 初始化页面数据
+      this.$getUserInfo((info) => {
+        this.userInfo.nickName = info.nickName
+        this.userInfo.avatarUrl = info.avatarUrl
       })
     }
+
     tabList(e) {
       this.activeIndex = e.target.id;
     }
