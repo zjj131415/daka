@@ -64,8 +64,8 @@
          display: flex;
         align-items: center;
         image {
-          width: 37rpx;
-          height: 37rpx;
+          width: 50rpx;
+          height: 50rpx;
         }
       }
       .cell-bd {
@@ -96,7 +96,7 @@
     <view class="cells">
       <navigator class="cell-link" url="{{item.url}}" wx:for="{{list}}" wx:key="key">
         <view class="cell">
-          <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
+          <view class="cell-hd"><image src="{{item.image}}"></image></view>
           <view class="cell-bd">{{item.title}}</view>
           <view class="cell-ft daka icon-right"></view>
         </view>
@@ -118,12 +118,12 @@
         money: '385.00'
       },
       list: [
-        {title: '我的主页', icon: 'icon-home', url: '/pages/user/home'},
-        {title: '我的账户', icon: 'icon-zhanghu', url: '/pages/user/account'},
-        {title: '我要认证', icon: 'icon-renzheng', url: '/pages/user/certification'},
-        {title: '我报名的', icon: 'icon-baoming', url: '/pages/user/registered'},
-        {title: '我发布的', icon: 'icon-fabu', url: '/pages/user/published'},
-        {title: '旗下大咖', icon: 'icon-daka', url: '/pages/user/artist'}]
+        {title: '我的主页', image: '/images/icons/home.png', url: '/pages/user/home'},
+        {title: '我的账户', image: '/images/icons/account.png', url: '/pages/user/account'},
+        {title: '我要认证', image: '/images/icons/certification.png', url: '/pages/user/certification'},
+        {title: '我报名的', image: '/images/icons/hand.png', url: '/pages/user/registered'},
+        {title: '我发布的', image: '/images/icons/editor.png', url: '/pages/user/published'},
+        {title: '旗下大咖', image: '/images/icons/it.png', url: '/pages/user/artist'}]
     }
 
     computed = {
