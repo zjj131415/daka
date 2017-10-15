@@ -1,0 +1,61 @@
+<style lang="less" scoped>
+  .container {
+    /*background-color: #fff;*/
+    .header {
+      width: 100%;
+      .tab {
+        display: flex;
+        height: 80rpx;
+        line-height: 80rpx;
+        padding-top: 10rpx;
+        padding-bottom: 10rpx;
+        text-align: center;
+        background-color: #ffffff;
+        border-bottom: 1rpx solid #F0F0F0;
+        .tab-list {
+          flex: 1;
+          font-size: 30rpx;
+          border-right: 1rpx solid #F0F0F0;
+        }
+        .tab-list.active {
+          color: #DD6767;
+          &:last-child {
+            border-right: 1rpx solid #F0F0F0;
+          }
+         }
+        }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="header">
+      <view class="tab">
+        <block wx:for="{{optionList}}" wx:key="{{index}}">
+          <view class="tab-list {{activeIndex == index ? 'active' : '' }}" id="{{index}}" @tap="tabList">{{item}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Certification extends wepy.page {
+    config = {
+      navigationBarTitleText: '我要认证'
+    }
+    data = {
+      userInfo: {},
+      optionList: ['全部', '未处理', '已接受', '已拒绝'],
+      activeIndex: 0
+    }
+    methods = {
+      tabList(e) {
+        this.activeIndex = e.target.id;
+      }
+    }
+  }
+</script>
+

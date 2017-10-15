@@ -1,19 +1,19 @@
 <style lang="less" scoped>
   .container {
-    background-color: #fff;
+    /*background-color: #fff;*/
     .scroll-head {
       width: 100%;
-      /*height: 80rpx;*/
       padding-top: 20rpx;
       padding-bottom: 20rpx;
       font-size: 0;
       white-space: nowrap;
+      background-color: #fff;
       .scroll-view {
         display: inline-block;
         height: 54rpx;
         line-height: 54rpx;
         margin-right: 20rpx;
-        border-radius: 10px;
+        border-radius: 15px;
         border: 1px solid #CAD1DD;
         text-align: center;
         font-size: 30rpx;
@@ -23,6 +23,65 @@
         &.active {
           background-color: #D43F22;
           color: #ffffff;
+          border-color: #D43F22;
+        }
+      }
+    }
+    .person {
+      padding: 10rpx;
+      margin-top: 20rpx;
+      font-size: 0;
+      background-color: #fff;
+      .artist {
+        box-sizing: border-box;
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+        padding-bottom: 10rpx;
+        &:nth-child(odd) {
+          padding-right: 5rpx;
+        }
+        &:nth-child(even) {
+          padding-left: 5rpx;
+        }
+        image {
+          display: block;
+          width: 100%;
+        }
+        .message {
+          width: 100%;
+          padding: 10rpx;
+          line-height:54rpx;
+          text-align: center;
+          font-size: 30rpx;
+          box-sizing:border-box;
+          .feature {
+            width: 100%;
+            margin-bottom: 10rpx;
+            .height {
+              display: inline-block;
+              margin-right: 20rpx;
+            }
+            .name {
+              display: inline-block;
+            }
+          }
+          .identity-group {
+            width: 100%;
+            .identity {
+              display:inline-block;
+              height:54rpx;
+              line-height:54rpx;
+              margin-right:20rpx;
+              padding-left:14px;
+              padding-right:14px;
+              box-sizing:border-box;
+              border-radius:15px;
+              border:1px solid #CAD1DD;
+              text-align:center;
+              font-size:30rpx;
+            }
+          }
         }
       }
     }
@@ -31,14 +90,26 @@
 <template>
   <view class="container">
     <scroll-view scroll-x class="scroll-head">
-        <button class="scroll-view active" plain>精选</button>
-        <button class="scroll-view" plain>机构</button>
-        <button class="scroll-view" plain>校园艺人</button>
-        <button class="scroll-view" plain>演员</button>
-        <button class="scroll-view" plain>演员</button>
+        <button class="scroll-view {{activeOption == index ? 'active' : '' }}" plain id="{{index}}" wx:for="{{optionList}}" wx:key="{{index}}" @tap="switchOption">{{item}}</button>
     </scroll-view>
     <view class="person">
-      
+      <block wx:for="{{artistMessage}}" wx:key="index">
+        <view class="artist">
+          <image @tap="preview" src="{{item.imageSrc}}" mode="widthFix"></image>
+          <view class="message">
+            <view class="name">{{item.name}}</view>
+            <view class="feature">
+              <view class="height">{{item.height}}cm</view>
+              <viem class="area">{{item.area}}</viem>
+            </view>
+            <view class="identity-group">
+              <block wx:for="{{item.identity}}" wx:key="index">
+                <view class="identity">{{item}}</view>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
     </view>
   </view>
 </template>
@@ -53,8 +124,33 @@
     data = {
       userInfo: {},
       area: "重庆市渝北区龙山街道渝安龙都",
-      list: ["简介", "作品", "大咖秀"],
-      activeIndex: 0
+      optionList: ['模特', '主持', '歌手', '礼仪', '演员', '舞蹈', '婚庆'],
+      activeOption: 0,
+      artistMessage: [
+        {imageSrc: '../../images/avatar/avatar1.jpg', name: '小小', height: '170', area: '重庆', identity: ['演员', '歌手']},
+        {imageSrc: '../../images/avatar/avatar2.jpg', name: '付霞', height: '170', area: '贵州', identity: ['模特']},
+        {imageSrc: '../../images/avatar/avatar3.jpg', name: '小芸', height: '170', area: '北京', identity: ['主持人', '婚庆']},
+        {imageSrc: '../../images/avatar/avatar4.jpg', name: '嘻嘻', height: '173', area: '四川', identity: ['礼仪', '舞蹈']}]
+    }
+    methods = {
+      switchOption(e) {
+        this.activeOption = e.target.id;
+      },
+      preview() {
+        wx.previewImage({
+          current: '',
+          urls: [
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg',
+            '../../images/avatar/avatar2.jpg',
+            '../../images/avatar/avatar3.jpg',
+            '../../images/avatar/avatar4.jpg',
+            '../../images/avatar/avatar5.jpg',
+            '../../images/avatar/avatar6.jpg',
+            '../../images/avatar/avatar7.jpg',
+            '../../images/avatar/avatar8.jpg',
+            '../../images/avatar/avatar9.jpg']
+        })
+      }
     }
   }
 </script>

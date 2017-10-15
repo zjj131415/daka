@@ -75,7 +75,7 @@
       </view>
     </view>
     <view class="list">
-      <navigator url="{{item.url}}" wx:for="{{list}}">
+      <navigator url="{{item.url}}" wx:for="{{list}}" wx:key="key">
         <view class="option">
           <view class="option-icon daka {{item.icon}}"></view>
           <view class="description">{{item.title}}</view>
@@ -93,11 +93,11 @@
     data = {
       userInfo: {},
       list: [
-        {title: '我的主页', icon: 'icon-home', url: '/pages/user/person'},
-        {title: '我的账户', icon: 'icon-zhanghu', url: '/pages/user/person'},
-        {title: '我要认证', icon: 'icon-renzheng', url: '/pages/user/person'},
-        {title: '我报名的', icon: 'icon-baoming', url: '/pages/user/person'},
-        {title: '我发布的', icon: 'icon-fabu', url: '/pages/user/person'},
+        {title: '我的主页', icon: 'icon-home', url: '/pages/user/home'},
+        {title: '我的账户', icon: 'icon-zhanghu', url: '/pages/user/account'},
+        {title: '我要认证', icon: 'icon-renzheng', url: '/pages/user/certification'},
+        {title: '我报名的', icon: 'icon-baoming', url: '/pages/user/registered'},
+        {title: '我发布的', icon: 'icon-fabu', url: '/pages/user/published'},
         {title: '旗下大咖', icon: 'icon-daka', url: '/pages/user/artist'}]
     }
 
