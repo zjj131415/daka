@@ -1,115 +1,133 @@
 <style lang="less" scoped>
-  .find-iem {
-    background: #fff;
-    margin-bottom: 10rpx;
-
-    .find-header {
-      display: flex;
-      align-items: center;
-      padding: 0 30rpx;
-      border-bottom: 1px solid #eaeaea;
-    }
-    .find-img {
-      width: 90rpx;
-      height: 90rpx;
-      border-radius: 100%;
-      overflow: hidden;
-      image {
-        width: 100%;
-        height: 100%;;
+ navigator {
+   width: 100%;
+   height: 100%;
+   image {
+     width: 100%;
+     height: 100%;
+   }
+ }
+ .circle-item {
+   display: flex;
+   align-items: flex-end;
+   width: 750rpx;
+   height: 600rpx;
+   margin-bottom: 10rpx;
+   position: relative;
+   .circle-img {
+     position: absolute;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     display: flex;
+     justify-content: center;
+     > image {
+       width: 100%;
+       height: 100%;
+     }
+   }
+   .circle-info {
+     width: 100%;
+     padding: 20rpx 26rpx;
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+     position: relative;
+     z-index: 3;
+      .circle-name {
+        height: 60rpx;
+        line-height: 60rpx;
+        font-size: 34rpx;
+        color: #fff;
+        position: relative;
       }
-    }
-    .find-name-tag {
-      padding: 20rpx 10rpx;
-      .find-name {
-        padding-left: 10rpx;
-        margin-bottom: 10rpx;
-        font-size: 28rpx;
-        color: #416194;
-      }
-      .find-tags {
-        display: flex;
-        align-items: center;
-      }
-      .find-tag {
-        padding: 3rpx 15rpx;
-        margin: 0 10rpx;
-        background: #eee;
-        border-radius: 8rpx;
-        font-size: 26rpx;
-        color: #808080;
-      }
-    }
-    .find-cont {
-      .find-cont-text {
-        padding: 10rpx 30rpx;
-        font-size: 30rpx;
-        color: #5f5f5f;
-      }
-      .find-cont-img {
-        display: flex;
-        justify-content: center;
-      }
-    }
-    .find-actions {
-      margin-top: 20rpx;
-      height: 70rpx;
-      border-top: 1px solid #eaeaea;
-      border-bottom: 1px solid #eaeaea;
-      display: flex;
-      align-items: center;
-      .action-item {
-        flex: 1;
-        height: 46rpx;
-        border-right: 1px solid #eaeaea;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 26rpx;
-        color: #898989;
-        &::before {
-          margin-right: 10rpx;
-          font-size: 32rpx;
-          color: #898989;
-        }
-        &:last-child {
-          border: none;
-        }
-      }
-    }
-  }
+     .circle-action {
+       margin: 5rpx;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       /*width: 46rpx;*/
+       height: 46rpx;
+       /*border: 1px solid #fff;*/
+       border-radius: 100%;
+        font-size: 32rpx;
+       color: #fff;
+       &::before {
+         margin-right: 5rpx;
+         font-size: 40rpx;
+       }
+     }
+     .circle-tags {
+       height:70rpx;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+     }
+     .circle-tag-item {
+       margin: 0 10rpx;
+       padding: 5rpx 30rpx;
+       border: 1px solid #fff;
+       border-radius: 12rpx;
+       color: #fff;
+       font-size: 24rpx;
+     }
+   }
+ }
 </style>
-
 <template>
-  <view>
-    <image src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3837272286,2819063308&fm=27&gp=0.jpg"></image>
+  <swiper indicator-dots autoplay interval="5000" indicator-color="rgba(255,255,255, .3)" indicator-active-color="rgba(255, 0, 0, .6)">
+    <block wx:for="{{bannerArray}}" wx:key="index">
+      <swiper-item>
+        <navigator url="{{item.url}}">
+          <image src="{{item.image}}"></image>
+        </navigator>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="circle-item">
+    <view class="circle-img"><image src="/images/avatar/avatar1.jpg"></image></view>
+    <view class="circle-info">
+      <text class="circle-name">追风少年</text>
+      <view class="circle-icon"></view>
+      <view class="circle-action daka icon-appreciate">100</view>
+      <view class="circle-tags">
+        <text class="circle-tag-item">演员</text>
+        <text class="circle-tag-item">歌手</text>
+        <text class="circle-tag-item">戏曲</text>
+        <text class="circle-tag-item">艺术生</text>
+      </view>
+    </view>
+  </view>
+  <view class="circle-item">
+    <view class="circle-img"><image src="/images/avatar/avatar1.jpg"></image></view>
+    <view class="circle-info">
+      <text class="circle-name">追风少年</text>
+      <view class="circle-icon"></view>
+      <view class="circle-action daka icon-appreciate">100</view>
+      <view class="circle-tags">
+        <text class="circle-tag-item">演员</text>
+        <text class="circle-tag-item">歌手</text>
+        <text class="circle-tag-item">戏曲</text>
+        <text class="circle-tag-item">艺术生</text>
+      </view>
+    </view>
   </view>
 </template>
 <script>
 import wepy from "wepy";
 export default class Indexw extends wepy.page {
   data = {
-    findArray: [
+    bannerArray: [  
       {
-        user: {
-          name: '追风少年',
-          tags: ['模特', '演员']
-        },
-        cont: {
-          text: `”不那么好过的日子里
-          要学会每天给自己一个开心的理由
-          哪怕只是阳光很暖
-          点亮很足“
-          世界晚安👄`
-        }
+        image: 'https://m.360buyimg.com/mobilecms/s720x322_jfs/t10987/257/742226751/36437/9a4fa128/59df3c62Nefa5f69e.jpg!q70.jpg',
+        url: '/pages/user/home'
       }, {
-         user: {
-          name: '追风少年',
-          tags: ['模特', '演员', '歌手', '主持']
-        },
-        cont: {
-          text: `作为一个有情怀的人，总能够写出好文章\n`
-        }
+        image: 'https://img1.360buyimg.com/da/jfs/t10744/133/1282383625/152573/9998e66d/59decd78N65b1c54a.jpg',
+        url: '/pages/user/home'
+      }, {
+        image: 'https://m.360buyimg.com/mobilecms/s720x322_jfs/t10987/257/742226751/36437/9a4fa128/59df3c62Nefa5f69e.jpg!q70.jpg',
+        url: '/pages/user/home'
       }
     ]
   }

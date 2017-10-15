@@ -20,6 +20,8 @@ module.exports = {
   'rules': {
     "quotes": 0,
     "semi": [0],
+    "no-undef": 0,
+    "padded-blocks": 0,
     "no-multiple-empty-lines": [0],
     "no-trailing-spaces": [0],
     "comma-dangle": [0],
@@ -30,6 +32,6 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'space-before-function-paren': 0,
-    'quotes': [1, "single"]
+    "indent": 0
   }
 }

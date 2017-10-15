@@ -2,12 +2,11 @@
   .find-iem {
     background: #fff;
     margin-bottom: 10rpx;
-
     .find-header {
       display: flex;
       align-items: center;
       padding: 0 30rpx;
-      border-bottom: 1px solid #eaeaea;
+      // border-bottom: 1px solid #eaeaea;
     }
     .find-img {
       width: 90rpx;
@@ -20,12 +19,20 @@
       }
     }
     .find-name-tag {
+      flex: 1;
       padding: 20rpx 10rpx;
       .find-name {
+        display: flex;
+        align-items: center;
         padding-left: 10rpx;
         margin-bottom: 10rpx;
         font-size: 28rpx;
         color: #416194;
+        .renz-icon {
+          margin-left: 10rpx;
+          font-size: 30rpx;
+          color: #f89b1a;
+        }
       }
       .find-tags {
         display: flex;
@@ -39,6 +46,12 @@
         font-size: 26rpx;
         color: #808080;
       }
+    }
+    .down-icon {
+      display: flex;
+      height: 100%;
+      font-size: 32rpx;
+      color: #cbcbcb;
     }
     .find-cont {
       .find-cont-text {
@@ -87,11 +100,12 @@
         <image src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
       </view>
       <view class="find-name-tag">
-        <view class="find-name">{{item.user.name}}</view>
+        <view class="find-name">{{item.user.name}}<text class="renz-icon daka icon-yishimingrenzheng1"></text></view>
         <view class="find-tags">
           <text class="find-tag" wx:for="{{item.user.tags}}" wx:key="index">{{item}}</text>
         </view>
       </view>
+      <view class="down-icon daka icon-unfold"></view>
     </view>
     <view class="find-cont">
       <view class="find-cont-text">
