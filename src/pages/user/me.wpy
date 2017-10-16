@@ -83,7 +83,7 @@
 </style>
 <template>
   <view class="container">
-    <view class="user-head">
+    <navigator url="/pages/user/editInfo" class="user-head">
       <view class="avatar">
         <image class="avatar-img" src="{{userInfo.avatarUrl}}"></image>
         <view class="user-name-money">
@@ -92,7 +92,7 @@
         </view>
         <view class="arrow daka icon-right"></view>
       </view>
-    </view>
+    </navigator>
     <view class="cells">
       <navigator class="cell-link" url="{{item.url}}" wx:for="{{list}}" wx:key="key">
         <view class="cell">

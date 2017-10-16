@@ -78,6 +78,7 @@
       font-size: 32rpx;
       background-color: #ffffff;
       .video {
+        height: 225px;
         .myVideo {
           display: block;
           width: 100%;

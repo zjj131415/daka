@@ -1,0 +1,122 @@
+<style lang="less" scoped>
+  .container {
+    /*background-color: #fff;*/
+    .header {
+      height: 90rpx;
+      line-height: 90rpx;
+      text-align: center;
+      border-bottom: 1rpx solid #F0F0F0;
+      background-color: #ffffff;
+      font-size: 32rpx;
+    }
+    .info-group {
+      padding-left: 20rpx;
+      box-sizing:border-box;
+      background:#fff;
+      .option {
+        display: flex;
+        padding:20rpx 30rpx;
+        padding-left: 0;
+        border-bottom:1px solid #f5f5f5;
+        font-size: 28rpx;
+        .option-left {
+          width: 230rpx;
+          text-align: left;
+        }
+        .option-center {
+          flex: 1;
+          padding-right: 20rpx;
+          text-align: right;
+        }
+        .option-right {
+          font-size: 32rpx;
+          color: #cdcdcd;
+        }
+        &.noborder {
+          border-bottom: none;
+        }
+      }
+      &.title {
+        margin-top: 20rpx;
+      }
+    }
+    .description {
+      height: 80rpx;
+      line-height: 80rpx;
+      padding-left: 20rpx;
+      font-size: 30rpx;
+      color: #A3A3A3;
+      background-color: #F7F7F7;
+    }
+    .data-group {
+
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="header">个人资料</view>
+    <view class="info-group title">
+      <view class="option noborder">
+        <view class="option-left">封面（才貌特征）</view>
+        <view class="option-center">酷炫主页，编辑这里</view>
+        <view class="option-right daka icon-right"></view>
+      </view>
+    </view>
+    <view class="description">自我介绍视频</view>
+    <view class="info-group">
+      <view class="option">
+        <view class="option-left">所在地</view>
+        <view class="option-center">重庆市 重庆市</view>
+        <view class="option-right daka icon-right"></view>
+      </view>
+      <view class="option">
+        <view class="option-left">角色</view>
+        <view class="option-center">重庆市 重庆市</view>
+        <view class="option-right daka icon-right"></view>
+      </view>
+      <view class="option">
+        <view class="option-left">签约公司</view>
+        <view class="option-center">未签约</view>
+        <view class="option-right daka icon-right"></view>
+      </view>
+      <view class="option">
+        <view class="option-left">学校</view>
+        <view class="option-center">未填写</view>
+        <view class="option-right daka icon-right"></view>
+      </view>
+      <view class="option">
+        <view class="option-left">出生日期</view>
+        <view class="option-center">请选择</view>
+        <view class="option-right daka icon-right"></view>
+      </view>
+      <view class="option">
+        <view class="option-left">个性签名</view>
+        <view class="option-center">未填写</view>
+        <view class="option-right daka icon-right"></view>
+      </view>
+    </view>
+    <view class="data-group"></view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class EditInfo extends wepy.page {
+    config = {
+      navigationBarTitleText: '编辑个人信息'
+    }
+    data = {
+      userInfo: {},
+      optionList: ['全部', '未处理', '已接受', '已拒绝'],
+      activeIndex: 0
+    }
+    methods = {
+      tabList(e) {
+        this.activeIndex = e.target.id;
+      }
+    }
+  }
+</script>
+
