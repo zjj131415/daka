@@ -138,7 +138,7 @@
       <view class="option">
         <view class="option-left">所在地</view>
         <view class="option-center">
-          <picker mode="region" @change="regionChange" value="{{personInfo.address.region}}" custom-item="{{personInfo.address.customItem}}">
+          <picker mode="region" @change="regionChange" value="{{personInfo.address.region}}">
             <view class="picker">
               {{personInfo.address.region[0]}} {{personInfo.address.region[1]}} {{personInfo.address.region[2]}}
             </view>
@@ -239,8 +239,7 @@
           index: 0
         },
         address: {
-          region: ['广东省', '广州市', '海珠区'],
-          customItem: '全部'
+          region: ['广东省', '广州市', '海珠区']
         },
         roles: ['主持人', '舞者', '礼仪', '演员'],
         company: '大唐演艺文化有限公司',
@@ -261,7 +260,7 @@
          this.personInfo.sexs.index = e.detail.value
       },
       regionChange(e) {
-        this.personInfo.region = e.detail.value
+        this.personInfo.address.region = e.detail.value
       },
       birthdayChange(e) {
         this.personInfo.birthday = e.detail.value
