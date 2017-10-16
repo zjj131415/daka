@@ -1,0 +1,20 @@
+<style lang="less" scoped>
+  page {
+    background: #f7f7f7;
+  }
+</style>
+
+<template>
+  <view class="vbn">发动态</view>
+</template>
+<script>
+  import wepy from "wepy";
+  export default class Index extends wepy.page {
+    data = {
+      notice: {
+        title: '为了美化微信小程序，可以适当用的字体图标。'
+      }
+    }
+  }
+</script>
+

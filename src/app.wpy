@@ -87,9 +87,11 @@ import wepy from 'wepy'
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/circle/index',
+
       'pages/index',
 
-      'pages/user/me',
+      'pages/user/index',
       'pages/user/editInfo',
       'pages/user/home',
       'pages/user/account',
@@ -98,9 +100,9 @@ export default class extends wepy.app {
       'pages/user/published',
       'pages/user/artist',
 
-      'pages/find/index',
+      'pages/find/index'
 
-      'pages/circle/index'
+
     ],
     window: {
       navigationBarBackgroundColor: '#dc3b23',
@@ -117,27 +119,27 @@ export default class extends wepy.app {
       selectedColor: "#dc3b23",
       position: 'bottom',
       list: [{
-        pagePath: "pages/find/index",
+        pagePath: "pages/circle/index",
         text: "大咖",
         iconPath: "images/icons/people.png",
         selectedIconPath: "images/icons/people_active.png"
       }, {
-        pagePath: "pages/circle/index",
+        pagePath: "pages/find/index",
         text: "大咖秀",
         iconPath: "images/icons/find.png",
         selectedIconPath: "images/icons/find_active.png"
       }, {
-        pagePath: "pages/index",
+        pagePath: "pages/launched/index",
         text: "发动态",
-        iconPath: "images/starbucks.png",
-        selectedIconPath: "images/starbucks.png"
+        iconPath: "images/icons/add.png",
+        selectedIconPath: "images/icons/add.png"
       }, {
-        pagePath: "pages/index",
+        pagePath: "pages/notice/index",
         text: "通告",
         iconPath: "images/icons/notice.png",
         selectedIconPath: "images/icons/notice_active.png"
       }, {
-        pagePath: "pages/user/me",
+        pagePath: "pages/user/index",
         text: "我的",
         iconPath: "images/icons/me.png",
         selectedIconPath: "images/icons/me_active.png"
