@@ -144,7 +144,6 @@
             </view>
           </picker>
         </view>
-        <!--<view class="option-center">{{personInfo.address}}</view>-->
         <view class="option-right daka icon-right"></view>
       </view>
       <view class="option">
@@ -189,32 +188,68 @@
     <view class="info-group">
       <view class="option">
         <view class="option-left">身高</view>
-        <view class="option-center">{{personInfo.height}}</view>
+        <view class="option-center">
+          <picker @change="heightChange" value="{{personInfo.heights.index}}" range="{{personInfo.heights.height}}">
+            <view class="picker">
+              {{personInfo.heights.height[personInfo.heights.index]}}
+            </view>
+          </picker>
+        </view>
         <view class="option-right daka icon-right"></view>
       </view>
       <view class="option">
         <view class="option-left">体重</view>
-        <view class="option-center">{{personInfo.weight}}</view>
+        <view class="option-center">
+          <picker @change="weightChange" value="{{personInfo.weights.index}}" range="{{personInfo.weights.weight}}">
+            <view class="picker">
+              {{personInfo.weights.weight[personInfo.weights.index]}}
+            </view>
+          </picker>
+        </view>
         <view class="option-right daka icon-right"></view>
       </view>
       <view class="option">
         <view class="option-left">三围</view>
-        <view class="option-center">{{personInfo.measurements}}</view>
+        <view class="option-center">
+          <picker mode="multiSelector" @change="measurementChange" value="{{personInfo.measurements.index}}" range="{{personInfo.measurements.measurement}}">
+            <view class="picker">
+              {{personInfo.measurements.measurement[0][personInfo.measurements.index[0]]}}-{{personInfo.measurements.measurement[1][personInfo.measurements.index[1]]}}-{{personInfo.measurements.measurement[2][personInfo.measurements.index[2]]}}
+            </view>
+          </picker>
+        </view>
         <view class="option-right daka icon-right"></view>
       </view>
       <view class="option">
         <view class="option-left">鞋码</view>
-        <view class="option-center">{{personInfo.shoeSize}}</view>
+        <view class="option-center">
+          <picker @change="shoeSizeChange" value="{{personInfo.shoeSizes.index}}" range="{{personInfo.shoeSizes.shoeSize}}">
+            <view class="picker">
+              {{personInfo.shoeSizes.shoeSize[personInfo.shoeSizes.index]}}
+            </view>
+          </picker>
+        </view>
         <view class="option-right daka icon-right"></view>
       </view>
       <view class="option">
         <view class="option-left">发色</view>
-        <view class="option-center">{{personInfo.hairColor}}</view>
+        <view class="option-center">
+          <picker @change="hairColorChange" value="{{personInfo.hairColors.index}}" range="{{personInfo.hairColors.hairColor}}">
+            <view class="picker">
+              {{personInfo.hairColors.hairColor[personInfo.hairColors.index]}}
+            </view>
+          </picker>
+        </view>
         <view class="option-right daka icon-right"></view>
       </view>
       <view class="option noborder">
         <view class="option-left">瞳色</view>
-        <view class="option-center">{{personInfo.pupilColor}}</view>
+        <view class="option-center">
+          <picker @change="pupilColorChange" value="{{personInfo.pupilColors.index}}" range="{{personInfo.pupilColors.hairColor}}">
+            <view class="picker">
+              {{personInfo.pupilColors.pupilColor[personInfo.pupilColors.index]}}
+            </view>
+          </picker>
+        </view>
         <view class="option-right daka icon-right"></view>
       </view>
     </view>
@@ -229,8 +264,6 @@
       navigationBarTitleText: '编辑个人信息'
     }
     data = {
-      array: ['男', '女'],
-      index: 0,
       personInfo: {
         avatarSrc: '../../images/avatar/avatar1.jpg',
         name: '偶然的阵雨',
@@ -246,17 +279,34 @@
         scroll: '未填写',
         birthday: '请选择',
         signature: '未填写',
-        height: '请选择',
-        weight: '请选择',
-        measurements: '请选择',
-        shoeSize: '请选择',
-        hairColor: '请选择',
-        pupilColor: '请选择'
+        heights: {
+          height: ['请选择', '100', '101', '102'],
+          index: 0
+        },
+        weights: {
+          weight: ['请选择', '20', '21', '22'],
+          index: 0
+        },
+        measurements: {
+          measurement: [['50', '51', '52'], ['40', '41', '42'], ['50', '51', '52', '53']],
+          index: [0, 0, 0]
+        },
+        shoeSizes: {
+          shoeSize: ['35', '36', '37'],
+          index: 0
+        },
+        hairColors: {
+          hairColor: ['黑色', '深棕', '浅黄', '红色', '紫色'],
+          index: 0
+        },
+        pupilColors: {
+          pupilColor: ['褐色', '蓝色', '绿色'],
+          index: 0
+        }
       }
     }
     methods = {
       sexChange(e) {
-        console.log(e)
          this.personInfo.sexs.index = e.detail.value
       },
       regionChange(e) {
@@ -264,8 +314,25 @@
       },
       birthdayChange(e) {
         this.personInfo.birthday = e.detail.value
+      },
+      heightChange(e) {
+        this.personInfo.heights.index = e.detail.value
+      },
+      weightChange(e) {
+        this.personInfo.weights.index = e.detail.value
+      },
+      measurementChange(e) {
+        this.measurements.index = e.detail.value
+      },
+      shoeSizeChange(e) {
+        this.personInfo.shoeSizes.index = e.detail.value
+      },
+      hairColorChange(e) {
+        this.personInfo.hairColors.index = e.detail.value
+      },
+      pupilColorChange(e) {
+        this.personInfo.pupilColors.index = e.detail.value
       }
-
     }
   }
 </script>
