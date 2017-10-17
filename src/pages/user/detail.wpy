@@ -1,0 +1,75 @@
+<style lang="less" scoped>
+  .container {
+    .detail {
+      padding: 20rpx 30rpx;
+      background:#fff;
+      border-bottom:1px solid #f5f5f5;
+      .transaction {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .type {
+          font-size: 32rpx;
+          color: #4E4E4E;
+        }
+        .date {
+          font-size: 26rpx;
+          color: #9B9B9B;
+        }
+      }
+      .money {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 5rpx;
+        .balance {
+          font-size: 26rpx;
+          color: #666666;
+        }
+        .charge {
+          font-size: 32rpx;
+          color: #202020;
+        }
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <block wx:for="{{detail}}" wx:key="{{key}}">
+      <view class="detail">
+        <view class="transaction">
+          <view class="type">{{item.type}}</view>
+          <view class="date">{{item.date}}</view>
+        </view>
+        <view class="money">
+          <view class="balance">余额：{{item.balance}}</view>
+          <view class="charge">{{item.charge}}</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Detail extends wepy.page {
+    config = {
+      navigationBarTitleText: '收支明细'
+    }
+    data = {
+      detail: [
+        {type: '转账', date: '2017-10-10', balance: '0.00', charge: '-197.33'},
+        {type: '转账', date: '2017-10-10', balance: '197.33', charge: '-802.37'},
+        {type: '转账', date: '2017-10-10', balance: '1000.00', charge: '-2000.00'},
+        {type: '在线支付', date: '2017-10-10', balance: '3000.00', charge: '+3000.00'}
+        ]
+    }
+    methods = {
+      tabList(e) {
+        this.activeIndex = e.target.id;
+      }
+    }
+  }
+</script>

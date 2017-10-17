@@ -3,38 +3,78 @@
     /*background-color: #fff;*/
     .header {
       width: 100%;
-      .tab {
+      box-sizing:border-box;
+      background:linear-gradient(90deg, #eb3c3c, #ff7459);
+      padding:40rpx 30rpx;
+      .description {
+        font-size: 28rpx;
+        color:rgba(255,255,255,0.7);
+      }
+      .balance {
+        padding: 20rpx 0;
+        font-size: 60rpx;
+        color: #FEFDF9;
+      }
+    }
+    .cells {
+      margin-top: 20rpx;
+      .cell {
+        box-sizing: border-box;
         display: flex;
-        height: 80rpx;
-        line-height: 80rpx;
-        padding-top: 10rpx;
-        padding-bottom: 10rpx;
-        text-align: center;
-        background-color: #ffffff;
-        border-bottom: 1rpx solid #F0F0F0;
-        .tab-list {
-          flex: 1;
-          font-size: 30rpx;
-          border-right: 1rpx solid #F0F0F0;
+        align-items: center;
+        padding: 20rpx 30rpx;
+        background: #fff;
+        border-bottom: 1px solid #f5f5f5;
+      }
+      .cell-hd {
+        display: flex;
+        align-items: center;
+        image {
+          width: 50rpx;
+          height: 50rpx;
         }
-        .tab-list.active {
-          color: #DD6767;
-          &:last-child {
-            border-right: 1rpx solid #F0F0F0;
-          }
-         }
-        }
+      }
+      .cell-bd {
+        flex: 1;
+        margin-left: 20rpx;
+        font-size: 34rpx;
+        color: #666;
+      }
+      .cell-ft {
+        font-size: 32rpx;
+        color: #cdcdcd;
+      }
     }
   }
 </style>
 <template>
   <view class="container">
     <view class="header">
-      <view class="tab">
-        <block wx:for="{{optionList}}" wx:key="{{index}}">
-          <view class="tab-list {{activeIndex == index ? 'active' : '' }}" id="{{index}}" @tap="tabList">{{item}}</view>
-        </block>
-      </view>
+      <view class="description">余额账户（元）</view>
+      <view class="balance">385.00</view>
+    </view>
+    <view class="cells">
+      <navigator class="cell-link" url="/pages/user/recharge">
+        <view class="cell">
+          <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
+          <view class="cell-bd">充值</view>
+          <view class="cell-ft daka icon-right"></view>
+        </view>
+      </navigator>
+      <navigator class="cell-link" url="/pages/user/cash">
+        <view class="cell">
+          <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
+          <view class="cell-bd">提现</view>
+          <view class="cell-ft daka icon-right"></view>
+        </view>
+      </navigator>
+      <navigator class="cell-link" url="/pages/user/detail">
+        <view class="cell">
+          <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
+          <view class="cell-bd">明细</view>
+          <view class="cell-ft daka icon-right"></view>
+        </view>
+      </navigator>
     </view>
   </view>
 </template>
@@ -44,12 +84,10 @@
 
   export default class Account extends wepy.page {
     config = {
-      navigationBarTitleText: '我要认证'
+      navigationBarTitleText: '余额'
     }
     data = {
       userInfo: {},
-      optionList: ['全部', '未处理', '已接受', '已拒绝'],
-      activeIndex: 0
     }
     methods = {
       tabList(e) {
@@ -58,4 +96,7 @@
     }
   }
 </script>
+
+
+
 

@@ -103,6 +103,9 @@ export default class extends wepy.app {
       'pages/user/registered',
       'pages/user/published',
       'pages/user/artist',
+      'pages/user/detail',
+      'pages/user/recharge',
+      'pages/user/cash',
 
 
 

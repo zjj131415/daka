@@ -117,9 +117,7 @@
         avatarUrl: '../../images/avatar/icon-avatar@2x.png',
         money: '385.00'
       },
-      list: [
-
-      ]
+      list: []
     };
 
     computed = {
