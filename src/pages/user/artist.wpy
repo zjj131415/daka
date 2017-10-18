@@ -15,9 +15,6 @@
         border-radius: 60rpx;
         font-size: 28rpx;
         color: #333;
-        &:first-child {
-          margin-left: 20rpx;
-        }
         &.active {
           background-color: #D43F22;
           color: #ffffff;

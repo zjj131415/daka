@@ -95,6 +95,8 @@ export default class extends wepy.app {
       'pages/find/index',
 
       'pages/launched/index',
+      'pages/launched/dynamic',
+      'pages/launched/notice',
 
       'pages/notice/index',
 

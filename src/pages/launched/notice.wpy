@@ -1,0 +1,16 @@
+<style lang="less" scoped>
+  page {
+    background: #f7f7f7;
+  }
+</style>
+
+<template>
+  <view class="vbn">发通告</view>
+</template>
+<script>
+  import wepy from "wepy";
+  export default class Notice extends wepy.page {
+
+  }
+</script>
+

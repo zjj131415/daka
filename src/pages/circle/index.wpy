@@ -69,7 +69,6 @@
        padding: 5rpx 30rpx;
        border: 1px solid #fff;
        border-radius: 12rpx;
-       background: #eee;
        color: #fff;
        font-size: 24rpx;
      }
@@ -119,7 +118,7 @@
 import wepy from "wepy";
 export default class Indexw extends wepy.page {
   data = {
-    bannerArray: [  
+    bannerArray: [
       {
         image: 'https://m.360buyimg.com/mobilecms/s720x322_jfs/t10987/257/742226751/36437/9a4fa128/59df3c62Nefa5f69e.jpg!q70.jpg',
         url: '/pages/user/home'
