@@ -1,34 +1,87 @@
 <style lang="less" scoped>
   .container {
-    .detail {
-      padding: 20rpx 30rpx;
-      background:#fff;
-      border-bottom:1px solid #f5f5f5;
-      .transaction {
+    padding-top: 20rpx;
+    .cells {
+      /*margin-top: 20rpx;*/
+      .cell {
+        box-sizing: border-box;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        .type {
-          font-size: 32rpx;
-          color: #4E4E4E;
-        }
-        .date {
-          font-size: 26rpx;
-          color: #9B9B9B;
+        padding: 20rpx 30rpx;
+        background: #fff;
+        border-top:1px solid #f5f5f5;
+        border-bottom: 1px solid #f5f5f5;
+      }
+      .cell-hd {
+        display: flex;
+        align-items: center;
+        image {
+          width: 50rpx;
+          height: 50rpx;
         }
       }
-      .money {
+      .cell-bd {
+        flex: 1;
+        margin-left: 20rpx;
+        font-size: 34rpx;
+        color: #666;
+        .mechanism {
+          font-size: 30rpx;
+          color: #2D2D2D;
+        }
+        .specific {
+          margin-top: 20rpx;
+          font-size: 28rpx;
+          color: #ACACAC;
+        }
+      }
+      .cell-ft {
+        font-size: 32rpx;
+        color: #cdcdcd;
+      }
+    }
+    .enter-group {
+      margin-top: 40rpx;
+      padding:20rpx 30rpx;
+      background:#fff;
+      border-top:1px solid #f5f5f5;
+      border-bottom:1px solid #f5f5f5;
+      .enter-title {
+        font-size: 28rpx;
+        color: #7A7A7A;
+      }
+      .enter {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        margin-top: 5rpx;
-        .balance {
-          font-size: 26rpx;
-          color: #666666;
+        padding-top: 20rpx;
+        padding-bottom: 20rpx;
+        border-bottom: 1px solid #f5f5f5;
+        .amount {
+          margin-right: 20rpx;
+          font-size: 60rpx;
+          color: #333333;
         }
-        .charge {
-          font-size: 32rpx;
-          color: #202020;
+        .enter-money {
+          flex: 1;
+          min-height: 2rem;
+          font-size: 60rpx;
+          color: #2D2D2D;
+        }
+      }
+      .enter-available {
+        margin-top: 20rpx;
+        font-size: 28rpx;
+        color: #A6A6A6;
+      }
+    }
+    .btn {
+      padding:40rpx 30rpx;
+      button {
+        font-size: 30rpx;
+        color: #BCDCF5;
+        background-color: #98CCF3;
+        &::after {
+          border: none;
         }
       }
     }
@@ -36,18 +89,29 @@
 </style>
 <template>
   <view class="container">
-    <block wx:for="{{detail}}" wx:key="{{key}}">
-      <view class="detail">
-        <view class="transaction">
-          <view class="type">{{item.type}}</view>
-          <view class="date">{{item.date}}</view>
+    <view class="cells">
+      <navigator class="cell-link" url="/pages/user/bankcard">
+        <view class="cell">
+          <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
+          <view class="cell-bd">
+            <view class="mechanism">中国工商银行</view>
+            <view class="specific">尾号2688储蓄卡</view>
+          </view>
+          <view class="cell-ft daka icon-right"></view>
         </view>
-        <view class="money">
-          <view class="balance">余额：{{item.balance}}</view>
-          <view class="charge">{{item.charge}}</view>
-        </view>
+      </navigator>
+    </view>
+    <view class="enter-group">
+      <view class="enter-title">提现金额</view>
+      <view class="enter">
+        <view class="amount">￥</view>
+        <input type="digit" class="enter-money" placeholder="" auto-focus/>
       </view>
-    </block>
+      <view class="enter-available">可用余额 0.00 元</view>
+    </view>
+    <view class="btn">
+      <button type="default">两小时内到账，确认提现</button>
+    </view>
   </view>
 </template>
 
@@ -59,17 +123,14 @@
       navigationBarTitleText: '提现'
     }
     data = {
-      detail: [
-        {type: '转账', date: '2017-10-10', balance: '0.00', charge: '-197.33'},
-        {type: '转账', date: '2017-10-10', balance: '197.33', charge: '-802.37'},
-        {type: '转账', date: '2017-10-10', balance: '1000.00', charge: '-2000.00'},
-        {type: '在线支付', date: '2017-10-10', balance: '3000.00', charge: '+3000.00'}
-        ]
     }
     methods = {
       tabList(e) {
         this.activeIndex = e.target.id;
       }
+    }
+    onLoad(option) {
+      console.log(option)
     }
   }
 </script>

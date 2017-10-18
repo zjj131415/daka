@@ -244,7 +244,7 @@
       <view class="option noborder">
         <view class="option-left">瞳色</view>
         <view class="option-center">
-          <picker @change="pupilColorChange" value="{{personInfo.pupilColors.index}}" range="{{personInfo.pupilColors.hairColor}}">
+          <picker @change="pupilColorChange" value="{{personInfo.pupilColors.index}}" range="{{personInfo.pupilColors.pupilColor}}">
             <view class="picker">
               {{personInfo.pupilColors.pupilColor[personInfo.pupilColors.index]}}
             </view>
@@ -322,7 +322,7 @@
         this.personInfo.weights.index = e.detail.value
       },
       measurementChange(e) {
-        this.measurements.index = e.detail.value
+        this.personInfo.measurements.index = e.detail.value
       },
       shoeSizeChange(e) {
         this.personInfo.shoeSizes.index = e.detail.value
