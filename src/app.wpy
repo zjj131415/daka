@@ -105,6 +105,7 @@ export default class extends wepy.app {
       'pages/user/home',
       'pages/user/account',
       'pages/user/certification',
+      'pages/user/realname',
       'pages/user/registered',
       'pages/user/published',
       'pages/user/artist',

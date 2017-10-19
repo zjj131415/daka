@@ -1,40 +1,140 @@
 <style lang="less" scoped>
   .container {
-    /*background-color: #fff;*/
-    .header {
-      width: 100%;
-      .tab {
+    padding-bottom: 30rpx;
+    .cells {
+      .cell {
+        box-sizing: border-box;
         display: flex;
-        height: 80rpx;
-        line-height: 80rpx;
-        padding-top: 10rpx;
-        padding-bottom: 10rpx;
+        align-items: center;
+        padding: 20rpx 30rpx;
+        background: #fff;
+        border-bottom: 1px solid #DEDEDE;
+        &.quality {
+          padding-right: 90rpx;
+          border-bottom: none;
+        }
+      }
+      .cell-hd {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100rpx;
+        height: 100rpx;
+        border-radius: 5px;
+        background-color: #F2F2FE;
+        image {
+          width: 50rpx;
+          height: 50rpx;
+        }
+      }
+      .cell-bd {
+        flex: 1;
+        margin-left: 20rpx;
+        font-size: 34rpx;
+        color: #666;
+        .mechanism {
+          font-size: 36rpx;
+          color: #333333;
+        }
+        .specific {
+          margin-top: 10rpx;
+          font-size: 28rpx;
+          color: #797979;
+        }
+      }
+      .cell-ft {
+        font-size: 32rpx;
+        color: #cdcdcd;
+      }
+    }
+    .separated {
+      padding-left: 30rpx;
+      line-height: 80rpx;
+      font-size: 30rpx;
+      color: #A4A3A8;
+    }
+    .description {
+      padding: 30rpx;
+      letter-spacing: 1rpx;
+      background-color: #FFFFFF;
+      .detail {
+        margin-bottom: 40rpx;
+        font-size: 30rpx;
+        color: #363636;
+      }
+      .detailed {
+        margin-bottom: 40rpx;
+        font-size: 30rpx;
+        color: #848484;
+        .round {
+          display: inline-block;
+          width: 20rpx;
+          height: 20rpx;
+          margin-right: 10rpx;
+          border-radius: 50%;
+          background-color: #CCCCCC;
+        }
+      }
+      .mark {
+        display: inline-block;
+        vertical-align: 3rpx;
+        width: 34rpx;
+        height: 34rpx;
+        line-height: 34rpx;
+        margin-left: 2rpx;
+        margin-right: 2rpx;
         text-align: center;
-        background-color: #ffffff;
-        border-bottom: 1rpx solid #F0F0F0;
-        .tab-list {
-          flex: 1;
-          font-size: 30rpx;
-          border-right: 1rpx solid #F0F0F0;
-        }
-        .tab-list.active {
-          color: #DD6767;
-          &:last-child {
-            border-right: 1rpx solid #F0F0F0;
-          }
-         }
-        }
+        border-radius: 50%;
+        font-size: 24rpx;
+        color: #ffffff;
+        background-color: #F6361E;
+      }
     }
   }
 </style>
 <template>
   <view class="container">
-    <view class="header">
-      <view class="tab">
-        <block wx:for="{{optionList}}" wx:key="{{index}}">
-          <view class="tab-list {{activeIndex == index ? 'active' : '' }}" id="{{index}}" @tap="tabList">{{item}}</view>
-        </block>
+    <view class="cells">
+      <navigator class="cell-link" url="/pages/user/realname">
+        <view class="cell">
+          <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
+          <view class="cell-bd">
+            <view class="mechanism">实名认证</view>
+            <view class="specific">适用于小程序用户真实身份的确认</view>
+          </view>
+          <view class="cell-ft daka icon-right"></view>
+        </view>
+      </navigator>
+      <view class="cell-link">
+        <view class="cell quality">
+          <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
+          <view class="cell-bd">
+            <view class="mechanism">红V认证</view>
+            <view class="specific">适用于小程序优质用户的身份的确认（需先完成实名认证）</view>
+          </view>
+        </view>
       </view>
+    </view>
+    <view class="separated">认证说明</view>
+    <view class="description">
+      <view class="detail">1.实名认证通过后方可申请红<view class="mark">V</view>认证</view>
+      <view class="detail">2.红<view class="mark">V</view>认证审核标准：</view>
+      <view class="detail">3.红<view class="mark">V</view>认证通过后，个人资料中的昵称、性别、身高、体重、三围、所在地、出生日期、角色不可随意修改，如有数据变化请联系红小秘。</view>
+      <view class="detail">4.红<view class="mark">V</view>认证通过后，请保持活跃且无违规行为，否则将被撤销红<view class="mark">V</view>身份。</view>
+      <view class="detail">注：目前红V用户只针对艺人用户，其他属性用户暂时不可申请，谢谢理解。</view>
+    </view>
+    <view class="separated">认证后特权</view>
+    <view class="description">
+      <view class="detail">1.实名认证特权</view>
+      <view class="detailed"><view class="round"></view>个人详情页和动态体现“实名认证”标识</view>
+      <view class="detailed"><view class="round"></view>搜索结果靠前</view>
+      <view class="detail">2.红V认证特权</view>
+      <view class="detailed"><view class="round"></view>个人头像加红<view class="mark">V</view>展示</view>
+      <view class="detailed"><view class="round"></view>个人详情页和动态体现“红<view class="mark">V</view>认证”标识</view>
+      <view class="detailed"><view class="round"></view>搜索结果靠前</view>
+      <view class="detailed"><view class="round"></view>个人动态会在好友的红人圈优先推荐展示</view>
+      <view class="detailed"><view class="round"></view>优质通告的优先推荐</view>
+      <view class="detailed"><view class="round"></view>可以优先上红专访等红演圈官方活动</view>
     </view>
   </view>
 </template>
@@ -44,7 +144,7 @@
 
   export default class Certification extends wepy.page {
     config = {
-      navigationBarTitleText: '我要认证'
+      navigationBarTitleText: '认证'
     }
     data = {
       userInfo: {},

@@ -1,0 +1,85 @@
+<style lang="less" scoped>
+  .container {
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20rpx;
+      padding:20rpx 30rpx;
+      background:#fff;
+      .status {
+        font-size: 30rpx;
+        color: #666666;
+      }
+      .result {
+        font-size: 28rpx;
+        color: #979797;
+      }
+    }
+    .enter {
+      display: flex;
+      align-items: center;
+      padding:20rpx 30rpx;
+      background:#fff;
+      &.card {
+        margin-bottom: 20rpx;
+        border-top: 1px solid #EAEAEA;
+      }
+      .amount {
+        margin-right: 20rpx;
+        font-size: 30rpx;
+        color: #2D2D2D;
+      }
+      .enter-money {
+        flex: 1;
+        font-size: 30rpx;
+        color: #2D2D2D;
+      }
+    }
+    .upload-title {
+      padding:20rpx 30rpx;
+      background:#fff;
+      border-top: 1px solid #EAEAEA;
+      font-size: 30rpx;
+      color: #2D2D2D;
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="title">
+      <view class="status">认证状态</view>
+      <view class="result">未认证</view>
+    </view>
+    <view class="enter">
+      <view class="amount">真实姓名</view>
+      <input type="text" class="enter-money" placeholder="请输入身份证姓名"/>
+    </view>
+    <view class="enter card">
+      <view class="amount">证件号码</view>
+      <input type="idcard" class="enter-money" placeholder="请输入身份证号码"/>
+    </view>
+    <view class="upload-title">上传持证照</view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Realname extends wepy.page {
+    config = {
+      navigationBarTitleText: '实名认证'
+    }
+    data = {
+      userInfo: {},
+      optionList: ['全部', '未处理', '已接受', '已拒绝'],
+      activeIndex: 0
+    }
+    methods = {
+      tabList(e) {
+        this.activeIndex = e.target.id;
+      }
+    }
+  }
+</script>
+
