@@ -1,0 +1,76 @@
+<style lang="less" scoped>
+  .container {
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 25rpx 0;
+      .search-type {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 150rpx;
+        height: 84rpx;
+        margin-right: 5rpx;
+        margin-left: 20rpx;
+        border-radius: 14rpx 0 0 14rpx;
+        background: #f7f7f7;
+        font-size: 30rpx;
+        > .daka {
+          margin-left: 8rpx;
+          font-size: 28rpx;
+        }
+      }
+      .search-input-box {
+        box-sizing: border-box;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        height: 84rpx;
+        background: #f7f7f7;
+        padding: 18rpx;
+        border-radius: 0 14rpx 14rpx 0;
+        > .daka {
+          margin-right: 18rpx;
+          font-size: 34rpx;
+          color: #ccc;
+        }
+        .search-input {
+          flex: 1;
+          height: 60rpx;
+          font-size: 30rpx;
+        }
+      }
+      .search-button {
+        button {
+          display: flex;
+          align-items: center;
+          height: 84rpx;
+          font-size: 36rpx;
+          border: none;
+        }
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="search-bar">
+      <view class="search-type">红人<text class="daka icon-triangledownfill"></text></view>
+      <view class="search-input-box">
+        <text class="daka icon-search"></text>
+        <input class="search-input" placeholder="这个只有在按钮点击的时候才聚焦" />
+      </view>
+      <view class="search-button">
+         <button plain loading="{{false}}">搜索</button>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from "wepy";
+  export default class Search extends wepy.page {
+
+  }
+</script>
+
