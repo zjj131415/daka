@@ -89,6 +89,7 @@ import wepy from 'wepy'
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/notice/index',
       'pages/circle/index',
       'pages/circle/search',
 
@@ -98,7 +99,7 @@ export default class extends wepy.app {
       'pages/launched/dynamic',
       'pages/launched/notice',
 
-      'pages/notice/index',
+
 
       'pages/user/index',
       'pages/user/editInfo',
@@ -200,5 +201,6 @@ export default class extends wepy.app {
     console.info(`[${obj ? 'UPDATE' : 'GET'} GlobalData ${name}]:`, this.globalData[name])
     return this.globalData[name]
   }
+
 }
 </script>

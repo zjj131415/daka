@@ -186,7 +186,7 @@
         </block>
       </swiper>
       <view class="filters">
-        <view class="filter-item">智能排序<text class="daka icon-triangledownfill"></text></view>
+        <view class="filter-item" @tap="actionShett">智能排序<text class="daka icon-triangledownfill"></text></view>
         <view class="filter-item">筛选<text class="daka icon-triangledownfill"></text></view>
       </view>
       <view class="circle-item">
@@ -221,6 +221,7 @@
   </template>
 <script>
 import wepy from "wepy";
+import Promise from 'promise-polyfill';
 export default class Indexw extends wepy.page {
   data = {
     bannerArray: [
@@ -242,7 +243,19 @@ export default class Indexw extends wepy.page {
         current: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', // 当前显示图片的http链接
         urls: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg'] // 需要预览的图片http链接列表
       })
+    },
+    actionShett() {
+      wx.showActionSheet({
+        itemList: ['男', '女', '不限'],
+        success: function(res) {
+          if (res.tapIndex !== undefined) {
 
+          }
+        },
+        fail: function(res) {
+          console.log(res.errMsg)
+        }
+      })
     }
   }
 }

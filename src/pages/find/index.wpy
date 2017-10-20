@@ -112,10 +112,10 @@
         <text>{{item.cont.text}}</text>
       </view>
       <view class="find-cont-img">
-        <image @tap="haha" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
+        <image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
       </view>
       <view class="find-actions">
-        <view class="action-item daka icon-share_light">
+        <view @tap="share" class="action-item daka icon-share_light">
           分享
         </view>
         <view class="action-item daka icon-comment">
@@ -160,13 +160,10 @@ export default class Index extends wepy.page {
     ]
   }
   methods = {
-    haha() {
-      wx.previewImage({
-        current: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', // 当前显示图片的http链接
-        urls: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg'] // 需要预览的图片http链接列表
-      })
+    share() {
 
     }
+//
   }
 }
 </script>
