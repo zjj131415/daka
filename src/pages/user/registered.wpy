@@ -1,6 +1,6 @@
 <style lang="less" scoped>
   .container {
-    /*background-color: #fff;*/
+    padding-bottom: 20rpx;
     .header {
       width: 100%;
       .tab {
@@ -25,6 +25,80 @@
          }
         }
     }
+    .enrol-group {
+      .enrol {
+        margin-top: 20rpx;
+        padding: 20rpx 30rpx;
+        border-top:1rpx solid #F0F0F0;
+        border-bottom:1rpx solid #F0F0F0;
+        background-color: #ffffff;
+        .title-group {
+          display: flex;
+          align-items: center;
+          .tag {
+            display: inline-block;
+            padding-left: 10rpx;
+            padding-right: 10rpx;
+            margin-right: 10rpx;
+            border-radius: 10px;
+            border: 1px solid #7DAAD0;
+            font-size: 24rpx;
+            color: #7DAAD0;
+          }
+          .title {
+            display: inline-block;
+            font-size: 30rpx;
+            color: #333333;
+          }
+        }
+        .content {
+          margin-top: 20rpx;
+          font-size: 30rpx;
+          .big-title {
+            font-size: 50rpx;
+            text-align: center;
+          }
+          .detail {
+            text-indent: 70rpx;
+          }
+        }
+        .register-group {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 20rpx;
+          margin-bottom: 20rpx;
+          font-size: 26rpx;
+          color: #AEAEAE;
+          .info {
+            .people {
+              display: inline-block;
+              margin-right: 20rpx;
+            }
+            .validity {
+              display: inline-block;
+            }
+          }
+          .location {
+            display: flex;
+            align-items: center;
+          }
+        }
+        .btn-group {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          button {
+            width: 200rpx;
+            margin: 0;
+            border-radius: 0;
+            font-size: 30rpx;
+            color: #ffffff;
+            background-color: #DB3B25;
+          }
+        }
+      }
+    }
   }
 </style>
 <template>
@@ -34,6 +108,54 @@
         <block wx:for="{{optionList}}" wx:key="{{index}}">
           <view class="tab-list {{activeIndex == index ? 'active' : '' }}" id="{{index}}" @tap="tabList">{{item}}</view>
         </block>
+      </view>
+    </view>
+    <view class="enrol-group">
+      <view class="enrol">
+        <view class="title-group">
+          <view class="tag">影视组讯</view>
+          <view class="title">新戏开机急聘跟组演员</view>
+        </view>
+        <view class="content">
+          <view class="big-title">演员招募</view>
+          <view class="detail">如果你有一身才华，想来到这里试一试,如果你善于表达，如果你只是缺少一个舞台，如果你还在纠结，那你快来吧，这是最适合你的一个舞台。</view>
+        </view>
+        <view class="register-group">
+          <view class="info">
+            <view class="people">12人已报名</view>
+            <view class="validity">已过期</view>
+          </view>
+          <view class="location">
+            <view class="daka icon-locationfill"></view>重庆市
+          </view>
+        </view>
+        <view class="btn-group">
+          <button type="default">已接受</button>
+          <button type="default">已拒绝</button>
+        </view>
+      </view>
+      <view class="enrol">
+        <view class="title-group">
+          <view class="tag">影视组讯</view>
+          <view class="title">新戏开机急聘跟组演员</view>
+        </view>
+        <view class="content">
+          <view class="big-title">演员招募</view>
+          <view class="detail">如果你有一身才华，想来到这里试一试,如果你善于表达，如果你只是缺少一个舞台，如果你还在纠结，那你快来吧，这是最适合你的一个舞台。</view>
+        </view>
+        <view class="register-group">
+          <view class="info">
+            <view class="people">12人已报名</view>
+            <view class="validity">已过期</view>
+          </view>
+          <view class="location">
+            <view class="daka icon-locationfill"></view>重庆市
+          </view>
+        </view>
+        <view class="btn-group">
+          <button type="default">已接受</button>
+          <button type="default">已拒绝</button>
+        </view>
       </view>
     </view>
   </view>

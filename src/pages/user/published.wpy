@@ -1,6 +1,6 @@
 <style lang="less" scoped>
   .container {
-    /*background-color: #fff;*/
+    padding-bottom: 20rpx;
     .header {
       width: 100%;
       .tab {
@@ -22,8 +22,54 @@
           &:last-child {
             border-right: 1rpx solid #F0F0F0;
           }
-         }
         }
+      }
+    }
+    .enrol-group {
+      .enrol {
+        margin-top: 20rpx;
+        padding: 20rpx 30rpx;
+        border-top:1rpx solid #F0F0F0;
+        border-bottom:1rpx solid #F0F0F0;
+        background-color: #ffffff;
+        .title-group {
+          display: flex;
+          align-items: center;
+          .tag {
+            display: inline-block;
+            padding-left: 10rpx;
+            padding-right: 10rpx;
+            margin-right: 10rpx;
+            border-radius: 10px;
+            border: 1px solid #7DAAD0;
+            font-size: 24rpx;
+            color: #7DAAD0;
+          }
+          .title {
+            display: inline-block;
+            font-size: 30rpx;
+            color: #333333;
+          }
+        }
+        .register-group {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 20rpx;
+          margin-bottom: 20rpx;
+          font-size: 26rpx;
+          color: #AEAEAE;
+          .info {
+            .validity {
+              display: inline-block;
+            }
+          }
+          .location {
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
     }
   }
 </style>
@@ -34,6 +80,22 @@
         <block wx:for="{{optionList}}" wx:key="{{index}}">
           <view class="tab-list {{activeIndex == index ? 'active' : '' }}" id="{{index}}" @tap="tabList">{{item}}</view>
         </block>
+      </view>
+    </view>
+    <view class="enrol-group">
+      <view class="enrol">
+        <view class="title-group">
+          <view class="tag">影视组讯</view>
+          <view class="title">网大电影招募演员</view>
+        </view>
+        <view class="register-group">
+          <view class="info">
+            <view class="validity">已关闭</view>
+          </view>
+          <view class="location">
+            <view class="daka icon-locationfill"></view>南京市
+          </view>
+        </view>
       </view>
     </view>
   </view>
