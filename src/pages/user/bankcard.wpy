@@ -89,7 +89,7 @@
 <template>
   <view class="container">
     <view class="cells">
-      <block wx:for="{{list}}" wx:key="{{index}}">
+      <block wx:for="{{list}}" wx:key="index">
         <view class="cell-link" @tap="back">
           <view class="cell">
             <view class="cell-hd"><image src="{{item.imageSrc}}"></image></view>
