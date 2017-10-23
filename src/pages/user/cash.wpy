@@ -94,8 +94,8 @@
         <view class="cell">
           <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
           <view class="cell-bd">
-            <view class="mechanism">中国工商银行</view>
-            <view class="specific">尾号2688储蓄卡</view>
+            <view class="mechanism">{{cardInfo.bank}}</view>
+            <view class="specific">{{cardInfo.cardNo}}</view>
           </view>
           <view class="cell-ft daka icon-right"></view>
         </view>
@@ -123,14 +123,24 @@
       navigationBarTitleText: '提现'
     }
     data = {
+      cardInfo: {
+        bank: '中国建设银行',
+        cardNo: '尾号1189储蓄卡'
+      }
     }
     methods = {
       tabList(e) {
         this.activeIndex = e.target.id;
       }
     }
-    onLoad(option) {
-      console.log(option)
+    onShow() {
+      var _this = this
+      wx.getStorage({
+        key: 'cardInfo',
+        success: function(res) {
+          _this.cardInfo = res.data
+        }
+      })
     }
   }
 </script>

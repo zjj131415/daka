@@ -9,7 +9,6 @@
         align-items: center;
         padding: 20rpx 30rpx;
         background: #fff;
-        border-top:1px solid #f5f5f5;
         border-bottom: 1px solid #f5f5f5;
       }
       .cell-hd {
@@ -90,16 +89,18 @@
 <template>
   <view class="container">
     <view class="cells">
-      <navigator class="cell-link" url="{{url}}">
-        <view class="cell">
-          <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
-          <view class="cell-bd">
-            <view class="mechanism">中国工商银行</view>
-            <view class="specific">尾号2688储蓄卡</view>
+      <block wx:for="{{list}}" wx:key="{{index}}">
+        <view class="cell-link" @tap="back">
+          <view class="cell">
+            <view class="cell-hd"><image src="{{item.imageSrc}}"></image></view>
+            <view class="cell-bd">
+              <view class="mechanism">{{item.bank}}</view>
+              <view class="specific">{{item.cardNo}}</view>
+            </view>
+            <view class="cell-ft daka icon-xuanze"></view>
           </view>
-          <view class="cell-ft daka icon-xuanze"></view>
         </view>
-      </navigator>
+      </block>
     </view>
   </view>
 </template>
@@ -112,11 +113,18 @@
       navigationBarTitleText: '选择银行卡'
     }
     data = {
-      url: '/pages/user/cash?title=红豆'
+      list: [
+        {imageSrc: '/images/icons/home.png',bank: '中国工商银行', cardNo: '尾号2688储蓄卡'},
+        {imageSrc: '/images/icons/home.png',bank: '中国光大银行', cardNo: '尾号1544信用卡'}
+      ]
     }
     methods = {
-      tabList(e) {
-        this.activeIndex = e.target.id;
+      back() {
+        wx.navigateBack({delta: 1})
+        wx.setStorage({
+          key:"cardInfo",
+          data:{'bank': '中国工商银行','cardNo': '尾号2688储蓄卡'}
+        })
       }
     }
   }
