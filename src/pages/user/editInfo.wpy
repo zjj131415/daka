@@ -82,6 +82,15 @@
     .self-video {
       padding: 20rpx;
       background-color: #ffffff;
+      .uploadVideo {
+        width: 240rpx;
+        height: 240rpx;
+        background-color: #EEEEEE;
+        image {
+          width: 100%;
+          height: 100%;
+        }
+      }
       .myVideo {
         display: block;
         width: 100%;
@@ -101,7 +110,10 @@
     </view>
     <view class="description">自我介绍视频</view>
     <view class="self-video">
-      <video class="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls></video>
+      <view class="uploadVideo" wx:if="{{!personInfo.videoSrc}}" @tap="uploadVideo">
+        <image src="../../images/upload_video.png"></image>
+      </view>
+      <video class="myVideo" wx:if="{{personInfo.videoSrc}}" src="{{personInfo.videoSrc}}" controls></video>
     </view>
     <view class="info-group title">
       <view class="option noborder">
@@ -114,7 +126,7 @@
     <view class="info-group">
       <view class="option">
         <view class="option-left">头像</view>
-        <view class="option-center">
+        <view class="option-center" @tap="uploadImage">
           <image class="avatar" src="{{personInfo.avatarSrc}}"></image>
         </view>
         <view class="option-right daka icon-right"></view>
@@ -265,6 +277,8 @@
     }
     data = {
       personInfo: {
+        // videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
+        videoSrc: '',
         avatarSrc: '../../images/avatar/avatar1.jpg',
         name: '偶然的阵雨',
         sexs: {
@@ -306,6 +320,31 @@
       }
     }
     methods = {
+      uploadVideo() {
+        var _this = this
+        wx.chooseVideo({
+          sourceType: ['album','camera'],
+          maxDuration: 60,
+          camera: 'back',
+          success: function(res) {
+            _this.personInfo.videoSrc =  res.tempFilePath
+            _this.$apply()
+          }
+        })
+      },
+      uploadImage() {
+        var _this = this
+        wx.chooseImage({
+          count: 1, // 默认9
+          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+          success: function (res) {
+            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+            _this.personInfo.avatarSrc = res.tempFilePaths[0]
+            _this.$apply()
+          }
+        })
+      },
       sexChange(e) {
          this.personInfo.sexs.index = e.detail.value
       },

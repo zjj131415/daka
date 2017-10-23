@@ -47,17 +47,37 @@
       padding:40rpx 30rpx;
       background:#fff;
       border-bottom: 1px solid #EAEAEA;
-      .upload {
-        display: inline-block;
-        width: 200rpx;
-        height: 200rpx;
-        box-sizing: border-box;
-        border: 2px dashed #E2E2E2;
-      }
-      .upload-image {
-        display: inline-block;
-        width: 200rpx;
-        height: 200rpx;
+      .upload-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .upload {
+          width: 200rpx;
+          height: 200rpx;
+          line-height: 200rpx;
+          text-align: center;
+          box-sizing: border-box;
+          border: 2px dashed #E2E2E2;
+          font-size: 50rpx;
+          color: #D1D1D1;
+        }
+        .upload-image {
+          width: 200rpx;
+          height: 200rpx;
+        }
+        .arrow {
+          font-size: 40rpx;
+          color: #D1D1D1;
+        }
+        .img-wrap {
+          width: 200rpx;
+          height: 240rpx;
+          overflow: hidden;
+          .sample {
+            display: block;
+            width: 200rpx;
+          }
+        }
       }
     }
     .description {
@@ -94,8 +114,14 @@
     </view>
     <view class="upload-title">上传持证照</view>
     <view class="upload-group">
-      <view class="upload" wx:if="{{!uploadSrc}}" @tap="upload"></view>
-      <image class="upload-image" src="{{uploadSrc}}" wx:else></image>
+      <view class="upload-info">
+        <view class="upload" wx:if="{{!uploadSrc}}" @tap="upload">+</view>
+        <image class="upload-image" src="{{uploadSrc}}" wx:else></image>
+        <view class="arrow">→</view>
+        <view class="img-wrap">
+          <image class="sample" src="../../images/sample.jpg" mode="widthFix"></image>
+        </view>
+      </view>
       <view class="description">证件上传要求如下：</view>
       <view class="rule">1.持证正面照需本人手持证件，免冠未妆能辨识</view>
       <view class="rule">2.证件上信息/号码/住址需清晰可见</view>
@@ -117,23 +143,18 @@
     data = {
       userInfo: {},
       // uploadSrc: '../../images/avatar/avatar2.jpg'
-      uploadSrc: '',
-      number: '222'
+      uploadSrc: ''
     }
     methods = {
       upload() {
-        console.log(this.uploadSrc)
         var _this = this
         wx.chooseImage({
           count: 1, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
-            console.log(_this.number)
-            console.log(res)
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
             _this.uploadSrc = res.tempFilePaths[0]
-            console.log(_this.uploadSrc)
             _this.$apply()
           }
         })
