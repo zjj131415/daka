@@ -131,7 +131,7 @@
         </view>
         <view class="option-right daka icon-right"></view>
       </view>
-      <view class="option" @tap="skip">
+      <view class="option" @tap="changeName">
         <view class="option-left">昵称</view>
         <view class="option-center">{{personInfo.name}}</view>
         <view class="option-right daka icon-right"></view>
@@ -158,7 +158,7 @@
         </view>
         <view class="option-right daka icon-right"></view>
       </view>
-      <view class="option">
+      <view class="option" @tap="changeRole">
         <view class="option-left">角色</view>
         <view class="option-center roles">
           <view class="roles">
@@ -169,7 +169,7 @@
         </view>
         <view class="option-right daka icon-right"></view>
       </view>
-      <view class="option">
+      <view class="option" @tap="changeCompany">
         <view class="option-left">签约公司</view>
         <view class="option-center">{{personInfo.company}}</view>
         <view class="option-right daka icon-right"></view>
@@ -345,14 +345,34 @@
           }
         })
       },
-      skip() {
+      changeName() {
         var _this = this
-        wx.navigateTo({
-          url: '/pages/user/nickname'
-        })
         wx.setStorage({
           key:"nickname",
           data:_this.personInfo.name
+        })
+        wx.navigateTo({
+          url: '/pages/user/nickname'
+        })
+      },
+      changeRole() {
+        var _this = this
+        wx.setStorage({
+          key:"role",
+          data:_this.personInfo.roles
+        })
+        wx.navigateTo({
+          url: '/pages/user/role'
+        })
+      },
+      changeCompany() {
+        var _this = this
+        wx.setStorage({
+          key:"company",
+          data:_this.personInfo.company
+        })
+        wx.navigateTo({
+          url: '/pages/user/company'
         })
       },
       sexChange(e) {

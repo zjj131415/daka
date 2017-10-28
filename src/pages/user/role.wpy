@@ -1,0 +1,85 @@
+<style lang="less" scoped>
+  .container {
+    background-color: #ffffff;
+    .roles {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20rpx;
+      text {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5rpx 30rpx;
+        margin: 0 10rpx 20rpx;
+        border: 1px solid #333;
+        border-radius: 60rpx;
+        font-size: 28rpx;
+        color: #333;
+        &.active {
+          background-color: #D43F22;
+          color: #ffffff;
+          border-color: #D43F22;
+        }
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="roles">
+      <text class="{{switchActive(index) ? 'active' : ''}}" plain id="{{index}}" wx:for="{{list}}" wx:key="{{index}}" @tap="choice(item)">{{item}}</text>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Role extends wepy.page {
+    config = {
+      navigationBarTitleText: '角色'
+    }
+    data = {
+      list: ["主持人", "舞者", "演员", "歌手", "魔术师", "礼仪", "经纪人", "艺人"],
+      roles: ["主持人", "舞者"]
+    }
+    methods = {
+      switchActive(index) {
+        console.log(index)
+        return true;
+      },
+      choice(item) {
+        var _this = this
+        console.log(item)
+        _this.roles.push(item)
+        console.log(_this.roles)
+        wx.setStorage({
+          key:"role",
+          data:_this.roles
+        })
+      },
+      confirm(event) {
+        var _this = this
+        wx.navigateBack({delta: 1})
+        wx.setStorage({
+          key:"role",
+          data:_this.roles
+        })
+        console.log(_this.roles)
+      },
+      input(event) {
+        this.roles = event.detail.value
+      }
+    }
+    onShow() {
+      var _this = this
+      wx.getStorage({
+        key: 'role',
+        success: function(res) {
+          console.log(res.data)
+          _this.roles = res.data
+        }
+      })
+    }
+  }
+</script>

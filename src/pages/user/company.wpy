@@ -17,42 +17,39 @@
 <template>
   <view class="container">
     <view class="enter">
-      <input type="text" placeholder="" value="{{nickname}}" focus bindconfirm="confirm" bindinput="input"/>
+      <input type="text" placeholder="" value="{{company}}" focus bindconfirm="confirm" bindinput="input"/>
     </view>
-    <!--<view class="btn">-->
-      <!--<button type="default">确认</button>-->
-    <!--</view>-->
   </view>
 </template>
 
 <script>
   import wepy from "wepy";
 
-  export default class Nickname extends wepy.page {
+  export default class Company extends wepy.page {
     config = {
-      navigationBarTitleText: '昵称'
+      navigationBarTitleText: '公司'
     }
     data = {
-      nickname: ''
+      company: ''
     }
     methods = {
       confirm(event) {
         wx.navigateBack({delta: 1})
         wx.setStorage({
-          key:"nickname",
+          key:"company",
           data:event.detail.value
         })
       },
       input(event) {
-        this.nickname = event.detail.value
+        this.company = event.detail.value
       }
     }
     onShow() {
       var _this = this
       wx.getStorage({
-        key: 'nickname',
+        key: 'company',
         success: function(res) {
-          _this.nickname = res.data
+          _this.company = res.data
         }
       })
     }
