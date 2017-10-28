@@ -117,6 +117,8 @@ export default class extends wepy.app {
       'pages/user/nickname',
       'pages/user/role',
       'pages/user/company',
+      'pages/user/school',
+      'pages/user/signature',
 
 
 

@@ -1,0 +1,57 @@
+<style lang="less" scoped>
+  .container {
+    padding-top: 40rpx;
+    .enter {
+      min-height: 60rpx;
+      border-top:1px solid #f5f5f5;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 30rpx;
+      color: #000;
+      background-color:#ffffff;
+      input{
+        padding: 20rpx 30rpx;
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="enter">
+      <input type="text" placeholder="" value="{{school}}" focus bindconfirm="confirm" bindinput="input"/>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class School extends wepy.page {
+    config = {
+      navigationBarTitleText: '学校'
+    }
+    data = {
+      school: ''
+    }
+    methods = {
+      confirm(event) {
+        wx.navigateBack({delta: 1})
+        wx.setStorage({
+          key:"school",
+          data:event.detail.value
+        })
+      },
+      input(event) {
+        this.school = event.detail.value
+      }
+    }
+    onShow() {
+      var _this = this
+      wx.getStorage({
+        key: 'school',
+        success: function(res) {
+          _this.school = res.data
+        }
+      })
+    }
+  }
+</script>

@@ -1,0 +1,57 @@
+<style lang="less" scoped>
+  .container {
+    padding-top: 40rpx;
+    .enter {
+      min-height: 60rpx;
+      border-top:1px solid #f5f5f5;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 30rpx;
+      color: #000;
+      background-color:#ffffff;
+      input{
+        padding: 20rpx 30rpx;
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="enter">
+      <input type="text" placeholder="" value="{{signature}}" focus bindconfirm="confirm" bindinput="input"/>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Signature extends wepy.page {
+    config = {
+      navigationBarTitleText: '个性签名'
+    }
+    data = {
+      signature: ''
+    }
+    methods = {
+      confirm(event) {
+        wx.navigateBack({delta: 1})
+        wx.setStorage({
+          key:"signature",
+          data:event.detail.value
+        })
+      },
+      input(event) {
+        this.signature = event.detail.value
+      }
+    }
+    onShow() {
+      var _this = this
+      wx.getStorage({
+        key: 'signature',
+        success: function(res) {
+          _this.signature = res.data
+        }
+      })
+    }
+  }
+</script>

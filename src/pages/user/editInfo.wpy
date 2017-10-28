@@ -174,9 +174,9 @@
         <view class="option-center">{{personInfo.company}}</view>
         <view class="option-right daka icon-right"></view>
       </view>
-      <view class="option">
+      <view class="option" @tap="changeSchool">
         <view class="option-left">学校</view>
-        <view class="option-center">{{personInfo.scroll}}</view>
+        <view class="option-center">{{personInfo.school}}</view>
         <view class="option-right daka icon-right"></view>
       </view>
       <view class="option">
@@ -190,7 +190,7 @@
         </view>
         <view class="option-right daka icon-right"></view>
       </view>
-      <view class="option noborder">
+      <view class="option noborder" @tap="changeSignature">
         <view class="option-left">个性签名</view>
         <view class="option-center">{{personInfo.signature}}</view>
         <view class="option-right daka icon-right"></view>
@@ -290,7 +290,7 @@
         },
         roles: ['主持人', '舞者', '礼仪', '演员'],
         company: '大唐演艺文化有限公司',
-        scroll: '未填写',
+        school: '未填写',
         birthday: '请选择',
         signature: '未填写',
         heights: {
@@ -375,6 +375,26 @@
           url: '/pages/user/company'
         })
       },
+      changeSchool() {
+        var _this = this
+        wx.setStorage({
+          key:"school",
+          data:_this.personInfo.school
+        })
+        wx.navigateTo({
+          url: '/pages/user/school'
+        })
+      },
+      changeSignature() {
+        var _this = this
+        wx.setStorage({
+          key:"signature",
+          data:_this.personInfo.signature
+        })
+        wx.navigateTo({
+          url: '/pages/user/signature'
+        })
+      },
       sexChange(e) {
          this.personInfo.sexs.index = e.detail.value
       },
@@ -409,6 +429,24 @@
         key: 'nickname',
         success: function(res) {
           _this.personInfo.name = res.data
+        }
+      })
+      wx.getStorage({
+        key: 'company',
+        success: function(res) {
+          _this.personInfo.company = res.data
+        }
+      })
+      wx.getStorage({
+        key: 'school',
+        success: function(res) {
+          _this.personInfo.school = res.data
+        }
+      })
+      wx.getStorage({
+        key: 'signature',
+        success: function(res) {
+          _this.personInfo.signature = res.data
         }
       })
     }
