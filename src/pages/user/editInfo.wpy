@@ -131,7 +131,7 @@
         </view>
         <view class="option-right daka icon-right"></view>
       </view>
-      <view class="option">
+      <view class="option" @tap="skip">
         <view class="option-left">昵称</view>
         <view class="option-center">{{personInfo.name}}</view>
         <view class="option-right daka icon-right"></view>
@@ -345,6 +345,16 @@
           }
         })
       },
+      skip() {
+        var _this = this
+        wx.navigateTo({
+          url: '/pages/user/nickname'
+        })
+        wx.setStorage({
+          key:"nickname",
+          data:_this.personInfo.name
+        })
+      },
       sexChange(e) {
          this.personInfo.sexs.index = e.detail.value
       },
@@ -372,6 +382,15 @@
       pupilColorChange(e) {
         this.personInfo.pupilColors.index = e.detail.value
       }
+    }
+    onShow() {
+      var _this = this
+      wx.getStorage({
+        key: 'nickname',
+        success: function(res) {
+          _this.personInfo.name = res.data
+        }
+      })
     }
   }
 </script>

@@ -105,7 +105,7 @@
       <view class="enter-title">提现金额</view>
       <view class="enter">
         <view class="amount">￥</view>
-        <input type="digit" class="enter-money" placeholder="" auto-focus/>
+        <input type="digit" class="enter-money" placeholder="" focus/>
       </view>
       <view class="enter-available">可用余额 0.00 元</view>
     </view>

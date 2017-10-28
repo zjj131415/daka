@@ -1,0 +1,61 @@
+<style lang="less" scoped>
+  .container {
+    padding-top: 40rpx;
+    .enter {
+      min-height: 60rpx;
+      border-top:1px solid #f5f5f5;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 30rpx;
+      color: #000;
+      background-color:#ffffff;
+      input{
+        padding: 20rpx 30rpx;
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="enter">
+      <input type="text" placeholder="" value="{{nickname}}" focus bindconfirm="confirm" bindinput="input"/>
+    </view>
+    <!--<view class="btn">-->
+      <!--<button type="default">确认</button>-->
+    <!--</view>-->
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Nickname extends wepy.page {
+    config = {
+      navigationBarTitleText: '昵称'
+    }
+    data = {
+      nickname: ''
+    }
+    methods = {
+      confirm(event) {
+        wx.navigateBack({delta: 1})
+        wx.setStorage({
+          key:"nickname",
+          data:event.detail.value
+        })
+        console.log(event.detail)
+      },
+      input(event) {
+        this.nickname = event.detail.value
+      }
+    }
+    onShow() {
+      var _this = this
+      wx.getStorage({
+        key: 'nickname',
+        success: function(res) {
+          _this.nickname = res.data
+        }
+      })
+    }
+  }
+</script>
