@@ -72,97 +72,85 @@
         }
       }
     }
-    .filters {
+    .tab {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 30rpx 0;
-      .filter-item {
-        box-sizing: border-box;
+      height: 80rpx;
+      line-height: 80rpx;
+      padding-top: 10rpx;
+      padding-bottom: 10rpx;
+      text-align: center;
+      background-color: #ffffff;
+      border-bottom: 1rpx solid #F0F0F0;
+      .tab-list {
+        flex:1;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 200rpx;
-        height: 56rpx;
-        margin: 0 15rpx;
-        border-radius: 30rpx;
-        border: 1px solid #f29400;
         font-size: 30rpx;
-        color: #f29400;
+        border-right: 1rpx solid #F0F0F0;
+        color: #4F4F4F;
         .daka {
-          margin-left: 5rpx;
-          font-size: 28rpx;
+          margin-left: 10rpx;
+          font-size: 20rpx;
+        }
+      }
+      .tab-list.active {
+        color: #DD6767;
+      }
+      .tab-list:nth-of-type(3) {
+        border-right: 1rpx solid #F0F0F0;
+      }
+    }
+    .works {
+      padding:20rpx;
+      .works-list {
+        margin-bottom: 20rpx;
+        .image-box {
+          position: relative;
+          .img {
+            display: block;
+            width: 100%;
+          }
+          .flag {
+            position: absolute;
+            top: 20rpx;
+            left: 20rpx;
+            padding-left: 20rpx;
+            padding-right: 20rpx;
+            border-radius: 10px;
+            border-bottom-left-radius: 0;
+            font-size: 28rpx;
+            color: #ffffff;
+            background-color: #F79400;
+          }
+        }
+        .content {
+          padding: 20rpx;
+          border-bottom:1rpx solid #F0F0F0;
+          background-color: #ffffff;
+          .title {
+            margin-bottom: 10rpx;
+            font-size: 30rpx;
+            color: #4F4F4F;
+          }
+          .detail {
+            display: flex;
+            justify-content: space-between;
+            .price {
+              font-size: 28rpx;
+              color: #DD6767;
+            }
+            .location {
+              font-size: 26rpx;
+              color: #A6A6A6;
+              .data {
+                margin-right: 10rpx;
+              }
+            }
+          }
         }
       }
     }
-  }
- .circle-item {
-   display: flex;
-   align-items: flex-end;
-   width: 750rpx;
-   height: 600rpx;
-   margin-bottom: 10rpx;
-   position: relative;
-   .circle-img {
-     position: absolute;
-     left: 0;
-     top: 0;
-     width: 100%;
-     height: 100%;
-     display: flex;
-     justify-content: center;
-     > image {
-       width: 100%;
-       height: 100%;
-     }
-   }
-   .circle-info {
-     width: 100%;
-     padding: 20rpx 26rpx;
-     display: flex;
-     align-items: center;
-     flex-direction: column;
-     position: relative;
-     z-index: 3;
-      .circle-name {
-        height: 60rpx;
-        line-height: 60rpx;
-        font-size: 34rpx;
-        color: #fff;
-        position: relative;
-      }
-     .circle-action {
-       margin: 5rpx;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       /*width: 46rpx;*/
-       height: 46rpx;
-       /*border: 1px solid #fff;*/
-       border-radius: 100%;
-        font-size: 32rpx;
-       color: #fff;
-       &::before {
-         margin-right: 5rpx;
-         font-size: 40rpx;
-       }
-     }
-     .circle-tags {
-       height:70rpx;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-     }
-     .circle-tag-item {
-       margin: 0 10rpx;
-       padding: 5rpx 30rpx;
-       border: 1px solid #fff;
-       border-radius: 12rpx;
-       color: #fff;
-       font-size: 24rpx;
-     }
-   }
- }
 </style>
   <template>
     <view class="container">
@@ -185,35 +173,37 @@
           </swiper-item>
         </block>
       </swiper>
-      <view class="filters">
-        <view class="filter-item" @tap="actionShett">智能排序<text class="daka icon-triangledownfill"></text></view>
-        <view class="filter-item">筛选<text class="daka icon-triangledownfill"></text></view>
-      </view>
-      <view class="circle-item">
-        <view class="circle-img"><image src="/images/avatar/avatar1.jpg"></image></view>
-        <view class="circle-info">
-          <text class="circle-name">追风少年</text>
-          <view class="circle-icon"></view>
-          <view class="circle-action daka icon-appreciate">100</view>
-          <view class="circle-tags">
-            <text class="circle-tag-item">演员</text>
-            <text class="circle-tag-item">歌手</text>
-            <text class="circle-tag-item">戏曲</text>
-            <text class="circle-tag-item">艺术生</text>
-          </view>
+
+      <view class="tab">
+        <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">
+          {{item}}<text class="daka icon-triangledownfill"></text>
         </view>
       </view>
-      <view class="circle-item">
-        <view class="circle-img"><image src="/images/avatar/avatar1.jpg"></image></view>
-        <view class="circle-info">
-          <text class="circle-name">追风少年</text>
-          <view class="circle-icon"></view>
-          <view class="circle-action daka icon-appreciate">100</view>
-          <view class="circle-tags">
-            <text class="circle-tag-item">演员</text>
-            <text class="circle-tag-item">歌手</text>
-            <text class="circle-tag-item">戏曲</text>
-            <text class="circle-tag-item">艺术生</text>
+      <view class="works">
+        <view class="works-list">
+          <view class="image-box">
+            <image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>
+            <view class="flag">摄影</view>
+          </view>
+          <view class="content">
+            <view class="title">摄影、写真拍摄</view>
+            <view class="detail">
+              <view class="price">￥500.00/单</view>
+              <view class="location"><text class="daka icon-locationfill">重庆</view>
+            </view>
+          </view>
+        </view>
+        <view class="works-list">
+          <view class="image-box">
+            <image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>
+            <view class="flag">摄影</view>
+          </view>
+          <view class="content">
+            <view class="title">摄影、写真拍摄</view>
+            <view class="detail">
+              <view class="price">￥500.00/单</view>
+              <view class="location"><text class="daka icon-locationfill">重庆</view>
+            </view>
           </view>
         </view>
       </view>
@@ -235,7 +225,9 @@ export default class Indexw extends wepy.page {
         image: 'https://m.360buyimg.com/mobilecms/s720x322_jfs/t10987/257/742226751/36437/9a4fa128/59df3c62Nefa5f69e.jpg!q70.jpg',
         url: '/pages/user/home'
       }
-    ]
+    ],
+    sort: ["智能排序", "服务类型", "筛选"],
+    activeIndex: 0
   }
   methods = {
     haha() {
@@ -256,6 +248,9 @@ export default class Indexw extends wepy.page {
           console.log(res.errMsg)
         }
       })
+    },
+    tabList(e) {
+      this.activeIndex = e.target.id;
     }
   }
 }

@@ -327,7 +327,7 @@
           maxDuration: 60,
           camera: 'back',
           success: function(res) {
-            _this.personInfo.videoSrc =  res.tempFilePath
+            _this.personInfo.videoSrc = res.tempFilePath
             _this.$apply()
           }
         })
