@@ -34,6 +34,7 @@ module.exports = {
     'space-before-function-paren': 0,
     "indent": 0,
     "comma-spacing": 0,
-    "key-spacing": 0
+    "key-spacing": 0,
+    "no-multi-spaces": 0
   }
 }
