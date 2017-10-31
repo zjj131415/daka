@@ -170,9 +170,45 @@
         background-color: #ffffff;
         .sort-list {
           padding: 20rpx;
-          border-bottom: #FEFEFE;
-          font-size: 30rpx;
-          color: #DD6767;
+          border-bottom: 1px solid #F5F5F5;
+          font-size: 28rpx;
+          color: #6D6D6D;
+          &.active {
+            color: #DD6767;
+          }
+          &:last-of-type {
+            border-bottom: none;
+          }
+          .daka {
+            margin-right: 10rpx;
+          }
+        }
+      }
+      .sort-service {
+        width: 100%;
+        padding: 20rpx;
+        border-radius: 5px;
+        background-color: #ffffff;
+        .service-container {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          .service-list {
+            display: inline-block;
+            width: 150rpx;
+            padding: 10rpx 0;
+            margin-bottom: 20rpx;
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid #CFB5B2;
+            font-size: 30rpx;
+            color: #E46154;
+            background-color: #FFF0F3;
+            &:nth-child(3n-1) {
+              margin-left: 100rpx;
+              margin-right: 100rpx;
+            }
+          }
         }
       }
     }
@@ -232,12 +268,20 @@
         </view>
       </view>
     </view>
-    <view class="sort">
+    <view class="sort" wx:if="{{sortVisible1}}">
       <view class="sort-area">
-        <view class="sort-list">智能排序</view>
-        <view class="sort-list">最新发布</view>
-        <view class="sort-list">价格由高到低</view>
-        <view class="sort-list">价格由低到高</view>
+        <view class="sort-list {{activeIndex1 == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort1}}" wx:key="{{index}}" @tap="tabList1({{index}}, {{item.name}})">
+          <text class="daka {{item.icon}}"></text>{{item.name}}
+        </view>
+      </view>
+    </view>
+    <view class="sort" wx:if="{{sortVisible2}}">
+      <view class="sort-service">
+        <view class="service-container">
+          <block wx:for="{{sort2}}" wx:key="{{index}}">
+            <view class="service-list">{{item}}</view>
+          </block>
+        </view>
       </view>
     </view>
   </view>
@@ -258,8 +302,19 @@
           url: '/pages/user/home'
         }
       ],
+      sortVisible1: false,
+      sortVisible2: true,
+      sortVisible3: false,
       sort: ["智能排序", "服务类型", "筛选"],
-      activeIndex: 0
+      activeIndex: 0,
+      sort1: [
+        {icon: 'icon-xiaoxi3-copy', name: '智能排序'},
+        {icon: 'icon-xiaoxi3-copy', name: '最新发布'},
+        {icon: 'icon-xiaoxi3-copy', name: '价格由高到低'},
+        {icon: 'icon-xiaoxi3-copy', name: '价格由低到高'}
+      ],
+      activeIndex1: 0,
+      sort2: ['全部', '电商网红', '活动直播', '主持', '模特', '歌舞表演', '特技绝活', '广告代言', '礼仪', '配音', '游戏私教', 'K歌私教', '摄影', '戏曲', '节目嘉宾'],
     }
     methods = {
       haha() {
@@ -270,6 +325,22 @@
       },
       tabList(e) {
         this.activeIndex = e.target.id;
+        switch (this.activeIndex) {
+          case '0':
+            this.sortVisible1 = true;
+            break;
+          case '1':
+            this.sortVisible2 = true;
+            break;
+          case '2':
+            this.sortVisible2 = true;
+            break;
+        }
+      },
+      tabList1(index, name, e) {
+        this.activeIndex1 = index;
+        this.sortVisible1 = false;
+        this.sort[0] = name;
       }
     }
   }
