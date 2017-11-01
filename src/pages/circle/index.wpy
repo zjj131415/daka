@@ -34,7 +34,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 30rpx;
+        font-size: 28rpx;
         border-right: 1rpx solid #F0F0F0;
         color: #4F4F4F;
         .daka {
@@ -293,8 +293,17 @@
         </block>
       </swiper>
       <view class="tab">
-        <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">
-          {{item}}<text class="daka icon-triangledownfill"></text>
+        <!--<view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">-->
+          <!--{{item}}<text class="daka icon-triangledownfill"></text>-->
+        <!--</view>-->
+        <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">
+          {{sortName}}<text class="daka icon-triangledownfill"></text>
+        </view>
+        <view class="tab-list flex1 {{activeIndex2 != 0  ? 'active' : '' }}" @tap="tabList('1')">
+          服务类型<text class="daka icon-triangledownfill"></text>
+        </view>
+        <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">
+          筛选<text class="daka icon-triangledownfill"></text>
         </view>
       </view>
       <view class="works">
@@ -325,47 +334,47 @@
           </view>
         </view>
       </view>
-      <view class="sort" wx:if="{{sortVisible1}}">
-        <view class="sort-common sort-area">
-          <view class="sort-list {{activeIndex1 == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort1}}" wx:key="{{index}}" @tap="tabList1({{index}}, {{item.name}})">
-            <text class="daka {{item.icon}}"></text>{{item.name}}
-          </view>
-        </view>
-      </view>
-      <view class="sort" wx:if="{{sortVisible2}}">
-        <view class="sort-common sort-service">
-          <view class="service-container">
-            <block wx:for="{{sort2}}" wx:key="{{index}}">
-              <view class="service-list {{activeIndex2 == index ? 'active' : '' }}" @tap="tabList2({{index}})">{{item}}</view>
-            </block>
-          </view>
-          <view class="btn-group">
-            <view class="btn" @tap="reset">重置</view>
-            <view class="btn active" @tap="confirm">确定</view>
-          </view>
-        </view>
-      </view>
-      <view class="sort" wx:if="{{sortVisible3}}">
-        <view class="sort-common sort-filter">
-          <view class="title">性别要求</view>
-          <view class="sex">
-            <block wx:for="{{sort3}}" wx:key="{{index}}">
-              <view class="service-list {{activeIndex3 == index ? 'active' : '' }}" @tap="tabList3({{index}})">{{item}}</view>
-            </block>
-          </view>
-          <view class="title title1">认证发布</view>
-          <view class="publish">
-            <block wx:for="{{sort4}}" wx:key="{{index}}">
-              <view class="service-list {{activeIndex4 == index ? 'active' : '' }}" @tap="tabList4({{index}})">{{item}}</view>
-            </block>
-          </view>
-          <view class="btn-group">
-            <view class="btn" @tap="reset1">重置</view>
-            <view class="btn active" @tap="confirm1">确定</view>
-          </view>
-        </view>
-      </view>
     </scroll-view>
+    <view class="sort" wx:if="{{sortVisible1}}">
+      <view class="sort-common sort-area">
+        <view class="sort-list {{activeIndex1 == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort1}}" wx:key="{{index}}" @tap="tabList1({{index}}, {{item.name}})">
+          <text class="daka {{item.icon}}"></text>{{item.name}}
+        </view>
+      </view>
+    </view>
+    <view class="sort" wx:if="{{sortVisible2}}">
+      <view class="sort-common sort-service">
+        <view class="service-container">
+          <block wx:for="{{sort2}}" wx:key="{{index}}">
+            <view class="service-list {{activeIndex2 == index ? 'active' : '' }}" @tap="tabList2({{index}})">{{item}}</view>
+          </block>
+        </view>
+        <view class="btn-group">
+          <view class="btn" @tap="reset">重置</view>
+          <view class="btn active" @tap="confirm">确定</view>
+        </view>
+      </view>
+    </view>
+    <view class="sort" wx:if="{{sortVisible3}}">
+      <view class="sort-common sort-filter">
+        <view class="title">性别要求</view>
+        <view class="sex">
+          <block wx:for="{{sort3}}" wx:key="{{index}}">
+            <view class="service-list {{activeIndex3 == index ? 'active' : '' }}" @tap="tabList3({{index}})">{{item}}</view>
+          </block>
+        </view>
+        <view class="title title1">认证发布</view>
+        <view class="publish">
+          <block wx:for="{{sort4}}" wx:key="{{index}}">
+            <view class="service-list {{activeIndex4 == index ? 'active' : '' }}" @tap="tabList4({{index}})">{{item}}</view>
+          </block>
+        </view>
+        <view class="btn-group">
+          <view class="btn" @tap="reset1">重置</view>
+          <view class="btn active" @tap="confirm1">确定</view>
+        </view>
+      </view>
+    </view>
     <view class="search-bar" wx:if="{{searchFlag}}">
       <view class="address">北京<text class="daka icon-unfold"></text></view>
       <navigator class="search-open" url="/pages/circle/search">
@@ -377,8 +386,14 @@
       </view>
     </view>
     <view class="tab tab1" wx:if="{{tabFlag}}">
-      <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">
-        {{item}}<text class="daka icon-triangledownfill"></text>
+      <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">
+        {{sortName}}<text class="daka icon-triangledownfill"></text>
+      </view>
+      <view class="tab-list flex1 {{activeIndex2 != 0  ? 'active' : '' }}" @tap="tabList('1')">
+        服务类型<text class="daka icon-triangledownfill"></text>
+      </view>
+      <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">
+        筛选<text class="daka icon-triangledownfill"></text>
       </view>
     </view>
   </view>
@@ -402,8 +417,10 @@
       sortVisible1: false,
       sortVisible2: false,
       sortVisible3: false,
-      sort: ["智能排序", "服务类型", "筛选"],
-      activeIndex: 0,
+      // sort: ["智能排序", "服务类型", "筛选"],
+      // activeIndex: 0,
+      sortName: "智能排序",
+      sortTab: false,
       sort1: [
         {icon: 'icon-xiaoxi3-copy', name: '智能排序'},
         {icon: 'icon-xiaoxi3-copy', name: '最新发布'},
@@ -418,7 +435,8 @@
       activeIndex4: 0,
       sort4: ['不限', '红V认证', '实名认证', '高级会员', '芝麻认证'],
       searchFlag: true,
-      tabFlag: false
+      tabFlag: false,
+      animationData: {}
     }
     methods = {
       haha() {
@@ -427,11 +445,12 @@
           urls: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg'] // 需要预览的图片http链接列表
         })
       },
-      tabList(e) {
+      tabList(index, e) {
         this.activeIndex = e.target.id;
-        switch (this.activeIndex) {
+        switch (index) {
           case '0':
             this.sortVisible1 = true;
+            this.sortTab = true;
             break;
           case '1':
             this.sortVisible2 = true;
@@ -441,10 +460,10 @@
             break;
         }
       },
-      tabList1(index, name, e) {
+      tabList1(index, name) {
         this.activeIndex1 = index;
         this.sortVisible1 = false;
-        this.sort[0] = name;
+        this.sortName = name;
       },
       tabList2(index, e) {
         this.activeIndex2 = index;
@@ -469,7 +488,6 @@
         this.sortVisible3 = false;
       },
       upper: function(e) {
-        console.log(e);
         var scrollTop = e.detail.scrollTop;
         if (scrollTop >= 50) {
           this.searchFlag = false;
@@ -477,7 +495,6 @@
           this.searchFlag = true;
         }
         if (scrollTop >= 230) {
-          console.log("可以了");
           this.tabFlag = true;
         } else {
           this.tabFlag = false;
