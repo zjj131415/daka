@@ -1,68 +1,16 @@
 <style lang="less" scoped>
   .container {
-    .search-bar {
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      padding: 20rpx 0;
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-      .address {
-        width: 140rpx;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 32rpx;
-        color: #fff;
-        .daka {
-          margin-left: 6rpx;
-          font-size: 30rpx;
-        }
-      }
-      .search-open {
-        box-sizing: border-box;
-        flex: 1;
-        height: 60rpx;
-        border: 1px solid #fff;
-        border-radius: 30rpx;
-        padding: 0 20rpx;
-        display: flex;
-        align-items: center;
-        font-size: 32rpx;
-        color: #f5f9fc;
-        background: rgba(255,255,255,.2);
-        .daka {
-          margin-right: 20rpx;
-          font-size: 30rpx;
-        }
-      }
-      .news {
-        width: 110rpx;
-        height: 60rpx;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .news-icon {
-          box-sizing: border-box;
-          width: 60rpx;
-          height: 60rpx;
-          border: 1px solid #fff;
-          border-radius: 100%;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 32rpx;
-          color: #fff;
-          background: rgba(255,255,255,.2);
-        }
-      }
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    .scroll {
+      height:100%;
     }
     .swiper {
-      height: 460rpx;
+      height: 230px;
+      /*height: 460rpx;*/
       navigator {
         width: 100%;
         height: 100%;
@@ -164,10 +112,56 @@
       background-color: rgba(0,0,0,0.5);
       display: flex;
       align-items: center;
-      .sort-area {
+      .service-list {
+        display: inline-block;
+        width: 150rpx;
+        padding: 10rpx 0;
+        margin-bottom: 20rpx;
+        text-align: center;
+        border-radius: 5px;
+        border: 1px solid #B0B0B0;
+        font-size: 30rpx;
+        color: #757575;
+        background-color: #FFFFFF;
+        &.active {
+          border-color: #CFB5B2;
+          color: #E46154;
+          background-color: #FFF0F3;
+        }
+        &:nth-child(3n-1) {
+          margin-left: 105rpx;
+          margin-right: 105rpx;
+        }
+      }
+      .btn-group {
+        padding: 20rpx;
+        text-align: center;
+        border-top: 1px solid #F3F3F3;
+        .btn {
+          display: inline-block;
+          width: 150rpx;
+          padding: 10rpx 0;
+          text-align: center;
+          border-radius: 5px;
+          border: 1px solid #B0B0B0;
+          font-size: 30rpx;
+          color: #757575;
+          background-color: #FFFFFF;
+          &.active {
+            border-color: #CFB5B2;
+            color: #E46154;
+          }
+          &:nth-of-type(1) {
+            margin-right: 100rpx;
+          }
+        }
+      }
+      .sort-common {
         width: 100%;
         border-radius: 5px;
         background-color: #ffffff;
+      }
+      .sort-area {
         .sort-list {
           padding: 20rpx;
           border-bottom: 1px solid #F5F5F5;
@@ -185,38 +179,194 @@
         }
       }
       .sort-service {
-        width: 100%;
-        padding: 20rpx;
-        border-radius: 5px;
-        background-color: #ffffff;
         .service-container {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
-          .service-list {
-            display: inline-block;
-            width: 150rpx;
-            padding: 10rpx 0;
-            margin-bottom: 20rpx;
-            text-align: center;
-            border-radius: 5px;
-            border: 1px solid #CFB5B2;
-            font-size: 30rpx;
-            color: #E46154;
-            background-color: #FFF0F3;
-            &:nth-child(3n-1) {
-              margin-left: 100rpx;
-              margin-right: 100rpx;
-            }
-          }
+          padding: 20rpx;
+          margin-bottom: 100rpx;
         }
       }
+      .sort-filter {
+        .title {
+          padding: 20rpx 20rpx 0;
+          font-size: 30rpx;
+          color: #898989;
+        }
+        .sex {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          padding: 20rpx;
+        }
+        .title1 {
+          border-top: 1px solid #F3F3F3;
+        }
+        .publish {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          padding: 20rpx;
+        }
+      }
+    }
+    .search-bar {
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      padding: 20rpx 0;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      .address {
+        width: 140rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32rpx;
+        color: #fff;
+        .daka {
+          margin-left: 6rpx;
+          font-size: 30rpx;
+        }
+      }
+      .search-open {
+        box-sizing: border-box;
+        flex: 1;
+        height: 60rpx;
+        border: 1px solid #fff;
+        border-radius: 30rpx;
+        padding: 0 20rpx;
+        display: flex;
+        align-items: center;
+        font-size: 32rpx;
+        color: #f5f9fc;
+        background: rgba(255,255,255,.2);
+        .daka {
+          margin-right: 20rpx;
+          font-size: 30rpx;
+        }
+      }
+      .news {
+        width: 110rpx;
+        height: 60rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .news-icon {
+          box-sizing: border-box;
+          width: 60rpx;
+          height: 60rpx;
+          border: 1px solid #fff;
+          border-radius: 100%;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 32rpx;
+          color: #fff;
+          background: rgba(255,255,255,.2);
+        }
+      }
+    }
+    .tab1 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 101;
     }
   }
 </style>
 <template>
   <view class="container">
-    <view class="search-bar">
+    <scroll-view class="scroll" scroll-y @scroll="upper">
+      <swiper class="swiper" indicator-dots autoplay interval="5000" indicator-color="rgba(255,255,255, .3)" indicator-active-color="rgba(255, 0, 0, .6)">
+        <block wx:for="{{bannerArray}}" wx:key="index">
+          <swiper-item class="swiper-item">
+            <navigator url="{{item.url}}">
+              <image src="{{item.image}}"></image>
+            </navigator>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="tab">
+        <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">
+          {{item}}<text class="daka icon-triangledownfill"></text>
+        </view>
+      </view>
+      <view class="works">
+        <view class="works-list">
+          <view class="image-box">
+            <image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>
+            <view class="flag">摄影</view>
+          </view>
+          <view class="content">
+            <view class="title">摄影、写真拍摄</view>
+            <view class="detail">
+              <view class="price">￥500.00/单</view>
+              <view class="location"><text class="daka icon-locationfill"></text>重庆市</view>
+            </view>
+          </view>
+        </view>
+        <view class="works-list">
+          <view class="image-box">
+            <image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>
+            <view class="flag">摄影2</view>
+          </view>
+          <view class="content">
+            <view class="title">摄影、写真拍摄</view>
+            <view class="detail">
+              <view class="price">￥500.00/单</view>
+              <view class="location"><text class="daka icon-locationfill"></text>重庆市</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="sort" wx:if="{{sortVisible1}}">
+        <view class="sort-common sort-area">
+          <view class="sort-list {{activeIndex1 == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort1}}" wx:key="{{index}}" @tap="tabList1({{index}}, {{item.name}})">
+            <text class="daka {{item.icon}}"></text>{{item.name}}
+          </view>
+        </view>
+      </view>
+      <view class="sort" wx:if="{{sortVisible2}}">
+        <view class="sort-common sort-service">
+          <view class="service-container">
+            <block wx:for="{{sort2}}" wx:key="{{index}}">
+              <view class="service-list {{activeIndex2 == index ? 'active' : '' }}" @tap="tabList2({{index}})">{{item}}</view>
+            </block>
+          </view>
+          <view class="btn-group">
+            <view class="btn" @tap="reset">重置</view>
+            <view class="btn active" @tap="confirm">确定</view>
+          </view>
+        </view>
+      </view>
+      <view class="sort" wx:if="{{sortVisible3}}">
+        <view class="sort-common sort-filter">
+          <view class="title">性别要求</view>
+          <view class="sex">
+            <block wx:for="{{sort3}}" wx:key="{{index}}">
+              <view class="service-list {{activeIndex3 == index ? 'active' : '' }}" @tap="tabList3({{index}})">{{item}}</view>
+            </block>
+          </view>
+          <view class="title title1">认证发布</view>
+          <view class="publish">
+            <block wx:for="{{sort4}}" wx:key="{{index}}">
+              <view class="service-list {{activeIndex4 == index ? 'active' : '' }}" @tap="tabList4({{index}})">{{item}}</view>
+            </block>
+          </view>
+          <view class="btn-group">
+            <view class="btn" @tap="reset1">重置</view>
+            <view class="btn active" @tap="confirm1">确定</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="search-bar" wx:if="{{searchFlag}}">
       <view class="address">北京<text class="daka icon-unfold"></text></view>
       <navigator class="search-open" url="/pages/circle/search">
         <text class="daka icon-search"></text>
@@ -226,62 +376,9 @@
         <view class="news-icon daka icon-xiaoxi3-copy"></view>
       </view>
     </view>
-    <swiper class="swiper" indicator-dots autoplay interval="5000" indicator-color="rgba(255,255,255, .3)" indicator-active-color="rgba(255, 0, 0, .6)">
-      <block wx:for="{{bannerArray}}" wx:key="index">
-        <swiper-item class="swiper-item">
-          <navigator url="{{item.url}}">
-            <image src="{{item.image}}"></image>
-          </navigator>
-        </swiper-item>
-      </block>
-    </swiper>
-    <view class="tab">
+    <view class="tab tab1" wx:if="{{tabFlag}}">
       <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">
         {{item}}<text class="daka icon-triangledownfill"></text>
-      </view>
-    </view>
-    <view class="works">
-      <view class="works-list">
-        <view class="image-box">
-          <image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>
-          <view class="flag">摄影</view>
-        </view>
-        <view class="content">
-          <view class="title">摄影、写真拍摄</view>
-          <view class="detail">
-            <view class="price">￥500.00/单</view>
-            <view class="location"><text class="daka icon-locationfill"></text>重庆市</view>
-          </view>
-        </view>
-      </view>
-      <view class="works-list">
-        <view class="image-box">
-          <image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>
-          <view class="flag">摄影2</view>
-        </view>
-        <view class="content">
-          <view class="title">摄影、写真拍摄</view>
-          <view class="detail">
-            <view class="price">￥500.00/单</view>
-            <view class="location"><text class="daka icon-locationfill"></text>重庆市</view>
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class="sort" wx:if="{{sortVisible1}}">
-      <view class="sort-area">
-        <view class="sort-list {{activeIndex1 == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort1}}" wx:key="{{index}}" @tap="tabList1({{index}}, {{item.name}})">
-          <text class="daka {{item.icon}}"></text>{{item.name}}
-        </view>
-      </view>
-    </view>
-    <view class="sort" wx:if="{{sortVisible2}}">
-      <view class="sort-service">
-        <view class="service-container">
-          <block wx:for="{{sort2}}" wx:key="{{index}}">
-            <view class="service-list">{{item}}</view>
-          </block>
-        </view>
       </view>
     </view>
   </view>
@@ -303,7 +400,7 @@
         }
       ],
       sortVisible1: false,
-      sortVisible2: true,
+      sortVisible2: false,
       sortVisible3: false,
       sort: ["智能排序", "服务类型", "筛选"],
       activeIndex: 0,
@@ -315,6 +412,13 @@
       ],
       activeIndex1: 0,
       sort2: ['全部', '电商网红', '活动直播', '主持', '模特', '歌舞表演', '特技绝活', '广告代言', '礼仪', '配音', '游戏私教', 'K歌私教', '摄影', '戏曲', '节目嘉宾'],
+      activeIndex2: 0,
+      activeIndex3: 0,
+      sort3: ['不限', '男', '女'],
+      activeIndex4: 0,
+      sort4: ['不限', '红V认证', '实名认证', '高级会员', '芝麻认证'],
+      searchFlag: true,
+      tabFlag: false
     }
     methods = {
       haha() {
@@ -333,7 +437,7 @@
             this.sortVisible2 = true;
             break;
           case '2':
-            this.sortVisible2 = true;
+            this.sortVisible3 = true;
             break;
         }
       },
@@ -341,6 +445,43 @@
         this.activeIndex1 = index;
         this.sortVisible1 = false;
         this.sort[0] = name;
+      },
+      tabList2(index, e) {
+        this.activeIndex2 = index;
+      },
+      reset() {
+        this.activeIndex2 = 0;
+      },
+      confirm() {
+        this.sortVisible2 = false;
+      },
+      tabList3(index) {
+        this.activeIndex3 = index;
+      },
+      tabList4(index) {
+        this.activeIndex4 = index;
+      },
+      reset1() {
+        this.activeIndex3 = 0;
+        this.activeIndex4 = 0;
+      },
+      confirm1() {
+        this.sortVisible3 = false;
+      },
+      upper: function(e) {
+        console.log(e);
+        var scrollTop = e.detail.scrollTop;
+        if (scrollTop >= 50) {
+          this.searchFlag = false;
+        } else {
+          this.searchFlag = true;
+        }
+        if (scrollTop >= 230) {
+          console.log("可以了");
+          this.tabFlag = true;
+        } else {
+          this.tabFlag = false;
+        }
       }
     }
   }
