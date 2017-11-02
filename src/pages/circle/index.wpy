@@ -9,14 +9,35 @@
       height:100%;
     }
     .swiper {
-      height: 230px;
-      /*height: 460rpx;*/
+      height: 200px;
       navigator {
         width: 100%;
         height: 100%;
         image {
           width: 100%;
           height: 100%;
+        }
+      }
+    }
+    .swiperMenu {
+      height: 100px;
+      padding: 10px 0;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: #ffffff;
+      .menu {
+        text-align: center;
+        .option {
+          display: inline-block;
+          padding: 5rpx 30rpx;
+          margin: 0 10rpx;
+          font-size: 28rpx;
+          color: #737373;
+          .daka {
+            margin-bottom: 10px;
+            font-size: 50rpx;
+            color: #E9989E;
+          }
         }
       }
     }
@@ -131,6 +152,14 @@
         &:nth-child(3n-1) {
           margin-left: 105rpx;
           margin-right: 105rpx;
+        }
+        &.checkbox {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          checkbox {
+            display: none;
+          }
         }
       }
       .btn-group {
@@ -292,6 +321,16 @@
           </swiper-item>
         </block>
       </swiper>
+      <swiper class="swiperMenu" indicator-dots autoplay interval="5000" indicator-color="rgba(0,0,0, .5)" indicator-active-color="rgba(255, 0, 0, .6)">
+        <block wx:for="{{typeChoose}}" wx:key="index">
+          <swiper-item class="menu">
+            <view class="option" wx:for="{{item}}" wx:key="index">
+              <view class="daka {{item.icon}}"></view>
+              {{item.value}}
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
       <view class="tab">
         <!--<view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">-->
           <!--{{item}}<text class="daka icon-triangledownfill"></text>-->
@@ -299,7 +338,7 @@
         <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">
           {{sortName}}<text class="daka icon-triangledownfill"></text>
         </view>
-        <view class="tab-list flex1 {{activeIndex2 != 0  ? 'active' : '' }}" @tap="tabList('1')">
+        <view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" @tap="tabList('1')">
           服务类型<text class="daka icon-triangledownfill"></text>
         </view>
         <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">
@@ -344,13 +383,19 @@
     </view>
     <view class="sort" wx:if="{{sortVisible2}}">
       <view class="sort-common sort-service">
-        <view class="service-container">
-          <block wx:for="{{sort2}}" wx:key="{{index}}">
-            <view class="service-list {{activeIndex2 == index ? 'active' : '' }}" @tap="tabList2({{index}})">{{item}}</view>
-          </block>
-        </view>
+        <checkbox-group class="service-container" @change="checkboxChange">
+          <view class="service-list {{checkboxArr.length == 0 ? 'active' : '' }}" @tap="resetAll">全部</view>
+          <label class="checkbox service-list {{item.checked == true ? 'active' : '' }}" wx:for="{{checkMenu}}" wx:key="{{index}}" @tap="checkOption({{index}})">
+            <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          </label>
+        </checkbox-group>
+        <!--<view class="service-container">-->
+          <!--<block wx:for="{{sort2}}" wx:key="{{index}}">-->
+            <!--<view class="service-list {{activeIndex2 == index ? 'active' : '' }}" @tap="tabList2({{index}})">{{item}}</view>-->
+          <!--</block>-->
+        <!--</view>-->
         <view class="btn-group">
-          <view class="btn" @tap="reset">重置</view>
+          <view class="btn" @tap="resetAll">重置</view>
           <view class="btn active" @tap="confirm">确定</view>
         </view>
       </view>
@@ -389,7 +434,7 @@
       <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">
         {{sortName}}<text class="daka icon-triangledownfill"></text>
       </view>
-      <view class="tab-list flex1 {{activeIndex2 != 0  ? 'active' : '' }}" @tap="tabList('1')">
+      <view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" @tap="tabList('1')">
         服务类型<text class="daka icon-triangledownfill"></text>
       </view>
       <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">
@@ -414,6 +459,30 @@
           url: '/pages/user/home'
         }
       ],
+      typeChoose: [
+        [
+          {value: '电商网红', icon: 'icon-wanghongmote'},
+          {value: '活动直播', icon: 'icon-zhibo'},
+          {value: '主持', icon: 'icon-zhuchiren'},
+          {value: '模特', icon: 'icon-icon-test'}
+        ],
+        [
+          {value: '歌舞表演', icon: 'icon-gewuyulechangsuofuzhi-copy'},
+          {value: '特技绝活', icon: 'icon-weibiaoti3'},
+          {value: '广告代言', icon: 'icon-daiyanren'},
+          {value: '礼仪', icon: 'icon-liyi'}
+        ],
+        [
+          {value: '配音', icon: 'icon-peiyin1'},
+          {value: '游戏私教', icon: 'icon-youxi'},
+          {value: 'K歌私教', icon: 'icon-quanminkge'},
+          {value: '摄影', icon: 'icon-sheying-'}
+        ],
+        [
+          {value: '戏曲', icon: 'icon-xiqu'},
+          {value: '节目嘉宾', icon: 'icon-jiabin'}
+        ]
+      ],
       sortVisible1: false,
       sortVisible2: false,
       sortVisible3: false,
@@ -422,21 +491,37 @@
       sortName: "智能排序",
       sortTab: false,
       sort1: [
-        {icon: 'icon-xiaoxi3-copy', name: '智能排序'},
-        {icon: 'icon-xiaoxi3-copy', name: '最新发布'},
-        {icon: 'icon-xiaoxi3-copy', name: '价格由高到低'},
-        {icon: 'icon-xiaoxi3-copy', name: '价格由低到高'}
+        {icon: 'icon-zhinengpaixu', name: '智能排序'},
+        {icon: 'icon-zuixinfabuxianti', name: '最新发布'},
+        {icon: 'icon-jiageyougaodaodi', name: '价格由高到低'},
+        {icon: 'icon-mg-price-up', name: '价格由低到高'}
       ],
       activeIndex1: 0,
       sort2: ['全部', '电商网红', '活动直播', '主持', '模特', '歌舞表演', '特技绝活', '广告代言', '礼仪', '配音', '游戏私教', 'K歌私教', '摄影', '戏曲', '节目嘉宾'],
-      activeIndex2: 0,
+      checkMenu: [
+        {name: '电商网红', value: '电商网红', checked: false},
+        {name: '活动直播', value: '活动直播'},
+        {name: '主持', value: '主持'},
+        {name: '模特', value: '模特'},
+        {name: '歌舞表演', value: '歌舞表演'},
+        {name: '特技绝活', value: '特技绝活'},
+        {name: '广告代言', value: '广告代言'},
+        {name: '礼仪', value: '礼仪'},
+        {name: '配音', value: '配音'},
+        {name: '游戏私教', value: '游戏私教'},
+        {name: 'K歌私教', value: 'K歌私教'},
+        {name: '摄影', value: '摄影'},
+        {name: '戏曲', value: '戏曲'},
+        {name: '节目嘉宾', value: '节目嘉宾'}
+      ],
+//      activeIndex2: 0,
       activeIndex3: 0,
       sort3: ['不限', '男', '女'],
       activeIndex4: 0,
       sort4: ['不限', '红V认证', '实名认证', '高级会员', '芝麻认证'],
       searchFlag: true,
       tabFlag: false,
-      animationData: {}
+      checkboxArr: []
     }
     methods = {
       haha() {
@@ -465,12 +550,9 @@
         this.sortVisible1 = false;
         this.sortName = name;
       },
-      tabList2(index, e) {
-        this.activeIndex2 = index;
-      },
-      reset() {
-        this.activeIndex2 = 0;
-      },
+//      tabList2(index, e) {
+//        this.activeIndex2 = index;
+//      },
       confirm() {
         this.sortVisible2 = false;
       },
@@ -487,18 +569,30 @@
       confirm1() {
         this.sortVisible3 = false;
       },
-      upper: function(e) {
+      upper(e) {
         var scrollTop = e.detail.scrollTop;
         if (scrollTop >= 50) {
           this.searchFlag = false;
         } else {
           this.searchFlag = true;
         }
-        if (scrollTop >= 230) {
+        if (scrollTop >= 340) {
           this.tabFlag = true;
         } else {
           this.tabFlag = false;
         }
+      },
+      checkboxChange(e) {
+        this.checkboxArr = e.detail.value;
+      },
+      resetAll() {
+        for (var i = 0; i < this.checkMenu.length; i++) {
+          this.checkMenu[i].checked = false;
+          this.checkboxArr = [];
+        }
+      },
+      checkOption(index) {
+        this.checkMenu[index].checked = !this.checkMenu[index].checked;
       }
     }
   }
