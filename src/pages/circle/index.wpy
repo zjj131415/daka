@@ -21,20 +21,24 @@
     }
     .swiperMenu {
       height: 100px;
-      padding: 10px 0;
       margin-top: 10px;
       margin-bottom: 10px;
       background-color: #ffffff;
       .menu {
-        text-align: center;
+        display: flex;
+        align-items: center;
         .option {
-          display: inline-block;
-          padding: 5rpx 30rpx;
-          margin: 0 10rpx;
+          width: 25%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          // display: inline-block;
+          // padding: 5rpx;
+          // margin: 0 10rpx;
           font-size: 28rpx;
           color: #737373;
           .daka {
-            margin-bottom: 10px;
             font-size: 50rpx;
             color: #E9989E;
           }
@@ -321,7 +325,7 @@
           </swiper-item>
         </block>
       </swiper>
-      <swiper class="swiperMenu" indicator-dots autoplay interval="5000" indicator-color="rgba(0,0,0, .5)" indicator-active-color="rgba(255, 0, 0, .6)">
+      <swiper class="swiperMenu">
         <block wx:for="{{typeChoose}}" wx:key="index">
           <swiper-item class="menu">
             <view class="option" wx:for="{{item}}" wx:key="index">
@@ -376,7 +380,14 @@
     </scroll-view>
     <view class="sort" wx:if="{{sortVisible1}}">
       <view class="sort-common sort-area">
-        <view class="sort-list {{activeIndex1 == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort1}}" wx:key="{{index}}" @tap="tabList1({{index}}, {{item.name}})">
+        <view 
+          class="sort-list {{activeIndex1 == index ? 'active' : '' }}" 
+          id="{{index}}" 
+          wx:for="{{sort1}}" 
+          wx:key="{{index}}" 
+          data-index="{{index}}"
+          data-name="{{item.name}}"
+          @tap="tabList1">
           <text class="daka {{item.icon}}"></text>{{item.name}}
         </view>
       </view>
@@ -405,13 +416,17 @@
         <view class="title">性别要求</view>
         <view class="sex">
           <block wx:for="{{sort3}}" wx:key="{{index}}">
-            <view class="service-list {{activeIndex3 == index ? 'active' : '' }}" @tap="tabList3({{index}})">{{item}}</view>
+            <view class="service-list {{activeIndex3 == index ? 'active' : '' }}" 
+            data-index="{{index}}"
+            @tap="tabList3">{{item}}</view>
           </block>
         </view>
         <view class="title title1">认证发布</view>
         <view class="publish">
           <block wx:for="{{sort4}}" wx:key="{{index}}">
-            <view class="service-list {{activeIndex4 == index ? 'active' : '' }}" @tap="tabList4({{index}})">{{item}}</view>
+            <view class="service-list {{activeIndex4 == index ? 'active' : '' }}" 
+            data-index="{{index}}"
+            @tap="tabList4">{{item}}</view>
           </block>
         </view>
         <view class="btn-group">
@@ -545,7 +560,8 @@
             break;
         }
       },
-      tabList1(index, name) {
+      tabList1(e) {
+        const {index, name} = e.currentTarget.dataset || {};
         this.activeIndex1 = index;
         this.sortVisible1 = false;
         this.sortName = name;
@@ -556,10 +572,12 @@
       confirm() {
         this.sortVisible2 = false;
       },
-      tabList3(index) {
+      tabList3(e) {
+        const {index} = e.currentTarget.dataset || {};
         this.activeIndex3 = index;
       },
-      tabList4(index) {
+      tabList4(e) {
+        const {index} = e.currentTarget.dataset || {};
         this.activeIndex4 = index;
       },
       reset1() {
