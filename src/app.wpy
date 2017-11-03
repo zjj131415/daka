@@ -142,7 +142,6 @@ export default class extends wepy.app {
       'pages/user/info1',
       // 'pages/user/editInfo',
       'pages/user/editInfo1',
-      'pages/circle/index',
       'pages/notice/index',
 
       'pages/circle/search',
