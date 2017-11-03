@@ -90,7 +90,7 @@
 
 <script>
   import wepy from "wepy";
-  export default class info1 extends wepy.page {
+  export default class info2 extends wepy.page {
     config = {
       navigationBarTitleText: '基本信息'
     }
