@@ -481,7 +481,7 @@
         wx.previewImage({
           current: '',
           urls: [
-            // 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg',
+            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg',
             '../../images/avatar/avatar2.jpg',
             '../../images/avatar/avatar3.jpg',
             '../../images/avatar/avatar4.jpg',
@@ -501,19 +501,12 @@
         return (info.nickName || info.avatarUrl) ? info.nickName : '未授权用户'
       }
     }
-    onLoad() {
-      wx.request({
-        url: 'https://www.us800.cn/async!gotMyPerformResume.action', //仅为示例，并非真实的接口地址
-        data: {
-          resumeId: 319
-        },
-        header: {
-            'content-type': 'application/json' // 默认值
-        },
-        success: function(res) {
-          const userInfo = res.data;
-          console.log(userInfo)
-        }
+
+    onShow() {
+      // 初始化页面数据
+      this.$getUserInfo((info) => {
+        this.userInfo.nickName = info.nickName
+        this.userInfo.avatarUrl = info.avatarUrl
       })
     }
 

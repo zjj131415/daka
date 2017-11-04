@@ -38,6 +38,12 @@
     border-radius: 100%;
     overflow: hidden;
   }
+  .sub-btn {
+    margin: 20rpx;
+    outline: none;
+    background: #dc3b23;
+    color: #fff;
+  }
 </style>
 
 <template>
@@ -88,18 +94,19 @@
           </view>
         </view>
       </view> 
-      <button formType="submit">保存</button>
+      <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
     </form>
   </view>
 </template>
 
 <script>
   import wepy from "wepy";
-  export default class info1 extends wepy.page {
+  export default class infoBasis extends wepy.page {
     config = {
       navigationBarTitleText: '基本信息'
     }
     data = {
+      subLoading: false,
       u_img: "/images/dynamic.png",
       region: ['广东省', '广州市', '海珠区'],
       customItem: '全部',
@@ -122,7 +129,8 @@
         this.region = e.detail.value;
       },
       formSubmit(e) {
-        console.log(51)
+        const self = this;
+        self.subLoading = true;
         console.log(e)
       },
       xingbie() {

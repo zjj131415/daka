@@ -80,6 +80,9 @@
         justify-content: center;
         font-size: 26rpx;
         color: #898989;
+        outline: none;
+        background: none;
+        border: 0;
         &::before {
           margin-right: 10rpx;
           font-size: 32rpx;
@@ -95,7 +98,7 @@
 
 <template>
   <view class="find-iem" wx:for="{{findArray}}" wx:key="index">
-    <view class="find-header">
+    <navigator class="find-header" url="{{'sks'}}">
       <view class="find-img">
         <image src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
       </view>
@@ -106,7 +109,7 @@
         </view>
       </view>
       <view class="down-icon daka icon-unfold"></view>
-    </view>
+    </navigator>
     <view class="find-cont">
       <view class="find-cont-text">
         <text>{{item.cont.text}}</text>
@@ -115,9 +118,9 @@
         <image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
       </view>
       <view class="find-actions">
-        <view @tap="share" class="action-item daka icon-share_light">
+        <button open-type="share" class="action-item daka icon-share_light">
           分享
-        </view>
+        </button>
         <view class="action-item daka icon-comment">
           评论
         </view>
@@ -160,10 +163,11 @@ export default class Index extends wepy.page {
     ]
   }
   methods = {
-    share() {
-
-    }
-//
+  }
+  onLoad() {
+    wx.showShareMenu({
+      withShareTicket: true
+    });
   }
 }
 </script>
