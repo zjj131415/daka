@@ -44,10 +44,103 @@
     background: #dc3b23;
     color: #fff;
   }
+  .character {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2  ;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    .close {
+      font-size: 60rpx;
+      width: 70rpx;
+      height: 70rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #dc3b23;
+    }
+    .charCont {
+      padding-top: 40rpx;
+    }
+    .charTit {
+      height: 30rpx;
+      display: flex;
+      align-items: center;
+      margin: 0 40rpx;
+      padding-left: 10rpx;
+      border-left: 4rpx solid #dc3b23;
+      font-size: 28rpx;
+      color: #333;
+    }
+    .charTags {
+      padding: 20rpx 30rpx 0 30rpx;
+      display: flex;
+      flex-wrap: wrap;
+      .tag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: 50rpx;
+        padding: 0 20rpx;
+        margin: 10rpx;
+        border-radius: 10rpx;
+        border: 1px solid #dcdcdc;
+        font-size: 28rpx;
+        color: #878787;
+        .rm {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 28rpx;
+          height: 28rpx;
+          border-radius: 100%;
+          background: #dcdcdc;
+          position: absolute;
+          right: -10rpx;
+          top: -12rpx;
+          font-size: 20rpx;
+          color: #5d5d5d;
+        }
+      }
+    }
+  }
 </style>
 
 <template>
   <view>
+    <view class="character" wx:if="{{showChar}}">
+      <view class="close" @tap="hanleChar">×</view>
+      <view class="charCont">
+        <view class="charTit">我的角色</view>
+        <view class="charTags">
+          <block wx:for="{{selectChar.tag}}" wx:key="index">
+            <view class="tag">
+              {{item}}
+              <text
+                class="rm"
+                data-index="{{index}}"
+                data-text="item"
+                @tap="rmTag">×</text>
+            </view>
+          </block>
+        </view>
+      </view>
+      <view class="charCont">
+        <view class="charTit">自定义角色</view>
+        <view></view>
+      </view>
+      <view class="charCont">
+        <view class="charTit">演艺角色</view>
+        <view class="charTags">
+          <block wx:for="{{character}}" wx:key="index">
+            <view class="tag {{true ? '12' : '55'}}">{{item.name}}</view>
+          </block>
+        </view>
+      </view>
+    </view>
     <form bindsubmit="formSubmit" >
       <view class="cells">
         <view class="cell" @tap="uploadImg">
@@ -60,7 +153,7 @@
             <image class="u_img" src="{{u_img}}"></image>
           </view>
         </view>
-      </view> 
+      </view>
       <view class="cells">
         <view class="cell" @tap="xingbie">
           <view class="cell_hd">
@@ -70,12 +163,11 @@
             {{xingbie == 0 ? "男" : '女'}}
           </view>
         </view>
-      </view> 
+      </view>
       <view class="cells">
         <view class="cell">
           <view class="cell_hd">
-            所在地
-          </view>
+          </view>所在地
           <view class="cell_bd">
             <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
               <view class="picker">
@@ -84,16 +176,17 @@
             </picker>
           </view>
         </view>
-      </view> 
+      </view>
       <view class="cells">
-        <view class="cell">
+        <view class="cell" @tap="hanleChar">
           <view class="cell_hd">
             角色
           </view>
           <view class="cell_bd">
           </view>
+          <view class="cell_ft daka icon-right"></view>
         </view>
-      </view> 
+      </view>
       <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
     </form>
   </view>
@@ -110,7 +203,50 @@
       u_img: "/images/dynamic.png",
       region: ['广东省', '广州市', '海珠区'],
       customItem: '全部',
-      xingbie: 0
+      xingbie: 0,
+      showChar: true,
+      selectChar: {
+        tag: ["演员", "模特", "导演"],
+        child: []
+      },
+      character: [
+        {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }
+      ]
     }
     methods = {
       uploadImg() {
@@ -146,6 +282,12 @@
             console.log(res.errMsg)
           }
         })
+      },
+      hanleChar() {
+        this.showChar = !this.showChar;
+      },
+      rmTag(e) {
+        console.log(e)
       }
     }
   }
