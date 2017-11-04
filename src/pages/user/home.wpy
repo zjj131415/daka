@@ -263,15 +263,14 @@
   <view class="container">
     <view class="user-head">
       <view class="avatar">
-        <image class="user-avatar" src="{{userInfo.avatarUrl}}"></image>
+        <image class="user-avatar" src="{{userInfos.head}}"></image>
         <viem class="user-group">
-          <view class="user-name">{{userInfo.nickName}}</view>
+          <view class="user-name">{{userInfos.name}}</view>
           <view class="user-province">{{userInfo.province}}</view>
           <view class="user-rank">
-            <view class="list">模特</view>
-            <view class="list">歌手</view>
-            <view class="list">主持</view>
-            <view class="list">经纪人</view>
+            <block wx:for="{{userInfos.careers}}" wx:key="{{index}}">
+              <view class="list">{{item.name}}</view>
+            </block>
           </view>
         </viem>
       </view>
@@ -440,7 +439,10 @@
       navigationBarTitleText: '大咖秀'
     }
     data = {
-      // userInfo: {},
+      userInfos: {
+        name: '加载中...',
+        head: '../../images/avatar/icon-avatar@2x.png'
+      },
       userInfo: {
         nickName: '加载中...',
         avatarUrl: '../../images/avatar/icon-avatar@2x.png'
@@ -501,18 +503,28 @@
         return (info.nickName || info.avatarUrl) ? info.nickName : '未授权用户'
       }
     }
-    onLoad() {
+    onLoad(e) {
+      var _this = this;
+      //开启loading
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      });
       wx.request({
         url: 'https://www.us800.cn/async!gotMyPerformResume.action',
         data: {
-          resumeId: 319
+          resumeId: e.id
+          //resumeId: 316
         },
         header: {
             'content-type': 'application/json' // 默认值
         },
         success: function(res) {
-          const userInfo = res.data;
-          console.log(userInfo)
+          // 关闭loading
+          wepy.hideLoading();
+          _this.userInfos = res.data;
+          console.log(_this.userInfos);
+          _this.$apply();
         }
       })
     }
