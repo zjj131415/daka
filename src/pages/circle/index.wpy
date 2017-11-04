@@ -126,6 +126,72 @@
         }
       }
     }
+    .circle-item {
+      display: flex;
+      align-items: flex-end;
+      height: 600rpx;
+      margin-bottom: 10rpx;
+      position: relative;
+      .circle-img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        > image {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .circle-info {
+        width: 100%;
+        padding: 20rpx 26rpx;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        z-index: 3;
+        .circle-name {
+          height: 60rpx;
+          line-height: 60rpx;
+          font-size: 34rpx;
+          color: #fff;
+          position: relative;
+        }
+        .circle-action {
+          margin: 5rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          /*width: 46rpx;*/
+          height: 46rpx;
+          /*border: 1px solid #fff;*/
+          border-radius: 100%;
+          font-size: 32rpx;
+          color: #fff;
+          &::before {
+            margin-right: 5rpx;
+            font-size: 40rpx;
+          }
+        }
+        .circle-tags {
+          height:70rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .circle-tag-item {
+          margin: 0 10rpx;
+          padding: 5rpx 30rpx;
+          border: 1px solid #fff;
+          border-radius: 12rpx;
+          color: #fff;
+          font-size: 24rpx;
+        }
+      }
+    }
     .sort {
       position: fixed;
       top: 0;
@@ -315,7 +381,7 @@
 </style>
 <template>
   <view class="container">
-    <scroll-view class="scroll" scroll-y @scroll="upper">
+    <scroll-view class="scroll" scroll-y @scroll="upper" @scrolltolower="scrollBottom">
       <swiper class="swiper" indicator-dots autoplay interval="5000" indicator-color="rgba(255,255,255, .3)" indicator-active-color="rgba(255, 0, 0, .6)">
         <block wx:for="{{bannerArray}}" wx:key="index">
           <swiper-item class="swiper-item">
@@ -350,41 +416,59 @@
         </view>
       </view>
       <view class="works">
-        <view class="works-list">
-          <view class="image-box">
-            <image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>
-            <view class="flag">摄影</view>
-          </view>
-          <view class="content">
-            <view class="title">摄影、写真拍摄</view>
-            <view class="detail">
-              <view class="price">￥500.00/单</view>
-              <view class="location"><text class="daka icon-locationfill"></text>重庆市</view>
+        <block wx:for="{{artists}}" wx:key="index">
+          <view class="circle-item">
+            <!--<view class="circle-img"><image src="{{item.head}}"></image></view>-->
+            <view class="circle-img"><image src="/images/avatar/avatar1.jpg"></image></view>
+            <view class="circle-info">
+              <text class="circle-name">{{item.name}}</text>
+              <text class="circle-name">{{item.height}}</text>
+              <text class="circle-name">{{item.prov}}</text>
+              <view class="circle-icon"></view>
+              <view class="circle-action daka icon-appreciate">100</view>
+              <view class="circle-tags">
+                <block wx:for="{{item.types}}" wx:key="{{index}}">
+                  <text class="circle-tag-item">{{item}}</text>
+                </block>
+              </view>
             </view>
           </view>
-        </view>
-        <view class="works-list">
-          <view class="image-box">
-            <image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>
-            <view class="flag">摄影2</view>
-          </view>
-          <view class="content">
-            <view class="title">摄影、写真拍摄</view>
-            <view class="detail">
-              <view class="price">￥500.00/单</view>
-              <view class="location"><text class="daka icon-locationfill"></text>重庆市</view>
-            </view>
-          </view>
-        </view>
+        </block>
+        <!--<view class="works-list">-->
+          <!--<view class="image-box">-->
+            <!--<image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>-->
+            <!--<view class="flag">摄影</view>-->
+          <!--</view>-->
+          <!--<view class="content">-->
+            <!--<view class="title">摄影、写真拍摄</view>-->
+            <!--<view class="detail">-->
+              <!--<view class="price">￥500.00/单</view>-->
+              <!--<view class="location"><text class="daka icon-locationfill"></text>重庆市</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</view>-->
+        <!--<view class="works-list">-->
+          <!--<view class="image-box">-->
+            <!--<image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>-->
+            <!--<view class="flag">摄影2</view>-->
+          <!--</view>-->
+          <!--<view class="content">-->
+            <!--<view class="title">摄影、写真拍摄</view>-->
+            <!--<view class="detail">-->
+              <!--<view class="price">￥500.00/单</view>-->
+              <!--<view class="location"><text class="daka icon-locationfill"></text>重庆市</view>-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</view>-->
       </view>
     </scroll-view>
     <view class="sort" wx:if="{{sortVisible1}}">
       <view class="sort-common sort-area">
-        <view 
-          class="sort-list {{activeIndex1 == index ? 'active' : '' }}" 
-          id="{{index}}" 
-          wx:for="{{sort1}}" 
-          wx:key="{{index}}" 
+        <view
+          class="sort-list {{activeIndex1 == index ? 'active' : '' }}"
+          id="{{index}}"
+          wx:for="{{sort1}}"
+          wx:key="{{index}}"
           data-index="{{index}}"
           data-name="{{item.name}}"
           @tap="tabList1">
@@ -416,7 +500,7 @@
         <view class="title">性别要求</view>
         <view class="sex">
           <block wx:for="{{sort3}}" wx:key="{{index}}">
-            <view class="service-list {{activeIndex3 == index ? 'active' : '' }}" 
+            <view class="service-list {{activeIndex3 == index ? 'active' : '' }}"
             data-index="{{index}}"
             @tap="tabList3">{{item}}</view>
           </block>
@@ -424,7 +508,7 @@
         <view class="title title1">认证发布</view>
         <view class="publish">
           <block wx:for="{{sort4}}" wx:key="{{index}}">
-            <view class="service-list {{activeIndex4 == index ? 'active' : '' }}" 
+            <view class="service-list {{activeIndex4 == index ? 'active' : '' }}"
             data-index="{{index}}"
             @tap="tabList4">{{item}}</view>
           </block>
@@ -536,7 +620,8 @@
       sort4: ['不限', '红V认证', '实名认证', '高级会员', '芝麻认证'],
       searchFlag: true,
       tabFlag: false,
-      checkboxArr: []
+      checkboxArr: [],
+      artists: []
     }
     methods = {
       haha() {
@@ -611,7 +696,70 @@
       },
       checkOption(index) {
         this.checkMenu[index].checked = !this.checkMenu[index].checked;
+      },
+      scrollBottom() {
+        console.log("滚到到底部");
+        this.methods.loadMore();
+      },
+      loadMore() {
+        var _this = this;
+        //开启loading
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        });
+        wx.request({
+          url: 'https://www.us800.cn/wechat!gotArtist.action',
+          data: {
+            sorted: 'createTime',
+            size: "10"
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function(res) {
+            //关闭loading
+            wepy.hideLoading();
+            _this.artists = res.data;
+            for (var i = 0; i < _this.artists.length; i++) {
+              _this.artists[i].types = _this.artists[i].types.split(",");
+            }
+          },
+          fail() {
+            wx.hideLoading();
+          }
+        });
       }
+    }
+    onLoad() {
+      var _this = this;
+      //开启loading
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      });
+      wx.request({
+        url: 'https://www.us800.cn/wechat!gotArtist.action',
+        data: {
+          sorted: 'createTime',
+          size: "10"
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function(res) {
+          //关闭loading
+          wepy.hideLoading();
+          _this.artists = res.data;
+          for (var i = 0; i < _this.artists.length; i++) {
+            _this.artists[i].types = _this.artists[i].types.split(",");
+          }
+          _this.$apply();
+        },
+        fail() {
+          wx.hideLoading();
+        }
+      });
     }
   }
 </script>
