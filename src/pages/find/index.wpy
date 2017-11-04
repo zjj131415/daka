@@ -80,10 +80,18 @@
         justify-content: center;
         font-size: 26rpx;
         color: #898989;
+        background: transparent;
+        position: static;
+        border-radius: 0;
+        margin:0;
+        padding:0;
         &::before {
           margin-right: 10rpx;
           font-size: 32rpx;
           color: #898989;
+        }
+        &::after {
+          content: none;
         }
         &:last-child {
           border: none;
@@ -115,16 +123,16 @@
         <image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
       </view>
       <view class="find-actions">
-        <view open-type="share" class="action-item daka icon-share_light">
+        <button open-type="share" class="action-item daka icon-fenxiang2">
           分享
-        </view>
+        </button>
         <view class="action-item daka icon-comment">
           评论
         </view>
         <view class="action-item daka icon-appreciate">
           点赞
         </view>
-         <view class="action-item daka icon-refund">
+         <view class="action-item daka icon-refund" @tap="play">
           打赏
         </view>
       </view>
@@ -160,7 +168,33 @@ export default class Index extends wepy.page {
     ]
   }
   methods = {
+    play() {
+      wepy.requestPayment({
+        'timeStamp': '12e21',
+        'nonceStr': 'e21e',
+        'package': 'e21e',
+        'signType': 'MD5',
+        'paySign': 'e12e2',
+        'success':function(res){
+          wepy.showModal({
+            content: '打赏成功',
+            showCancel: false,
+            success: function(res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        },
+        'fail':function(res){
+          console.log(res)
+        }
+      })
+    }
   }
+
   onLoad() {
     wx.showShareMenu({
       withShareTicket: true
