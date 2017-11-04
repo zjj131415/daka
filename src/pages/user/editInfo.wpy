@@ -271,7 +271,7 @@
 <script>
   import wepy from "wepy";
 
-  export default class EditInfo extends wepy.page {
+  export default class EditInfo1 extends wepy.page {
     config = {
       navigationBarTitleText: '编辑个人信息'
     }

@@ -139,13 +139,13 @@ import wepy from 'wepy'
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/circle/index',
       'pages/find/index',
       'pages/user/info-basis',
-      'pages/circle/index',
       'pages/user/home',
-      // 'pages/find/detail',
+      'pages/find/detail',
       'pages/user/editInfo1',
-      // 'pages/user/editInfo',
+      'pages/user/editInfo',
       'pages/notice/index',
       'pages/circle/search',
       'pages/launched/index',

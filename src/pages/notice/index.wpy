@@ -44,6 +44,15 @@
     }
     .notice-item {
       width: 100%;
+      .before {
+        display: flex;
+        align-items: center;
+      }
+      .before-img {
+        width: 40rpx;
+        height: 40rpx;
+        margin-right: 10rpx;
+      }
       .notice-top-info {
         position: relative;
         width: 100%;
@@ -142,6 +151,7 @@
           </view>
           <view class="notice-bottom">
             <view class="before">
+              <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
               <text class="name">一人统筹阿超</text>
             </view>
             <view class="after">

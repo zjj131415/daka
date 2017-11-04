@@ -434,7 +434,7 @@
   import wepy from "wepy";
   import user from '../../mixins/user'
 
-  export default class Home extends wepy.page {
+  export default class findDetail extends wepy.page {
     mixins = [user]
     config = {
       navigationBarTitleText: '大咖秀'
