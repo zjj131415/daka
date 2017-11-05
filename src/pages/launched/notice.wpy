@@ -1,16 +1,85 @@
 <style lang="less" scoped>
-  page {
-    background: #f7f7f7;
+  .container {
+    .uploadImg {
+      height: 580rpx;
+      background-color: #EEEEEE;
+    }
+    .list-wrap {
+      padding-left: 20rpx;
+      background-color: #FFFFFF;
+      .list {
+        display: flex;
+        align-items: center;
+        padding-top: 20rpx;
+        padding-bottom: 20rpx;
+        padding-right: 20rpx;
+        border-bottom: 1px solid #F6F6F6;
+        font-size: 28rpx;
+        &:last-child {
+          border-bottom: none;
+        }
+        .icon {
+          margin-right: 20rpx;
+          color: #F24C4C;
+        }
+        .option {
+          color: #AFAFAF;
+        }
+        .icon-right {
+          color: #B5B5B5;
+        }
+        .flex1 {
+          flex: 1;
+        }
+      }
+    }
   }
 </style>
 
 <template>
-  <view class="vbn">发通告</view>
+  <view class="container">
+    <view class="uploadImg"></view>
+    <view class="list-wrap">
+      <view class="list">
+        <view class="daka icon-lianxi icon"></view>
+        <view class="option flex1">
+          <input placeholder="通告主题（不超过30个字符）" maxlength="30"/>
+        </view>
+      </view>
+      <view class="list">
+        <view class="daka icon-timefill icon"></view>
+        <view class="option flex1">截止时间</view>
+        <view class="daka icon-right"></view>
+      </view>
+      <view class="list">
+        <view class="daka icon-locationfill icon"></view>
+        <view class="option flex1">工作城市</view>
+        <view class="daka icon-right"></view>
+      </view>
+      <view class="list">
+        <view class="daka icon-lianxi icon"></view>
+        <view class="option flex1">详细地址（选填）</view>
+        <view class="daka icon-right"></view>
+      </view>
+      <view class="list">
+        <view class="daka icon-lianxi icon"></view>
+        <view class="option flex1">性别要求</view>
+        <view class="daka icon-right"></view>
+      </view>
+      <view class="list">
+        <view class="daka icon-lianxi icon"></view>
+        <view class="option flex1">通告类型</view>
+        <view class="daka icon-right"></view>
+      </view>
+    </view>
+  </view>
 </template>
 <script>
   import wepy from "wepy";
   export default class Notice extends wepy.page {
-
+    config = {
+      navigationBarTitleText: '发通告'
+    }
   }
 </script>
 

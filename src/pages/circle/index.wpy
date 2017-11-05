@@ -481,7 +481,7 @@
       <view class="sort-common sort-service">
         <checkbox-group class="service-container" @change="checkboxChange">
           <view class="service-list {{checkboxArr.length == 0 ? 'active' : '' }}" @tap="resetAll">全部</view>
-          <label class="checkbox service-list {{item.checked == true ? 'active' : '' }}" wx:for="{{checkMenu}}" wx:key="{{index}}" @tap="checkOption({{index}})">
+          <label class="checkbox service-list {{item.checked == true ? 'active' : '' }}" wx:for="{{checkMenu}}" wx:key="{{index}}" @tap="checkOption" data-index="{{index}}">
             <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
           </label>
         </checkbox-group>
@@ -699,7 +699,8 @@
           this.checkboxArr = [];
         }
       },
-      checkOption(index) {
+      checkOption(e) {
+        const {index} = e.currentTarget.dataset || {};
         this.checkMenu[index].checked = !this.checkMenu[index].checked;
       },
       scrollBottom() {
