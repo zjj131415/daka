@@ -522,10 +522,14 @@
     </view>
     <view class="search-bar" wx:if="{{searchFlag}}">
       <view class="address">北京<text class="daka icon-unfold"></text></view>
-      <navigator class="search-open" url="/pages/circle/search">
+      <view class="search-open">
         <text class="daka icon-search"></text>
         精准查找
-      </navigator>
+      </view>
+      <!--<navigator class="search-open" url="/pages/circle/search">-->
+        <!--<text class="daka icon-search"></text>-->
+        <!--精准查找-->
+      <!--</navigator>-->
       <view class="news">
         <view class="news-icon daka icon-xiaoxi3-copy"></view>
       </view>
