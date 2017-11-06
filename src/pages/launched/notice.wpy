@@ -1,8 +1,25 @@
 <style lang="less" scoped>
   .container {
     .uploadImg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 580rpx;
       background-color: #EEEEEE;
+      .bg {
+        text-align: center;
+        .img {
+          width: 200rpx;
+        }
+        .detail {
+          font-size: 28rpx;
+          color: #BFC0C7;
+        }
+      }
+      .bgImg {
+        width: 100%;
+        height: 100%;
+      }
     }
     .list-wrap {
       padding-left: 20rpx;
@@ -31,6 +48,84 @@
         .flex1 {
           flex: 1;
         }
+        .detail {
+          width: 16px;
+        }
+      }
+    }
+    .announce {
+      height: 180rpx;
+      margin-top: 20rpx;
+      margin-bottom: 20rpx;
+      padding-left: 20rpx;
+      background-color: #FFFFFF;
+      .detail {
+        display: flex;
+        height: 100%;
+        padding-top: 20rpx;
+        padding-bottom: 20rpx;
+        padding-right: 20rpx;
+        font-size: 28rpx;
+        .daka {
+          margin-right: 20rpx;
+          padding-top: 6rpx;
+          color: #F24C4C;
+        }
+        .option {
+          color: #AFAFAF;
+        }
+        .flex1 {
+          flex: 1;
+        }
+      }
+    }
+    .signup {
+      padding-left: 20rpx;
+      background-color: #FFFFFF;
+      .title {
+        padding-top: 20rpx;
+        padding-bottom: 20rpx;
+        border-bottom: 1px solid #F4F4F4;
+        font-size: 28rpx;
+        color: #6E6E6E;
+      }
+      .characteristic {
+        padding-top: 20rpx;
+        padding-bottom: 20rpx;
+        border-bottom: 1px solid #F4F4F4;
+        font-size: 28rpx;
+        &:last-child {
+          border-bottom: none;
+        }
+        .head {
+          margin-bottom: 20rpx;
+          color: #A8A8A8;
+        }
+        .data-wrap {
+          display: inline-flex;
+          flex-wrap: wrap;
+          .data-list {
+            width: 158rpx;
+            margin-right: 10rpx;
+            margin-bottom: 10rpx;
+            padding-top: 10rpx;
+            padding-bottom: 10rpx;
+            text-align: center;
+            border: 1px solid #C0C0C0;
+            border-radius: 5px;
+            color: #5B5B5B;
+          }
+        }
+      }
+    }
+    .release {
+      margin-top: 40rpx;
+      padding: 20rpx;
+      background-color: #FFFFFF;
+      button {
+        font-size: 30rpx;
+        color: #ffffff;
+        background-color: #DB3B23;
       }
     }
   }
@@ -38,10 +133,16 @@
 
 <template>
   <view class="container">
-    <view class="uploadImg"></view>
+    <view class="uploadImg" @tap="uploadImage">
+      <view class="bg" wx:if="{{!imgSrc}}">
+        <image src="../../images/upload_img.png" mode="widthFix" class="img"></image>
+        <view class="detail">上传通告封面图曝光量可提高93%</view>
+      </view>
+      <image src="{{imgSrc}}" class="bgImg" wx:else></image>
+    </view>
     <view class="list-wrap">
       <view class="list">
-        <view class="daka icon-lianxi icon"></view>
+        <view class="daka icon-zhuti icon"></view>
         <view class="option flex1">
           <input placeholder="通告主题（不超过30个字符）" maxlength="30"/>
         </view>
@@ -57,20 +158,61 @@
         <view class="daka icon-right"></view>
       </view>
       <view class="list">
-        <view class="daka icon-lianxi icon"></view>
+        <view class="daka detail icon"></view>
         <view class="option flex1">详细地址（选填）</view>
         <view class="daka icon-right"></view>
       </view>
       <view class="list">
-        <view class="daka icon-lianxi icon"></view>
+        <view class="daka icon-xingbie1 icon"></view>
         <view class="option flex1">性别要求</view>
         <view class="daka icon-right"></view>
       </view>
       <view class="list">
-        <view class="daka icon-lianxi icon"></view>
+        <view class="daka icon-leixing icon"></view>
         <view class="option flex1">通告类型</view>
         <view class="daka icon-right"></view>
       </view>
+    </view>
+    <view class="announce">
+      <view class="detail">
+        <view class="daka icon-jianjie"></view>
+        <view class="option flex1">通告详细说明，如：剧组简介、条件要求、薪资待遇等</view>
+      </view>
+    </view>
+    <view class="signup">
+      <view class="title">请选择需要的报名资料</view>
+      <view class="characteristic">
+        <view class="head">基本资料</view>
+        <view class="data-wrap">
+          <view class="data-list">身高</view>
+          <view class="data-list">体重</view>
+          <view class="data-list">三围</view>
+          <view class="data-list">学校</view>
+          <view class="data-list">签约状态</view>
+          <view class="data-list">出生日期</view>
+          <view class="data-list">所在地</view>
+        </view>
+      </view>
+      <view class="characteristic">
+        <view class="head">履历才艺</view>
+        <view class="data-wrap">
+          <view class="data-list">工作经验</view>
+          <view class="data-list">才艺特长</view>
+          <view class="data-list">所获奖项</view>
+          <view class="data-list">形象特征</view>
+        </view>
+      </view>
+      <view class="characteristic">
+        <view class="head">其他资料</view>
+        <view class="data-wrap">
+          <view class="data-list">资料卡</view>
+          <view class="data-list">视频资料</view>
+          <view class="data-list">照片资料</view>
+        </view>
+      </view>
+    </view>
+    <view class="release">
+      <button>发布</button>
     </view>
   </view>
 </template>
@@ -79,6 +221,23 @@
   export default class Notice extends wepy.page {
     config = {
       navigationBarTitleText: '发通告'
+    }
+    data = {
+      imgSrc: ""
+    }
+    methods = {
+      uploadImage() {
+        var _this = this;
+        wx.chooseImage({
+          count: 1, // 默认9
+          sizeType: ['original', 'compressed'],
+          sourceType: ['album', 'camera'],
+          success: function (res) {
+            _this.imgSrc = res.tempFilePaths[0];
+            _this.$apply();
+          }
+        });
+      }
     }
   }
 </script>

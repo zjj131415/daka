@@ -1,0 +1,148 @@
+<style lang="less" scoped>
+  .container {
+    .head {
+      padding: 20rpx;
+      background-color: #ffffff;
+      .title {
+        margin-top: 20rpx;
+        margin-bottom: 20rpx;
+        font-size: 36rpx;
+        color: #383838;
+      }
+      .news {
+        margin-bottom: 20rpx;
+        font-size: 24rpx;
+        .message {
+          margin-right: 10rpx;
+          padding: 2rpx 4rpx;
+          border-radius: 3px;
+          color: #868686;
+          background-color: #EEEEEE;
+        }
+        .date {
+          color: #C4C4C4;
+        }
+      }
+      .line {
+        width: 150rpx;
+        height: 1px;
+        margin-bottom: 20rpx;
+        background-color: #CBCBCB;
+      }
+      .tag {
+        margin-bottom: 20rpx;
+        font-size: 28rpx;
+        .daka {
+          margin-right: 20rpx;
+          color: #F24C4C;
+        }
+        .address {
+          margin-right: 20rpx;
+          color: #8A8A8A;
+        }
+        .city {
+          color: #545454;
+        }
+        .movies {
+          padding-left: 10rpx;
+          padding-right: 10rpx;
+          border-radius: 10px;
+          border: 1px solid #7DAAD0;
+          font-size: 24rpx;
+          color: #7DAAD0;
+        }
+      }
+    }
+    .brief {
+      margin-top: 20rpx;
+      padding: 20rpx;
+      background-color: #ffffff;
+      .tag {
+        margin-bottom: 20rpx;
+        font-size: 28rpx;
+        .daka {
+          margin-right: 20rpx;
+          color: #F24C4C;
+        }
+        .address {
+          margin-right: 20rpx;
+          color: #8A8A8A;
+        }
+      }
+      .describe {
+        .word {
+          font-size: 28rpx;
+          color: #585858;
+        }
+        .story {
+          line-height: 20rpx;
+          margin-top: 40rpx;
+        }
+        .footer {
+          margin-top: 40rpx;
+          .word {
+            margin-bottom: 6rpx;
+          }
+          .tip {
+            color: #E05D4B;
+          }
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="head">
+      <view class="title">院线电影《非正式爱情》招募演员</view>
+      <view class="news">
+        <text class="message">快讯</text>
+        <text class="date">10-26发布</text>
+      </view>
+      <view class="line"></view>
+      <view class="tag">
+        <text class="daka icon-locationfill"></text>
+        <text class="address">工作地点</text>
+        <text class="city">重庆市</text>
+      </view>
+      <view class="tag">
+        <text class="daka icon-leixing"></text>
+        <text class="address">通告类型</text>
+        <text class="movies">影视组讯</text>
+      </view>
+    </view>
+    <view class="brief">
+      <view class="tag">
+        <text class="daka icon-jianjie"></text>
+        <text class="address">通告简介</text>
+      </view>
+      <view class="describe">
+        <text class="word">院线电影《非正式爱情》\n类型：喜剧、爱情、动作、励志\n出品公司：北京嘉禾明珠影视文化有限公司、霍尔果斯亚洲之星影视文化有限公司\n监制：陆亮\n导演：徐嘉亮\n开机时间：2018年4月20日\n拍摄周期：40天\n
+          任务小传：\n张艾嘉（女一）：26岁左右，爱情海公司打牌，专帮人家讨情债与孽债，专杀世间负心汉。性格青春靓丽、聪明野蛮、正义乐观、点子多，时而温柔、时而体贴、时而调皮可爱，百变女王。\n
+          天宝（男一）：30岁左右，和社会脱轨的退伍军人，稍有肌肉会功夫、讲义气、冷幽默，蚂蚁搬家公司带班经理，决心找失散多年的妹妹。</text>
+        <view class="footer">
+          <view class="word">来源：第三方平台</view>
+          <view class="word">联系我时，请说是在红演圈上看到的，谢谢！</view>
+          <view class="word tip">温馨提示：如果涉及交费要求，请谨慎识别</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+  import wepy from "wepy";
+  export default class Detail extends wepy.page {
+    config = {
+      navigationBarTitleText: '通告详情'
+    }
+    data = {
+      optionList: ['全职招聘', '演绎活动', '剧组招聘', '婚庆招聘', '运动时尚', '兼职招聘'],
+    };
+
+    methods = {
+
+    }
+  }
+</script>
+

@@ -135,7 +135,7 @@
     </view>
     <view class="notice-list">
       <block wx:for="{{notice}}" wx:key="{{index}}">
-        <view class="notice-item">
+        <navigator class="notice-item" url="/pages/notice/detail">
           <view class="notice-top-info">
             <view class="notice-img">
               <image src="{{item.image}}"></image>
@@ -159,7 +159,7 @@
               <text class="timer">12-32截止</text>
             </view>
           </view>
-        </view>
+        </navigator>
       </block>
     </view>
   </view>
