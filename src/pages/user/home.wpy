@@ -318,9 +318,33 @@
         <video class="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls></video>
       </view>
       <view class="means">专业资料</view>
-      <view class="features-group" wx:for="{{features}}" wx:key="index">
-        <view class="features">{{item.title}}</view>
-        <view class="features-value flex1">{{item.value}}</view>
+      <!--<view class="features-group" wx:for="{{features}}" wx:key="index">-->
+        <!--<view class="features">{{item.title}}</view>-->
+        <!--<view class="features-value flex1">{{item.value}}</view>-->
+      <!--</view>-->
+      <view class="features-group">
+        <view class="features">年龄</view>
+        <view class="features-value flex1">{{userInfos.age}}</view>
+      </view>
+      <view class="features-group">
+        <view class="features">身高</view>
+        <view class="features-value flex1">{{userInfos.height}}</view>
+      </view>
+      <view class="features-group">
+        <view class="features">体重</view>
+        <view class="features-value flex1">{{userInfos.weight}}</view>
+      </view>
+      <view class="features-group">
+        <view class="features">三围</view>
+        <view class="features-value flex1">{{userInfos.bust}} {{userInfos.waist}} {{userInfos.hips}}</view>
+      </view>
+      <view class="features-group">
+        <view class="features">毕业院校</view>
+        <view class="features-value flex1">重庆大学</view>
+      </view>
+      <view class="features-group">
+        <view class="features">获奖经历</view>
+        <text class="features-value flex1">{{userInfos.specialty}}</text>
       </view>
       <view class="features-group brief">
         <view class="features brief">自我简介</view>
@@ -521,6 +545,8 @@
           // 关闭loading
           wepy.hideLoading();
           _this.userInfos = res.data;
+          //console.log(_this.userInfos.specialty)
+          //_this.userInfos.specialty.replace(/<br>/g,"\\n");
           console.log(_this.userInfos);
           _this.$apply();
         }
