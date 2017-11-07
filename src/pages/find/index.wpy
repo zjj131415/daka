@@ -175,7 +175,7 @@ export default class Index extends wepy.page {
         'package': 'e21e',
         'signType': 'MD5',
         'paySign': 'e12e2',
-        'success':function(res){
+        'success':function(res) {
           wepy.showModal({
             content: '打赏成功',
             showCancel: false,
@@ -188,7 +188,7 @@ export default class Index extends wepy.page {
             }
           })
         },
-        'fail':function(res){
+        'fail':function(res) {
           console.log(res)
         }
       })

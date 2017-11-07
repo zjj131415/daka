@@ -68,7 +68,7 @@
             自我介绍视频（图片）
           </view>
           <view class="cell_bd">
-           
+
           </view>
           <view class="cell_ft"></view>
         </view>
@@ -93,7 +93,7 @@
           <view class="cell_ft daka icon-right"></view>
         </navigator>
       </block>
-    </view> 
+    </view>
   </view>
 </template>
 
@@ -110,17 +110,17 @@
           b: '',
           f: 'icon-right',
           r: "info-basis"
-        }, 
+        },
         {
           t: '专业资料',
           b: '',
           f: 'icon-right'
-        }, 
+        },
         {
           t: '个人简介',
           b: ' ',
           f: 'icon-right'
-        }, 
+        },
         {
           t: '获奖经历',
           b: ' ',
@@ -148,8 +148,8 @@
               formData:{
                 'user': 'test'
               },
-              success: function(res){
-                var data = res.data
+              success: function(res) {
+                //var data = res.data
                 //do something
               }
             })
