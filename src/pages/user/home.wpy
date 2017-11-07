@@ -277,38 +277,6 @@
       <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{list}}" wx:key="{{index}}" @tap="tabList">{{item}}</view>
     </view>
     <view class="exhibition" hidden="{{activeIndex != 0}}">
-      <view class="video">
-        <video class="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls></video>
-      </view>
-      <view class="means">专业资料</view>
-      <view class="features-group" wx:for="{{features}}" wx:key="index">
-        <view class="features">{{item.title}}</view>
-        <view class="features-value flex1">{{item.value}}</view>
-      </view>
-      <view class="features-group brief">
-        <view class="features brief">自我简介</view>
-        <view class="features-value flex1 brief">我是一个对理想有着执着追求的人，坚信是金子总会发光。</view>
-      </view>
-      <view class="images">
-        <view class="images-box" wx:for="{{imagesSrc}}" wx:key="index">
-          <image @tap="preview" src="{{item.src}}" mode="widthFix"></image>
-        </view>
-      </view>
-      <view class="means">演艺经历</view>
-      <text class="experience">服务项目</text>
-      <view class="footer">
-        <view class="btn-group">
-          <view class="btn flex1">
-            <button><view class="daka icon-bianji"></view>编辑资料</button>
-          </view>
-          <view class="btn flex1">
-            <button open-type="share"><view class="daka icon-fenxiang1"></view>分享到朋友圈</button>
-          </view>
-        </view>
-        <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>
-      </view>
-    </view>
-    <view class="exhibition" hidden="{{activeIndex != 1}}">
       <view class="schedule">
         <view class="area">
           <view class="daka icon-zhongyao1"></view>
@@ -340,6 +308,38 @@
           </view>
           <view class="btn flex1">
             <button><view class="daka icon-shanchu"></view>删除档期</button>
+          </view>
+        </view>
+        <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>
+      </view>
+    </view>
+    <view class="exhibition" hidden="{{activeIndex != 1}}">
+      <view class="video">
+        <video class="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls></video>
+      </view>
+      <view class="means">专业资料</view>
+      <view class="features-group" wx:for="{{features}}" wx:key="index">
+        <view class="features">{{item.title}}</view>
+        <view class="features-value flex1">{{item.value}}</view>
+      </view>
+      <view class="features-group brief">
+        <view class="features brief">自我简介</view>
+        <view class="features-value flex1 brief">我是一个对理想有着执着追求的人，坚信是金子总会发光。</view>
+      </view>
+      <view class="images">
+        <view class="images-box" wx:for="{{imagesSrc}}" wx:key="index">
+          <image @tap="preview" src="{{item.src}}" mode="widthFix"></image>
+        </view>
+      </view>
+      <view class="means">演艺经历</view>
+      <text class="experience">服务项目</text>
+      <view class="footer">
+        <view class="btn-group">
+          <view class="btn flex1">
+            <button><view class="daka icon-bianji"></view>编辑资料</button>
+          </view>
+          <view class="btn flex1">
+            <button open-type="share"><view class="daka icon-fenxiang1"></view>分享到朋友圈</button>
           </view>
         </view>
         <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>
@@ -446,7 +446,7 @@
         avatarUrl: '../../images/avatar/icon-avatar@2x.png'
       },
       area: "重庆市渝北区龙山街道渝安龙都",
-      list: ["档案", "档期", "大咖秀"],
+      list: ["档期", "档案", "大咖秀"],
       activeIndex: 0,
       features: [
         {title: '年龄', value: '25'},
