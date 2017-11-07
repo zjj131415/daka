@@ -9,13 +9,15 @@
      left: 0;
      bottom: 0;
      display: flex;
-     padding: 30rpx;
+     width: 100%;
+     margin-bottom: 30rpx;
+     justify-content: space-between;
      .nav-item {
        display: flex;
        align-items: center;
        justify-content: center;
-       width: 100rpx;
-       height: 100rpx;
+       width: 160rpx;
+       height: 160rpx;
        margin: 0 30rpx;
        overflow: hidden;
        image {

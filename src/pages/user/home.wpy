@@ -72,7 +72,6 @@
       }
     }
     .exhibition {
-      padding: 10rpx;
       /*padding-bottom: 216rpx;*/
       line-height: 48rpx;
       font-size: 32rpx;
@@ -87,7 +86,6 @@
       .means {
         height: 80rpx;
         line-height: 80rpx;
-        margin-top: 20rpx;
         padding-left: 20rpx;
         text-align: left;
         font-size: 32rpx;

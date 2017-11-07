@@ -146,15 +146,16 @@ import wepy from 'wepy'
 export default class extends wepy.app {
   config = {
     pages: [
+
       //'pages/notice/detail',
+      'pages/notice/index',
       'pages/circle/index',
+      'pages/find/detail',
       'pages/user/info-basis',
       'pages/find/index',
       'pages/user/home',
-      'pages/find/detail',
       'pages/user/editInfo1',
       'pages/user/editInfo',
-      'pages/notice/index',
       'pages/notice/detail',
       'pages/circle/search',
       'pages/launched/index',
@@ -180,14 +181,14 @@ export default class extends wepy.app {
     window: {
       navigationBarBackgroundColor: '#dc3b23',
       // navigationBarTextStyle: "black",
-      navigationBarTitleText: '大咖秀',
+      navigationBarTitleText: '我的大咖秀',
       backgroundColor: '#000',
       backgroundTextStyle: "dark",
       // enablePullDownRefresh: true,
       onReachBottomDistance: 20
     },
     tabBar: {
-      backgroundColor: "#fff",
+      backgroundColor: "#f4f4f4",
       color: "#717171",
       selectedColor: "#dc3b23",
       position: 'bottom',
@@ -203,12 +204,12 @@ export default class extends wepy.app {
         selectedIconPath: "images/icons/find_active.png"
       }, {
         pagePath: "pages/launched/index",
-        text: "发动态",
+        text: "发布",
         iconPath: "images/icons/add.png",
         selectedIconPath: "images/icons/add.png"
       }, {
         pagePath: "pages/notice/index",
-        text: "通告",
+        text: "需求",
         iconPath: "images/icons/notice.png",
         selectedIconPath: "images/icons/notice_active.png"
       }, {

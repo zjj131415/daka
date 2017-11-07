@@ -75,7 +75,6 @@
       }
     }
     .works {
-      padding:20rpx;
       .works-list {
         margin-bottom: 20rpx;
         .image-box {
@@ -153,8 +152,9 @@
         flex-direction: column;
         position: relative;
         z-index: 3;
+        background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(191,191,191,.4));
         .circle-name {
-          height: 60rpx;
+          height: 40rpx;
           line-height: 60rpx;
           font-size: 34rpx;
           color: #fff;
@@ -165,19 +165,30 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          position: relative;
           /*width: 46rpx;*/
           height: 46rpx;
           /*border: 1px solid #fff;*/
           border-radius: 100%;
-          font-size: 32rpx;
+          font-size: 30rpx;
           color: #fff;
           &::before {
             margin-right: 5rpx;
-            font-size: 40rpx;
+            font-size: 30rpx;
+          }
+          .border {
+            width: 100rpx;
+            height: 1px solid #fff;
+            position: absolute;
+            top: 50%;
+            &:l {
+              left: 0;
+              top: 0;
+            }
           }
         }
         .circle-tags {
-          height:70rpx;
+          height:50rpx;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -188,7 +199,7 @@
           border: 1px solid #fff;
           border-radius: 12rpx;
           color: #fff;
-          font-size: 24rpx;
+          font-size: 27rpx;
         }
       }
     }
@@ -419,14 +430,18 @@
       <view class="works">
         <block wx:for="{{artists}}" wx:key="index">
           <view class="circle-item" @tap="skip" data-id="{{item.id}}">
-            <!--<view class="circle-img"><image src="{{item.head}}"></image></view>-->
-            <view class="circle-img"><image src="/images/avatar/avatar1.jpg"></image></view>
+            <view class="circle-img"><image src="{{item.head}}"></image></view>
+            <!--<view class="circle-img"><image src="/images/avatar/avatar1.jpg"></image></view>-->
             <view class="circle-info">
               <text class="circle-name">{{item.name}}</text>
-              <text class="circle-name">{{item.height}}</text>
-              <text class="circle-name">{{item.prov}}</text>
+              <!--<text class="circle-name">{{item.height}}</text>-->
+              <!--<text class="circle-name">{{item.prov}}</text>-->
               <view class="circle-icon"></view>
-              <view class="circle-action daka icon-appreciate">100</view>
+              <view class="circle-action daka icon-appreciate">
+                <view class="border l"></view>
+                100
+                <view class="border r"></view>
+              </view>
               <view class="circle-tags">
                 <block wx:for="{{item.types}}" wx:key="{{index}}">
                   <text class="circle-tag-item">{{item}}</text>
