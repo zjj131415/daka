@@ -344,15 +344,15 @@
       </view>
       <view class="features-group">
         <view class="features">获奖经历</view>
-        <text class="features-value flex1">{{userInfos.specialty}}</text>
+        <text class="features-value flex1">{{userInfos.experience}}</text>
       </view>
       <view class="features-group brief">
         <view class="features brief">自我简介</view>
-        <view class="features-value flex1 brief">我是一个对理想有着执着追求的人，坚信是金子总会发光。</view>
+        <text class="features-value flex1 brief">{{userInfos.specialty}}</text>
       </view>
       <view class="images">
         <view class="images-box" wx:for="{{imagesSrc}}" wx:key="index">
-          <image @tap="preview" src="{{item.src}}" mode="widthFix"></image>
+          <image @tap="preview" src="{{item.cover}}" mode="widthFix"></image>
         </view>
       </view>
       <view class="means">演艺经历</view>
@@ -545,9 +545,14 @@
           // 关闭loading
           wepy.hideLoading();
           _this.userInfos = res.data;
-          //console.log(_this.userInfos.specialty)
-          //_this.userInfos.specialty.replace(/<br>/g,"\\n");
-          console.log(_this.userInfos);
+          var reg = /\s/g;
+          _this.userInfos.specialty = _this.userInfos.specialty.replace(reg , ""); //去除中间多余的空格
+          _this.userInfos.experience = _this.userInfos.experience.replace(reg , "");
+          _this.userInfos.specialty = _this.userInfos.specialty.replace(/<br>/g,"\n"); //br转化
+          _this.userInfos.experience = _this.userInfos.experience.replace(/<br>/g,"\n");
+          //console.log(_this.userInfos.folders);
+          //console.log(_this.userInfos);
+          _this.imagesSrc = _this.userInfos.folders; //相册
           _this.$apply();
         }
       })

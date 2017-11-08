@@ -781,6 +781,7 @@
           for (var i = 0; i < _this.artists.length; i++) {
             _this.artists[i].types = _this.artists[i].types.split(",");
           }
+          console.log(_this.artists);
           _this.$apply();
         },
         fail() {

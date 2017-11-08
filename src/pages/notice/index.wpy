@@ -230,6 +230,30 @@
         this.activeOption = e.target.id;
       },
     }
+    onLoad() {
+      var _this = this;
+      //开启loading
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      });
+      wx.request({
+        url: 'https://www.us800.cn/wechat!gotBooking.action', //所有通告
+        data: {},
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function(res) {
+          //关闭loading
+          wepy.hideLoading();
+          console.log(res.data);
+          _this.$apply();
+        },
+        fail() {
+          wx.hideLoading();
+        }
+      });
+    }
   }
 </script>
 
