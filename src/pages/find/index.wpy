@@ -62,6 +62,10 @@
       .find-cont-img {
         display: flex;
         justify-content: center;
+        padding: 10rpx 30rpx;
+        image {
+          width: 100%;
+        }
       }
     }
     .find-actions {
@@ -120,7 +124,7 @@
         <text>{{item.cont.text}}</text>
       </view>
       <view class="find-cont-img">
-        <image src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
+        <image mode="widthFix" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
       </view>
       <view class="find-actions">
         <button open-type="share" class="action-item daka icon-fenxiang2">

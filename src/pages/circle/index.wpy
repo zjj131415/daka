@@ -166,6 +166,7 @@
           align-items: center;
           justify-content: center;
           position: relative;
+          width: 100%;
           /*width: 46rpx;*/
           height: 46rpx;
           /*border: 1px solid #fff;*/
@@ -177,14 +178,14 @@
             font-size: 30rpx;
           }
           .border {
+            flex: 1;
             width: 100rpx;
-            height: 1px solid #fff;
-            position: absolute;
-            top: 50%;
-            &:l {
-              left: 0;
-              top: 0;
-            }
+            height: 1px;
+            background-color: #ffffff;
+          }
+          .daka {
+            margin-left: 20rpx;
+            margin-right: 20rpx;
           }
         }
         .circle-tags {
@@ -437,10 +438,10 @@
               <!--<text class="circle-name">{{item.height}}</text>-->
               <!--<text class="circle-name">{{item.prov}}</text>-->
               <view class="circle-icon"></view>
-              <view class="circle-action daka icon-appreciate">
-                <view class="border l"></view>
-                100
-                <view class="border r"></view>
+              <view class="circle-action">
+                <view class="border"></view>
+                <view class="daka icon-appreciate">100</view>
+                <view class="border"></view>
               </view>
               <view class="circle-tags">
                 <block wx:for="{{item.types}}" wx:key="{{index}}">

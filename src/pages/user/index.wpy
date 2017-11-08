@@ -137,7 +137,8 @@
           this.list = [
             {title: '我的主页', image: '/images/icons/home.png', url: '/pages/user/home'},
             {title: '我的账户', image: '/images/icons/account.png', url: '/pages/user/account'},
-            {title: '我要认证', image: '/images/icons/certification.png', url: '/pages/user/certification'},
+            //{title: '我要认证', image: '/images/icons/certification.png', url: '/pages/user/certification'},
+            {title: '我要认证', image: '/images/icons/certification.png', url: '/pages/user/realname'},
             {title: '我报名的', image: '/images/icons/hand.png', url: '/pages/user/registered'},
             {title: '我发布的', image: '/images/icons/editor.png', url: '/pages/user/published'},
             {title: '旗下大咖', image: '/images/icons/it.png', url: '/pages/user/artist'}

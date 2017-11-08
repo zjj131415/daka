@@ -105,7 +105,8 @@
         }
         .features-value {
           display: inline-block;
-          margin-left: 60rpx;
+          margin-left: 40rpx;
+          padding-right: 20rpx;
           color: #BDC4BF;
         }
         .features-value.brief {
@@ -277,43 +278,6 @@
       <view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{list}}" wx:key="{{index}}" @tap="tabList">{{item}}</view>
     </view>
     <view class="exhibition" hidden="{{activeIndex != 0}}">
-      <view class="schedule">
-        <view class="area">
-          <view class="daka icon-zhongyao1"></view>
-          <view class="word flex1">
-            <view class="matter">起始时间：2017年10月24日14:00</view>
-            <view class="matter">结束时间：2017年10月24日16:00</view>
-            <view class="matter">地点：重庆市江北区金源大饭店</view>
-            <view class="matter">活动名称：走秀活动</view>
-            <view class="matter">注意事项：请提前到会场请提前到会场请提前到会场请提前到会场</view>
-          </view>
-        </view>
-      </view>
-      <view class="schedule">
-        <view class="area">
-          <view class="daka icon-zhongyao1 grey"></view>
-          <view class="word flex1">
-            <view class="matter">起始时间：2017年10月24日14:00</view>
-            <view class="matter">结束时间：2017年10月24日16:00</view>
-            <view class="matter">地点：重庆市江北区金源大饭店</view>
-            <view class="matter">活动名称：走秀活动</view>
-            <view class="matter">注意事项：请提前到会场请提前到会场请提前到会场请提前到会场</view>
-          </view>
-        </view>
-      </view>
-      <view class="footer">
-        <view class="btn-group">
-          <view class="btn flex1">
-            <button><view class="daka icon-zengjia"></view>增加档期</button>
-          </view>
-          <view class="btn flex1">
-            <button><view class="daka icon-shanchu"></view>删除档期</button>
-          </view>
-        </view>
-        <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>
-      </view>
-    </view>
-    <view class="exhibition" hidden="{{activeIndex != 1}}">
       <view class="video">
         <video class="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls></video>
       </view>
@@ -364,6 +328,43 @@
           </view>
           <view class="btn flex1">
             <button open-type="share"><view class="daka icon-fenxiang1"></view>分享到朋友圈</button>
+          </view>
+        </view>
+        <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>
+      </view>
+    </view>
+    <view class="exhibition" hidden="{{activeIndex != 1}}">
+      <view class="schedule">
+        <view class="area">
+          <view class="daka icon-zhongyao1"></view>
+          <view class="word flex1">
+            <view class="matter">起始时间：2017年10月24日14:00</view>
+            <view class="matter">结束时间：2017年10月24日16:00</view>
+            <view class="matter">地点：重庆市江北区金源大饭店</view>
+            <view class="matter">活动名称：走秀活动</view>
+            <view class="matter">注意事项：请提前到会场请提前到会场请提前到会场请提前到会场</view>
+          </view>
+        </view>
+      </view>
+      <view class="schedule">
+        <view class="area">
+          <view class="daka icon-zhongyao1 grey"></view>
+          <view class="word flex1">
+            <view class="matter">起始时间：2017年10月24日14:00</view>
+            <view class="matter">结束时间：2017年10月24日16:00</view>
+            <view class="matter">地点：重庆市江北区金源大饭店</view>
+            <view class="matter">活动名称：走秀活动</view>
+            <view class="matter">注意事项：请提前到会场请提前到会场请提前到会场请提前到会场</view>
+          </view>
+        </view>
+      </view>
+      <view class="footer">
+        <view class="btn-group">
+          <view class="btn flex1">
+            <button><view class="daka icon-zengjia"></view>增加档期</button>
+          </view>
+          <view class="btn flex1">
+            <button><view class="daka icon-shanchu"></view>删除档期</button>
           </view>
         </view>
         <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>
@@ -470,7 +471,7 @@
         avatarUrl: '../../images/avatar/icon-avatar@2x.png'
       },
       area: "重庆市渝北区龙山街道渝安龙都",
-      list: ["档期", "档案", "大咖秀"],
+      list: ["档案", "档期", "大咖秀"],
       activeIndex: 0,
       features: [
         {title: '年龄', value: '25'},
