@@ -332,6 +332,7 @@
       top: 0;
       width: 100%;
       z-index: 100;
+      background-color: rgba(0,0,0,0.4);
       .address {
         width: 140rpx;
         display: flex;
@@ -402,15 +403,15 @@
 <template>
   <view class="container">
     <scroll-view class="scroll" scroll-y @scroll="upper" @scrolltolower="scrollBottom">
-      <swiper class="swiper" indicator-dots autoplay interval="5000" indicator-color="rgba(255,255,255, .3)" indicator-active-color="rgba(255, 0, 0, .6)">
-        <block wx:for="{{bannerArray}}" wx:key="index">
-          <swiper-item class="swiper-item">
-            <navigator url="{{item.url}}">
-              <image src="{{item.image}}"></image>
-            </navigator>
-          </swiper-item>
-        </block>
-      </swiper>
+      <!--<swiper class="swiper" indicator-dots autoplay interval="5000" indicator-color="rgba(255,255,255, .3)" indicator-active-color="rgba(255, 0, 0, .6)">-->
+        <!--<block wx:for="{{bannerArray}}" wx:key="index">-->
+          <!--<swiper-item class="swiper-item">-->
+            <!--<navigator url="{{item.url}}">-->
+              <!--<image src="{{item.image}}"></image>-->
+            <!--</navigator>-->
+          <!--</swiper-item>-->
+        <!--</block>-->
+      <!--</swiper>-->
       <!--<swiper class="swiperMenu">-->
         <!--<block wx:for="{{typeChoose}}" wx:key="index">-->
           <!--<swiper-item class="menu">-->
