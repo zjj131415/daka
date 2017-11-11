@@ -147,9 +147,9 @@ export default class extends wepy.app {
   config = {
     pages: [
 
-      //'pages/notice/detail',
-      'pages/notice/index',
       'pages/circle/index',
+      'pages/circle/filter',
+      'pages/notice/index',
       'pages/find/detail',
       'pages/user/info-basis',
       'pages/find/index',

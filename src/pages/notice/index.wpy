@@ -39,6 +39,32 @@
         }
       }
     }
+    .swiperMenu {
+      height: 100px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: #ffffff;
+      .menu {
+        display: flex;
+        align-items: center;
+        .option {
+          width: 25%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          // display: inline-block;
+          // padding: 5rpx;
+          // margin: 0 10rpx;
+          font-size: 28rpx;
+          color: #737373;
+          .daka {
+            font-size: 50rpx;
+            color: #E9989E;
+          }
+        }
+      }
+    }
     .notice-list {
       margin-top: 15rpx;
     }
@@ -109,9 +135,11 @@
         background: #fff;
         font-size: 28rpx;
         color: #7f7f7f;
-        .after {
-          margin-top: 56rpx;
+        .message {
           display: flex;
+          justify-content: space-between;
+        }
+        .after {
           font-size: 24rpx;
           color: #ccc;
         }
@@ -144,9 +172,9 @@
 <template>
   <view class="container">
     <view class="header-block">
-      <scroll-view scroll-x class="scroll-head">
-        <text class="scroll-view {{activeOption == index ? 'active' : '' }}" plain id="{{index}}" wx:for="{{optionList}}" wx:key="{{index}}" @tap="switchOption">{{item}}</text>
-      </scroll-view>
+      <!--<scroll-view scroll-x class="scroll-head">-->
+        <!--<text class="scroll-view {{activeOption == index ? 'active' : '' }}" plain id="{{index}}" wx:for="{{optionList}}" wx:key="{{index}}" @tap="switchOption">{{item}}</text>-->
+      <!--</scroll-view>-->
       <swiper class="swiper" indicator-dots autoplay interval="5000" indicator-color="rgba(255,255,255, .3)" indicator-active-color="rgba(255, 0, 0, .6)">
         <block wx:for="{{bannerArray}}" wx:key="index">
           <swiper-item class="swiper-item">
@@ -157,6 +185,16 @@
         </block>
       </swiper>
     </view>
+    <swiper class="swiperMenu">
+      <block wx:for="{{typeChoose}}" wx:key="index">
+        <swiper-item class="menu">
+          <view class="option" wx:for="{{item}}" wx:key="index">
+            <view class="daka {{item.icon}}"></view>
+            {{item.value}}
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
     <view class="notice-list">
       <block wx:for="{{notice}}" wx:key="{{index}}">
         <navigator class="notice-item" url="/pages/notice/detail">
@@ -178,12 +216,14 @@
               <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
               <view class="btn-title">
                 <view class="title">Hot造星计划全宇宙招聘HitHot</view>
-                <view class="name">一人统筹阿超</view>
+                <view class="message">
+                  <view class="name">一人统筹阿超</view>
+                  <view class="after">
+                    <text class="people">99+人已报名</text>
+                    <!--<text class="timer">12-32截止</text>-->
+                  </view>
+                </view>
               </view>
-            </view>
-            <view class="after">
-              <text class="people">99+人已报名</text>
-              <!--<text class="timer">12-32截止</text>-->
             </view>
           </view>
         </navigator>
@@ -222,7 +262,31 @@
           peopleNum: 100,
           endTimer: '12-31'
         }
-      }]
+      }],
+      typeChoose: [
+        [
+          {value: '电商网红', icon: 'icon-wanghongmote'},
+          {value: '活动直播', icon: 'icon-zhibo'},
+          {value: '主持', icon: 'icon-zhuchiren'},
+          {value: '模特', icon: 'icon-icon-test'}
+        ],
+        [
+          {value: '歌舞表演', icon: 'icon-gewuyulechangsuofuzhi-copy'},
+          {value: '特技绝活', icon: 'icon-weibiaoti3'},
+          {value: '广告代言', icon: 'icon-daiyanren'},
+          {value: '礼仪', icon: 'icon-liyi'}
+        ],
+        [
+          {value: '配音', icon: 'icon-peiyin1'},
+          {value: '游戏私教', icon: 'icon-youxi'},
+          {value: 'K歌私教', icon: 'icon-quanminkge'},
+          {value: '摄影', icon: 'icon-sheying-'}
+        ],
+        [
+          {value: '戏曲', icon: 'icon-xiqu'},
+          {value: '节目嘉宾', icon: 'icon-jiabin'}
+        ]
+      ],
     };
 
     methods = {

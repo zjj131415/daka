@@ -360,6 +360,13 @@
           margin-right: 20rpx;
           font-size: 30rpx;
         }
+        .search {
+          flex: 1;
+          height: 100%;
+        }
+        .placeholder {
+          color: #f5f9fc;
+        }
       }
       .news {
         width: 110rpx;
@@ -404,30 +411,27 @@
           </swiper-item>
         </block>
       </swiper>
-      <swiper class="swiperMenu">
-        <block wx:for="{{typeChoose}}" wx:key="index">
-          <swiper-item class="menu">
-            <view class="option" wx:for="{{item}}" wx:key="index">
-              <view class="daka {{item.icon}}"></view>
-              {{item.value}}
-            </view>
-          </swiper-item>
-        </block>
-      </swiper>
-      <view class="tab">
-        <!--<view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">-->
-          <!--{{item}}<text class="daka icon-triangledownfill"></text>-->
+      <!--<swiper class="swiperMenu">-->
+        <!--<block wx:for="{{typeChoose}}" wx:key="index">-->
+          <!--<swiper-item class="menu">-->
+            <!--<view class="option" wx:for="{{item}}" wx:key="index">-->
+              <!--<view class="daka {{item.icon}}"></view>-->
+              <!--{{item.value}}-->
+            <!--</view>-->
+          <!--</swiper-item>-->
+        <!--</block>-->
+      <!--</swiper>-->
+      <!--<view class="tab">-->
+        <!--<view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">-->
+          <!--{{sortName}}<text class="daka icon-triangledownfill"></text>-->
         <!--</view>-->
-        <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">
-          {{sortName}}<text class="daka icon-triangledownfill"></text>
-        </view>
-        <view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" @tap="tabList('1')">
-          服务类型<text class="daka icon-triangledownfill"></text>
-        </view>
-        <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">
-          筛选<text class="daka icon-triangledownfill"></text>
-        </view>
-      </view>
+        <!--<view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" @tap="tabList('1')">-->
+          <!--服务类型<text class="daka icon-triangledownfill"></text>-->
+        <!--</view>-->
+        <!--<view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">-->
+          <!--筛选<text class="daka icon-triangledownfill"></text>-->
+        <!--</view>-->
+      <!--</view>-->
       <view class="works">
         <block wx:for="{{artists}}" wx:key="index">
           <view class="circle-item" @tap="skip" data-id="{{item.id}}">
@@ -451,32 +455,6 @@
             </view>
           </view>
         </block>
-        <!--<view class="works-list">-->
-          <!--<view class="image-box">-->
-            <!--<image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>-->
-            <!--<view class="flag">摄影</view>-->
-          <!--</view>-->
-          <!--<view class="content">-->
-            <!--<view class="title">摄影、写真拍摄</view>-->
-            <!--<view class="detail">-->
-              <!--<view class="price">￥500.00/单</view>-->
-              <!--<view class="location"><text class="daka icon-locationfill"></text>重庆市</view>-->
-            <!--</view>-->
-          <!--</view>-->
-        <!--</view>-->
-        <!--<view class="works-list">-->
-          <!--<view class="image-box">-->
-            <!--<image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>-->
-            <!--<view class="flag">摄影2</view>-->
-          <!--</view>-->
-          <!--<view class="content">-->
-            <!--<view class="title">摄影、写真拍摄</view>-->
-            <!--<view class="detail">-->
-              <!--<view class="price">￥500.00/单</view>-->
-              <!--<view class="location"><text class="daka icon-locationfill"></text>重庆市</view>-->
-            <!--</view>-->
-          <!--</view>-->
-        <!--</view>-->
       </view>
     </scroll-view>
     <view class="sort" wx:if="{{sortVisible1}}">
@@ -538,10 +516,10 @@
     </view>
     <view class="search-bar" wx:if="{{searchFlag}}">
       <view class="address">北京<text class="daka icon-unfold"></text></view>
-      <navigator url="/pages/circle/filter" class="search-open">
+      <view class="search-open">
         <text class="daka icon-search"></text>
-        精准查找
-      </navigator>
+        <input class="search" placeholder="精准查找" placeholder-style="color: #f5f9fc;" confirm-type="search" auto-focus/>
+      </view>
       <!--<navigator class="search-open" url="/pages/circle/search">-->
         <!--<text class="daka icon-search"></text>-->
         <!--精准查找-->
@@ -550,17 +528,17 @@
         <view class="news-icon daka icon-xiaoxi3-copy"></view>
       </view>
     </view>
-    <view class="tab tab1" wx:if="{{tabFlag}}">
-      <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">
-        {{sortName}}<text class="daka icon-triangledownfill"></text>
-      </view>
-      <view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" @tap="tabList('1')">
-        服务类型<text class="daka icon-triangledownfill"></text>
-      </view>
-      <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">
-        筛选<text class="daka icon-triangledownfill"></text>
-      </view>
-    </view>
+    <!--<view class="tab tab1" wx:if="{{tabFlag}}">-->
+      <!--<view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">-->
+        <!--{{sortName}}<text class="daka icon-triangledownfill"></text>-->
+      <!--</view>-->
+      <!--<view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" @tap="tabList('1')">-->
+        <!--服务类型<text class="daka icon-triangledownfill"></text>-->
+      <!--</view>-->
+      <!--<view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">-->
+        <!--筛选<text class="daka icon-triangledownfill"></text>-->
+      <!--</view>-->
+    <!--</view>-->
   </view>
 </template>
 <script>
