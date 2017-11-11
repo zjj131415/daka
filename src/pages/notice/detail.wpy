@@ -89,6 +89,49 @@
         }
       }
     }
+    .signup {
+      margin-top: 20rpx;
+      padding: 20rpx;
+      background-color: #ffffff;
+      .tag {
+        margin-bottom: 20rpx;
+        font-size: 28rpx;
+        .daka {
+          margin-right: 20rpx;
+          color: #F24C4C;
+        }
+        .address {
+          margin-right: 20rpx;
+          color: #8A8A8A;
+        }
+        .city {
+          color: #545454;
+        }
+        .movies {
+          padding-left: 10rpx;
+          padding-right: 10rpx;
+          border-radius: 10px;
+          border: 1px solid #7DAAD0;
+          font-size: 24rpx;
+          color: #7DAAD0;
+        }
+      }
+      .avatar-group {
+        box-sizing:border-box;
+        white-space:nowrap;
+        padding:20rpx 0;
+        background:#fff;
+        .avatar {
+          width: 90rpx;
+          height: 90rpx;
+          margin-right: 10rpx;
+          border-radius: 50%;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+    }
   }
 </style>
 
@@ -128,6 +171,18 @@
         </view>
       </view>
     </view>
+    <view class="signup">
+      <view class="tag">
+        <text class="daka icon-locationfill"></text>
+        <text class="address">已报名</text>
+        <text class="city">19人</text>
+      </view>
+      <scroll-view class="avatar-group" scroll-x>
+        <block wx:for="{{avatars}}" wx:key="{{index}}">
+          <image class="avatar" src="{{item}}"></image>
+        </block>
+      </scroll-view>
+    </view>
   </view>
 </template>
 <script>
@@ -138,6 +193,17 @@
     }
     data = {
       optionList: ['全职招聘', '演绎活动', '剧组招聘', '婚庆招聘', '运动时尚', '兼职招聘'],
+      avatars: [
+        '../../images/avatar/avatar1.jpg',
+        '../../images/avatar/avatar2.jpg',
+        '../../images/avatar/avatar3.jpg',
+        '../../images/avatar/avatar1.jpg',
+        '../../images/avatar/avatar2.jpg',
+        '../../images/avatar/avatar3.jpg',
+        '../../images/avatar/avatar1.jpg',
+        '../../images/avatar/avatar2.jpg',
+        '../../images/avatar/avatar3.jpg'
+      ]
     };
 
     methods = {
