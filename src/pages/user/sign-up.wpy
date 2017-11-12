@@ -1,0 +1,88 @@
+<style lang="less" scoped>
+  .container {
+    .main-nav {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #dcdcdc;
+      padding: 10rpx 0;
+      .nav-item {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 68rpx;
+        font-size: 30rpx;
+        color: #333;
+        border-right: 1px solid #dcdcdc;
+        &.active {
+          color: #dc3b23;
+        }
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="main-nav">
+      <block wx:for="{{nav}}" wx:key="{{item.id}}">
+        <view class="nav-item {{item.id === acNav ? 'active' : ''}}"
+              data-id="{{item.id}}"
+              @tap="handleNav">{{item.text}}</view>
+      </block>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+  export default class SignUp extends wepy.page {
+    config = {
+      navigationBarTitleText: '报名列表'
+    };
+    data = {
+      acNav: 1,
+      nav:  [
+        {
+          id: 1,
+          text: '全部'
+        }, {
+          id: 2,
+          text: '未处理'
+        }, {
+          id: 3,
+          text: '已接受'
+        }, {
+          id: 4,
+          text: '已拒绝'
+        }
+      ],
+      name: 'name'
+    };
+
+    methods = {
+      handleNav(e) {
+        const {id} = e.currentTarget.dataset || {};
+        this.acNav = id;
+      },
+      loadData(id) {
+        console.log(id)
+        wepy.showLoading({title: '加载中'});
+        wepy.request({
+          url: 'https://www.us800.cn', //仅为示例，并非真实的接口地址
+          data: {
+          },
+          header: {
+            'content-type': 'application/json'
+          },
+          success: function(res) {
+            wepy.hideLoading();
+          }
+        })
+      }
+    };
+
+    onShow() {
+      this.methods.loadData(1)
+    }
+  }
+</script>

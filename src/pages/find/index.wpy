@@ -72,8 +72,10 @@
       .find-cont-img {
         display: flex;
         justify-content: center;
+        height: 400rpx;
         image {
           width: 100%;
+          height: 100%;
         }
       }
     }
@@ -117,7 +119,7 @@
   <view class="find-iem" wx:for="{{findArray}}" wx:key="index">
     <navigator class="find-header" url="{{'sks'}}">
       <view class="find-img">
-        <image src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+        <image mode="aspectFill" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
       </view>
       <view class="find-name-tag">
         <view class="find-name">{{item.user.name}}<text class="renz-icon daka icon-yishimingrenzheng1"></text></view>
@@ -132,7 +134,7 @@
         <text>{{item.cont.text}}</text>
       </view>
       <view class="find-cont-img">
-        <image mode="widthFix" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
+        <image mode="aspectFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
       </view>
     </view>
     <view class="up-time">2017-10-12</view>

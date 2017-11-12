@@ -38,6 +38,7 @@ module.exports = {
     "no-multi-spaces": 0,
     "spaced-comment": 0,
     "spaced-comment": 0,
-    " no-unused-vars": 0
+    " no-unused-vars": 0,
+    "eol-last": 0
   }
 }
