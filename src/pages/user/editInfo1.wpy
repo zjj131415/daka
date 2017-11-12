@@ -27,8 +27,8 @@
     .media {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 20rpx 80rpx 30rpx 80rpx;
+      justify-content: space-around;
+      padding: 20rpx 0 30rpx 0;
     }
   }
   .cells {
