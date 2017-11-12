@@ -9,9 +9,11 @@
      left: 0;
      bottom: 0;
      display: flex;
-     justify-content: center;
+     justify-content: space-between;
      width: 100%;
      margin-bottom: 50rpx;
+     box-sizing: border-box;
+     padding: 0 120rpx;
      .nav-item {
        /*display: flex;*/
        /*align-items: center;*/
@@ -19,12 +21,12 @@
        /*width: 160rpx;*/
        /*height: 160rpx;*/
        flex: 1;
-       margin: 0 30rpx;
+       /*margin: 0 30rpx;*/
        text-align: center;
        overflow: hidden;
        image {
-         width: 160rpx;
-         height: 160rpx;
+         width: 140rpx;
+         height: 140rpx;
        }
        .name {
          font-size: 28rpx;
@@ -64,7 +66,7 @@
      }, {
        image: '/images/dynamic.png',
        url: './notice',
-       name: '发布通告'
+       name: '发布需求'
      }]
     }
   }

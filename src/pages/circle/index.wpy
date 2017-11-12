@@ -399,7 +399,7 @@
         <block wx:for="{{bannerArray}}" wx:key="index">
           <swiper-item class="swiper-item">
             <navigator url="{{item.url}}">
-              <image src="{{item.image}}"></image>
+              <image src="{{item.image}}" mode="aspectFill"></image>
             </navigator>
           </swiper-item>
         </block>
@@ -431,7 +431,7 @@
       <view class="works">
         <block wx:for="{{artists}}" wx:key="index">
           <view class="circle-item" @tap="skip" data-id="{{item.id}}">
-            <view class="circle-img"><image src="{{item.head}}"></image></view>
+            <view class="circle-img"><image src="{{item.head}}" mode="aspectFill"></image></view>
             <!--<view class="circle-img"><image src="/images/avatar/avatar1.jpg"></image></view>-->
             <view class="circle-info">
               <text class="circle-name">{{item.name}}</text>

@@ -1,7 +1,8 @@
 <style lang="less" scoped>
   .container {
+    padding-bottom: 80rpx;
     .head {
-      padding: 20rpx;
+      padding: 0 20rpx 20rpx 20rpx;
       background-color: #ffffff;
       .title {
         margin-top: 20rpx;
@@ -44,6 +45,7 @@
           color: #545454;
         }
         .movies {
+          margin-right: 10rpx;
           padding-left: 10rpx;
           padding-right: 10rpx;
           border-radius: 10px;
@@ -132,28 +134,188 @@
         }
       }
     }
+    .notice-img {
+      width: 100%;
+      height: 400rpx;
+      image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .notice-bottom {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*height: 78rpx;*/
+    padding: 30rpx 0 20rpx 0;
+    margin-bottom: 10rpx;
+    background: #fff;
+    font-size: 28rpx;
+    color: #7f7f7f;
+    .message {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .after {
+      font-size: 24rpx;
+      color: #ccc;
+    }
+    .people {
+      margin-right: 24rpx;
+    }
+  }
+  .btn-title {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    .aaa-title {
+      font-size: 36rpx;
+      color: #333;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    > view {
+      width: 100%;
+    }
+  }
+  .before {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .before-img {
+    width: 90rpx;
+    height: 90rpx;
+    margin-right: 10rpx;
+  }
+  .notice-top-info {
+    position: relative;
+    width: 100%;
+    height: 400rpx;
+  }
+  .notice-img {
+    width: 100%;
+    height: 400rpx;
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .notice-cover {
+    position: absolute;
+    bottom: 20rpx;
+    left:  0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 18rpx;
+    color: #fff;
+    .title {
+      display: flex;
+      align-items: center;
+      font-size: 32rpx;
+    }
+    .tags {
+      height: 50rpx;
+      display: flex;
+      align-items: center;
+      .tag-item{
+        display: flex;
+        align-items: center;
+        height: 40rpx;
+        margin-right: 10rpx;
+        border-radius: 20rpx 20rpx 20rpx 3rpx;
+        padding: 0 20rpx;
+        background: #d24115;
+        font-size: 24rpx;
+        color: #fff;
+      }
+    }
+  }
+  .release {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 90rpx;
+      background: #dc3b23;
+      font-size: 28rpx;
+      color: #fff;
+      image {
+        width: 60rpx;
+        height:60rpx;
+      }
+    }
   }
 </style>
 
 <template>
   <view class="container">
+    <view class="notice-img">
+      <image src="https://img.hotyq.com/recruit/2017/074/1499167078881.jpg"></image>
+    </view>
     <view class="head">
-      <view class="title">院线电影《非正式爱情》招募演员</view>
-      <view class="news">
-        <text class="message">快讯</text>
-        <text class="date">10-26发布</text>
+      <!--<view class="title">院线电影《非正式爱情》招募演员</view>-->
+      <view class="notice-bottom">
+        <view class="before">
+          <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+          <view class="btn-title">
+            <view class="aaa-title">Hot造星计划全宇宙招聘HitHotdwqdwqdqjdwqdqwdjwqjdqwj</view>
+            <view class="message">
+              <view class="name">一人统筹阿超</view>
+              <view class="after">
+                <text class="people">06-13发布</text>
+                <!--<text class="timer">12-32截止</text>-->
+              </view>
+            </view>
+          </view>
+        </view>
       </view>
-      <view class="line"></view>
       <view class="tag">
         <text class="daka icon-locationfill"></text>
         <text class="address">工作地点</text>
-        <text class="city">重庆市</text>
+        <text class="city">重庆 渝中 时代天街1号</text>
       </view>
       <view class="tag">
         <text class="daka icon-leixing"></text>
         <text class="address">通告类型</text>
         <text class="movies">影视组讯</text>
+        <text class="movies">设备组讯</text>
       </view>
+      <view class="tag">
+        <text class="daka icon-timefill"></text>
+        <text class="address">开始时间</text>
+        <text class="city">2017-08-15 18:23:00</text>
+      </view>
+      <view class="tag">
+        <text class="daka icon-timefill"></text>
+        <text class="address">结束时间</text>
+        <text class="city">2017-08-15 18:23:00</text>
+      </view>
+    </view>
+    <view class="signup">
+      <view class="tag">
+        <text class="daka icon-locationfill"></text>
+        <text class="address">已报名</text>
+        <text class="city">19人</text>
+      </view>
+      <scroll-view class="avatar-group" scroll-x>
+        <block wx:for="{{avatars}}" wx:key="{{index}}">
+          <image class="avatar" src="{{item}}"></image>
+        </block>
+      </scroll-view>
     </view>
     <view class="brief">
       <view class="tag">
@@ -171,17 +333,8 @@
         </view>
       </view>
     </view>
-    <view class="signup">
-      <view class="tag">
-        <text class="daka icon-locationfill"></text>
-        <text class="address">已报名</text>
-        <text class="city">19人</text>
-      </view>
-      <scroll-view class="avatar-group" scroll-x>
-        <block wx:for="{{avatars}}" wx:key="{{index}}">
-          <image class="avatar" src="{{item}}"></image>
-        </block>
-      </scroll-view>
+    <view class="release">
+      <view class="btn"><image src="../../images/icons/hand.png" mode="aspectFill"></image>我要报名</view>
     </view>
   </view>
 </template>

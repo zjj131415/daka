@@ -6,13 +6,15 @@
     /*background-color: #F7F7F7;*/
     .user-head {
       /*min-height: 240rpx;*/
+      position: relative;
       padding-top: 20rpx;
       padding-bottom: 20rpx;
-      background: url("//m.360buyimg.com/mobilecms/jfs/t3397/99/1458444016/44744/18cde4df/582819beNe89ce16d.png") no-repeat 100%;
       .avatar {
         align-items: center;
         justify-content: center;
         height: 100%;
+        position: relative;
+        z-index: 5;
         .user-avatar {
           display: block;
           width: 140rpx;
@@ -51,6 +53,16 @@
         }
       }
     }
+    .user-background {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      filter: blur(60rpx);
+      overflow: hidden;
+    }
     .tab {
       display: flex;
       height: 80rpx;
@@ -60,6 +72,7 @@
       text-align: center;
       background-color: #ffffff;
       border-bottom: 1rpx solid #F0F0F0;
+      filter: blur(0rpx);
       .tab-list {
         font-size: 30rpx;
         border-right: 1rpx solid #F0F0F0;
@@ -261,6 +274,7 @@
 <template>
   <view class="container">
     <view class="user-head">
+      <image class="user-background" src="{{userInfos.head}}" mode="aspectFill"></image>
       <view class="avatar">
         <image class="user-avatar" src="{{userInfos.head}}"></image>
         <viem class="user-group">

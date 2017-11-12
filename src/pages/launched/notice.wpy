@@ -4,7 +4,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 580rpx;
+      height: 340rpx;
       background-color: #EEEEEE;
       .bg {
         text-align: center;
@@ -136,7 +136,7 @@
     <view class="uploadImg" @tap="uploadImage">
       <view class="bg" wx:if="{{!imgSrc}}">
         <image src="../../images/upload_img.png" mode="widthFix" class="img"></image>
-        <view class="detail">上传通告封面图曝光量可提高93%</view>
+        <view class="detail">上传需求封面图尺寸比例750*340</view>
       </view>
       <image src="{{imgSrc}}" class="bgImg" wx:else></image>
     </view>
@@ -144,14 +144,14 @@
       <view class="list">
         <view class="daka icon-zhuti icon"></view>
         <view class="option flex1">
-          <input placeholder="通告主题（不超过30个字符）" maxlength="30"/>
+          <input placeholder="通告主题" maxlength="30"/>
         </view>
       </view>
-      <view class="list">
-        <view class="daka icon-timefill icon"></view>
-        <view class="option flex1">截止时间</view>
-        <view class="daka icon-right"></view>
-      </view>
+      <!--<view class="list">-->
+        <!--<view class="daka icon-timefill icon"></view>-->
+        <!--<view class="option flex1">截止时间</view>-->
+        <!--<view class="daka icon-right"></view>-->
+      <!--</view>-->
       <view class="list">
         <view class="daka icon-locationfill icon"></view>
         <view class="option flex1">工作城市</view>

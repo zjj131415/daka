@@ -6,7 +6,7 @@
       display: flex;
       align-items: center;
       padding: 0 30rpx;
-      // border-bottom: 1px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
     }
     .find-img {
       width: 90rpx;
@@ -47,6 +47,15 @@
         color: #808080;
       }
     }
+    .up-time {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 50rpx;
+      padding: 0 30rpx;
+      font-size: 24rpx;
+      color: #cbcbcb;
+    }
     .down-icon {
       display: flex;
       height: 100%;
@@ -56,7 +65,6 @@
     .find-cont {
       padding: 0 30rpx;
       .find-cont-text {
-        border-top: 1px solid #eaeaea;
         padding: 10rpx 0;
         font-size: 30rpx;
         color: #5f5f5f;
@@ -64,14 +72,12 @@
       .find-cont-img {
         display: flex;
         justify-content: center;
-        padding: 10rpx 0;
         image {
           width: 100%;
         }
       }
     }
     .find-actions {
-      margin-top: 20rpx;
       height: 70rpx;
       border-top: 1px solid #eaeaea;
       border-bottom: 1px solid #eaeaea;
@@ -129,6 +135,7 @@
         <image mode="widthFix" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
       </view>
     </view>
+    <view class="up-time">2017-10-12</view>
     <view class="find-actions">
       <button open-type="share" class="action-item daka icon-fenxiang2">
         分享

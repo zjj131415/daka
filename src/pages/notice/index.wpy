@@ -137,6 +137,7 @@
         color: #7f7f7f;
         .message {
           display: flex;
+          align-items: center;
           justify-content: space-between;
         }
         .after {
@@ -215,11 +216,11 @@
             <view class="before">
               <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
               <view class="btn-title">
-                <view class="title">Hot造星计划全宇宙招聘HitHot</view>
+                <view class="title">Hot造星计划全宇宙招聘HitHotdwqdwqdqjdwqdqwdjwqjdqwj</view>
                 <view class="message">
                   <view class="name">一人统筹阿超</view>
                   <view class="after">
-                    <text class="people">99+人已报名</text>
+                    <text class="people">06-13发布</text>
                     <!--<text class="timer">12-32截止</text>-->
                   </view>
                 </view>
@@ -302,7 +303,7 @@
         mask: true
       });
       wx.request({
-        url: 'https://www.us800.cn/wechat!gotBooking.action', //所有通告
+        url: 'https://www.us800.cn/wechat!gotBookingDetail.action', //所有通告
         data: {},
         header: {
           'content-type': 'application/json' // 默认值

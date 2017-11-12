@@ -38,13 +38,23 @@
       }
     }
   }
+  .release {
+    margin-top: 40rpx;
+    padding: 20rpx;
+    background-color: #FFFFFF;
+    button {
+      font-size: 30rpx;
+      color: #ffffff;
+      background-color: #DB3B23;
+    }
+  }
 </style>
 
 <template>
   <view class="container">
     <form bindsubmit="alert()">
       <view class="textarea">
-        <textarea maxlength="500" auto-focus show-confirm-bar="{{false}}" placeholder-style="color: #b3b3b3" placeholder="最近怎么样？说点什么吧～\r dds"></textarea>
+        <textarea maxlength="500" auto-focus show-confirm-bar="{{false}}" placeholder-style="color: #b3b3b3" placeholder="沉积是金，发布最新工作状态～"></textarea>
       </view>
       <view class="uploader-files">
         <block wx:for="{{files}}" wx:key="*this">
@@ -59,6 +69,9 @@
           <image src="/images/upload_video.png"></image>
         </view>
         <view class=""></view>
+      </view>
+      <view class="release">
+        <button>发布</button>
       </view>
     </form>
   </view>
