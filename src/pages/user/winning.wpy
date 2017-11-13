@@ -1,0 +1,138 @@
+<style lang="less" scoped>
+  .container {
+    padding-bottom: 40rpx;
+    .info-group {
+      padding-left: 20rpx;
+      box-sizing:border-box;
+      background:#fff;
+      .option {
+        display: flex;
+        padding:20rpx 30rpx;
+        padding-left: 0;
+        border-bottom:1px solid #f5f5f5;
+        font-size: 28rpx;
+        .option-left {
+          display: flex;
+          align-items: center;
+        }
+        .option-center {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          padding-left: 20rpx;
+          padding-right: 20rpx;
+          &.nochoice {
+            color: #838383;
+          }
+          picker {
+            width: 100%;
+            text-align: right;
+          }
+          .school {
+            width: 100%;
+            text-align: right;
+          }
+        }
+        .option-right {
+          display: flex;
+          align-items: center;
+          font-size: 32rpx;
+          color: #cdcdcd;
+        }
+        &.noborder {
+          border-bottom: none;
+        }
+      }
+      .upload {
+        display: flex;
+        padding-bottom: 20rpx;
+        .upload-img {
+          width: 160rpx;
+          height: 160rpx;
+          margin-right: 20rpx;
+          border-radius: 5px;
+        }
+      }
+    }
+    .description {
+      height: 80rpx;
+      line-height: 80rpx;
+      padding-left: 20rpx;
+      font-size: 30rpx;
+      color: #A3A3A3;
+      background-color: #F7F7F7;
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="description">获得奖项</view>
+    <view class="info-group">
+      <view class="option">
+        <view class="option-left">奖项</view>
+        <view class="option-center">
+          <input placeholder="请填写奖项名称" class="school"/>
+        </view>
+      </view>
+      <view class="option">
+        <view class="option-left">时间</view>
+        <view class="option-center">
+          <picker mode="date" value="{{personInfo.date}}" @change="dateChange">
+            <view class="picker">
+              {{personInfo.date}}
+            </view>
+          </picker>
+        </view>
+        <view class="option-right daka icon-right"></view>
+      </view>
+      <view class="option noborder">
+        <view class="option-left">获奖证书上传</view>
+        <view class="option-center">
+          最多上传3个
+        </view>
+      </view>
+      <view class="upload">
+        <block wx:for="{{personInfo.imgSrc}}" wx:key="{{index}}">
+          <image class="upload-img" src="{{item}}" @tap="uploadImg"></image>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Winning extends wepy.page {
+    config = {
+      navigationBarTitleText: '获奖经历'
+    }
+    data = {
+      personInfo: {
+        date: '请选择',
+        imgSrc: ['/images/upload_img.png']
+      }
+    }
+    methods = {
+      dateChange(e) {
+        this.personInfo.date = e.detail.value
+      },
+      uploadImg() {
+        var _this = this;
+        wx.chooseImage({
+          count: 3, // 默认9
+          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+          success: function (res) {
+            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+            _this.personInfo.imgSrc = res.tempFilePaths;
+            console.log(_this.personInfo.imgSrc);
+            _this.$apply();
+          }
+        })
+      }
+    }
+  }
+</script>
+

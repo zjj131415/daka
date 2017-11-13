@@ -1,0 +1,41 @@
+<style lang="less" scoped>
+  .container {
+    padding-top: 40rpx;
+    .enter {
+      border-top:1px solid #f5f5f5;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 30rpx;
+      color: #000;
+      background-color:#ffffff;
+      textarea{
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 600rpx;
+        padding: 20rpx 30rpx;
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="enter">
+      <textarea type="text" placeholder="请填写个人简介" value="{{personal}}" maxlength="-1" focus/>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Brief extends wepy.page {
+    config = {
+      navigationBarTitleText: '个人简介'
+    }
+    data = {
+      personal: ''
+    }
+    methods = {
+
+    }
+  }
+</script>

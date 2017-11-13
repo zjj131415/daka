@@ -114,17 +114,20 @@
         {
           t: '专业资料',
           b: '',
-          f: 'icon-right'
+          f: 'icon-right',
+          r: 'professional'
         },
         {
           t: '个人简介',
           b: ' ',
-          f: 'icon-right'
+          f: 'icon-right',
+          r: 'brief'
         },
         {
           t: '获奖经历',
           b: ' ',
-          f: 'icon-right'
+          f: 'icon-right',
+          r: 'winning'
         }
       ],
       "u_i": "/images/upload_img.png",
