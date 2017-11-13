@@ -418,13 +418,13 @@
         <!--<view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">-->
           <!--{{item}}<text class="daka icon-triangledownfill"></text>-->
         <!--</view>-->
-        <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">
+        <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" data-index="0" @tap="tabList">
           {{sortName}}<text class="daka icon-triangledownfill"></text>
         </view>
-        <view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" @tap="tabList('1')">
+        <view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" data-index="1" @tap="tabList">
           服务类型<text class="daka icon-triangledownfill"></text>
         </view>
-        <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">
+        <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" data-index="2" @tap="tabList">
           筛选<text class="daka icon-triangledownfill"></text>
         </view>
       </view>
@@ -551,13 +551,13 @@
       </view>
     </view>
     <view class="tab tab1" wx:if="{{tabFlag}}">
-      <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" @tap="tabList('0')">
+      <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" data-index="0" @tap="tabList">
         {{sortName}}<text class="daka icon-triangledownfill"></text>
       </view>
-      <view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" @tap="tabList('1')">
+      <view class="tab-list flex1 {{checkboxArr.length != 0  ? 'active' : '' }}" data-index="1" @tap="tabList">
         服务类型<text class="daka icon-triangledownfill"></text>
       </view>
-      <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" @tap="tabList('2')">
+      <view class="tab-list flex1 {{(activeIndex3 != 0 || activeIndex4 != 0)  ? 'active' : '' }}" data-index="2" @tap="tabList">
         筛选<text class="daka icon-triangledownfill"></text>
       </view>
     </view>
@@ -651,10 +651,9 @@
           urls: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg'] // 需要预览的图片http链接列表
         })
       },
-      tabList(index, e) {
-        console.log(index,e)
-        return false;
-//        this.activeIndex = e.target.id;
+      tabList(e) {
+        const {index} = e.currentTarget.dataset || {};
+        //this.activeIndex = e.target.id;
         switch (index) {
           case '0':
             this.sortVisible1 = true;
