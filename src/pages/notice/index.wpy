@@ -198,7 +198,7 @@
     </swiper>
     <view class="notice-list">
       <block wx:for="{{notice}}" wx:key="{{index}}">
-        <navigator class="notice-item" url="/pages/notice/detail">
+        <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}">
           <view class="notice-top-info">
             <view class="notice-img">
               <image src="{{item.image}}"></image>
@@ -216,11 +216,11 @@
             <view class="before">
               <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
               <view class="btn-title">
-                <view class="title">Hot造星计划全宇宙招聘HitHotdwqdwqdqjdwqdqwdjwqjdqwj</view>
+                <view class="title">{{item.name}}</view>
                 <view class="message">
-                  <view class="name">一人统筹阿超</view>
+                  <view class="name">{{item.contactPerson}}</view>
                   <view class="after">
-                    <text class="people">06-13发布</text>
+                    <text class="people">{{item.createTime}}发布</text>
                     <!--<text class="timer">12-32截止</text>-->
                   </view>
                 </view>
@@ -250,20 +250,7 @@
           url: '/pages/user/home'
         }
       ],
-      notice: [{
-        image: 'https://img.hotyq.com/recruit/2017/074/1499167078881.jpg',
-        title: '优酷Hit-Hot造星计划全宇宙招聘HitHot Star!优酷Hit-Hot造星计划全宇宙招聘HitHot Star!',
-        tags: ['影视剧组', '培训招生']
-      }, {
-        image: 'https://img.hotyq.com/recruit/2017/068/1496919314135.png',
-        title: '优酷Hit-Hot造星计划全宇宙招聘HitHot Star!',
-        tags: ['影视剧组', '培训招生'],
-        target: {
-          name: '艺人统筹阿超',
-          peopleNum: 100,
-          endTimer: '12-31'
-        }
-      }],
+      notice: [],
       typeChoose: [
         [
           {value: '电商网红', icon: 'icon-wanghongmote'},
@@ -303,7 +290,7 @@
         mask: true
       });
       wx.request({
-        url: 'https://www.us800.cn/wechat!gotBookingDetail.action', //所有通告
+        url: 'https://www.us800.cn/wechat!gotBooking.action', //所有通告
         data: {},
         header: {
           'content-type': 'application/json' // 默认值
@@ -311,7 +298,7 @@
         success: function(res) {
           //关闭loading
           wepy.hideLoading();
-          console.log(res.data);
+          _this.notice = res.data;
           _this.$apply();
         },
         fail() {

@@ -272,11 +272,11 @@
         <view class="before">
           <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
           <view class="btn-title">
-            <view class="aaa-title">Hot造星计划全宇宙招聘HitHotdwqdwqdqjdwqdqwdjwqjdqwj</view>
+            <view class="aaa-title">{{detail.name}}</view>
             <view class="message">
-              <view class="name">一人统筹阿超</view>
+              <view class="name">{{detail.contactPerson}}</view>
               <view class="after">
-                <text class="people">06-13发布</text>
+                <text class="people">{{detail.createTime}}发布</text>
                 <!--<text class="timer">12-32截止</text>-->
               </view>
             </view>
@@ -286,7 +286,7 @@
       <view class="tag">
         <text class="daka icon-locationfill"></text>
         <text class="address">工作地点</text>
-        <text class="city">重庆 渝中 时代天街1号</text>
+        <text class="city">{{detail.addr}}</text>
       </view>
       <view class="tag">
         <text class="daka icon-leixing"></text>
@@ -297,12 +297,12 @@
       <view class="tag">
         <text class="daka icon-timefill"></text>
         <text class="address">开始时间</text>
-        <text class="city">2017-08-15 18:23:00</text>
+        <text class="city">{{detail.beginTime}}</text>
       </view>
       <view class="tag">
         <text class="daka icon-timefill"></text>
         <text class="address">结束时间</text>
-        <text class="city">2017-08-15 18:23:00</text>
+        <text class="city">{{detail.endTime}}</text>
       </view>
     </view>
     <view class="signup">
@@ -323,18 +323,16 @@
         <text class="address">通告简介</text>
       </view>
       <view class="describe">
-        <text class="word">院线电影《非正式爱情》\n类型：喜剧、爱情、动作、励志\n出品公司：北京嘉禾明珠影视文化有限公司、霍尔果斯亚洲之星影视文化有限公司\n监制：陆亮\n导演：徐嘉亮\n开机时间：2018年4月20日\n拍摄周期：40天\n
-          任务小传：\n张艾嘉（女一）：26岁左右，爱情海公司打牌，专帮人家讨情债与孽债，专杀世间负心汉。性格青春靓丽、聪明野蛮、正义乐观、点子多，时而温柔、时而体贴、时而调皮可爱，百变女王。\n
-          天宝（男一）：30岁左右，和社会脱轨的退伍军人，稍有肌肉会功夫、讲义气、冷幽默，蚂蚁搬家公司带班经理，决心找失散多年的妹妹。</text>
+        <text class="word">{{detail.content}}</text>
         <view class="footer">
           <view class="word">来源：第三方平台</view>
-          <view class="word">联系我时，请说是在红演圈上看到的，谢谢！</view>
+          <!-- <view class="word">联系我时，请说是在红演圈上看到的，谢谢！</view> -->
           <view class="word tip">温馨提示：如果涉及交费要求，请谨慎识别</view>
         </view>
       </view>
     </view>
     <view class="release">
-      <view class="btn"><image src="../../images/icons/hand.png" mode="aspectFill"></image>我要报名</view>
+      <view class="btn" @tap="sginUp"><image src="../../images/icons/hand.png" mode="aspectFill"></image>我要报名</view>
     </view>
   </view>
 </template>
@@ -343,8 +341,9 @@
   export default class Detail extends wepy.page {
     config = {
       navigationBarTitleText: '通告详情'
-    }
+    };
     data = {
+      detail: {},
       optionList: ['全职招聘', '演绎活动', '剧组招聘', '婚庆招聘', '运动时尚', '兼职招聘'],
       avatars: [
         '../../images/avatar/avatar1.jpg',
@@ -360,10 +359,31 @@
     };
 
     methods = {
-
-    }
-    onLoad() {
-      var _this = this;
+      sginUp() {
+        const _this = this;
+        wx.request({
+          url: 'https://www.us800.cn/wechat!saveArtistNotice.action', //通告详情
+          data: {
+            bookingId: _this.detail.id,
+            artistId: 2
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function(res) {
+            if (res == 'err') return alert('报名失败');
+            if (res == 'succ') return alert('报名成功');
+            if (res == 'exist') return alert('已报名');
+          },
+          fail() {
+            wx.hideLoading();
+          }
+        });
+      }
+    };
+    onLoad(e) {
+      const _this = this;
+      const {id} = e;
       //开启loading
       wx.showLoading({
         title: '加载中',
@@ -372,7 +392,7 @@
       wx.request({
         url: 'https://www.us800.cn/wechat!gotBookingDetail.action', //通告详情
         data: {
-          bookingId: "11"
+          bookingId: id
         },
         header: {
           'content-type': 'application/json' // 默认值
@@ -381,6 +401,7 @@
           //关闭loading
           wepy.hideLoading();
           console.log(res.data);
+          _this.detail = res.data;
           _this.$apply();
         },
         fail() {
