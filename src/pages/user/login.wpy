@@ -1,0 +1,122 @@
+<style lang="less" scoped>
+  .container {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 30rpx;
+    position: absolute;
+    left: 0;
+    top: 0;
+    .form-item {
+      display: flex;
+      align-items: center;
+      background: #eee;
+      height: 90rpx;
+      border-radius: 14rpx;
+      padding: 0 30rpx;
+      margin-top: 24rpx;
+      .get-code {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 220rpx;
+        height: 64rpx;
+        border-radius: 10rpx;
+        background: #ccc;
+        font-size: 28rpx;
+        color: #fff;
+        background: #dc3b23;
+      }
+      .input {
+        flex: 1;
+        font-size: 30rpx;
+        display: flex;
+        align-items: center;
+        color: #333;
+        &.active {
+          color: #b3b3b3;
+        }
+      }
+    }
+    .btn {
+      margin-top: 50rpx;
+    }
+    .hide-input {
+      display: none;
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <form bindsubmit="handleSubmit">
+      <view class="form-item">
+        <input class="input" name="phone" maxlength="11" type="number" placeholder="请输入手机号码(暂只支持中国大陆)" placeholder-style="color:#b3b3b3"/>
+      </view>
+      <view class="form-item">
+        <input class="input" name="code" type="number" maxlength="6" placeholder="输入验证码~" placeholder-style="color:#b3b3b3"/>
+        <view class="get-code active" @tap="getCode">{{getCodeText}}</view>
+      </view>
+      <view class="form-item">
+        <input class="hide-input" name="type" type="text" value="{{type}}">
+        <view class="input {{type === '选择类型～' ? 'active' : ''}}" @tap="handleType">{{type}}</view>
+      </view>
+      <button class="btn" type="warn" form-type="submit" size="default">注册</button>
+    </form>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+  export default class Login extends wepy.page {
+    config = {
+      navigationBarTitleText: '注册'
+    };
+    data = {
+      getCodeText: '获取验证码',
+      isGetcode: true,
+      timer: 60,
+      phone: 18623233442,
+      code: 12345,
+      type: '选择类型～',
+      types: [
+        '个人',
+        '企业'
+      ]
+    };
+    methods = {
+      handleType() {
+        const that = this;
+        wepy.showActionSheet({
+          itemList: that.types,
+          success: function(res) {
+            that.type = that.setData({type: that.types[res.tapIndex] });
+          },
+          fail: function(res) {
+            console.log(res.errMsg)
+          }
+        })
+      },
+      handleSubmit(e) {
+        wx.reLaunch({
+          url: '/pages/circle/index'
+        })
+        console.log(e.detail.value)
+      },
+      getCode() {
+        if (!this.isGetcode) return false;
+        this.setData({isGetcode: false});
+        let  timerout = null;
+        timerout = setInterval(() => {
+          console.log(78)
+          this.setData({timer: --this.timer});
+          if (this.timer >= 0){
+            clearInterval(timerout);
+            this.setData({timer: 4, isGetcode: true});
+          }
+        }, 1000);
+        console.log('h')
+      }
+    }
+  }
+</script>

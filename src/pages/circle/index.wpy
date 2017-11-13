@@ -652,7 +652,9 @@
         })
       },
       tabList(index, e) {
-        this.activeIndex = e.target.id;
+        console.log(index,e)
+        return false;
+//        this.activeIndex = e.target.id;
         switch (index) {
           case '0':
             this.sortVisible1 = true;
