@@ -195,6 +195,7 @@
     width: 90rpx;
     height: 90rpx;
     margin-right: 10rpx;
+    border-radius: 50%;
   }
   .notice-top-info {
     position: relative;
@@ -265,13 +266,13 @@
 <template>
   <view class="container">
     <view class="notice-img">
-      <image src="https://img.hotyq.com/recruit/2017/074/1499167078881.jpg"></image>
+      <image src="{{detail.image}}"></image>
     </view>
     <view class="head">
       <!--<view class="title">院线电影《非正式爱情》招募演员</view>-->
       <view class="notice-bottom">
         <view class="before">
-          <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+          <image class="before-img" src="{{detail.pubisherHead}}"></image>
           <view class="btn-title">
             <view class="aaa-title">{{detail.name}}</view>
             <view class="message">
@@ -310,7 +311,7 @@
       <view class="tag">
         <text class="daka icon-locationfill"></text>
         <text class="address">已报名</text>
-        <text class="city">19人</text>
+        <text class="city">{{detail.count}}人</text>
       </view>
       <scroll-view class="avatar-group" scroll-x>
         <block wx:for="{{avatars}}" wx:key="{{index}}">
@@ -371,7 +372,7 @@
       sginUp() {
         const _this = this;
         wx.request({
-          url: 'https://www.us800.cn/wechat!saveArtistNotice.action', //通告详情
+          url: 'https://www.us800.cn/wechat!saveArtistNotice.action', //通告报名
           data: {
             bookingId: _this.detail.id,
             artistId: 2
@@ -410,8 +411,9 @@
         success: function(res) {
           //关闭loading
           wepy.hideLoading();
-          console.log(res.data);
           _this.detail = res.data;
+          //console.log(_this.detail);
+          //_this.detail.heads = _this.detail.heads.split(",");
           _this.$apply();
         },
         fail() {
