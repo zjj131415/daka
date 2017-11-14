@@ -153,9 +153,9 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/circle/index',
+      'pages/notice/index',
       'pages/user/enterprise',
       'pages/user/login',
-      'pages/notice/index',
       'pages/user/brief',
       'pages/user/winning',
       'pages/user/professional',

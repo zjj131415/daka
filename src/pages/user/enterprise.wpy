@@ -217,6 +217,10 @@
           }
         }
       }
+      .works {
+        padding-bottom: 20rpx;
+        border-bottom: 1px solid #eaeaea;
+      }
       .footer {
         /*position: fixed;*/
         /*bottom: 0;*/
@@ -295,7 +299,7 @@
       <view class="video">
         <video class="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls></video>
       </view>
-      <view class="means">专业资料</view>
+      <view class="means">企业简介</view>
       <!--<view class="features-group" wx:for="{{features}}" wx:key="index">-->
         <!--<view class="features">{{item.title}}</view>-->
         <!--<view class="features-value flex1">{{item.value}}</view>-->
@@ -325,7 +329,6 @@
         <!--<text class="features-value flex1">{{userInfos.experience}}</text>-->
       <!--</view>-->
       <view class="features-group brief">
-        <view class="features brief">企业简介</view>
         <text class="features-value flex1 brief">{{userInfos.specialty}}</text>
       </view>
       <view class="images">
@@ -333,7 +336,7 @@
           <image @tap="preview" src="{{item.cover}}" mode="widthFix"></image>
         </view>
       </view>
-      <view class="means">演艺经历</view>
+      <view class="means">地址</view>
       <text class="experience">服务项目</text>
       <view class="footer">
         <view class="btn-group">
@@ -348,37 +351,51 @@
       </view>
     </view>
     <view class="exhibition" hidden="{{activeIndex != 1}}">
-      <view class="schedule">
-        <view class="area">
-          <view class="daka icon-zhongyao1"></view>
-          <view class="word flex1">
-            <view class="matter">起始时间：2017年10月24日14:00</view>
-            <view class="matter">结束时间：2017年10月24日16:00</view>
-            <view class="matter">地点：重庆市江北区金源大饭店</view>
-            <view class="matter">活动名称：走秀活动</view>
-            <view class="matter">注意事项：请提前到会场请提前到会场请提前到会场请提前到会场</view>
+      <view class="dynamic-group">
+        <view class="dynamic works">
+          <view class="title">
+            <view>2017年10月1日</view>
+            <view>重庆</view>
+          </view>
+          <view class="description">
+            <text>“不那么好过的日子里
+              要学会每天给自己找一个开心的理由
+              哪怕只是阳光很暖
+              电量很满”
+              世界晚安
+            </text>
+          </view>
+          <view class="images">
+            <view class="images-box" wx:for="{{imagesSrc2}}" wx:key="index">
+              <image @tap="preview" src="{{item.src}}" mode="widthFix"></image>
+            </view>
           </view>
         </view>
-      </view>
-      <view class="schedule">
-        <view class="area">
-          <view class="daka icon-zhongyao1 grey"></view>
-          <view class="word flex1">
-            <view class="matter">起始时间：2017年10月24日14:00</view>
-            <view class="matter">结束时间：2017年10月24日16:00</view>
-            <view class="matter">地点：重庆市江北区金源大饭店</view>
-            <view class="matter">活动名称：走秀活动</view>
-            <view class="matter">注意事项：请提前到会场请提前到会场请提前到会场请提前到会场</view>
+        <view class="dynamic works">
+          <view class="title">
+            <view>2017年10月1日</view>
+            <view>重庆</view>
+          </view>
+          <view class="description">
+            <text>“不那么好过的日子里
+              要学会每天给自己找一个开心的理由
+              哪怕只是阳光很暖
+              电量很满”
+              世界晚安
+            </text>
+          </view>
+          <view class="video">
+             <video class="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls></video>
           </view>
         </view>
       </view>
       <view class="footer">
         <view class="btn-group">
           <view class="btn flex1">
-            <button><view class="daka icon-zengjia"></view>增加档期</button>
+            <button><view class="daka icon-bianji"></view>编辑资料</button>
           </view>
           <view class="btn flex1">
-            <button><view class="daka icon-shanchu"></view>删除档期</button>
+            <button open-type="share"><view class="daka icon-fenxiang1"></view>分享到朋友圈</button>
           </view>
         </view>
         <button class="contact"><view class="daka icon-lianxi"></view>联系他</button>

@@ -1,6 +1,6 @@
 <style lang="less" scoped>
   .container {
-    padding-bottom: 80rpx;
+    padding-bottom: 110rpx;
     .head {
       padding: 0 20rpx 20rpx 20rpx;
       background-color: #ffffff;
@@ -335,12 +335,12 @@
     <view class="release" wx:if="{{active == 1}}">
       <view class="btn" @tap="sginUp">
         <text class="baoming daka icon-woyaobaoming"></text>
-        </image>我要报名</view>
+        <view>我要报名</view>
     </view>
     <navigator wx:if="{{active == 3}}" class="release" url="/pages/user/artist">
       <view class="btn" @tap="sginUp">
         <text class="baoming daka icon-chakan"></text>
-        </image>查看报名</view>
+        <view>查看报名</view>
     </navigator>
   </view>
 </template>
