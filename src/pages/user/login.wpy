@@ -23,7 +23,7 @@
         width: 220rpx;
         height: 64rpx;
         border-radius: 10rpx;
-        background: #ccc;
+        //background: #ccc;
         font-size: 28rpx;
         color: #fff;
         background: #dc3b23;
@@ -58,7 +58,7 @@
         <view class="get-code active" @tap="getCode">{{getCodeText}}</view>
       </view>
       <view class="form-item">
-        <input class="hide-input" name="type" type="text" value="{{type}}">
+        <input class="hide-input" name="type" type="text" value="{{type}}"/>
         <view class="input {{type === '选择类型～' ? 'active' : ''}}" @tap="handleType">{{type}}</view>
       </view>
       <button class="btn" type="warn" form-type="submit" size="default">注册</button>
@@ -90,7 +90,7 @@
         wepy.showActionSheet({
           itemList: that.types,
           success: function(res) {
-            that.type = that.setData({type: that.types[res.tapIndex] });
+            that.type = that.setData({ type: that.types[res.tapIndex] });
           },
           fail: function(res) {
             console.log(res.errMsg)
@@ -110,7 +110,7 @@
         timerout = setInterval(() => {
           console.log(78)
           this.setData({timer: --this.timer});
-          if (this.timer >= 0){
+          if (this.timer >= 0) {
             clearInterval(timerout);
             this.setData({timer: 4, isGetcode: true});
           }

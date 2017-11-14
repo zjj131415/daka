@@ -300,32 +300,32 @@
         <!--<view class="features">{{item.title}}</view>-->
         <!--<view class="features-value flex1">{{item.value}}</view>-->
       <!--</view>-->
-      <view class="features-group">
-        <view class="features">年龄</view>
-        <view class="features-value flex1">{{userInfos.age}}</view>
-      </view>
-      <view class="features-group">
-        <view class="features">身高</view>
-        <view class="features-value flex1">{{userInfos.height}}</view>
-      </view>
-      <view class="features-group">
-        <view class="features">体重</view>
-        <view class="features-value flex1">{{userInfos.weight}}</view>
-      </view>
-      <view class="features-group">
-        <view class="features">三围</view>
-        <view class="features-value flex1">{{userInfos.bust}} {{userInfos.waist}} {{userInfos.hips}}</view>
-      </view>
-      <view class="features-group">
-        <view class="features">毕业院校</view>
-        <view class="features-value flex1">重庆大学</view>
-      </view>
-      <view class="features-group">
-        <view class="features">获奖经历</view>
-        <text class="features-value flex1">{{userInfos.experience}}</text>
-      </view>
+      <!--<view class="features-group">-->
+        <!--<view class="features">年龄</view>-->
+        <!--<view class="features-value flex1">{{userInfos.age}}</view>-->
+      <!--</view>-->
+      <!--<view class="features-group">-->
+        <!--<view class="features">身高</view>-->
+        <!--<view class="features-value flex1">{{userInfos.height}}</view>-->
+      <!--</view>-->
+      <!--<view class="features-group">-->
+        <!--<view class="features">体重</view>-->
+        <!--<view class="features-value flex1">{{userInfos.weight}}</view>-->
+      <!--</view>-->
+      <!--<view class="features-group">-->
+        <!--<view class="features">三围</view>-->
+        <!--<view class="features-value flex1">{{userInfos.bust}} {{userInfos.waist}} {{userInfos.hips}}</view>-->
+      <!--</view>-->
+      <!--<view class="features-group">-->
+        <!--<view class="features">毕业院校</view>-->
+        <!--<view class="features-value flex1">重庆大学</view>-->
+      <!--</view>-->
+      <!--<view class="features-group">-->
+        <!--<view class="features">获奖经历</view>-->
+        <!--<text class="features-value flex1">{{userInfos.experience}}</text>-->
+      <!--</view>-->
       <view class="features-group brief">
-        <view class="features brief">自我简介</view>
+        <view class="features brief">企业简介</view>
         <text class="features-value flex1 brief">{{userInfos.specialty}}</text>
       </view>
       <view class="images">
@@ -470,10 +470,10 @@
   import wepy from "wepy";
   import user from '../../mixins/user'
 
-  export default class Home extends wepy.page {
+  export default class Enterprise extends wepy.page {
     mixins = [user]
     config = {
-      navigationBarTitleText: '大咖秀'
+      navigationBarTitleText: '企业大咖秀'
     }
     data = {
       userInfos: {
@@ -485,7 +485,7 @@
         avatarUrl: '../../images/avatar/icon-avatar@2x.png'
       },
       area: "重庆市渝北区龙山街道渝安龙都",
-      list: ["档案", "档期", "大咖秀"],
+      list: ["简介", "作品", "大咖秀"],
       activeIndex: 0,
       features: [
         {title: '年龄', value: '25'},
@@ -495,15 +495,15 @@
         {title: '毕业学院', value: '重庆大学'},
         {title: '获奖经历', value: '精英奖'}],
       imagesSrc: [
-        {src: '../../images/avatar/avatar1.jpg'},
-        {src: '../../images/avatar/avatar2.jpg'},
-        {src: '../../images/avatar/avatar3.jpg'},
-        {src: '../../images/avatar/avatar4.jpg'},
-        {src: '../../images/avatar/avatar5.jpg'},
-        {src: '../../images/avatar/avatar6.jpg'},
-        {src: '../../images/avatar/avatar7.jpg'},
-        {src: '../../images/avatar/avatar8.jpg'},
-        {src: '../../images/avatar/avatar9.jpg'}],
+        {cover: '../../images/avatar/avatar1.jpg'},
+        {cover: '../../images/avatar/avatar2.jpg'},
+        {cover: '../../images/avatar/avatar3.jpg'},
+        {cover: '../../images/avatar/avatar4.jpg'},
+        {cover: '../../images/avatar/avatar5.jpg'},
+        {cover: '../../images/avatar/avatar6.jpg'},
+        {cover: '../../images/avatar/avatar7.jpg'},
+        {cover: '../../images/avatar/avatar8.jpg'},
+        {cover: '../../images/avatar/avatar9.jpg'}],
       imagesSrc2: [
         {src: '../../images/avatar/avatar1.jpg'},
         {src: '../../images/avatar/avatar2.jpg'},
@@ -550,8 +550,8 @@
       wx.request({
         url: 'https://www.us800.cn/async!gotMyPerformResume.action',
         data: {
-          resumeId: e.id
-          //resumeId: 316
+          //resumeId: e.id
+          resumeId: 316
         },
         header: {
             'content-type': 'application/json' // 默认值

@@ -371,9 +371,9 @@
             'content-type': 'application/json' // 默认值
           },
           success: function(res) {
-            if (res == 'err') return alert('报名失败');
-            if (res == 'succ') return alert('报名成功');
-            if (res == 'exist') return alert('已报名');
+            if (res === 'err') return alert('报名失败');
+            if (res === 'succ') return alert('报名成功');
+            if (res === 'exist') return alert('已报名');
           },
           fail() {
             wx.hideLoading();
