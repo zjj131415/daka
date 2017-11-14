@@ -314,7 +314,7 @@
         <text class="city">{{detail.count}}人</text>
       </view>
       <scroll-view class="avatar-group" scroll-x>
-        <block wx:for="{{avatars}}" wx:key="{{index}}">
+        <block wx:for="{{detail.heads}}" wx:key="{{index}}">
           <image class="avatar" src="{{item}}"></image>
         </block>
       </scroll-view>
@@ -337,11 +337,13 @@
       <view class="btn" @tap="sginUp">
         <text class="baoming daka icon-woyaobaoming"></text>
         <view>我要报名</view>
+      </view>
     </view>
     <navigator wx:if="{{active == 3}}" class="release" url="/pages/user/artist">
       <view class="btn" @tap="sginUp">
         <text class="baoming daka icon-chakan"></text>
         <view>查看报名</view>
+      </view>
     </navigator>
   </view>
 </template>
@@ -381,9 +383,10 @@
             'content-type': 'application/json' // 默认值
           },
           success: function(res) {
-            if (res === 'err') return alert('报名失败');
-            if (res === 'succ') return alert('报名成功');
-            if (res === 'exist') return alert('已报名');
+            console.log(res);
+            if (res.data.result === 'err') return console.log('报名失败');
+            if (res.data.result === 'succ') return console.log('报名成功');
+            if (res.data.result === 'exist') return console.log('已报名');
           },
           fail() {
             wx.hideLoading();
@@ -412,8 +415,9 @@
           //关闭loading
           wepy.hideLoading();
           _this.detail = res.data;
-          //console.log(_this.detail);
-          //_this.detail.heads = _this.detail.heads.split(",");
+          console.log(_this.detail);
+          _this.detail.heads = _this.detail.heads.split(",");
+          //console.log(_this.detail.heads);
           _this.$apply();
         },
         fail() {
