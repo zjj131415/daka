@@ -105,7 +105,7 @@
   <view class="container">
     <view class="notice-list">
       <block wx:for="{{notice}}" wx:key="{{index}}">
-        <navigator class="notice-item" url="/pages/notice/detail">
+        <navigator class="notice-item" url="/pages/notice/detail?active=3">
           <view class="notice-top-info">
             <view class="notice-img">
               <image src="{{item.image}}"></image>

@@ -251,11 +251,12 @@
       justify-content: center;
       height: 90rpx;
       background: #dc3b23;
-      font-size: 28rpx;
       color: #fff;
-      image {
-        width: 60rpx;
-        height:60rpx;
+      font-size: 34rpx;
+      .baoming {
+        margin-right: 6rpx;
+        font-size: 42rpx;
+        color: #fff;
       }
     }
   }
@@ -331,9 +332,16 @@
         </view>
       </view>
     </view>
-    <view class="release">
-      <view class="btn" @tap="sginUp"><image src="../../images/icons/hand.png" mode="aspectFill"></image>我要报名</view>
+    <view class="release" wx:if="{{active == 1}}">
+      <view class="btn" @tap="sginUp">
+        <text class="baoming daka icon-woyaobaoming"></text>
+        </image>我要报名</view>
     </view>
+    <navigator wx:if="{{active == 3}}" class="release" url="/pages/user/artist">
+      <view class="btn" @tap="sginUp">
+        <text class="baoming daka icon-chakan"></text>
+        </image>查看报名</view>
+    </navigator>
   </view>
 </template>
 <script>
@@ -343,6 +351,7 @@
       navigationBarTitleText: '通告详情'
     };
     data = {
+      active: 1,
       detail: {},
       optionList: ['全职招聘', '演绎活动', '剧组招聘', '婚庆招聘', '运动时尚', '兼职招聘'],
       avatars: [
@@ -383,7 +392,8 @@
     };
     onLoad(e) {
       const _this = this;
-      const {id} = e;
+      const {id, active} = e;
+      _this.active = active;
       //开启loading
       wx.showLoading({
         title: '加载中',

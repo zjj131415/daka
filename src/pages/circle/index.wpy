@@ -21,8 +21,8 @@
     }
     .swiperMenu {
       height: 100px;
-      margin-top: 10px;
       margin-bottom: 10px;
+      margin-top: 10px;
       background-color: #ffffff;
       .menu {
         display: flex;
@@ -159,6 +159,7 @@
           font-size: 34rpx;
           color: #fff;
           position: relative;
+          font-weight: bold;
         }
         .circle-action {
           margin: 5rpx;
@@ -181,7 +182,7 @@
             flex: 1;
             width: 100rpx;
             height: 1px;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, .6);
           }
           .daka {
             margin-left: 20rpx;
@@ -196,11 +197,11 @@
         }
         .circle-tag-item {
           margin: 0 10rpx;
-          padding: 5rpx 30rpx;
+          padding: 0 22rpx;
           border: 1px solid #fff;
           border-radius: 12rpx;
           color: #fff;
-          font-size: 27rpx;
+          font-size: 28rpx;
         }
       }
     }
@@ -223,9 +224,9 @@
         margin-bottom: 20rpx;
         text-align: center;
         border-radius: 5px;
-        border: 1px solid #B0B0B0;
+        border: 1px solid #dcdcdc;
         font-size: 30rpx;
-        color: #757575;
+        color: #878787;
         background-color: #FFFFFF;
         &.active {
           border-color: #CFB5B2;

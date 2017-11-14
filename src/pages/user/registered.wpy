@@ -1,162 +1,141 @@
 <style lang="less" scoped>
   .container {
-    padding-bottom: 20rpx;
-    .header {
+    .notice-item {
       width: 100%;
-      .tab {
+      margin-bottom: 20rpx;
+      .before {
+        flex: 1;
+        overflow: hidden;
         display: flex;
-        height: 80rpx;
-        line-height: 80rpx;
-        padding-top: 10rpx;
-        padding-bottom: 10rpx;
-        text-align: center;
-        background-color: #ffffff;
-        border-bottom: 1rpx solid #F0F0F0;
-        .tab-list {
-          flex: 1;
-          font-size: 30rpx;
-          border-right: 1rpx solid #F0F0F0;
+        align-items: center;
+      }
+      .before-img {
+        width: 90rpx;
+        height: 90rpx;
+        margin-right: 10rpx;
+      }
+      .notice-top-info {
+        position: relative;
+        width: 100%;
+        height: 400rpx;
+      }
+      .notice-img {
+        width: 100%;
+        height: 400rpx;
+        image {
+          width: 100%;
+          height: 100%;
         }
-        .tab-list.active {
-          color: #DD6767;
-          &:last-child {
-            border-right: 1rpx solid #F0F0F0;
-          }
-         }
-        }
-    }
-    .enrol-group {
-      .enrol {
-        margin-top: 20rpx;
-        padding: 20rpx 30rpx;
-        border-top:1rpx solid #F0F0F0;
-        border-bottom:1rpx solid #F0F0F0;
-        background-color: #ffffff;
-        .title-group {
+      }
+      .notice-cover {
+        position: absolute;
+        bottom: 20rpx;
+        left:  0;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 18rpx;
+        color: #fff;
+        .title {
           display: flex;
           align-items: center;
-          .tag {
-            display: inline-block;
-            padding-left: 10rpx;
-            padding-right: 10rpx;
-            margin-right: 10rpx;
-            border-radius: 10px;
-            border: 1px solid #7DAAD0;
-            font-size: 24rpx;
-            color: #7DAAD0;
-          }
-          .title {
-            display: inline-block;
-            font-size: 30rpx;
-            color: #333333;
-          }
+          font-size: 32rpx;
         }
-        .content {
-          margin-top: 20rpx;
-          font-size: 30rpx;
-          .big-title {
-            font-size: 50rpx;
-            text-align: center;
-          }
-          .detail {
-            text-indent: 70rpx;
-          }
-        }
-        .register-group {
+        .tags {
+          height: 50rpx;
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          margin-top: 20rpx;
-          margin-bottom: 20rpx;
-          font-size: 26rpx;
-          color: #AEAEAE;
-          .info {
-            .people {
-              display: inline-block;
-              margin-right: 20rpx;
-            }
-            .validity {
-              display: inline-block;
-            }
-          }
-          .location {
+          .tag-item{
             display: flex;
             align-items: center;
+            height: 40rpx;
+            margin-right: 10rpx;
+            border-radius: 20rpx 20rpx 20rpx 3rpx;
+            padding: 0 20rpx;
+            background: #d24115;
+            font-size: 24rpx;
+            color: #fff;
           }
         }
-        .btn-group {
+      }
+      .notice-bottom {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /*height: 78rpx;*/
+        padding: 20rpx 18rpx;
+        background: #fff;
+        font-size: 28rpx;
+        color: #7f7f7f;
+        .message {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          button {
-            width: 200rpx;
-            margin: 0;
-            border-radius: 0;
-            font-size: 30rpx;
-            color: #ffffff;
-            background-color: #DB3B25;
-          }
         }
+        .after {
+          font-size: 24rpx;
+          color: #ccc;
+        }
+        .people {
+          margin-right: 24rpx;
+        }
+      }
+    }
+    .btn-title {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: left;
+      .title {
+        font-size: 36rpx;
+        color: #333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      > view {
+        width: 100%;
       }
     }
   }
 </style>
 <template>
   <view class="container">
-    <view class="header">
-      <view class="tab">
-        <block wx:for="{{optionList}}" wx:key="{{index}}">
-          <view class="tab-list {{activeIndex == index ? 'active' : '' }}" id="{{index}}" @tap="tabList">{{item}}</view>
-        </block>
-      </view>
-    </view>
-    <view class="enrol-group">
-      <view class="enrol">
-        <view class="title-group">
-          <view class="tag">影视组讯</view>
-          <view class="title">新戏开机急聘跟组演员</view>
-        </view>
-        <view class="content">
-          <view class="big-title">演员招募</view>
-          <view class="detail">如果你有一身才华，想来到这里试一试,如果你善于表达，如果你只是缺少一个舞台，如果你还在纠结，那你快来吧，这是最适合你的一个舞台。</view>
-        </view>
-        <view class="register-group">
-          <view class="info">
-            <view class="people">12人已报名</view>
-            <view class="validity">已过期</view>
+    <view class="notice-list">
+      <block wx:for="{{notice}}" wx:key="{{index}}">
+        <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}&active=0">
+          <view class="notice-top-info">
+            <view class="notice-img">
+              <image src="{{item.image}}"></image>
+            </view>
+            <!--<view class="notice-cover">-->
+              <!--<view class="tags">-->
+                <!--<block wx:fro="{{item.tags}}" wx:item="tag" wx:key="{{index}}">-->
+                  <!--<text class="tag-item">{{tag}}</text>-->
+                <!--</block>-->
+              <!--</view>-->
+              <!--<view class="title">{{item.title}}</view>-->
+            <!--</view>-->
           </view>
-          <view class="location">
-            <view class="daka icon-locationfill"></view>重庆市
+          <view class="notice-bottom">
+            <view class="before">
+              <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+              <view class="btn-title">
+                <view class="title">{{item.name}}</view>
+                <view class="message">
+                  <view class="name">{{item.contactPerson}}</view>
+                  <view class="after">
+                    <text class="people">{{item.createTime}}发布</text>
+                    <!--<text class="timer">12-32截止</text>-->
+                  </view>
+                </view>
+              </view>
+            </view>
           </view>
-        </view>
-        <view class="btn-group">
-          <button type="default">已接受</button>
-          <button type="default">已拒绝</button>
-        </view>
-      </view>
-      <view class="enrol">
-        <view class="title-group">
-          <view class="tag">影视组讯</view>
-          <view class="title">新戏开机急聘跟组演员</view>
-        </view>
-        <view class="content">
-          <view class="big-title">演员招募</view>
-          <view class="detail">如果你有一身才华，想来到这里试一试,如果你善于表达，如果你只是缺少一个舞台，如果你还在纠结，那你快来吧，这是最适合你的一个舞台。</view>
-        </view>
-        <view class="register-group">
-          <view class="info">
-            <view class="people">12人已报名</view>
-            <view class="validity">已过期</view>
-          </view>
-          <view class="location">
-            <view class="daka icon-locationfill"></view>重庆市
-          </view>
-        </view>
-        <view class="btn-group">
-          <button type="default">已接受</button>
-          <button type="default">已拒绝</button>
-        </view>
-      </view>
+        </navigator>
+      </block>
     </view>
   </view>
 </template>
@@ -169,14 +148,36 @@
       navigationBarTitleText: '我报名的'
     }
     data = {
-      userInfo: {},
-      optionList: ['全部', '未处理', '已接受', '已拒绝'],
-      activeIndex: 0
+       notice: [],
     }
     methods = {
       tabList(e) {
         this.activeIndex = e.target.id;
       }
+    }
+    onLoad() {
+      var _this = this;
+      //开启loading
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      });
+      wx.request({
+        url: 'https://www.us800.cn/wechat!gotBooking.action', //所有通告
+        data: {},
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function(res) {
+          //关闭loading
+          wepy.hideLoading();
+          _this.notice = res.data;
+          _this.$apply();
+        },
+        fail() {
+          wx.hideLoading();
+        }
+      });
     }
   }
 </script>

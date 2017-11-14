@@ -1,6 +1,7 @@
 <style lang="less" scoped>
   .media-box {
     background: #fff;
+    padding: 0 50rpx;
     .media-item {
       display: flex;
       align-items: center;
@@ -63,7 +64,7 @@
 <template>
   <view>
     <view class="media-box">
-      <view class="cell">
+      <!-- <view class="cell">
           <view class="cell_hd">
             自我介绍视频（图片）
           </view>
@@ -71,7 +72,7 @@
 
           </view>
           <view class="cell_ft"></view>
-        </view>
+        </view> -->
       <view class="media">
         <view class="media-item" @tap="uploadImg">
           <image class="up-img" src="{{u_i}}"></image>

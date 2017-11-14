@@ -64,9 +64,9 @@
 </style>
 <template>
   <view class="container">
-    <scroll-view scroll-x class="scroll-head">
+    <!-- <scroll-view scroll-x class="scroll-head">
         <text class="scroll-view {{activeOption == index ? 'active' : '' }}" plain id="{{index}}" wx:for="{{optionList}}" wx:key="{{index}}" @tap="switchOption">{{item}}</text>
-    </scroll-view>
+    </scroll-view> -->
     <view class="person">
       <block wx:for="{{artistMessage}}" wx:key="index">
         <view class="artist">

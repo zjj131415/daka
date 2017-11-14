@@ -79,7 +79,7 @@
 </style>
 <template>
   <view class="container">
-    <view class="cells">
+    <!-- <view class="cells">
       <view class="cell-link">
         <view class="cell">
           <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
@@ -90,8 +90,8 @@
           <view class="cell-ft daka icon-right"></view>
         </view>
       </view>
-    </view>
-    <view class="separated">该卡本次最多可充值10000.00元</view>
+    </view> -->
+    <!-- <view class="separated"></view> -->
     <view class="enter">
       <view class="amount">金额</view>
       <input type="digit" class="enter-money" placeholder="请输入充值金额" auto-focus/>

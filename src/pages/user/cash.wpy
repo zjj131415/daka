@@ -41,7 +41,7 @@
       }
     }
     .enter-group {
-      margin-top: 40rpx;
+
       padding:20rpx 30rpx;
       background:#fff;
       border-top:1px solid #f5f5f5;
@@ -89,7 +89,7 @@
 </style>
 <template>
   <view class="container">
-    <view class="cells">
+    <!-- <view class="cells">
       <navigator class="cell-link" url="/pages/user/bankcard">
         <view class="cell">
           <view class="cell-hd"><image src="/images/icons/home.png"></image></view>
@@ -100,7 +100,7 @@
           <view class="cell-ft daka icon-right"></view>
         </view>
       </navigator>
-    </view>
+    </view> -->
     <view class="enter-group">
       <view class="enter-title">提现金额</view>
       <view class="enter">
