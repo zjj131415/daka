@@ -377,7 +377,7 @@
           url: 'https://www.us800.cn/wechat!saveArtistNotice.action', //通告报名
           data: {
             bookingId: _this.detail.id,
-            artistId: 2
+            artistId: 300
           },
           header: {
             'content-type': 'application/json' // 默认值

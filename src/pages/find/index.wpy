@@ -208,10 +208,10 @@ export default class Index extends wepy.page {
   }
 
   onLoad() {
+    var _this = this;
     wx.showShareMenu({
       withShareTicket: true
     });
-    var _this = this;
     //开启loading
     wx.showLoading({
       title: '加载中',
@@ -227,10 +227,6 @@ export default class Index extends wepy.page {
         //关闭loading
         wepy.hideLoading();
         console.log(res.data);
-        //_this.artists = res.data;
-        //for (var i = 0; i < _this.artists.length; i++) {
-        //  _this.artists[i].types = _this.artists[i].types.split(",");
-        //}
         _this.$apply();
       },
       fail() {

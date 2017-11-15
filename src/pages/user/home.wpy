@@ -386,6 +386,41 @@
     </view>
     <view class="exhibition" hidden="{{activeIndex != 2}}">
       <view class="dynamic-group">
+        <block wx:for="{{findDetail}}" wx:key="{{index}}">
+          <view class="dynamic">
+            <view class="title">
+              <view>{{item.month}}月{{item.day}}日</view>
+              <view>重庆</view>
+            </view>
+            <view class="description">
+              <text>{{item.content}}</text>
+            </view>
+            <view class="video" wx:if="{{item.video}}">
+               <video class="myVideo" src="{{item.video}}" controls></video>
+            </view>
+            <view class="images">
+              <block wx:for="{{item.images}}" wx:key="{{index}}">
+                <view class="images-box">
+                  <image @tap="preview" src="{{item}}" mode="widthFix"></image>
+                </view>
+              </block>
+            </view>
+            <view class="find-actions">
+              <view class="action-item daka icon-share_light">
+                分享
+              </view>
+              <view class="action-item daka icon-comment">
+                评论
+              </view>
+              <view class="action-item daka icon-appreciate" @tap="upvote">
+                点赞
+              </view>
+              <view class="action-item daka icon-refund">
+                打赏
+              </view>
+            </view>
+          </view>
+        </block>
         <view class="dynamic">
           <view class="title">
             <view>2017年10月1日</view>
@@ -484,6 +519,7 @@
         nickName: '加载中...',
         avatarUrl: '../../images/avatar/icon-avatar@2x.png'
       },
+      findDetail: {},
       area: "重庆市渝北区龙山街道渝安龙都",
       list: ["档案", "档期", "大咖秀"],
       activeIndex: 0,
@@ -530,6 +566,22 @@
             '../../images/avatar/avatar8.jpg',
             '../../images/avatar/avatar9.jpg']
         })
+      },
+      upvote() {
+        var _this = this;
+        wx.request({
+          url: 'https://www.us800.cn/wechat!savePoint.action',//保存点赞
+          data: {
+            memberId: 316
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function(res) {
+            console.log(res.data);
+            _this.$apply();
+          }
+        })
       }
     }
 
@@ -542,6 +594,7 @@
     }
     onLoad(e) {
       var _this = this;
+      console.log(e.id);
       //开启loading
       wx.showLoading({
         title: '加载中',
@@ -594,6 +647,30 @@
 
     tabList(e) {
       this.activeIndex = e.target.id;
+      var id = e.target.id;
+      var _this = this;
+      if (id === '2') {
+        wx.request({
+          url: 'https://www.us800.cn/async!gotCareer.action', //大咖秀列表(动态)
+          data: {},
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function(res) {
+            //console.log(res.data);
+            _this.findDetail = res.data;
+            //转换为图片数组
+            for (var i = 0; i < _this.findDetail.length; i++) {
+              _this.findDetail[i].images = _this.findDetail[i].images.split("|");
+            }
+            console.log(_this.findDetail);
+            _this.$apply();
+          },
+          fail() {
+            wx.hideLoading();
+          }
+        });
+      }
     }
   }
 </script>

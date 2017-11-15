@@ -54,24 +54,28 @@
   <view class="container">
     <form bindsubmit="alert()">
       <view class="textarea">
-        <textarea maxlength="500" auto-focus show-confirm-bar="{{false}}" placeholder-style="color: #b3b3b3" placeholder="沉积是金，发布最新工作状态～"></textarea>
+        <textarea maxlength="500" auto-focus show-confirm-bar="{{false}}" placeholder-style="color: #b3b3b3" placeholder="沉积是金，发布最新工作状态～" @input="inputDynamics"></textarea>
       </view>
       <view class="uploader-files">
-        <block wx:for="{{files}}" wx:key="*this">
-          <view class="uploader-file-item" bindtap="previewImage" id="{{item}}">
-            <image src="/images/upload_img.png"></image>
-          </view>
-        </block>
-        <view class="uploader-file-item upload" hover-class="upload-hover" @tap="chooseImage">
+        <!--<block wx:for="{{files}}" wx:key="*this">-->
+          <!--<view class="uploader-file-item" @tap="previewImage" id="{{item}}">-->
+            <!--<image src="/images/upload_img.png"></image>-->
+          <!--</view>-->
+        <!--</block>-->
+        <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{images.length === 0}}" @tap="chooseImage">
           <image src="/images/upload_img.png"></image>
         </view>
-        <view wx:if="{{images}}" class="uploader-file-item upload" hover-class="upload-hover">
+        <block wx:for="{{images}}" wx:key="{{index}}">
+          <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{images.length !== 0}}" @tap="chooseImage">
+              <image src="{{item}}"></image>
+          </view>
+        </block>
+        <view class="uploader-file-item upload" hover-class="upload-hover">
           <image src="/images/upload_video.png"></image>
         </view>
-        <view class=""></view>
       </view>
       <view class="release">
-        <button>发布</button>
+        <button @tap="saveDynamic">发布</button>
       </view>
     </form>
   </view>
@@ -84,25 +88,53 @@
     }
 
     data = {
-      images: [
-
-      ],
-      video: {}
+      images: [],
+      imagesStr: "",
+      video: {},
+      dynamics: ''
     };
+    methods = {
+      inputDynamics(e) {
+        this.dynamics = e.detail.value;
+      },
+      saveDynamic() {
+        var _this = this;
+        //console.log(_this.imagesStr);
+        wx.request({
+          url: 'https://www.us800.cn/async!saveCareer.action', //保存动态
+          data: {
+            memberId: 316,
+            content: _this.dynamics,
+            images: _this.imagesStr,
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function(res) {
+            console.log(res.data);
+            _this.$apply();
+          },
+          fail() {
+            //wx.hideLoading();
+          }
+        });
+      }
+    }
 
     chooseImage() {
-      const that = this;
-      console.log(that.images)
-      that.setData({
-        images: 'hkkkk'
-      })
+      const _this = this;
       wepy.chooseImage({
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function (res) {
-          that.setData({
-            images: that.data.images.concat(res.tempFilePaths)
-          });
+          //console.log(res.tempFilePaths);
+          _this.images = res.tempFilePaths;
+          _this.imagesStr = _this.images.join("|");
+          console.log(_this.imagesStr);
+          _this.$apply();
+//          that.setData({
+//            images: that.data.images.concat(res.tempFilePaths)
+//          });
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         }
       })
