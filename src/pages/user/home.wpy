@@ -330,7 +330,7 @@
       </view>
       <view class="images">
         <view class="images-box" wx:for="{{imagesSrc}}" wx:key="index">
-          <image @tap="preview" src="{{item.cover}}" mode="widthFix"></image>
+          <image @tap="preview" data-image="{{item.cover}}" src="{{item.cover}}" mode="widthFix"></image>
         </view>
       </view>
       <view class="means">演艺经历</view>
@@ -401,7 +401,7 @@
             <view class="images">
               <block wx:for="{{item.images}}" wx:key="{{index}}">
                 <view class="images-box">
-                  <image @tap="preview" src="{{item}}" mode="widthFix"></image>
+                  <image @tap="preview" data-image="{{item}}" src="{{item}}" mode="widthFix"></image>
                 </view>
               </block>
             </view>
@@ -421,70 +421,70 @@
             </view>
           </view>
         </block>
-        <view class="dynamic">
-          <view class="title">
-            <view>2017年10月1日</view>
-            <view>重庆</view>
-          </view>
-          <view class="description">
-            <text>“不那么好过的日子里
-              要学会每天给自己找一个开心的理由
-              哪怕只是阳光很暖
-              电量很满”
-              世界晚安
-            </text>
-          </view>
-          <view class="images">
-            <view class="images-box" wx:for="{{imagesSrc2}}" wx:key="index">
-              <image @tap="preview" src="{{item.src}}" mode="widthFix"></image>
-            </view>
-          </view>
-          <view class="find-actions">
-            <view class="action-item daka icon-share_light">
-              分享
-            </view>
-            <view class="action-item daka icon-comment">
-              评论
-            </view>
-            <view class="action-item daka icon-appreciate">
-              点赞
-            </view>
-            <view class="action-item daka icon-refund">
-              打赏
-            </view>
-          </view>
-        </view>
-        <view class="dynamic">
-          <view class="title">
-            <view>2017年10月1日</view>
-            <view>重庆</view>
-          </view>
-          <view class="description">
-            <text>“不那么好过的日子里
-              要学会每天给自己找一个开心的理由
-              哪怕只是阳光很暖
-              电量很满”
-              世界晚安
-            </text>
-          </view>
-          <view class="video">
-            <!-- <video class="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls></video> -->
-          </view>
-          <view class="find-actions">
-            <view class="action-item daka icon-share_light">
-              分享
-            </view>
-            <view class="action-item daka icon-comment">
-              评论
-            </view>
-            <view class="action-item daka icon-appreciate">
-              点赞
-            </view>
-            <view class="action-item daka icon-refund">
-              打赏
-            </view>
-          </view>
-        </view>
+        <!--<view class="dynamic">-->
+          <!--<view class="title">-->
+            <!--<view>2017年10月1日</view>-->
+            <!--<view>重庆</view>-->
+          <!--</view>-->
+          <!--<view class="description">-->
+            <!--<text>“不那么好过的日子里-->
+              <!--要学会每天给自己找一个开心的理由-->
+              <!--哪怕只是阳光很暖-->
+              <!--电量很满”-->
+              <!--世界晚安-->
+            <!--</text>-->
+          <!--</view>-->
+          <!--<view class="images">-->
+            <!--<view class="images-box" wx:for="{{imagesSrc2}}" wx:key="{{index}}">-->
+              <!--<image @tap="preview" src="{{item.src}}" mode="widthFix"></image>-->
+            <!--</view>-->
+          <!--</view>-->
+          <!--<view class="find-actions">-->
+            <!--<view class="action-item daka icon-share_light">-->
+              <!--分享-->
+            <!--</view>-->
+            <!--<view class="action-item daka icon-comment">-->
+              <!--评论-->
+            <!--</view>-->
+            <!--<view class="action-item daka icon-appreciate">-->
+              <!--点赞-->
+            <!--</view>-->
+            <!--<view class="action-item daka icon-refund">-->
+              <!--打赏-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</view>-->
+        <!--<view class="dynamic">-->
+          <!--<view class="title">-->
+            <!--<view>2017年10月1日</view>-->
+            <!--<view>重庆</view>-->
+          <!--</view>-->
+          <!--<view class="description">-->
+            <!--<text>“不那么好过的日子里-->
+              <!--要学会每天给自己找一个开心的理由-->
+              <!--哪怕只是阳光很暖-->
+              <!--电量很满”-->
+              <!--世界晚安-->
+            <!--</text>-->
+          <!--</view>-->
+          <!--<view class="video">-->
+            <!--&lt;!&ndash; <video class="myVideo" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" controls></video> &ndash;&gt;-->
+          <!--</view>-->
+          <!--<view class="find-actions">-->
+            <!--<view class="action-item daka icon-share_light">-->
+              <!--分享-->
+            <!--</view>-->
+            <!--<view class="action-item daka icon-comment">-->
+              <!--评论-->
+            <!--</view>-->
+            <!--<view class="action-item daka icon-appreciate">-->
+              <!--点赞-->
+            <!--</view>-->
+            <!--<view class="action-item daka icon-refund">-->
+              <!--打赏-->
+            <!--</view>-->
+          <!--</view>-->
+        <!--</view>-->
       </view>
       <view class="footer">
         <view class="btn-group">
@@ -552,20 +552,13 @@
     }
 
     methods = {
-      preview() {
+      //图片预览
+      preview(e) {
+        const {image} = e.currentTarget.dataset || {};
         wx.previewImage({
           current: '',
-          urls: [
-            // 'https://timgsa.baidu.com/timg?  image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg',
-            '../../images/avatar/avatar2.jpg',
-            '../../images/avatar/avatar3.jpg',
-            '../../images/avatar/avatar4.jpg',
-            '../../images/avatar/avatar5.jpg',
-            '../../images/avatar/avatar6.jpg',
-            '../../images/avatar/avatar7.jpg',
-            '../../images/avatar/avatar8.jpg',
-            '../../images/avatar/avatar9.jpg']
-        })
+          urls: [image]
+        });
       },
       upvote() {
         var _this = this;
