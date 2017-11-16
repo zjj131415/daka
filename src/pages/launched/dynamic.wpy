@@ -99,7 +99,11 @@
       },
       saveDynamic() {
         var _this = this;
-        //console.log(_this.imagesStr);
+        //开启loading
+        wx.showLoading({
+          title: '发表中',
+          mask: true
+        });
         wx.request({
           url: 'https://www.us800.cn/async!saveCareer.action', //保存动态
           data: {
@@ -111,6 +115,8 @@
             'content-type': 'application/json' // 默认值
           },
           success: function(res) {
+            // 关闭loading
+            wx.hideLoading();
             console.log(res.data);
             _this.$apply();
           },

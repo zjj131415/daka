@@ -587,12 +587,12 @@
         this.activeIndex = e.target.id;
         var id = e.target.id;
         var _this = this;
-        //开启loading
-        wx.showLoading({
-          title: '发表中',
-          mask: true
-        });
         if (id === '2') {
+          //开启loading
+          wx.showLoading({
+            title: '加载中',
+            mask: true
+          });
           wx.request({
             url: 'https://www.us800.cn/async!gotCareer.action', //大咖秀列表(动态)
             data: {},
