@@ -104,7 +104,7 @@
           url: 'https://www.us800.cn/async!saveCareer.action', //保存动态
           data: {
             memberId: 316,
-            content: _this.dynamics,
+            content: encodeURI(_this.dynamics),
             images: _this.imagesStr,
           },
           header: {

@@ -582,6 +582,41 @@
             _this.$apply();
           }
         })
+      },
+      tabList(e) {
+        this.activeIndex = e.target.id;
+        var id = e.target.id;
+        var _this = this;
+        //开启loading
+        wx.showLoading({
+          title: '发表中',
+          mask: true
+        });
+        if (id === '2') {
+          wx.request({
+            url: 'https://www.us800.cn/async!gotCareer.action', //大咖秀列表(动态)
+            data: {},
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success: function(res) {
+              // 关闭loading
+              wx.hideLoading();
+              //console.log(res.data);
+              _this.findDetail = res.data;
+              //转换为图片数组
+              for (var i = 0; i < _this.findDetail.length; i++) {
+                _this.findDetail[i].images = _this.findDetail[i].images.split("|");
+                _this.findDetail[i].content = decodeURI(_this.findDetail[i].content);
+              }
+              console.log(_this.findDetail);
+              _this.$apply();
+            },
+            fail() {
+              wx.hideLoading();
+            }
+          });
+        }
       }
     }
 
@@ -626,7 +661,6 @@
         }
       })
     }
-
     onShareAppMessage(res) {
       if (res.from === 'button') {
         // 来自页面内转发按钮
@@ -642,34 +676,6 @@
         fail: function(res) {
           console.log("失败")
         }
-      }
-    }
-
-    tabList(e) {
-      this.activeIndex = e.target.id;
-      var id = e.target.id;
-      var _this = this;
-      if (id === '2') {
-        wx.request({
-          url: 'https://www.us800.cn/async!gotCareer.action', //大咖秀列表(动态)
-          data: {},
-          header: {
-            'content-type': 'application/json' // 默认值
-          },
-          success: function(res) {
-            //console.log(res.data);
-            _this.findDetail = res.data;
-            //转换为图片数组
-            for (var i = 0; i < _this.findDetail.length; i++) {
-              _this.findDetail[i].images = _this.findDetail[i].images.split("|");
-            }
-            console.log(_this.findDetail);
-            _this.$apply();
-          },
-          fail() {
-            wx.hideLoading();
-          }
-        });
       }
     }
   }
