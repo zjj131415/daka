@@ -171,6 +171,7 @@
         success: function(res) {
           //关闭loading
           wepy.hideLoading();
+          console.log(res.data);
           _this.notice = res.data;
           _this.$apply();
         },
