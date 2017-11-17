@@ -415,7 +415,7 @@
           //关闭loading
           wepy.hideLoading();
           _this.detail = res.data;
-          console.log(_this.detail);
+          console.log(_this.detail.heads);
           _this.detail.heads = _this.detail.heads.split(",");
           //console.log(_this.detail.heads);
           _this.$apply();

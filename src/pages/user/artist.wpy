@@ -1,61 +1,57 @@
 <style lang="less" scoped>
   .container {
-    .scroll-head {
-      box-sizing: border-box;
-      white-space: nowrap;
-      padding: 20rpx 0;
-      background: #fff;
-      .scroll-view {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5rpx 40rpx;
-        margin: 0 10rpx;
-        border: 1px solid #666;
-        border-radius: 60rpx;
-        font-size: 28rpx;
-        color: #333;
-        &.active {
-          background-color: #D43F22;
-          color: #ffffff;
-          border-color: #D43F22;
-        }
-      }
-    }
     .person {
       display: flex;
       flex-wrap: wrap;
-      padding: 5rpx;
-      .artist {
-        box-sizing: border-box;
-        width: 355rpx;
-        margin: 5rpx;
-        padding: 10rpx;
+      padding: 0 10rpx;
+      .personItem {
+        width: 345rpx;
+        margin: 10rpx;
         overflow: hidden;
         background: #fff;
-        image {
-          width: 100%;
+        .photo {
+          width: 345rpx;
+          height: 345rpx;
         }
-        .feature {
+        .info {
           display: flex;
           align-items: center;
+          justify-content: space-between;
+          padding: 0 15rpx;
           .name {
-            font-size: 32rpx;
-            color: #666;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-size: 30rpx;
+            color: #333;
+          }
+          .ht,
+          .add {
+            font-size: 26rpx;
+          }
+          .xg {
+            font-size: 28rpx;
+            margin: 0 3rpx;
+          }
+          .after {
+            white-space: nowrap;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            color: #878787;
           }
         }
-        .identity-group {
+        .tags {
           display: flex;
           align-items: center;
-          justify-content: center;
-          .identity {
-            margin: 0 10rpx;
-            padding: 5rpx 30rpx;
-            border: 1px solid #fff;
-            border-radius: 12rpx;
-            color: #fff;
-            font-size: 24rpx;
-            background: #666;
+          justify-content: space-between;
+          margin: 10rpx 30rpx 20rpx 30rpx;
+          .tag {
+            padding: 0 22rpx;
+            border: 1px solid #ddd;
+            border-radius: 8rpx;
+            color: #878787;
+            font-size: 28rpx;
           }
         }
       }
@@ -64,24 +60,17 @@
 </style>
 <template>
   <view class="container">
-    <!-- <scroll-view scroll-x class="scroll-head">
-        <text class="scroll-view {{activeOption == index ? 'active' : '' }}" plain id="{{index}}" wx:for="{{optionList}}" wx:key="{{index}}" @tap="switchOption">{{item}}</text>
-    </scroll-view> -->
     <view class="person">
-      <block wx:for="{{artistMessage}}" wx:key="index">
-        <view class="artist">
-          <image src="{{item.imageSrc}}" mode="widthFix"></image>
-          <view class="message">
-            <view class="feature">
-              <view class="name">{{item.name}}</view>
-              <view class="height">{{item.height}}cm</view>
-              <viem class="area">{{item.area}}</viem>
-            </view>
-            <view class="identity-group">
-              <block wx:for="{{item.identity}}" wx:key="index">
-                <view class="identity">{{item}}</view>
-              </block>
-            </view>
+      <block wx:for="{{persons}}">
+         <view class="personItem">
+          <image class="photo" mode="aspectFill" src="http://upload.jianshu.io/users/upload_avatars/1132780/9c3554d323dc?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></image>
+          <view class="info">
+            <view class="name">追风少年追风少年追风少年追风少年追风少年</view>
+            <view class="after"><text class="ht">170cm</text><text class="xg">/</text><text class="add">重庆</text></view>
+          </view>
+          <view class="tags">
+            <text class="tag">歌手</text>
+            <text class="tag">歌手</text>
           </view>
         </view>
       </block>
@@ -97,35 +86,13 @@
       navigationBarTitleText: '旗下大咖'
     }
     data = {
-      userInfo: {},
-      area: "重庆市渝北区龙山街道渝安龙都",
-      optionList: ['模特', '主持', '歌手', '礼仪', '演员', '舞蹈', '婚庆'],
-      activeOption: 0,
-      artistMessage: [
-        {imageSrc: '../../images/avatar/avatar1.jpg', name: '小小', height: '170', area: '重庆', identity: ['演员', '歌手']},
-        {imageSrc: '../../images/avatar/avatar2.jpg', name: '付霞', height: '170', area: '贵州', identity: ['模特']},
-        {imageSrc: '../../images/avatar/avatar3.jpg', name: '小芸', height: '170', area: '北京', identity: ['主持人', '婚庆']},
-        {imageSrc: '../../images/avatar/avatar4.jpg', name: '嘻嘻', height: '173', area: '四川', identity: ['礼仪', '舞蹈']}]
-    }
-    methods = {
-      switchOption(e) {
-        this.activeOption = e.target.id;
-      },
-      preview() {
-        wx.previewImage({
-          current: '',
-          urls: [
-            'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg',
-            '../../images/avatar/avatar2.jpg',
-            '../../images/avatar/avatar3.jpg',
-            '../../images/avatar/avatar4.jpg',
-            '../../images/avatar/avatar5.jpg',
-            '../../images/avatar/avatar6.jpg',
-            '../../images/avatar/avatar7.jpg',
-            '../../images/avatar/avatar8.jpg',
-            '../../images/avatar/avatar9.jpg']
-        })
-      }
+      persons: [
+        's',
+        's',
+        's',
+        's',
+        's'
+      ]
     }
   }
 </script>
