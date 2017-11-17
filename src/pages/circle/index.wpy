@@ -340,6 +340,12 @@
         align-items: center;
         font-size: 32rpx;
         color: #fff;
+        .province{
+          display: inline-flex;
+          width: 64rpx;
+          height: 42rpx;
+          overflow: hidden;
+        }
         .daka {
           margin-left: 6rpx;
           font-size: 30rpx;
@@ -489,6 +495,7 @@
           wx:key="{{index}}"
           data-index="{{index}}"
           data-name="{{item.name}}"
+          data-value="{{item.value}}"
           @tap="tabList1">
           <text class="daka {{item.icon}}"></text>{{item.name}}
         </view>
@@ -519,7 +526,7 @@
         <view class="sex">
           <block wx:for="{{sort3}}" wx:key="{{index}}">
             <view class="service-list {{activeIndex3 == index ? 'active' : '' }}"
-            data-index="{{index}}"
+            data-index="{{index}}" data-sex="{{item}}"
             @tap="tabList3">{{item}}</view>
           </block>
         </view>
@@ -538,7 +545,7 @@
       </view>
     </view>
     <view class="search-bar" wx:if="{{searchFlag}}">
-      <view class="address">北京<text class="daka icon-unfold"></text></view>
+      <picker class="address" mode="region" @change="selectAddress" value="{{region}}"><view class="province">{{region[0]}}</view><text class="daka icon-unfold"></text></picker>
       <navigator url="/pages/circle/filter" class="search-open">
         <text class="daka icon-search"></text>
         精准查找
@@ -607,15 +614,18 @@
       sortVisible1: false,
       sortVisible2: false,
       sortVisible3: false,
+      region: ['广东省'],
       // sort: ["智能排序", "服务类型", "筛选"],
       // activeIndex: 0,
       sortName: "智能排序",
+      sorted: 'createTime',//排序字段
+      gender: '',//性别
       sortTab: false,
       sort1: [
-        {icon: 'icon-zhinengpaixu', name: '智能排序'},
-        {icon: 'icon-zuixinfabuxianti', name: '最新发布'},
-        {icon: 'icon-jiageyougaodaodi', name: '价格由高到低'},
-        {icon: 'icon-mg-price-up', name: '价格由低到高'}
+        {icon: 'icon-zhinengpaixu', name: '最新加入', value: 'createTime'},
+        {icon: 'icon-zuixinfabuxianti', name: '活跃度', value: 'updateTime'},
+        {icon: 'icon-jiageyougaodaodi', name: '人气最高', value: 'visited'},
+        {icon: 'icon-mg-price-up', name: '订单数量', value: 'orderCount'}
       ],
       activeIndex1: 0,
       sort2: ['全部', '电商网红', '活动直播', '主持', '模特', '歌舞表演', '特技绝活', '广告代言', '礼仪', '配音', '游戏私教', 'K歌私教', '摄影', '戏曲', '节目嘉宾'],
@@ -639,7 +649,7 @@
       activeIndex3: 0,
       sort3: ['不限', '男', '女'],
       activeIndex4: 0,
-      sort4: ['不限', '红V认证', '实名认证', '高级会员', '芝麻认证'],
+      sort4: ['不限', '实名认证'],
       searchFlag: true,
       tabFlag: false,
       checkboxArr: [],
@@ -651,6 +661,9 @@
           current: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', // 当前显示图片的http链接
           urls: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg'] // 需要预览的图片http链接列表
         })
+      },
+      selectAddress(e) {
+        this.region = e.detail.value;
       },
       tabList(e) {
         const {index} = e.currentTarget.dataset || {};
@@ -669,10 +682,40 @@
         }
       },
       tabList1(e) {
-        const {index, name} = e.currentTarget.dataset || {};
+        const {index, name, value} = e.currentTarget.dataset || {};
         this.activeIndex1 = index;
         this.sortVisible1 = false;
         this.sortName = name;
+        this.sorted = value;//排序字段
+        var _this = this;
+        //开启loading
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        });
+        wx.request({
+          url: 'https://www.us800.cn/wechat!gotArtist.action',//大咖列表
+          data: {
+            sorted: _this.sorted,
+            size: "10"
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function(res) {
+            //关闭loading
+            wepy.hideLoading();
+            _this.artists = res.data;
+            for (var i = 0; i < _this.artists.length; i++) {
+              _this.artists[i].types = _this.artists[i].types.split(",");
+            }
+            console.log(_this.artists);
+            _this.$apply();
+          },
+          fail() {
+            wx.hideLoading();
+          }
+        });
       },
 //      tabList2(index, e) {
 //        this.activeIndex2 = index;
@@ -681,8 +724,13 @@
         this.sortVisible2 = false;
       },
       tabList3(e) {
-        const {index} = e.currentTarget.dataset || {};
+        const {index, sex} = e.currentTarget.dataset || {};
         this.activeIndex3 = index;
+        this.gender = sex;
+        if (sex === "不限") {
+          this.gender = "";
+        }
+        console.log(this.gender);
       },
       tabList4(e) {
         const {index} = e.currentTarget.dataset || {};
@@ -691,9 +739,42 @@
       reset1() {
         this.activeIndex3 = 0;
         this.activeIndex4 = 0;
+        this.gender = "";//性别重置
       },
       confirm1() {
         this.sortVisible3 = false;
+        var _this = this;
+        console.log(_this.sorted);
+        console.log(_this.gender);
+        //开启loading
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        });
+        wx.request({
+          url: 'https://www.us800.cn/wechat!gotArtist.action',//大咖列表
+          data: {
+            sorted: _this.sorted,
+            size: "10",
+            gender: _this.gender
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function(res) {
+            //关闭loading
+            wepy.hideLoading();
+            _this.artists = res.data;
+            for (var i = 0; i < _this.artists.length; i++) {
+              _this.artists[i].types = _this.artists[i].types.split(",");
+            }
+            console.log(_this.artists);
+            _this.$apply();
+          },
+          fail() {
+            wx.hideLoading();
+          }
+        });
       },
       upper(e) {
         var scrollTop = e.detail.scrollTop;
@@ -730,6 +811,38 @@
         wx.navigateTo({
           url: '/pages/user/home?id=' + id
         })
+      },
+      //筛选
+      screen() {
+        var _this = this;
+        //开启loading
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        });
+        wx.request({
+          url: 'https://www.us800.cn/wechat!gotArtist.action',
+          data: {
+            sorted: 'createTime',
+            size: "10"
+          },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function(res) {
+            //关闭loading
+            wepy.hideLoading();
+            _this.artists = res.data;
+            for (var i = 0; i < _this.artists.length; i++) {
+              _this.artists[i].types = _this.artists[i].types.split(",");
+            }
+            console.log(_this.artists);
+            _this.$apply();
+          },
+          fail() {
+            wx.hideLoading();
+          }
+        });
       },
       loadMore() {
         var _this = this;
@@ -769,9 +882,9 @@
         mask: true
       });
       wx.request({
-        url: 'https://www.us800.cn/wechat!gotArtist.action',
+        url: 'https://www.us800.cn/wechat!gotArtist.action',//大咖列表
         data: {
-          sorted: 'createTime',
+          sorted: _this.sorted,//排序字段
           size: "10"
         },
         header: {
