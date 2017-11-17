@@ -1,0 +1,165 @@
+<style lang="less" scoped>
+  .character {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2  ;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    .charCont {
+      padding-top: 40rpx;
+    }
+    .charTit {
+      height: 30rpx;
+      display: flex;
+      align-items: center;
+      margin: 0 40rpx;
+      padding-left: 10rpx;
+      border-left: 4rpx solid #dc3b23;
+      font-size: 28rpx;
+      color: #333;
+    }
+    .charTags {
+      padding: 20rpx 30rpx 0 30rpx;
+      display: flex;
+      flex-wrap: wrap;
+      .tag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: 50rpx;
+        padding: 0 20rpx;
+        margin: 10rpx;
+        border-radius: 10rpx;
+        border: 1px solid #dcdcdc;
+        font-size: 28rpx;
+        color: #878787;
+        .rm {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 28rpx;
+          height: 28rpx;
+          border-radius: 100%;
+          background: #dcdcdc;
+          position: absolute;
+          right: -10rpx;
+          top: -12rpx;
+          font-size: 20rpx;
+          color: #5d5d5d;
+        }
+      }
+    }
+    .inptu-btn {
+      margin: 0 40rpx;
+      margin-top: 10rpx;
+      display: flex;
+      align-items: center;
+      button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 70rpx;
+        font-size: 30rpx;
+      }
+    }
+    .input {
+      box-sizing: border-box;
+      width: 400rpx;
+      height: 70rpx;
+      padding: 5rpx 10rpx;
+      border-radius: 10rpx;
+      border: 1px solid #eee;
+      font-size: 28rpx;
+      color: #333;
+    }
+  }
+</style>
+<template>
+  <view>
+     <view class="character">
+      <view class="charCont">
+        <view class="charTit">我的角色</view>
+        <view class="charTags">
+          <block wx:for="{{selectChar.tag}}" wx:key="index">
+            <view class="tag">
+              {{item}}
+              <text
+                class="rm"
+                data-index="{{index}}"
+                data-text="item"
+                @tap="rmTag">×</text>
+            </view>
+          </block>
+        </view>
+      </view>
+      <view class="charCont">
+        <view class="charTit">自定义角色</view>
+        <view class="inptu-btn"> <input class="input" placeholder="自定义角色～"/><button>确认</button></view>
+      </view>
+      <view class="charCont">
+        <view class="charTit">演艺角色</view>
+        <view class="charTags">
+          <block wx:for="{{character}}" wx:key="index">
+            <view class="tag {{true ? '12' : '55'}}">{{item.name}}</view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+  export default class infoCharcter extends wepy.page {
+    config = {
+      navigationBarTitleText: '基本信息'
+    }
+    data = {
+      selectChar: [
+        {name: '演员'}
+      ],
+      character: [
+        {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }, {
+          name: "演员",
+          child: [
+            'childname'
+          ]
+        }
+      ]
+    }
+  }
+</script>
+

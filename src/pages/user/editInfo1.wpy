@@ -1,35 +1,26 @@
 <style lang="less" scoped>
-  .media-box {
-    background: #fff;
-    padding: 0 50rpx;
-    .media-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 160rpx;
-      height: 160rpx;
-      overflow: hidden;
-      border: 1px solid #ccc;
-      border-radius: 10rpx;
-      position: relative;
-      .daka {
-        font-size: 60rpx;
-        color: #707070;
+  .mediaBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40rpx 100rpx;
+    .mediaItem {
+      width: 200rpx;
+      image {
+        width: 200rpx;
+        height: 200rpx;
+        border: 1px solid #dcdcdc;
+        border-radius: 10rpx;
       }
-      .up-img {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 2;
+      .mediaText {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30rpx;
+        margin-top: 10rpx;
+        font-size: 30rpx;
+        color: #878787;
       }
-    }
-    .media {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      padding: 20rpx 0 30rpx 0;
     }
   }
   .cells {
@@ -63,23 +54,14 @@
 
 <template>
   <view>
-    <view class="media-box">
-      <!-- <view class="cell">
-          <view class="cell_hd">
-            自我介绍视频（图片）
-          </view>
-          <view class="cell_bd">
-
-          </view>
-          <view class="cell_ft"></view>
-        </view> -->
-      <view class="media">
-        <view class="media-item" @tap="uploadImg">
-          <image class="up-img" src="{{u_i}}"></image>
-        </view>
-        <view class="media-item 12" @tap="uploadVideo">
-          <image class="up-img" src="{{u_v}}"></image>
-        </view>
+    <view class="mediaBox">
+      <view class="mediaItem img">
+        <image mode="aspectFill" src="{{u_i[0]}}" @tap="uploadImg"></image>
+        <text class="mediaText">形象照</text>
+      </view>
+      <view class="mediaItem video">
+        <image mode="aspectFill" src="{{u_v}}" @tap="uploadVideo"></image>
+        <text class="mediaText">视频介绍</text>
       </view>
     </view>
     <view class="cells">
@@ -112,6 +94,12 @@
           f: 'icon-right',
           r: "info-basis"
         },
+         {
+          t: '角色',
+          b: '',
+          f: 'icon-right',
+          r: "info-character"
+        },
         {
           t: '专业资料',
           b: '',
@@ -131,37 +119,20 @@
           r: 'winning'
         }
       ],
-      "u_i": "/images/upload_img.png",
+      "u_i": ['/images/upload_img.png'],
       "u_v": "/images/upload_video.png"
     }
     methods = {
       uploadImg() {
         const self = this;
         wx.chooseImage({
-          count: 1, // 默认9
+          count: 9, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            var tempFilePaths = res.tempFilePaths;
-            self.setData({u_i: tempFilePaths[0]});
-            const uploadTask = wx.uploadFile({
-              url: 'https://www.us800.cn', //仅为示例，非真实的接口地址
-              filePath: tempFilePaths[0],
-              name: 'file',
-              formData:{
-                'user': 'test'
-              },
-              success: function(res) {
-                //var data = res.data
-                //do something
-              }
-            })
-            uploadTask.onProgressUpdate((res) => {
-              console.log('上传进度', res.progress)
-              console.log('已经上传的数据长度', res.totalBytesSent)
-              console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-            })
+          success: (res) => {
+            let tempFilePaths = res.tempFilePaths;
+            this.u_i = tempFilePaths;
+            this.$apply();
           }
         })
       } ,

@@ -152,6 +152,8 @@ import wepy from 'wepy'
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/user/editInfo1',
+      'pages/user/info-character',
       'pages/circle/index',
       'pages/user/winning',
       'pages/notice/index',
@@ -165,7 +167,6 @@ export default class extends wepy.app {
       'pages/find/detail',
       'pages/user/info-basis',
       'pages/find/index',
-      'pages/user/editInfo1',
       'pages/user/editInfo',
       'pages/notice/detail',
       'pages/circle/search',

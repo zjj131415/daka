@@ -111,36 +111,6 @@
 
 <template>
   <view>
-    <view class="character" wx:if="{{showChar}}">
-      <view class="close" @tap="hanleChar">×</view>
-      <view class="charCont">
-        <view class="charTit">我的角色</view>
-        <view class="charTags">
-          <block wx:for="{{selectChar.tag}}" wx:key="index">
-            <view class="tag">
-              {{item}}
-              <text
-                class="rm"
-                data-index="{{index}}"
-                data-text="item"
-                @tap="rmTag">×</text>
-            </view>
-          </block>
-        </view>
-      </view>
-      <view class="charCont">
-        <view class="charTit">自定义角色</view>
-        <view></view>
-      </view>
-      <view class="charCont">
-        <view class="charTit">演艺角色</view>
-        <view class="charTags">
-          <block wx:for="{{character}}" wx:key="index">
-            <view class="tag {{true ? '12' : '55'}}">{{item.name}}</view>
-          </block>
-        </view>
-      </view>
-    </view>
     <form bindsubmit="formSubmit" >
       <view class="cells">
         <view class="cell" @tap="uploadImg">
@@ -204,49 +174,6 @@
       region: ['广东省', '广州市', '海珠区'],
       customItem: '全部',
       xingbie: 0,
-      showChar: true,
-      selectChar: {
-        tag: ["演员", "模特", "导演"],
-        child: []
-      },
-      character: [
-        {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }
-      ]
     }
     methods = {
       uploadImg() {
@@ -256,8 +183,9 @@
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
-           var tempFilePaths = res.tempFilePaths;
-            self.setData({u_img: tempFilePaths[0]});
+            var tempFilePaths = res.tempFilePaths;
+            self.u_img = tempFilePaths[0];
+            self.$apply();
           }
         })
       },
@@ -282,12 +210,6 @@
             console.log(res.errMsg)
           }
         })
-      },
-      hanleChar() {
-        this.showChar = !this.showChar;
-      },
-      rmTag(e) {
-        console.log(e)
       }
     }
   }
