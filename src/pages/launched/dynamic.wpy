@@ -133,15 +133,19 @@
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function (res) {
-          //console.log(res.tempFilePaths);
+          console.log(res.tempFilePaths);
+//          wx.uploadFile({
+//            url: 'https://www.us800.cn', //上传图片接口地址
+//            filePath: res.tempFilePaths[0],
+//            name: 'file',
+//            success: function(res) {
+//              console.log(res);
+//            }
+//          });
           _this.images = res.tempFilePaths;
           _this.imagesStr = _this.images.join("|");
           console.log(_this.imagesStr);
           _this.$apply();
-//          that.setData({
-//            images: that.data.images.concat(res.tempFilePaths)
-//          });
-          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         }
       })
     }
