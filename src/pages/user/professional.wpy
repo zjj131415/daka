@@ -1,107 +1,116 @@
 <style lang="less" scoped>
-  .container {
-    padding-bottom: 40rpx;
-    .info-group {
-      padding-left: 20rpx;
-      box-sizing:border-box;
-      background:#fff;
-      .option {
-        display: flex;
-        padding:20rpx 30rpx;
-        padding-left: 0;
-        border-bottom:1px solid #f5f5f5;
-        font-size: 28rpx;
-        .option-left {
-          display: flex;
-          align-items: center;
-        }
-        .option-center {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          padding-left: 20rpx;
-          padding-right: 20rpx;
-          &.nochoice {
-            color: #838383;
-          }
-          picker {
-            width: 100%;
-            text-align: right;
-          }
-          .school {
-            width: 100%;
-            text-align: right;
-          }
-        }
-        .option-right {
-          display: flex;
-          align-items: center;
-          font-size: 32rpx;
-          color: #cdcdcd;
-        }
-        &.noborder {
-          border-bottom: none;
-        }
-      }
-      &.title {
-        margin-top: 20rpx;
-      }
+  .cell {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 30rpx 20rpx;
+    font-size: 30rpx;
+    color: #666;
+    position: relative;
+    &::before {
+      content: " ";
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      border-top: 1px solid #dcdcdc;
+      color: #dcdcdc;
+      -webkit-transform: scaleY(.5);
+      -ms-transform: scaleY(.5);
+      transform: scaleY(.5);
     }
-    .description {
-      height: 80rpx;
-      line-height: 80rpx;
-      padding-left: 20rpx;
-      font-size: 30rpx;
-      color: #A3A3A3;
-      background-color: #F7F7F7;
+    .cell_bd {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      color: "#838383"
     }
+    .cell_ft {
+      margin-left: 10rpx;
+      font-size: 32rpx;
+      color: #d5d5d5;
+    }
+    .input {
+      text-align: right;
+      margin-left: 10rpx;
+      font-size: 32rpx;
+      color: #d5d5d5;
+    }
+  }
+  .sub-btn {
+    margin: 20rpx;
+    outline: none;
+    background: #dc3b23;
+    color: #fff;
   }
 </style>
 <template>
-  <view class="container">
-    <view class="description">个人资料</view>
-    <view class="info-group">
-      <view class="option">
-        <view class="option-left">身高</view>
-        <view class="option-center">
-          <picker @change="heightChange" value="{{personInfo.heights.index}}" range="{{personInfo.heights.height}}">
-            <view class="picker">
-              {{personInfo.heights.height[personInfo.heights.index]}}
-            </view>
-          </picker>
+ <view>
+    <form bindsubmit="formSubmit" >
+      <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            身高
+          </view>
+          <view class="cell_bd">
+          </view>
+          <view class="cell_ft">
+            <picker @change="heightChange" value="{{personInfo.heights.index}}" range="{{personInfo.heights.height}}">
+              <view class="picker">
+                {{personInfo.heights.height[personInfo.heights.index]}}
+              </view>
+            </picker>
+          </view>
         </view>
-        <view class="option-right daka icon-right"></view>
       </view>
-      <view class="option">
-        <view class="option-left">体重</view>
-        <view class="option-center">
-          <picker @change="weightChange" value="{{personInfo.weights.index}}" range="{{personInfo.weights.weight}}">
-            <view class="picker">
-              {{personInfo.weights.weight[personInfo.weights.index]}}
-            </view>
-          </picker>
+      <view class="cells">
+        <view class="cell" @tap="weightChange">
+          <view class="cell_hd">
+            体重
+          </view>
+          <view class="cell_bd">
+          </view>
+          <view class="cell_ft">
+            <picker @change="heightChange" value="{{personInfo.measurements.index}}" range="{{personInfo.measurements.measurement}}">
+              <view class="picker">
+                {{personInfo.heights.height[personInfo.heights.index]}}
+              </view>
+            </picker>
+          </view>
         </view>
-        <view class="option-right daka icon-right"></view>
       </view>
-      <view class="option">
-        <view class="option-left">三围</view>
-        <view class="option-center">
-          <picker mode="multiSelector" @change="measurementChange" value="{{personInfo.measurements.index}}" range="{{personInfo.measurements.measurement}}">
+      <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            三围
+          </view>
+          <view class="cell_bd">
+          </view>
+          <view class="cell_ft">
+            <picker mode="multiSelector" @change="measurementChange" value="{{personInfo.measurements.index}}" range="{{personInfo.measurements.measurement}}">
             <view class="picker">
               {{personInfo.measurements.measurement[0][personInfo.measurements.index[0]]}}-{{personInfo.measurements.measurement[1][personInfo.measurements.index[1]]}}-{{personInfo.measurements.measurement[2][personInfo.measurements.index[2]]}}
             </view>
           </picker>
-        </view>
-        <view class="option-right daka icon-right"></view>
-      </view>
-      <view class="option noborder">
-        <view class="option-left">毕业学校</view>
-        <view class="option-center">
-          <input placeholder="请输入毕业学校" class="school"/>
+          </view>
         </view>
       </view>
-    </view>
+       <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            毕业学校
+          </view>
+          <view class="cell_bd">
+            
+          </view>
+          <view class="cell_ft">
+             <input class="input" placeholder-style="color: #d5d5d5" placeholder="毕业学校～"/>
+          </view>
+        </view>
+      </view>
+      <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
+    </form>
   </view>
 </template>
 

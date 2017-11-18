@@ -54,7 +54,7 @@
     }
     .inptu-btn {
       margin: 0 40rpx;
-      margin-top: 10rpx;
+      margin-top: 30rpx;
       display: flex;
       align-items: center;
       button{
@@ -63,6 +63,7 @@
         justify-content: center;
         height: 70rpx;
         font-size: 30rpx;
+        background: transparent;
       }
     }
     .input {
@@ -74,6 +75,19 @@
       border: 1px solid #eee;
       font-size: 28rpx;
       color: #333;
+    }
+    .btnBox {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .sub-btn {
+      outline: none;
+      background: #dc3b23;
+      color: #fff;
     }
   }
 </style>
@@ -97,7 +111,7 @@
       </view>
       <view class="charCont">
         <view class="charTit">自定义角色</view>
-        <view class="inptu-btn"> <input class="input" placeholder="自定义角色～"/><button>确认</button></view>
+        <view class="inptu-btn"> <input class="input" placeholder="自定义角色～"/><button>添加</button></view>
       </view>
       <view class="charCont">
         <view class="charTit">演艺角色</view>
@@ -107,7 +121,11 @@
           </block>
         </view>
       </view>
+      <view class="btnBox">
+        <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
+      </view>
     </view>
+   
   </view>
 </template>
 
@@ -115,17 +133,19 @@
   import wepy from "wepy";
   export default class infoCharcter extends wepy.page {
     config = {
-      navigationBarTitleText: '基本信息'
+      navigationBarTitleText: '角色·'
     }
     data = {
       selectChar: [
-        {name: '演员'}
+        {name: '演员', child: ['']}
       ],
       character: [
         {
           name: "演员",
           child: [
-            'childname'
+            '1号演员',
+            '2号演员',
+            '3号演员'
           ]
         }, {
           name: "演员",

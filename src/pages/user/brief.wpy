@@ -1,6 +1,5 @@
 <style lang="less" scoped>
   .container {
-    padding-top: 40rpx;
     .enter {
       border-top:1px solid #f5f5f5;
       border-bottom: 1px solid #f5f5f5;
@@ -14,13 +13,22 @@
         padding: 20rpx 30rpx;
       }
     }
+    .sub-btn {
+      margin: 20rpx;
+      outline: none;
+      background: #dc3b23;
+      color: #fff;
+    }
   }
 </style>
 <template>
   <view class="container">
-    <view class="enter">
-      <textarea type="text" placeholder="请填写个人简介" value="{{personal}}" maxlength="-1" focus/>
-    </view>
+    <form bindsubmit="formSubmit" >
+      <view class="enter">
+        <textarea type="text" placeholder="请填写个人简介" value="{{personal}}" maxlength="-1" focus/>
+      </view>
+      <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
+    </form>
   </view>
 </template>
 

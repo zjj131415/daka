@@ -1,104 +1,97 @@
 <style lang="less" scoped>
-  .container {
-    padding-bottom: 40rpx;
-    .info-group {
-      padding-left: 20rpx;
-      box-sizing:border-box;
-      background:#fff;
-      .option {
-        display: flex;
-        padding:20rpx 30rpx;
-        padding-left: 0;
-        border-bottom:1px solid #f5f5f5;
-        font-size: 28rpx;
-        .option-left {
-          display: flex;
-          align-items: center;
-        }
-        .option-center {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          padding-left: 20rpx;
-          padding-right: 20rpx;
-          &.nochoice {
-            color: #838383;
-          }
-          picker {
-            width: 100%;
-            text-align: right;
-          }
-          .school {
-            width: 100%;
-            text-align: right;
-          }
-        }
-        .option-right {
-          display: flex;
-          align-items: center;
-          font-size: 32rpx;
-          color: #cdcdcd;
-        }
-        &.noborder {
-          border-bottom: none;
-        }
-      }
-      .upload {
-        display: flex;
-        padding-bottom: 20rpx;
-        .upload-img {
-          width: 160rpx;
-          height: 160rpx;
-          margin-right: 20rpx;
-          border-radius: 5px;
-        }
-      }
+ .cell {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 30rpx 20rpx;
+    font-size: 30rpx;
+    color: #666;
+    position: relative;
+    &::before {
+      content: " ";
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      border-top: 1px solid #dcdcdc;
+      color: #dcdcdc;
+      -webkit-transform: scaleY(.5);
+      -ms-transform: scaleY(.5);
+      transform: scaleY(.5);
     }
-    .description {
-      height: 80rpx;
-      line-height: 80rpx;
-      padding-left: 20rpx;
-      font-size: 30rpx;
-      color: #A3A3A3;
-      background-color: #F7F7F7;
+    .cell_bd {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      color: "#838383"
     }
+    .cell_ft {
+      margin-left: 10rpx;
+      font-size: 32rpx;
+      color: #d5d5d5;
+    }
+    .input {
+      text-align: right;
+      margin-left: 10rpx;
+      font-size: 32rpx;
+      color: #d5d5d5;
+    }
+    .image {
+      height: 100rpx;
+      width: 100rpx;
+    }
+  }
+  .sub-btn {
+    margin: 20rpx;
+    outline: none;
+    background: #dc3b23;
+    color: #fff;
   }
 </style>
 <template>
-  <view class="container">
-    <view class="description">获得奖项</view>
-    <view class="info-group">
-      <view class="option">
-        <view class="option-left">奖项</view>
-        <view class="option-center">
-          <input placeholder="请填写奖项名称" class="school"/>
+  <view>
+    <form bindsubmit="formSubmit" >
+      <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            获得奖项
+          </view>
+          <view class="cell_bd">
+          </view>
+          <view class="cell_ft">
+            <input placeholder="请填写奖项名称" placeholder-style="color: #d5d5d5" class="input"/>
+          </view>
         </view>
       </view>
-      <view class="option">
-        <view class="option-left">时间</view>
-        <view class="option-center">
-          <picker mode="date" value="{{personInfo.date}}" @change="dateChange">
-            <view class="picker">
-              {{personInfo.date}}
-            </view>
-          </picker>
+      <view class="cells">
+        <view class="cell" @tap="xingbie">
+          <view class="cell_hd">
+            时间
+          </view>
+          <view class="cell_bd">
+          </view>
+          <view class="cell_ft">
+             <picker mode="date" value="{{personInfo.date}}" @change="dateChange">
+              <view class="picker">
+                {{personInfo.date}}
+              </view>
+            </picker>
+          </view>
         </view>
-        <view class="option-right daka icon-right"></view>
       </view>
-      <view class="option noborder">
-        <view class="option-left">获奖证书上传</view>
-        <view class="option-center">
-          最多上传3个
+      <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            获奖证书
+          </view>
+          <view class="cell_bd">
+            <image @tap="uploadImg" class="image" src="{{personInfo.imgSrc}}" mode="aspectFill"></image>
+          </view>
         </view>
       </view>
-      <view class="upload">
-        <block wx:for="{{personInfo.imgSrc}}" wx:key="{{index}}">
-          <image class="upload-img" src="{{item}}" @tap="uploadImg"></image>
-        </block>
-      </view>
-      <button @tap="saveInformation">保存简历</button>
-    </view>
+      <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
+    </form>
   </view>
 </template>
 

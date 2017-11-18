@@ -129,7 +129,8 @@
           <view class="cell_hd">
             性别
           </view>
-          <view class="cell_bd">
+          <view class="cell_bd"></view>
+          <view class="cell_ft">
             {{xingbie == 0 ? "男" : '女'}}
           </view>
         </view>
@@ -138,23 +139,14 @@
         <view class="cell">
           <view class="cell_hd">
           </view>所在地
-          <view class="cell_bd">
-            <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+          <view class="cell_bd"></view>
+          <view class="cell_ft">
+            <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
               <view class="picker">
                {{region[0]}} {{region[1]}} {{region[2]}}
               </view>
             </picker>
           </view>
-        </view>
-      </view>
-      <view class="cells">
-        <view class="cell" @tap="hanleChar">
-          <view class="cell_hd">
-            角色
-          </view>
-          <view class="cell_bd">
-          </view>
-          <view class="cell_ft daka icon-right"></view>
         </view>
       </view>
       <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
@@ -172,7 +164,6 @@
       subLoading: false,
       u_img: "/images/dynamic.png",
       region: ['广东省', '广州市', '海珠区'],
-      customItem: '全部',
       xingbie: 0,
     }
     methods = {
