@@ -75,9 +75,20 @@
           width: 158rpx;
           height: 56rpx;
           font-size: 28rpx;
-          color: #fff;
+          color: #333;
           background: #dcdcdc;
         }
+      }
+      .remove {
+        margin: 0 15rpx;
+        border-radius: 8rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 56rpx;
+        background: #dc3b23;
+        font-size: 28rpx;
+        color: #fff;
       }
     }
   }
@@ -96,9 +107,8 @@
             <text class="tag">歌手</text>
             <text class="tag">歌手</text>
           </view>
-          <view class="status">
-            <view class="status-item">确 认</view>
-            <view class="status-item">放 弃</view>
+          <view class="remove">
+            移 除
           </view>
         </view>
       </block>
@@ -109,7 +119,7 @@
 <script>
   import wepy from "wepy";
 
-  export default class SignUp extends wepy.page {
+  export default class Keep extends wepy.page {
     config = {
       navigationBarTitleText: '旗下大咖'
     }

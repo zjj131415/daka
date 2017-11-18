@@ -339,7 +339,7 @@
         <view>我要报名</view>
       </view>
     </view>
-    <navigator wx:if="{{active == 3}}" class="release" url="/pages/user/artist">
+    <navigator wx:if="{{active == 3}}" class="release" url="/pages/user/sign-up">
       <view class="btn" @tap="sginUp">
         <text class="baoming daka icon-chakan"></text>
         <view>查看报名</view>

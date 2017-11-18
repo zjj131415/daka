@@ -3,12 +3,13 @@
     .person {
       display: flex;
       flex-wrap: wrap;
-      padding: 0 10rpx;
+      padding: 0 5rpx;
       .personItem {
-        width: 345rpx;
-        margin: 10rpx;
+        width: 355rpx;
+        margin: 5rpx;
         overflow: hidden;
         background: #fff;
+        padding-bottom: 10rpx;
         .photo {
           width: 345rpx;
           height: 345rpx;
@@ -19,6 +20,7 @@
           justify-content: space-between;
           padding: 0 15rpx;
           .name {
+            flex: 1;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -27,10 +29,10 @@
           }
           .ht,
           .add {
-            font-size: 26rpx;
+            font-size: 22rpx;
           }
           .xg {
-            font-size: 28rpx;
+            font-size: 22rpx;
             margin: 0 3rpx;
           }
           .after {
@@ -38,6 +40,7 @@
             flex: 1;
             display: flex;
             align-items: center;
+            justify-content: flex-end;
             color: #878787;
           }
         }
@@ -45,14 +48,35 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin: 10rpx 30rpx 20rpx 30rpx;
+          margin: 10rpx 15rpx 10rpx 15rpx;
           .tag {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 0 22rpx;
+            width: 110rpx;
             border: 1px solid #ddd;
             border-radius: 8rpx;
             color: #878787;
             font-size: 28rpx;
           }
+        }
+      }
+      .status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15rpx;
+        .status-item {
+          border-radius: 8rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 158rpx;
+          height: 56rpx;
+          font-size: 28rpx;
+          color: #fff;
+          background: #dcdcdc;
         }
       }
     }
@@ -65,12 +89,16 @@
          <view class="personItem">
           <image class="photo" mode="aspectFill" src="http://upload.jianshu.io/users/upload_avatars/1132780/9c3554d323dc?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></image>
           <view class="info">
-            <view class="name">追风少年追风少年追风少年追风少年追风少年</view>
-            <view class="after"><text class="ht">170cm</text><text class="xg">/</text><text class="add">重庆</text></view>
+            <view class="name">张三</view>
+            <view class="after"><text class="ht">170</text><text class="xg">/</text><text class="add">重庆</text></view>
           </view>
           <view class="tags">
             <text class="tag">歌手</text>
             <text class="tag">歌手</text>
+          </view>
+          <view class="status">
+            <view class="status-item">确认</view>
+            <view class="status-item">放弃</view>
           </view>
         </view>
       </block>

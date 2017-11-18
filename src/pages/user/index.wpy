@@ -141,6 +141,7 @@
             {title: '我要认证', image: '/images/icons/certification.png', url: '/pages/user/realname'},
             {title: '我报名的', image: '/images/icons/hand.png', url: '/pages/user/registered'},
             {title: '我发布的', image: '/images/icons/editor.png', url: '/pages/user/published'},
+            {title: '我的项目', image: '/images/icons/find_active.png', url: '/pages/user/project'},
             {title: '旗下大咖', image: '/images/icons/it.png', url: '/pages/user/artist'}
           ];
       })

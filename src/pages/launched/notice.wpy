@@ -9,7 +9,8 @@
       .bg {
         text-align: center;
         .img {
-          width: 200rpx;
+          width: 240rpx;
+          height: 240rpx;
         }
         .detail {
           font-size: 28rpx;
@@ -119,10 +120,16 @@
       }
     }
     .release {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;;
       margin-top: 40rpx;
+      box-sizing: border-box;
       padding: 20rpx;
       background-color: #FFFFFF;
       button {
+        width: 100%;
         font-size: 30rpx;
         color: #ffffff;
         background-color: #DB3B23;
@@ -135,10 +142,10 @@
   <view class="container">
     <view class="uploadImg" @tap="uploadImage">
       <view class="bg" wx:if="{{!imgSrc}}">
-        <image src="../../images/upload_img.png" mode="widthFix" class="img"></image>
+        <image src="../../images/upload_img.png" mode="aspectFill" class="img"></image>
         <view class="detail">上传需求封面图尺寸比例750*340</view>
       </view>
-      <image src="{{imgSrc}}" class="bgImg" wx:else></image>
+      <image src="{{imgSrc}}" class="bgImg" mode="aspectFill" wx:else></image>
     </view>
     <view class="list-wrap">
       <view class="list">
@@ -163,8 +170,13 @@
         <view class="daka icon-right"></view>
       </view>
       <view class="list">
-        <view class="daka icon-xingbie1 icon"></view>
-        <view class="option flex1">性别要求</view>
+        <view class="daka icon-timefill icon"></view>
+        <view class="option flex1">开始时间</view>
+        <view class="daka icon-right"></view>
+      </view>
+      <view class="list">
+        <view class="daka icon-timefill icon"></view>
+        <view class="option flex1">结束时间</view>
         <view class="daka icon-right"></view>
       </view>
       <view class="list">
@@ -179,38 +191,6 @@
         <view class="option flex1">通告详细说明，如：剧组简介、条件要求、薪资待遇等</view>
       </view>
     </view>
-    <view class="signup">
-      <view class="title">请选择需要的报名资料</view>
-      <view class="characteristic">
-        <view class="head">基本资料</view>
-        <view class="data-wrap">
-          <view class="data-list">身高</view>
-          <view class="data-list">体重</view>
-          <view class="data-list">三围</view>
-          <view class="data-list">学校</view>
-          <view class="data-list">签约状态</view>
-          <view class="data-list">出生日期</view>
-          <view class="data-list">所在地</view>
-        </view>
-      </view>
-      <view class="characteristic">
-        <view class="head">履历才艺</view>
-        <view class="data-wrap">
-          <view class="data-list">工作经验</view>
-          <view class="data-list">才艺特长</view>
-          <view class="data-list">所获奖项</view>
-          <view class="data-list">形象特征</view>
-        </view>
-      </view>
-      <view class="characteristic">
-        <view class="head">其他资料</view>
-        <view class="data-wrap">
-          <view class="data-list">资料卡</view>
-          <view class="data-list">视频资料</view>
-          <view class="data-list">照片资料</view>
-        </view>
-      </view>
-    </view>
     <view class="release">
       <button>发布</button>
     </view>
@@ -223,7 +203,8 @@
       navigationBarTitleText: '发通告'
     }
     data = {
-      imgSrc: ""
+      imgSrc: "",
+      
     }
     methods = {
       uploadImage() {

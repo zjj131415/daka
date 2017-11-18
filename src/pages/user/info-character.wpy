@@ -30,7 +30,7 @@
         justify-content: center;
         position: relative;
         height: 50rpx;
-        padding: 0 20rpx;
+        padding: 0 30rpx;
         margin: 10rpx;
         border-radius: 10rpx;
         border: 1px solid #dcdcdc;
@@ -50,6 +50,38 @@
           font-size: 20rpx;
           color: #5d5d5d;
         }
+      }
+    }
+    .sub-tags-box {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.5)
+    }
+    .sub-tags {
+      padding-top: 100rpx;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width:  100%;
+      margin-top: 30rpx;
+      height: 780rpx;
+      background: #fff;
+      .tag {
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50rpx;
+        padding: 0 30rpx;
+        margin: 10rpx;
+        border-radius: 10rpx;
+        border: 1px solid #f4f4f4;
+        font-size: 30rpx;;
+        color: #878787;
       }
     }
     .inptu-btn {
@@ -84,6 +116,25 @@
       padding: 20px;
       box-sizing: border-box;
     }
+    .addbtn {
+      position: relative;
+      height: 66rpx;
+      width: 100rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      outline: none;
+      color: #dc3b23;
+      font-size: 68rpx;
+    }
+    .close {
+      position: absolute;
+      bottom: 100rpx;
+      left: 50%;
+      transform: translate3d(-50%, 0,0);
+      color: #666;
+      font-size: 80rpx;
+    }
     .sub-btn {
       outline: none;
       background: #dc3b23;
@@ -111,21 +162,33 @@
       </view>
       <view class="charCont">
         <view class="charTit">自定义角色</view>
-        <view class="inptu-btn"> <input class="input" placeholder="自定义角色～"/><button>添加</button></view>
+        <view class="inptu-btn"> <input class="input" placeholder="如: 美工 建筑师"/><view class="addbtn daka icon-zengjia"></view></view>
       </view>
       <view class="charCont">
         <view class="charTit">演艺角色</view>
         <view class="charTags">
           <block wx:for="{{character}}" wx:key="index">
-            <view class="tag {{true ? '12' : '55'}}">{{item.name}}</view>
+            <view @tap="showModal" class="tag {{true ? '12' : '55'}}">{{item.name}}</view>
           </block>
         </view>
+      </view>
+      <view class="sub-tags-box" wx:if="{{modal}}">
+        <view class="sub-tags">
+          <view class="tag">1级演员</view>
+          <view class="tag">1级演员</view>
+          <view class="tag">1级演员</view>
+          <view class="tag">1级演员</view>
+          <view class="tag">1级演员</view>
+          <view class="tag">1级演员</view>
+          <view class="tag">1级演员</view>
+          <view class="tag">1级演员</view>
+        </view>
+        <view @tap="hideModal" class="close daka icon-chafuben"></view>
       </view>
       <view class="btnBox">
         <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
       </view>
     </view>
-   
   </view>
 </template>
 
@@ -136,6 +199,7 @@
       navigationBarTitleText: '角色·'
     }
     data = {
+      modal: false,
       selectChar: [
         {name: '演员', child: ['']}
       ],
@@ -179,6 +243,15 @@
           ]
         }
       ]
+    }
+
+    methods={
+      showModal() {
+        this.modal = true;
+      },
+      hideModal() {
+        this.modal = false;
+      }
     }
   }
 </script>

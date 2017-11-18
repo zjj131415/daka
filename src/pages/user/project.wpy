@@ -1,0 +1,63 @@
+<style lang="less" scoped>
+  .container {
+    font-size: 122;
+    .navItem {
+      margin-top: 20rpx;
+      background: #fff;
+      padding: 20rpx;
+      .navTit {
+        padding: 0 30rpx;
+        background: #dc3b23;
+        color: #fff;
+        font-size: 36rpx;
+      }
+      .navVal {
+        padding-left: 30rpx;
+        margin-top: 10rpx;
+        color: #878787;
+        font-size: 34rpx;
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <block wx:for="{{nav}}" wx:key="{{index}}">
+      <navigator class="navItem" url="/pages/user/keep">
+        <text class="navTit">{{item.label}}</text>
+        <view class="navVal">{{item.value}}</view>
+      </navigator>
+    </block>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class Artist extends wepy.page {
+    config = {
+      navigationBarTitleText: '旗下大咖'
+    }
+    data = {
+      nav: [
+        {
+          label: '项 目 5',
+          value: '的第一步，你需要拥有一个小程序帐号，通',
+        }, {
+          label: '项 目 4',
+          value: '根据指引填写信息和提交相应的资料，就可以拥有自己的小'
+        }, {
+          label: '项 目 3',
+          value: '点击工具上的编译按钮，可以在工具的左侧模拟器界面看到这个小程序的表现，也可以点击'
+        }, {
+          label: '项 目 2',
+          value: '通过这个章节，你已经成功创建了你的第一个小程序，并且在微信客户端上体验到它流畅的表现。'
+        }, {
+          label: '项 目 1',
+          value: '我们一起来看看这个小程序的代码构成。'
+        }
+      ]
+    }
+  }
+</script>
+
