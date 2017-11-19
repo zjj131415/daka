@@ -1,0 +1,80 @@
+<style lang="less" scoped>
+  .container {
+    .payInput {
+      margin: 50rpx 20rpx;
+      height: 80rpx;
+      background: #fff;
+      display: flex;
+      .inputIcon {
+        width: 80rpx;
+        height: 80rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 44rpx;
+        color: #dd3824;
+      } 
+      .input {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 10rpx 0;
+        display: flex;
+        align-items: center;
+        font-size: 30rpx;
+        color: #333;
+      }
+    }
+   .content {
+     margin-top: 50rpx;
+     padding: 0 20rpx 0 20rpx;
+     .contTit {
+       display: flex;
+       align-items: center;
+       height: 70rpx;
+       color: #2b2b2b;
+       font-size: 32rpx;
+     }
+     textarea {
+       background: #fff;
+       width: 100%;
+       padding: 10rpx;
+       font-size: 30rpx;
+       color: #333;
+     }
+   } 
+    .sub-btn {
+      margin: 100rpx 20rpx;
+      outline: none;
+      background: #dc3b23;
+      color: #fff;
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="payInput">
+        <view class="inputIcon daka icon-qian"></view>
+        <input class="input" placeholder-style="color:#ccc" type="digit" placeholder="金额不能低于3元！"/>
+      </view>
+      <view class="content">
+        <view class="contTit">明信片</view>
+        <textarea placeholder="说说对他的感觉如何（20个字以内）" placeholder-style="color: #ccc" name="textarea"/>
+      </view>
+      <button class="sub-btn"  loading="{{subLoading}}" formType="submit">打赏</button>
+    </form>
+  </view>
+</template>
+<script>
+  import wepy from "wepy";
+  export default class FindPay extends wepy.page {
+    data = {
+      name: 'sjs'
+    }
+  }
+</script>
+
+
