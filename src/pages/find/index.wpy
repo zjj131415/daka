@@ -153,6 +153,45 @@
       </view>
     </view>
   </view>
+  <view class="find-iem" wx:for="{{findDetail}}" wx:for-index="idx" wx:key="{{idx}}">
+    <navigator class="find-header" url="{{'sks'}}">
+      <view class="find-img">
+        <image mode="aspectFill" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+      </view>
+      <view class="find-name-tag">
+        <view class="find-name">{{item.user.name}}<text class="renz-icon daka icon-yishimingrenzheng1"></text></view>
+        <view class="find-tags">
+          <text class="find-tag" wx:for="{{item.user.tags}}" wx:key="index">{{item}}</text>
+        </view>
+      </view>
+      <view class="down-icon daka icon-unfold"></view>
+    </navigator>
+    <view class="find-cont">
+      <view class="find-cont-text">
+        <text>{{item.content}}</text>
+      </view>
+      <view class="find-cont-img">
+        <block wx:for="{{item.images}}" wx:key="{{index}}">
+          <image mode="aspectFill" src="{{item}}" @tap="preview" data-images="{{findDetail[idx].images}}" data-image="{{item}}"></image>
+        </block>
+      </view>
+    </view>
+    <view class="up-time">{{item.month}}-{{item.day}}</view>
+    <view class="find-actions">
+      <button open-type="share" class="action-item daka icon-fenxiang2">
+        分享
+      </button>
+      <view class="action-item daka icon-comment">
+        评论
+      </view>
+      <view class="action-item daka icon-appreciate">
+        点赞
+      </view>
+      <view class="action-item daka icon-refund" @tap="play">
+        打赏
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 import wepy from "wepy";
@@ -177,7 +216,8 @@ export default class Index extends wepy.page {
           text: `作为一个有情怀的人，总能够写出好文章\n`
         }
       }
-    ]
+    ],
+    findDetail: {} //动态详情
   }
   methods = {
     play() {
@@ -204,6 +244,15 @@ export default class Index extends wepy.page {
           console.log(res)
         }
       })
+    },
+    //图片预览
+    preview(e) {
+      console.log(e);
+      const {images,image} = e.currentTarget.dataset || {};
+      wx.previewImage({
+        current: image,
+        urls: images
+      });
     }
   }
 
@@ -227,6 +276,13 @@ export default class Index extends wepy.page {
         //关闭loading
         wepy.hideLoading();
         console.log(res.data);
+        _this.findDetail = res.data;
+        //转换为图片数组
+        for (var i = 0; i < _this.findDetail.length; i++) {
+          _this.findDetail[i].images = _this.findDetail[i].images.split("|");
+          _this.findDetail[i].content = decodeURI(_this.findDetail[i].content);
+        }
+        console.log(_this.findDetail);
         _this.$apply();
       },
       fail() {

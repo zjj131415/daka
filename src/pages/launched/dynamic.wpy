@@ -97,10 +97,10 @@
     }
 
     data = {
+      dynamics: '',
       images: [],
       imagesStr: "",
-      video: '',
-      dynamics: ''
+      video: ''
     };
     methods = {
       inputDynamics(e) {
@@ -108,6 +108,19 @@
       },
       saveDynamic() {
         var _this = this;
+        if (!_this.dynamics && !_this.imagesStr && !_this.video){
+          wx.showModal({
+            title: '友情提示',
+            content: '发表内容不能为空！',
+            showCancel: false,
+            success: function(res) {
+              if (res.confirm) {
+                console.log('用户点击确定');
+              }
+            }
+          });
+          return false;
+        }
         //开启loading
         wx.showLoading({
           title: '发表中',

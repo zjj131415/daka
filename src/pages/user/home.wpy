@@ -519,6 +519,7 @@
         nickName: '加载中...',
         avatarUrl: '../../images/avatar/icon-avatar@2x.png'
       },
+      id: '',
       findDetail: {},
       area: "重庆市渝北区龙山街道渝安龙都",
       list: ["档案", "档期", "大咖秀"],
@@ -566,7 +567,8 @@
         wx.request({
           url: 'https://www.us800.cn/wechat!savePoint.action',//保存点赞
           data: {
-            memberId: 316
+            //memberId: 316 //会员ID
+            memberId: _this.id
           },
           header: {
             'content-type': 'application/json' // 默认值
@@ -582,7 +584,9 @@
         wx.request({
           url: 'https://www.us800.cn/wechat!saveComment.action',//保存评论
           data: {
-            toMemberId: 316,
+            //toMemberId: 316, //被评论会员ID
+            //fromMemberId: 313 //评论会员ID
+            toMemberId: _this.id,
             fromMemberId: 313
           },
           header: {
@@ -604,6 +608,23 @@
             title: '加载中',
             mask: true
           });
+//          wx.request({
+//            url: 'https://www.us800.cn/async!gotMemberCareer.action', //艺人动态
+//            data: {
+//              memberId: "316" //会员Id
+//            },
+//            header: {
+//              'content-type': 'application/json' // 默认值
+//            },
+//            success: function(res) {
+//              // 关闭loading
+//              wx.hideLoading();
+//              console.log(res.data);
+//            },
+//            fail() {
+//              wx.hideLoading();
+//            }
+//          });
           wx.request({
             url: 'https://www.us800.cn/async!gotCareer.action', //大咖秀列表(动态)
             data: {},
@@ -641,13 +662,14 @@
     onLoad(e) {
       var _this = this;
       console.log(e.id);
+      _this.id = e.id;
       //开启loading
       wx.showLoading({
         title: '加载中',
         mask: true
       });
       wx.request({
-        url: 'https://www.us800.cn/async!gotMyPerformResume.action',
+        url: 'https://www.us800.cn/async!gotMyPerformResume.action',//大咖详情
         data: {
           resumeId: e.id
           //resumeId: 316
