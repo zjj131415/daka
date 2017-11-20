@@ -32,6 +32,10 @@
           width: 100%;
           height: 100%;
         }
+        video {
+          width: 100%;
+          height: 100%;
+        }
       }
       .upload-hover {
         opacity: .7;
@@ -54,7 +58,7 @@
   <view class="container">
     <form bindsubmit="alert()">
       <view class="textarea">
-        <textarea maxlength="500" auto-focus show-confirm-bar="{{false}}" placeholder-style="color: #b3b3b3" placeholder="沉积是金，发布最新工作状态～" @input="inputDynamics"></textarea>
+        <textarea maxlength="500" auto-focus show-confirm-bar="{{false}}" placeholder-style="color: #b3b3b3" placeholder="沉积是金，发布最新工作状态～" value="{{dynamics}}" @input="inputDynamics"></textarea>
       </view>
       <view class="uploader-files">
         <!--<block wx:for="{{files}}" wx:key="*this">-->
@@ -70,9 +74,14 @@
               <image src="{{item}}"></image>
           </view>
         </block>
-        <view class="uploader-file-item upload" hover-class="upload-hover">
+        <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{video.length === 0}}" @tap="chooseVideo">
           <image src="/images/upload_video.png"></image>
         </view>
+        <block>
+          <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{video.length !== 0}}">
+            <video src="{{video}}"></video>
+          </view>
+        </block>
       </view>
       <view class="release">
         <button @tap="saveDynamic">发布</button>
@@ -90,7 +99,7 @@
     data = {
       images: [],
       imagesStr: "",
-      video: {},
+      video: '',
       dynamics: ''
     };
     methods = {
@@ -117,11 +126,24 @@
           success: function(res) {
             // 关闭loading
             wx.hideLoading();
+            // 发表成功提示
+            wx.showToast({
+              title: '状态发表成功！',
+              icon: 'success',
+              duration: 2000
+            });
             console.log(res.data);
+            //清空状态
+            _this.dynamics = '';
+            //清空图片数组
+            _this.images = [];
+            _this.imagesStr = '';
+            //清空视频链接
+            _this.video = '';
             _this.$apply();
           },
           fail() {
-            //wx.hideLoading();
+            wx.hideLoading();
           }
         });
       }
@@ -133,6 +155,9 @@
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function (res) {
+          //清空图片数组
+          _this.images = [];
+          _this.imagesStr = '';
           console.log(res.tempFilePaths);
           var successUp = 0; //成功个数
           var failUp = 0; //失败个数
@@ -140,27 +165,43 @@
           var i = 0; //第几个
           //上传提示
           wx.showLoading({
-            title: '上传中...',
+            title: '图片上传中...',
           });
           _this.uploadDIY(res.tempFilePaths,successUp,failUp,i,length);
-//          const uploadTask = wx.uploadFile({
-//            url: 'https://www.us800.cn/plupload/upload.jsp', //上传图片接口地址
-//            filePath: res.tempFilePaths[0],
-//            name: 'file',
-//            success: function(res) {
-//              console.log(res);
-//              console.log(res.data);
-//            }
-//          });
-//          uploadTask.onProgressUpdate((res) => {
-//            console.log('上传进度', res.progress)
-//            console.log('已经上传的数据长度', res.totalBytesSent)
-//            console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-//          });
-//          _this.images = res.tempFilePaths;
-//          _this.imagesStr = _this.images.join("|");
-//          console.log(_this.imagesStr);
-//          _this.$apply();
+        }
+      })
+    }
+    chooseVideo() {
+      const _this = this;
+      wx.chooseVideo({
+        sourceType: ['album','camera'],
+        maxDuration: 60,
+        camera: 'back',
+        success: function(res) {
+          console.log(res.tempFilePath);
+          //上传提示
+          wx.showLoading({
+            title: '视频上传中...',
+          });
+          wx.uploadFile({
+            url: 'https://www.us800.cn/plupload/upload.jsp', //上传视频接口地址
+            filePath: res.tempFilePath,
+            name: 'file',
+            success: function(res){
+              //console.log(res);
+              //关闭提示
+              wx.hideLoading();
+              wx.showToast({
+                title: '视频上传成功！',
+                icon: 'success',
+                duration: 2000
+              });
+              res.data = res.data.replace(/(^\s*)|(\s*$)/g, "");//去掉前后所有空格
+              _this.video = "https://www.us800.cn/" + res.data;
+              console.log(_this.video);
+              _this.$apply();
+            }
+          });
         }
       })
     }
@@ -181,7 +222,7 @@
    */
     uploadDIY(filePaths,successUp,failUp,i,length){
       wx.uploadFile({
-        url: 'https://www.us800.cn/plupload/upload.jsp',
+        url: 'https://www.us800.cn/plupload/upload.jsp',//上传图片接口地址
         filePath: filePaths[i],
         name: 'fileData',
         success: (res) => {
@@ -191,6 +232,7 @@
           this.images.push("https://www.us800.cn/" + res.data);
           console.log(this.images);
           console.log(res.data);
+          this.$apply();
         },
         fail: (res) => {
           failUp++;
@@ -201,6 +243,8 @@
             //关闭提示
             wx.hideLoading();
             console.log(successUp);
+            this.imagesStr = this.images.join("|");
+            console.log(this.imagesStr);
             //this.showToast('总共'+successUp+'张上传成功,'+failUp+'张上传失败！');
             wx.showToast({
               title: '图片上传成功！',
