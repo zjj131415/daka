@@ -160,8 +160,9 @@ import wepy from 'wepy'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/find/pay',
+      'pages/launched/dynamic',
       'pages/circle/index',
+      'pages/find/pay',
       'pages/user/info-character',
       'pages/user/project',
       'pages/user/keep',
@@ -184,7 +185,6 @@ export default class extends wepy.app {
       'pages/notice/detail',
       'pages/circle/search',
       'pages/launched/index',
-      'pages/launched/dynamic',
       'pages/user/index',
       'pages/user/account',
       'pages/user/certification',
