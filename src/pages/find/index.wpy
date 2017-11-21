@@ -5,7 +5,7 @@
     .find-header {
       display: flex;
       align-items: center;
-      padding: 0 30rpx;
+      padding: 20rpx 30rpx;
       border-bottom: 1px solid #eaeaea;
     }
     .find-img {
@@ -20,7 +20,7 @@
     }
     .find-name-tag {
       flex: 1;
-      padding: 20rpx 10rpx;
+      padding: 0 10rpx;
       .find-name {
         display: flex;
         align-items: center;
@@ -51,7 +51,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      height: 50rpx;
+      height: 60rpx;
       padding: 0 30rpx;
       font-size: 24rpx;
       color: #cbcbcb;
@@ -75,7 +75,7 @@
         height: 400rpx;
         image {
           width: 100%;
-          height: 100%;
+          height: 400rpx;
         }
       }
     }
@@ -116,47 +116,10 @@
 </style>
 
 <template>
-  <view class="find-iem" wx:for="{{findArray}}" wx:key="index">
-    <navigator class="find-header" url="{{'sks'}}">
-      <view class="find-img">
-        <image mode="aspectFill" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
-      </view>
-      <view class="find-name-tag">
-        <view class="find-name">{{item.user.name}}<text class="renz-icon daka icon-yishimingrenzheng1"></text></view>
-        <view class="find-tags">
-          <text class="find-tag" wx:for="{{item.user.tags}}" wx:key="index">{{item}}</text>
-        </view>
-      </view>
-      <view class="down-icon daka icon-unfold"></view>
-    </navigator>
-    <view class="find-cont">
-      <view class="find-cont-text">
-        <text>{{item.cont.text}}</text>
-      </view>
-      <view class="find-cont-img">
-        <image mode="aspectFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg"></image>
-      </view>
-    </view>
-    <view class="up-time">2017-10-12</view>
-    <view class="find-actions">
-      <button open-type="share" class="action-item daka icon-fenxiang2">
-        分享
-      </button>
-      <view class="action-item daka icon-comment">
-        评论
-      </view>
-      <view class="action-item daka icon-appreciate">
-        点赞
-      </view>
-      <view class="action-item daka icon-refund" @tap="play">
-        打赏
-      </view>
-    </view>
-  </view>
   <view class="find-iem" wx:for="{{findDetail}}" wx:for-index="idx" wx:key="{{idx}}">
     <navigator class="find-header" url="{{'sks'}}">
       <view class="find-img">
-        <image mode="aspectFill" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+        <image mode="aspectFill" src="/images/default.png"></image>
       </view>
       <view class="find-name-tag">
         <view class="find-name">{{item.user.name}}<text class="renz-icon daka icon-yishimingrenzheng1"></text></view>
@@ -172,7 +135,7 @@
       </view>
       <view class="find-cont-img">
         <block wx:for="{{item.images}}" wx:key="{{index}}">
-          <image mode="aspectFill" src="{{item}}" @tap="preview" data-images="{{findDetail[idx].images}}" data-image="{{item}}"></image>
+          <image mode="aspectFit" src="{{item}}" @tap="preview" data-images="{{findDetail[idx].images}}" data-image="{{item}}"></image>
         </block>
       </view>
     </view>
