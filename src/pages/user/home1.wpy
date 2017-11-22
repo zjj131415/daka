@@ -89,6 +89,9 @@
           &.active {
             color: #dc3b23;
           }
+          &:last-child::after {
+            content: none;
+          }
           &::after {
             position: absolute;
             right: 0;
@@ -171,6 +174,7 @@
           background: #fff;
         }
         .blcokTit {
+          padding: 0 40rpx;
           margin-bottom:10rpx;
           font-size: 32rpx;
           color: #333;
@@ -192,6 +196,117 @@
         }
         .cellFt {
           color: #545454;
+        }
+      }
+      .info3 {
+        .find-iem {
+          background: #fff;
+          margin-bottom: 10rpx;
+          margin-top: 20rpx;
+          .find-img {
+            width: 90rpx;
+            height: 90rpx;
+            border-radius: 100%;
+            overflow: hidden;
+            image {
+              width: 100%;
+              height: 100%;;
+            }
+          }
+          .find-name-tag {
+            flex: 1;
+            padding: 0 10rpx;
+            .find-name {
+              display: flex;
+              align-items: center;
+              padding-left: 10rpx;
+              margin-bottom: 10rpx;
+              font-size: 28rpx;
+              color: #416194;
+              .renz-icon {
+                margin-left: 10rpx;
+                font-size: 30rpx;
+                color: #f89b1a;
+              }
+            }
+            .find-tags {
+              display: flex;
+              align-items: center;
+            }
+            .find-tag {
+              padding: 3rpx 15rpx;
+              margin: 0 10rpx;
+              background: #eee;
+              border-radius: 8rpx;
+              font-size: 26rpx;
+              color: #808080;
+            }
+          }
+          .up-time {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            height: 60rpx;
+            padding: 0 30rpx;
+            font-size: 24rpx;
+            color: #cbcbcb;
+          }
+          .down-icon {
+            display: flex;
+            height: 100%;
+            font-size: 32rpx;
+            color: #cbcbcb;
+          }
+          .find-cont {
+            padding: 0 30rpx;
+            .find-cont-text {
+              padding: 10rpx 0;
+              font-size: 30rpx;
+              color: #5f5f5f;
+            }
+            .find-cont-img {
+              display: flex;
+              justify-content: center;
+              height: 400rpx;
+              image {
+                width: 100%;
+                height: 400rpx;
+              }
+            }
+          }
+          .find-actions {
+            height: 70rpx;
+            border-top: 1px solid #eaeaea;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            .action-item {
+              flex: 1;
+              height: 46rpx;
+              border-right: 1px solid #eaeaea;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 26rpx;
+              color: #898989;
+              background: transparent;
+              position: static;
+              border-radius: 0;
+              margin:0;
+              padding:0;
+              &::before {
+                margin-right: 10rpx;
+                font-size: 32rpx;
+                color: #898989;
+              }
+              &::after {
+                content: none;
+              }
+              &:last-child {
+                border: none;
+              }
+            }
+          }
         }
       }
     }
@@ -297,7 +412,7 @@
           </view>
         </view>
         <view class="blockItem">
-          <view class="blcokTit">活动详情</view>
+          <view class="blcokTit">活动详情活动详情活动详情活动详情活动详</view>
           <view class="cell">
             <view class="cellHd daka icon-locationfill"></view>
             <view class="cellBd">工作地点：</view>
@@ -320,7 +435,58 @@
           </view>
         </view>
       </view>
-      <view class="info info2 {{activeNav === 3 ? 'active' : ''}}">3</view>
+      <view class="info info3 {{activeNav === 3 ? 'active' : ''}}">
+        <view class="find-iem">
+          <view class="find-cont">
+            <view class="find-cont-text">
+              <text>发个动态！</text>
+            </view>
+            <view class="find-cont-img">
+              <image mode="aspectFit" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+            </view>
+          </view>
+          <view class="up-time">17-05-26</view>
+          <view class="find-actions">
+            <button open-type="share" class="action-item daka icon-fenxiang2">
+              分享
+            </button>
+            <view class="action-item daka icon-comment">
+              评论
+            </view>
+            <view class="action-item daka icon-appreciate">
+              点赞
+            </view>
+            <view class="action-item daka icon-refund" @tap="play">
+              打赏
+            </view>
+          </view>
+        </view>
+        <view class="find-iem">
+          <view class="find-cont">
+            <view class="find-cont-text">
+              <text>发个动态！</text>
+            </view>
+            <view class="find-cont-img">
+              <image mode="aspectFit" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+            </view>
+          </view>
+          <view class="up-time">17-05-26</view>
+          <view class="find-actions">
+            <button open-type="share" class="action-item daka icon-fenxiang2">
+              分享
+            </button>
+            <view class="action-item daka icon-comment">
+              评论
+            </view>
+            <view class="action-item daka icon-appreciate">
+              点赞
+            </view>
+            <view class="action-item daka icon-refund" @tap="play">
+              打赏
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 </template>
