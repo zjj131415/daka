@@ -687,35 +687,8 @@
         this.sortVisible1 = false;
         this.sortName = name;
         this.sorted = value;//排序字段
-        var _this = this;
-        //开启loading
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        });
-        wx.request({
-          url: 'https://www.us800.cn/wechat!gotArtist.action',//大咖列表
-          data: {
-            sorted: _this.sorted,
-            size: "10"
-          },
-          header: {
-            'content-type': 'application/json' // 默认值
-          },
-          success: function(res) {
-            //关闭loading
-            wepy.hideLoading();
-            _this.artists = res.data;
-            for (var i = 0; i < _this.artists.length; i++) {
-              _this.artists[i].types = _this.artists[i].types.split(",");
-            }
-            console.log(_this.artists);
-            _this.$apply();
-          },
-          fail() {
-            wx.hideLoading();
-          }
-        });
+        //加载大咖列表
+        this.bigShot();
       },
 //      tabList2(index, e) {
 //        this.activeIndex2 = index;
@@ -743,38 +716,8 @@
       },
       confirm1() {
         this.sortVisible3 = false;
-        var _this = this;
-        console.log(_this.sorted);
-        console.log(_this.gender);
-        //开启loading
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        });
-        wx.request({
-          url: 'https://www.us800.cn/wechat!gotArtist.action',//大咖列表
-          data: {
-            sorted: _this.sorted,
-            size: "10",
-            gender: _this.gender
-          },
-          header: {
-            'content-type': 'application/json' // 默认值
-          },
-          success: function(res) {
-            //关闭loading
-            wepy.hideLoading();
-            _this.artists = res.data;
-            for (var i = 0; i < _this.artists.length; i++) {
-              _this.artists[i].types = _this.artists[i].types.split(",");
-            }
-            console.log(_this.artists);
-            _this.$apply();
-          },
-          fail() {
-            wx.hideLoading();
-          }
-        });
+        //加载大咖列表
+        this.bigShot();
       },
       upper(e) {
         var scrollTop = e.detail.scrollTop;
@@ -804,7 +747,7 @@
       },
       scrollBottom() {
         console.log("滚到到底部");
-        this.methods.loadMore();
+        this.methods.loadMore(this);
       },
       skip(e) {
         const { id } = e.currentTarget.dataset || {};
@@ -812,9 +755,9 @@
           url: '/pages/user/home?id=' + id
         })
       },
-      //筛选
-      screen() {
-        var _this = this;
+      //加载更多
+      loadMore(self) {
+        var _this = self;
         //开启loading
         wx.showLoading({
           title: '加载中',
@@ -843,39 +786,17 @@
             wx.hideLoading();
           }
         });
-      },
-      loadMore() {
-        var _this = this;
-        //开启loading
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        });
-        wx.request({
-          url: 'https://www.us800.cn/wechat!gotArtist.action',
-          data: {
-            sorted: 'createTime',
-            size: "10"
-          },
-          header: {
-            'content-type': 'application/json' // 默认值
-          },
-          success: function(res) {
-            //关闭loading
-            wepy.hideLoading();
-            _this.artists = res.data;
-            for (var i = 0; i < _this.artists.length; i++) {
-              _this.artists[i].types = _this.artists[i].types.split(",");
-            }
-          },
-          fail() {
-            wx.hideLoading();
-          }
-        });
       }
     }
     onLoad() {
+      //加载大咖列表
+      this.bigShot();
+    }
+    //大咖列表
+    bigShot() {
       var _this = this;
+      console.log(_this.sorted);
+      console.log(_this.gender);
       //开启loading
       wx.showLoading({
         title: '加载中',
@@ -884,8 +805,9 @@
       wx.request({
         url: 'https://www.us800.cn/wechat!gotArtist.action',//大咖列表
         data: {
-          sorted: _this.sorted,//排序字段
-          size: "10"
+          sorted: _this.sorted,
+          size: "10",
+          gender: _this.gender
         },
         header: {
           'content-type': 'application/json' // 默认值
