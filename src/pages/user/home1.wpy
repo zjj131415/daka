@@ -398,15 +398,7 @@
           <view class="infoTit">照片展示</view>
           <view class="infoList">
             <view class="imgList">
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+              <image wx:for="{{[1,1,1,1,1,1,1,1,1]}}" class="imgItem" mode="aspectFill" @tap="chooseImage" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
             </view>
           </view>
         </view>
@@ -555,10 +547,17 @@
       handleNav(e) {
         const {id} = e.target.dataset;
         this.activeNav = id;
-      }
+      },
+      chooseImage(e) {
+        const {src} = e.target.dataset; 
+        wx.previewImage({
+          current: src, // 当前显示图片的http链接
+          urls: ['http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0', 'http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0'] // 需要预览的图片http链接列表
+        })
+      } 
     }
 
-     onLoad(e) {
+    onShow(e) {
        const {id} = e;
       //开启loading
       wx.showLoading({
