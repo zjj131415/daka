@@ -176,38 +176,8 @@
           }
         }
       }
+      .info3,
       .info2 {
-        .blockItem {
-          margin-top: 20rpx;
-          padding: 20rpx;
-          background: #fff;
-        }
-        .blcokTit {
-          padding: 0 40rpx;
-          margin-bottom:10rpx;
-          font-size: 32rpx;
-          color: #333;
-        }
-        .cell {
-          display: flex;
-          align-items: center;
-          padding: 8rpx 0;
-          font-size: 30rpx;
-          color: #8a8a8a;
-        }
-        .cellHd {
-          margin-right: 10rpx;
-          font-size: 32rpx;
-          color: #dc3b23;
-        }
-        .cellBd {
-
-        }
-        .cellFt {
-          color: #545454;
-        }
-      }
-      .info3 {
         .find-iem {
           background: #fff;
           margin-bottom: 10rpx;
@@ -325,15 +295,15 @@
 <template>
   <view class="container">
     <view class="header">
-      <image class="photo" mode="aspectFill" src="{{userInfo.head}}"></image>
+      <image class="photo" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
       <view class="name">
-        {{userInfo.name}}
+        重庆某某某公司
         <!--<text class="renz">已实名</text>-->
       </view>
       <view class="tags">
-        <text wx:for="{{userInfo.careers}}" wx:key="{{index}}" class="tag">{{item.name}}</text>
+        重庆 渝中 大坪
       </view>
-      <image class="bgBanner" mode="aspectFill" src="{{userInfo.head}}"></image>
+      <image class="bgBanner" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
     </view>
     <view class="content">
       <view class="nav">
@@ -351,46 +321,10 @@
           </view>
         </view>
         <view class="infoBlock">
-          <view class="infoTit">专业资料</view>
+          <view class="infoTit">企业介绍</view>
           <view class="infoList">
             <view class="cell">
-              <view class="cellHd">性\r\n\r\n\r\n\r\n\r\n\r\n别：</view>
-              <view class="cellBd">女</view>
-            </view>
-            <view class="cell">
-              <view class="cellHd">年\r\n\r\n\r\n\r\n\r\n\r\n龄：</view>
-              <view class="cellBd">{{userInfo.age}}</view>
-            </view>
-            <view class="cell">
-              <view class="cellHd">身\r\n\r\n\r\n\r\n\r\n\r\n高：</view>
-              <view class="cellBd">{{userInfo.height}}</view>
-            </view>
-            <view class="cell">
-              <view class="cellHd">体\r\n\r\n\r\n\r\n\r\n\r\n重：</view>
-              <view class="cellBd">{{userInfo.weight}}kg</view>
-            </view>
-            <view class="cell">
-              <view class="cellHd">三\r\n\r\n\r\n\r\n\r\n\r\n围：</view>
-              <view class="cellBd">{{userInfo.bust}} {{userInfo.waist}} {{userInfo.hips}}</view>
-            </view>
-            <view class="cell">
-              <view class="cellHd">毕业学院：</view>
-              <view class="cellBd">哈佛</view>
-            </view>
-            <!-- <view class="cell">
-              <view class="cellHd">角\r\n\r\n\r\n\r\n\r\n\r\n色：</view>
-              <view class="cellBd">
-                <text class="tag">演员</text>
-                <text class="tag">模特</text>
-              </view>
-            </view> -->
-          </view>
-        </view>
-        <view class="infoBlock">
-          <view class="infoTit">个人介绍</view>
-          <view class="infoList">
-            <view class="cell">
-              <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
+              <view class="cellBd">世界五百强企业，拥有强大后盾！</view>
             </view>
           </view>
         </view>
@@ -398,75 +332,43 @@
           <view class="infoTit">照片展示</view>
           <view class="infoList">
             <view class="imgList">
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              <image class="imgItem" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+              <block wx:for="{{[1,2,3,4,5,6,1,1,1]}}" wx:key="{{index}}">
+                <image class="imgItem" mode="aspectFill" @tap="chooseImage" data-src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+              </block>
             </view>
           </view>
         </view>
         <view class="infoBlock">
-          <view class="infoTit">演艺经历</view>
+          <view class="infoTit">公司地址</view>
           <view class="infoList">
-            <block wx:for="{{userInfo.specialty}}" wx:key="{{index}}">
-               <view class="cell">
-                <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
-              </view>
-            </block>
+            <view class="cell">
+              <view class="cellBd">重庆市渝中区龙湖时代天街1号楼</view>
+            </view>
           </view>
         </view>
       </view>
       <view class="info info2 {{activeNav === 2 ? 'active' : ''}}">
-        <view class="blockItem">
-          <view class="blcokTit">活动详情</view>
-          <view class="cell">
-            <view class="cellHd daka icon-locationfill"></view>
-            <view class="cellBd">工作地点：</view>
-            <view class="cellFt">重庆 大渡口 久存</view>
+        <view class="find-iem">
+          <view class="find-cont">
+            <view class="find-cont-text">
+              <text>发个动态！</text>
+            </view>
+            <view class="find-cont-img">
+              <image mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+            </view>
           </view>
-          <view class="cell">
-            <view class="cellHd daka icon-timefill"></view>
-            <view class="cellBd">开始时间：</view>
-            <view class="cellFt">2015.3.20</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-timefill"></view>
-            <view class="cellBd">结束时间：</view>
-            <view class="cellFt">2015.3.20</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-apps"></view>
-            <view class="cellBd">注意事项：</view>
-            <view class="cellFt">记得吃药！</view>
-          </view>
+          <view class="up-time">17-05-26</view>
         </view>
-        <view class="blockItem">
-          <view class="blcokTit">活动详情活动详情活动详情活动详情活动详</view>
-          <view class="cell">
-            <view class="cellHd daka icon-locationfill"></view>
-            <view class="cellBd">工作地点：</view>
-            <view class="cellFt">重庆 大渡口 久存</view>
+         <view class="find-iem">
+          <view class="find-cont">
+            <view class="find-cont-text">
+              <text>发个动态！</text>
+            </view>
+            <view class="find-cont-img">
+              <image mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+            </view>
           </view>
-          <view class="cell">
-            <view class="cellHd daka icon-timefill"></view>
-            <view class="cellBd">开始时间：</view>
-            <view class="cellFt">2015.3.20</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-timefill"></view>
-            <view class="cellBd">结束时间：</view>
-            <view class="cellFt">2015.3.20</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-apps"></view>
-            <view class="cellBd">注意事项：</view>
-            <view class="cellFt">记得吃药！</view>
-          </view>
+          <view class="up-time">17-05-26</view>
         </view>
       </view>
       <view class="info info3 {{activeNav === 3 ? 'active' : ''}}">
@@ -527,61 +429,38 @@
 
 <script>
   import wepy from "wepy";
-  export default class Home1 extends wepy.page {
+  export default class Home2   extends wepy.page {
     config = {
-      navigationBarTitleText: '个人主页'
+      navigationBarTitleText: '企业主页'
     }
-
     data = {
-      userInfo: {
-
-      },
       activeNav: 1,
       navList: [
         {
           id: 1,
-          text: '档案'
+          text: '介绍'
         }, {
           id: 2,
-          text: '档期'
+          text: '作品'
         }, {
           id: 3,
           text: '大咖秀'
         }
-      ]
+      ],
+      name: 'ss'
     }
-
     methods = {
       handleNav(e) {
         const {id} = e.target.dataset;
         this.activeNav = id;
-      }
-    }
-
-     onLoad(e) {
-       const {id} = e;
-      //开启loading
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      });
-      //请求数据
-      wx.request({
-        url: 'https://www.us800.cn/async!gotMyPerformResume.action',//个人详情
-        data: {
-          resumeId: 319
-        },
-        header: {
-            'content-type': 'application/json' // 默认值
-        },
-        success: (res) => {
-          console.log(res.data)
-          // 关闭loading
-          wepy.hideLoading();
-          this.userInfo = res.data;
-          this.$apply();
-        }
-      })
+      },
+      chooseImage(e) {
+        const {src} = e.target.dataset; 
+        wx.previewImage({
+          current: src, // 当前显示图片的http链接
+          urls: ['http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0', 'http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0'] // 需要预览的图片http链接列表
+        })
+      } 
     }
   }
 </script>

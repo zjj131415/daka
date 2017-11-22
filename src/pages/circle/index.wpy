@@ -752,7 +752,7 @@
       skip(e) {
         const { id } = e.currentTarget.dataset || {};
         wx.navigateTo({
-          url: '/pages/user/home?id=' + id
+          url: '/pages/user/home1?id=' + id
         })
       },
       //加载更多
