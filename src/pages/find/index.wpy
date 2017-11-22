@@ -129,16 +129,16 @@
       </view>
       <view class="down-icon daka icon-unfold"></view>
     </navigator>
-    <view class="find-cont">
+    <navigator class="find-cont" url="/pages/find/detail?id={{item.id}}">
       <view class="find-cont-text">
         <text>{{item.content}}</text>
       </view>
       <view class="find-cont-img">
         <block wx:for="{{item.images}}" wx:key="{{index}}">
-          <image mode="aspectFit" src="{{item}}" @tap="preview" data-images="{{findDetail[idx].images}}" data-image="{{item}}"></image>
+          <image mode="aspectFit" src="{{item}}" data-images="{{findDetail[idx].images}}" data-image="{{item}}"></image>
         </block>
       </view>
-    </view>
+    </navigator>
     <view class="up-time">{{item.month}}-{{item.day}}</view>
     <view class="find-actions">
       <button open-type="share" class="action-item daka icon-fenxiang2">

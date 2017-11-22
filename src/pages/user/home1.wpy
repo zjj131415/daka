@@ -1,0 +1,360 @@
+<style lang="less" scoped>
+  .container {
+    .header {
+      height: 350rpx;
+      font-size: 32rpx;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .bgBanner {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        width: 100%;
+        height: 350rpx;
+        filter: blur(20rpx);
+      }
+      .photo {
+        width: 140rpx;
+        height: 140rpx;
+        border-radius: 100%;
+      }
+      .name {
+        margin-top: 20rpx;
+        margin-bottom: 25rpx;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40rpx;
+        .renz {
+          height: 26rpx;
+          padding: 0 10rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: 10rpx;
+          font-size: 16rpx;
+          color: #fff;
+          border: 1px solid #fff;
+          border-radius: 6rpx;
+        }
+      }
+      .tags {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28rpx;
+        color: #fff;
+        .tag {
+          height: 40rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0 20rpx;
+          margin: 0 8rpx;
+          border-radius: 8rpx;
+          border: 1px solid #fff;
+        }
+      }
+    }
+    .content {
+      filter: blur(0);
+      .nav {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        height: 90rpx;
+        font-size: 32rpx;
+        color: #333;
+        position: relative;
+        /*&::after {*/
+          /*position: absolute;*/
+          /*left: 0;*/
+          /*bottom: 0;*/
+          /*content: ' ';*/
+          /*width: 200%;*/
+          /*border-bottom: 1px solid #dcdcdc;*/
+          /*transform: scaleY(.5);*/
+        /*}*/
+        .navItem {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 40rpx;
+          position: relative;
+          &.active {
+            color: #dc3b23;
+          }
+          &::after {
+            position: absolute;
+            right: 0;
+            top: 0;
+            content: ' ';
+            height: 100%;
+            border-right: 1px solid #dcdcdc;
+            transform: scaleX(.5);
+          }
+        }
+      }
+      .info {
+        display: none;
+        &.active {
+          display: block;
+        }
+        .infoTit {
+          display: flex;
+          align-items: center;
+          height:60rpx;
+          margin-bottom: 20rpx;
+          position: relative;
+          overflow: hidden;
+          &::after {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            content: ' ';
+            width: 200%;
+            border-bottom: 1px solid #dcdcdc;
+            transform: scaleY(.5);
+          }
+        }
+      }
+      .info1 {
+        color: #666;
+        font-size: 30rpx;
+        /*.infoList {*/
+          /*padding-top: 20rpx;*/
+        /*}*/
+        .infoBlock {
+          margin-top: 16rpx;
+          padding: 20rpx 30rpx;
+          background: #fff;
+        }
+        .video {
+          width: 100%;
+        }
+        .cell {
+          padding: 8rpx 0;
+          display: flex;
+          align-items: center;
+          .cellHd {
+            width: 170rpx;
+            letter-spacing: 3rpx;
+          }
+          .cellBd {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            .tag {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0 14rpx;
+              height: 36rpx;
+              margin-right: 20rpx;
+              border-radius: 6rpx;
+              border: 1px solid #666;
+              font-size: 26rpx;
+              color: #666;
+            }
+          }
+        }
+      }
+      .info2 {
+        .blockItem {
+          margin-top: 20rpx;
+          padding: 20rpx;
+          background: #fff;
+        }
+        .blcokTit {
+          margin-bottom:10rpx;
+          font-size: 32rpx;
+          color: #333;
+        }
+        .cell {
+          display: flex;
+          align-items: center;
+          padding: 8rpx 0;
+          font-size: 30rpx;
+          color: #8a8a8a;
+        }
+        .cellHd {
+          margin-right: 10rpx;
+          font-size: 32rpx;
+          color: #dc3b23;
+        }
+        .cellBd {
+
+        }
+        .cellFt {
+          color: #545454;
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="header">
+      <image class="photo" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+      <view class="name">
+        追风少年
+        <!--<text class="renz">已实名</text>-->
+      </view>
+      <view class="tags">
+        <text class="tag">演员</text>
+        <text class="tag">演员</text>
+      </view>
+      <image class="bgBanner" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+    </view>
+    <view class="content">
+      <view class="nav">
+        <view wx:for="{{navList}}" wx:key="{{index}}" @tap="handleNav" class="navItem {{item.id === activeNav ? 'active' : ''}}" data-id="{{item.id}}">{{item.text}}</view>
+      </view>
+      <view class="info info1 {{activeNav === 1 ? 'active' : ''}}">
+        <view class="infoBlock">
+          <view class="infoTit">视频展示</view>
+          <view class="infoList">
+            <view class="cell">
+              <view class="cellBd">
+                <video class="video" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"   controls></video>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="infoBlock">
+          <view class="infoTit">专业资料</view>
+          <view class="infoList">
+            <view class="cell">
+              <view class="cellHd">性\r\n\r\n\r\n\r\n\r\n\r\n别：</view>
+              <view class="cellBd">女</view>
+            </view>
+            <view class="cell">
+              <view class="cellHd">年\r\n\r\n\r\n\r\n\r\n\r\n龄：</view>
+              <view class="cellBd">19</view>
+            </view>
+            <view class="cell">
+              <view class="cellHd">身\r\n\r\n\r\n\r\n\r\n\r\n高：</view>
+              <view class="cellBd">19</view>
+            </view>
+            <view class="cell">
+              <view class="cellHd">体\r\n\r\n\r\n\r\n\r\n\r\n重：</view>
+              <view class="cellBd">70kg</view>
+            </view>
+            <view class="cell">
+              <view class="cellHd">三\r\n\r\n\r\n\r\n\r\n\r\n围：</view>
+              <view class="cellBd">10 20 30</view>
+            </view>
+            <view class="cell">
+              <view class="cellHd">毕业学院：</view>
+              <view class="cellBd">哈佛</view>
+            </view>
+            <view class="cell">
+              <view class="cellHd">角\r\n\r\n\r\n\r\n\r\n\r\n色：</view>
+              <view class="cellBd">
+                <text class="tag">演员</text>
+                <text class="tag">模特</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="infoBlock">
+          <view class="infoTit">个人介绍</view>
+          <view class="infoList">
+            <view class="cell">
+              <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="info info2 {{activeNav === 2 ? 'active' : ''}}">
+        <view class="blockItem">
+          <view class="blcokTit">活动详情</view>
+          <view class="cell">
+            <view class="cellHd daka icon-locationfill"></view>
+            <view class="cellBd">工作地点：</view>
+            <view class="cellFt">重庆 大渡口 久存</view>
+          </view>
+          <view class="cell">
+            <view class="cellHd daka icon-timefill"></view>
+            <view class="cellBd">开始时间：</view>
+            <view class="cellFt">2015.3.20</view>
+          </view>
+          <view class="cell">
+            <view class="cellHd daka icon-timefill"></view>
+            <view class="cellBd">结束时间：</view>
+            <view class="cellFt">2015.3.20</view>
+          </view>
+          <view class="cell">
+            <view class="cellHd daka icon-apps"></view>
+            <view class="cellBd">注意事项：</view>
+            <view class="cellFt">记得吃药！</view>
+          </view>
+        </view>
+        <view class="blockItem">
+          <view class="blcokTit">活动详情</view>
+          <view class="cell">
+            <view class="cellHd daka icon-locationfill"></view>
+            <view class="cellBd">工作地点：</view>
+            <view class="cellFt">重庆 大渡口 久存</view>
+          </view>
+          <view class="cell">
+            <view class="cellHd daka icon-timefill"></view>
+            <view class="cellBd">开始时间：</view>
+            <view class="cellFt">2015.3.20</view>
+          </view>
+          <view class="cell">
+            <view class="cellHd daka icon-timefill"></view>
+            <view class="cellBd">结束时间：</view>
+            <view class="cellFt">2015.3.20</view>
+          </view>
+          <view class="cell">
+            <view class="cellHd daka icon-apps"></view>
+            <view class="cellBd">注意事项：</view>
+            <view class="cellFt">记得吃药！</view>
+          </view>
+        </view>
+      </view>
+      <view class="info info2 {{activeNav === 3 ? 'active' : ''}}">3</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+  export default class Home1 extends wepy.page {
+    config = {
+      navigationBarTitleText: '个人主页'
+    }
+    data = {
+      activeNav: 1,
+      navList: [
+        {
+          id: 1,
+          text: '档案'
+        }, {
+          id: 2,
+          text: '档期'
+        }, {
+          id: 3,
+          text: '大咖秀'
+        }
+      ],
+      name: 'ss'
+    }
+    methods = {
+      handleNav(e) {
+        const {id} = e.target.dataset;
+        this.activeNav = id;
+//        this.setData({activeNav: id});
+      }
+    }
+  }
+</script>
+
+
