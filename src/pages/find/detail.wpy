@@ -146,6 +146,9 @@
   }
 
   .modalFixed {
+    &.active {
+      display: block;
+    }
     position: fixed;
     left: 0;
     top: 0;
@@ -241,7 +244,10 @@
         </view>
       </view>
     </view>
-     <view class="comment">
+    <view class="dianzList">
+      
+    </view>
+    <view class="comment">
       <view class="commentItem">
         <view class="commentUser">
           <image class="commentUserImg" mode="aspectFill" src="/images/default.png"></image>
@@ -255,7 +261,7 @@
         </view>
       </view>
     </view>
-    <view class="modalFixed">
+    <view class="modalFixed {{shwoModal ? 'active' : ''}}">
       <view class="modal">
         <view class="modalHd">
           <view class="modal1">取消</view>

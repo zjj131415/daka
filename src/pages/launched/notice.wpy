@@ -60,6 +60,10 @@
       margin-bottom: 20rpx;
       padding-left: 20rpx;
       background-color: #FFFFFF;
+      textarea {
+        padding: 5rpx;
+        height: 140rpx;
+      }
       .detail {
         display: flex;
         height: 100%;
@@ -151,48 +155,71 @@
       <view class="list">
         <view class="daka icon-zhuti icon"></view>
         <view class="option flex1">
-          <input placeholder="通告主题" maxlength="30"/>
+          <input placeholder="通告主题" value="{{performName}}" data-id="3" bindinput="bindPickerChange" placeholder-style="color:#AFAFAF" maxlength="30"/>
         </view>
       </view>
-      <!--<view class="list">-->
-        <!--<view class="daka icon-timefill icon"></view>-->
-        <!--<view class="option flex1">截止时间</view>-->
-        <!--<view class="daka icon-right"></view>-->
-      <!--</view>-->
       <view class="list">
         <view class="daka icon-locationfill icon"></view>
-        <view class="option flex1">工作城市</view>
+        <view class="option flex1">
+           <picker mode="region" bindchange="bindRegionChange" value="{{performAddr}}">
+            <view class="picker">
+              {{performAddr ? performAddr : '工作城市'}}
+            </view>
+          </picker>
+        </view>
         <view class="daka icon-right"></view>
       </view>
       <view class="list">
         <view class="daka detail icon"></view>
-        <view class="option flex1">详细地址（选填）</view>
+        <view class="option flex1">
+          <input placeholder="详细地址" placeholder-style="color:#AFAFAF" bindchange="bindPickerChange" data-id="5" valeu="{{performAddrDetaild ? performAddrDetaild : '详细地址'}}" maxlength="30"/>
+        </view>
         <view class="daka icon-right"></view>
       </view>
       <view class="list">
         <view class="daka icon-timefill icon"></view>
-        <view class="option flex1">开始时间</view>
+        <view class="option flex1">
+          <picker mode="date" value="{{startTime}}" start="{{currentDate}}" data-id="0" bindchange="bindPickerChange">
+            <view class="picker">
+               {{startTime ? startTime : '开始时间'}}
+            </view>
+          </picker>
+        </view>
         <view class="daka icon-right"></view>
       </view>
       <view class="list">
         <view class="daka icon-timefill icon"></view>
-        <view class="option flex1">结束时间</view>
+        <view class="option flex1">
+          <picker mode="date" value="{{endTime}}" start="{{currentDate}}" data-id="1" bindchange="bindPickerChange">
+            <view class="picker">
+               {{endTime ? endTime : '结束时间'}}
+            </view>
+          </picker>
+        </view>
         <view class="daka icon-right"></view>
       </view>
       <view class="list">
         <view class="daka icon-leixing icon"></view>
-        <view class="option flex1">通告类型</view>
+        <view class="option flex1">
+          <picker bindchange="bindPickerChange" data-id="2" value="{{type}}" range="{{typeArray}}">
+            <view class="picker">
+              {{type ? typeArray[type] : '通告类型'}}
+            </view>
+        </picker>
+        </view>
         <view class="daka icon-right"></view>
       </view>
     </view>
     <view class="announce">
       <view class="detail">
         <view class="daka icon-jianjie"></view>
-        <view class="option flex1">通告详细说明，如：剧组简介、条件要求、薪资待遇等</view>
+        <view class="option flex1">
+          <textarea placeholder-style="color:#AFAFAF" value="{{performContent}}" data-id="4" bindinput="bindPickerChange" placeholder="通告详细说明，如：剧组简介、条件要求、薪资待遇等"/>
+        </view>
       </view>
     </view>
     <view class="release">
-      <button>发布</button>
+      <button bindtap="uploadNotice">发布</button>
     </view>
   </view>
 </template>
@@ -203,8 +230,18 @@
       navigationBarTitleText: '发通告'
     }
     data = {
+      performImg: '',
       imgSrc: "",
-      
+      performContent: '',
+      performName: '',
+      performAddr: '',
+      performAddrDetaild: '',
+      currentDate: new Date,
+      startTime: '',
+      endTime: "",
+      type: null,
+      typeArray: ['演员', '歌手'],
+      performAddr1:  ''
     }
     methods = {
       uploadImage() {
@@ -214,10 +251,110 @@
           sizeType: ['original', 'compressed'],
           sourceType: ['album', 'camera'],
           success: function (res) {
-            _this.imgSrc = res.tempFilePaths[0];
+            const {tempFilePaths} = res;
+            _this.imgSrc = tempFilePaths[0];
             _this.$apply();
+            wx.showLoading({
+              title: '图片上传中...',
+              mask: true
+            });
+            wx.uploadFile({
+              url: 'https://www.us800.cn/plupload/upload.jsp', //仅为示例，非真实的接口地址
+              filePath: tempFilePaths[0],
+              name: 'file',
+              success: function(r){
+                // var data = res.data
+                _this.performImg = r.data;
+                _this.$apply();
+                wx.hideLoading();
+                //do something
+              }
+            })
           }
         });
+      },
+      bindRegionChange(e) {
+        const {value} = e.detail;
+        this.performAddr = `${value[0]} ${value[1]} ${value[2]}`;
+        this.performAddr1 = `${value[0]}${value[1]}${value[2]}`;
+        this.$apply();
+      },
+      bindPickerChange(e) {
+        const {value} = e.detail;
+        const {id} = e.target.dataset;
+        switch (id | 0) {
+          case 0:
+            this.startTime = value;
+            break;
+          case 1:
+            this.endTime = value;
+            break;
+          case 2:
+            this.type = value;
+            break;
+          case 3:
+            this.performName = value;
+            break;
+          case 4:
+            this.performContent = value;
+            break;
+          case 5:
+            this.performAddrDetaild = value;
+            break;
+        }
+        this.$apply();
+      },
+      uploadNotice() {
+        const {typeArray, type, performName, startTime, endTime, performAddr, performAddrDetaild, performAddr1, performContent} = this.$data;
+        if (!type || !performName || !startTime || !endTime || !performAddr || !performContent) {
+          wx.showModal({
+            title: '提示',
+            content: '请填写完后在提交！所有内容不能为空哦！',
+            showCancel: false,
+            confirmText: '好的',
+            mask: true,
+            success: function(res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        }
+        wx.showLoading({
+          title: '发布中...',
+          mask: true
+        });
+        wx.request({
+          url: 'https://www.us800.cn/wechat!saveBooking.action',
+          data: {
+            memberId: 315,
+            artistTypes: typeArray[type],
+            performName,
+            performBeginTime: startTime,
+            performEndTime: endTime,
+            performAddr1: performAddr,
+            performAddr2: `${performAddr1}${performAddrDetaild}`,
+            performContent
+          },
+          // method: 'POST',
+          header: {
+              'content-type': 'application/json' // 默认值
+          },
+          success: (res) => {
+            this.performImg = "";
+            this.imgSrc = "";
+            this.performContent = "";
+            this.performName = "";
+            this.performAddr = "";
+            this.performAddrDetaild = "";
+            this.startTime = "";
+            this.endTime = "";
+            this.type = null;
+            this.performAddr1 = "";
+          }
+        })
       }
     }
   }

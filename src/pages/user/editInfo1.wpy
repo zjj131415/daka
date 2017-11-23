@@ -117,6 +117,18 @@
           b: ' ',
           f: 'icon-right',
           r: 'winning'
+        },
+        {
+          t: '演艺经历（演艺类填写）',
+          b: ' ',
+          f: 'icon-right',
+          r: 'info-yiren'
+        }, 
+         {
+          t: '职场经历（职场类填写）',
+          b: ' ',
+          f: 'icon-right',
+          r: 'info-zhichang'
         }
       ],
       "u_i": ['/images/upload_img.png'],

@@ -135,7 +135,7 @@
           this.userInfo.nickName = info.nickName
           this.userInfo.avatarUrl = info.avatarUrl;
           this.list = [
-            {title: '我的主页', image: '/images/icons/home.png', url: '/pages/user/home'},
+            {title: '我的主页', image: '/images/icons/home.png', url: '/pages/user/home1'},
             {title: '我的账户', image: '/images/icons/account.png', url: '/pages/user/account'},
             //{title: '我要认证', image: '/images/icons/certification.png', url: '/pages/user/certification'},
             {title: '我要认证', image: '/images/icons/certification.png', url: '/pages/user/realname'},

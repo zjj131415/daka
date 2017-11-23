@@ -18,8 +18,8 @@
         filter: blur(20rpx);
       }
       .photo {
-        width: 140rpx;
-        height: 140rpx;
+        width: 160rpx;
+        height: 160rpx;
         border-radius: 100%;
       }
       .name {
@@ -29,6 +29,7 @@
         align-items: center;
         justify-content: center;
         height: 40rpx;
+        color: #fff;
         .renz {
           height: 26rpx;
           padding: 0 10rpx;
@@ -60,6 +61,66 @@
         }
       }
     }
+    .circle-info {
+      box-sizing: border-box;
+        width: 100%;
+        padding: 0 26rpx;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        z-index: 3;
+        // background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(191,191,191,.4));
+        .circle-name {
+          height: 40rpx;
+          line-height: 60rpx;
+          font-size: 34rpx;
+          color: #fff;
+          position: relative;
+          font-weight: bold;
+        }
+        .circle-action {
+          margin: 5rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          width: 698rpx;
+          /*width: 46rpx;*/
+          height: 46rpx;
+          /*border: 1px solid #fff;*/
+          border-radius: 100%;
+          font-size: 30rpx;
+          color: #fff;
+          &::before {
+            margin-right: 5rpx;
+            font-size: 30rpx;
+          }
+          .border {
+            flex: 1;
+            height: 1px;
+            background-color: rgba(255, 255, 255, .6);
+          }
+          .daka {
+            margin-left: 20rpx;
+            margin-right: 20rpx;
+          }
+        }
+        .circle-tags {
+          height:50rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .circle-tag-item {
+          margin: 0 10rpx;
+          padding: 0 22rpx;
+          border: 1px solid #fff;
+          border-radius: 12rpx;
+          color: #fff;
+          font-size: 28rpx;
+        }
+      }
     .content {
       filter: blur(0);
       .nav {
@@ -133,14 +194,35 @@
           /*padding-top: 20rpx;*/
         /*}*/
         .infoBlock {
-          margin-top: 16rpx;
+          margin-bottom: 16rpx;
           padding: 20rpx 30rpx;
           background: #fff;
+          &.noMargin {
+            margin-bottom: 0!important;
+          }
+          &.noPadding {
+            padding-bottom: 0;
+          }
+          &.noShuangPadding {
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+          &.noPaddingLR {
+            padding-left: 0;
+            padding-right: 0;
+          }
         }
         .video {
           width: 100%;
         }
+        .cell222 {
+          display: flex;
+          .cellHd {
+            width: 110rpx!important;
+          }
+        }
         .cell {
+          flex: 1;
           padding: 8rpx 0;
           display: flex;
           align-items: center;
@@ -167,11 +249,14 @@
           }
         }
         .imgList {
+          width: 100%;
           display: flex;
           flex-wrap: wrap;
+          padding: 0 5rpx;
+          box-sizing: border-box;
           image {            
-            width: 220rpx;
-            height: 220rpx;
+            width: 238.5rpx;
+            height: 238.5rpx;
             margin: 5rpx;
           }
         }
@@ -267,7 +352,6 @@
             color: #cbcbcb;
           }
           .find-cont {
-            padding: 0 30rpx;
             .find-cont-text {
               padding: 10rpx 0;
               font-size: 30rpx;
@@ -320,19 +404,48 @@
       }
     }
   }
+  .fabItem {
+    padding: 10rpx 0;
+  }
+  .fabText {
+    font-size: 32rpx;
+    color: #333;
+  }
+  .fabTime {
+    font-size: 28rpx;
+    color: #666;
+  }
+  .hujItem {
+
+  }
 </style>
 
 <template>
   <view class="container">
     <view class="header">
       <image class="photo" mode="aspectFill" src="{{userInfo.head}}"></image>
-      <view class="name">
+      <view class="circle-info">
+        <text class="circle-name">{{userInfo.name}}</text>
+        <!--<text class="circle-name">{{item.height}}</text>-->
+        <!--<text class="circle-name">{{item.prov}}</text>-->
+        <view class="circle-icon"></view>
+        <view class="circle-action">
+          <view class="border"></view>
+          <view class="daka icon-appreciate">100</view>
+          <view class="border"></view>
+        </view>
+        <view class="circle-tags">
+          <block wx:for="{{userInfo.careers}}" wx:key="{{index}}">
+            <text class="circle-tag-item">{{item.name}}</text>
+          </block>
+        </view>
+      </view>
+      <!-- <view class="name">
         {{userInfo.name}}
-        <!--<text class="renz">已实名</text>-->
       </view>
       <view class="tags">
         <text wx:for="{{userInfo.careers}}" wx:key="{{index}}" class="tag">{{item.name}}</text>
-      </view>
+      </view> -->
       <image class="bgBanner" mode="aspectFill" src="{{userInfo.head}}"></image>
     </view>
     <view class="content">
@@ -340,38 +453,37 @@
         <view wx:for="{{navList}}" wx:key="{{index}}" @tap="handleNav" class="navItem {{item.id === activeNav ? 'active' : ''}}" data-id="{{item.id}}">{{item.text}}</view>
       </view>
       <view class="info info1 {{activeNav === 1 ? 'active' : ''}}">
-        <view class="infoBlock">
-          <view class="infoTit">视频展示</view>
+        <view class="jddjk">
           <view class="infoList">
-            <view class="cell">
-              <view class="cellBd">
-                <video class="video" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"   controls></video>
-              </view>
-            </view>
+             <video class="video" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"   controls></video>
           </view>
         </view>
         <view class="infoBlock">
-          <view class="infoTit">专业资料</view>
+          <view class="infoTit">基本资料</view>
           <view class="infoList">
-            <view class="cell">
-              <view class="cellHd">性\r\n\r\n\r\n\r\n\r\n\r\n别：</view>
-              <view class="cellBd">女</view>
+            <view class="cell222">
+              <view class="cell">
+                <view class="cellHd">性 别：</view>
+                <view class="cellBd">女</view>
+              </view>
+              <view class="cell">
+                <view class="cellHd">年 龄：</view>
+                <view class="cellBd">{{userInfo.age}}</view>
+              </view>
             </view>
-            <view class="cell">
-              <view class="cellHd">年\r\n\r\n\r\n\r\n\r\n\r\n龄：</view>
-              <view class="cellBd">{{userInfo.age}}</view>
+            <view class="cell222">
+              <view class="cell">
+                <view class="cellHd">身 高：</view>
+                <view class="cellBd">{{userInfo.height}}cm</view>
+              </view>
+              <view class="cell">
+                <view class="cellHd">体 重：</view>
+                <view class="cellBd">{{userInfo.weight}}kg</view>
+              </view>
             </view>
-            <view class="cell">
-              <view class="cellHd">身\r\n\r\n\r\n\r\n\r\n\r\n高：</view>
-              <view class="cellBd">{{userInfo.height}}</view>
-            </view>
-            <view class="cell">
-              <view class="cellHd">体\r\n\r\n\r\n\r\n\r\n\r\n重：</view>
-              <view class="cellBd">{{userInfo.weight}}kg</view>
-            </view>
-            <view class="cell">
-              <view class="cellHd">三\r\n\r\n\r\n\r\n\r\n\r\n围：</view>
-              <view class="cellBd">{{userInfo.bust}} {{userInfo.waist}} {{userInfo.hips}}</view>
+            <view class="cell cell222">
+              <view class="cellHd">三 围：</view>
+              <view class="cellBd">{{userInfo.bust}}\r\n\r\n\r\n{{userInfo.waist}}\r\n\r\n\r\n{{userInfo.hips}}</view>
             </view>
             <view class="cell">
               <view class="cellHd">毕业学院：</view>
@@ -386,16 +498,15 @@
             </view> -->
           </view>
         </view>
-        <view class="infoBlock">
-          <view class="infoTit">个人介绍</view>
+        <view class="infoBlock noMargin noPadding">
+          <view class="infoTit">个人简介</view>
           <view class="infoList">
             <view class="cell">
               <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
             </view>
           </view>
         </view>
-         <view class="infoBlock">
-          <view class="infoTit">照片展示</view>
+         <view class="infoBlock noPaddingLR">
           <view class="infoList">
             <view class="imgList">
               <image wx:for="{{[1,1,1,1,1,1,1,1,1]}}" wx:key="{{index}}" class="imgItem" mode="aspectFill" @tap="chooseImage" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
@@ -406,12 +517,21 @@
           <view class="infoTit">演艺经历</view>
           <view class="infoList">
             <block wx:for="{{userInfo.specialty}}" wx:key="{{index}}">
-               <view class="cell">
-                <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
-              </view>
+               <view class="fabItem">
+                 <view class="fabTime">2017/05/23</view>
+                 <view class="fabText">由于Page页面实际上继承自Comp</view>
+               </view>
             </block>
           </view>
         </view>
+        <!-- <view class="infoBlock">
+          <view class="infoTit">获奖经历</view>
+          <view class="infoList">
+            <view class="hujItem">
+              
+            </view>
+          </view>
+        </view> -->
       </view>
       <view class="info info2 {{activeNav === 2 ? 'active' : ''}}">
         <view class="blockItem">
@@ -569,7 +689,7 @@
       wx.request({
         url: 'https://www.us800.cn/async!gotMyPerformResume.action',//个人详情
         data: {
-          resumeId: 319
+          resumeId: id
         },
         header: {
             'content-type': 'application/json' // 默认值

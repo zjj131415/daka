@@ -32,8 +32,25 @@ export default class userMixin extends wepy.mixin {
     // 先登录
     wepy.login({
       success: (res) => {
+        var appid = 'wx5a2279541f6a98cf'; //填写微信小程序appid  
+        var secret = 'dd9dcfef1864468949f06cb2a101f67b'; //填写微信小程序secret  
+        //调用request请求api转换登录凭证  
+        wx.request({
+            url: 'https://www.us800.cn/wechat!gotWxOpenId.action',
+            data: {
+              code: res.code
+            },
+            header: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            success: (r) => {
+              console.log(r)
+              //获取openid
+              const code = this.$parent.$updateGlobalData('openid', r.data.result);
+              this.$apply();
+            }
+        });
         console.log('wepy.login.success:', res)
-
         // 如果不需要自动登录，就return
         if (noAutoLogin) {
           // 串行回调

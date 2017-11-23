@@ -41,6 +41,11 @@ module.exports = {
     " no-unused-vars": 0,
     "eol-last": 0,
     "no-unused-vars": 0,
-    "space-before-blocks": 0
+    "space-before-blocks": 0,
+    "new-parens": 0,
+    "space-infix-ops": 0,
+    "no-unreachable": 0,
+    "keyword-spacing": 0,
+    "no-empty-pattern": 0
   }
 }

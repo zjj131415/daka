@@ -163,9 +163,13 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/circle/index',
-      'pages/user/home1', 
       'pages/user/home2', 
+      'pages/user/info-yiren',
+      'pages/user/info-zhichang',
       'pages/launched/index',
+      'pages/launched/notice',
+      'pages/user/info-basis',
+      'pages/user/home1', 
       'pages/find/index',
       'pages/find/detail',
       'pages/launched/dynamic',
@@ -175,7 +179,6 @@ export default class extends wepy.app {
       'pages/user/keep',
       'pages/user/sign-up',
       'pages/user/artist',
-      'pages/launched/notice',
       'pages/user/editInfo1',
       'pages/user/winning',
       'pages/notice/index',
@@ -185,7 +188,6 @@ export default class extends wepy.app {
       'pages/user/professional',
       'pages/circle/filter',
       'pages/user/home',
-      'pages/user/info-basis',
       'pages/user/editInfo',
       'pages/notice/detail',
       'pages/circle/search',
@@ -209,7 +211,7 @@ export default class extends wepy.app {
       navigationBarBackgroundColor: '#dc3b23',
       // navigationBarTextStyle: "black",
       navigationBarTitleText: '我的大咖秀',
-      backgroundColor: '#000',
+      backgroundColor: '#f7f7f7',
       backgroundTextStyle: "dark",
       // enablePullDownRefresh: true,
       // onReachBottomDistance: 20
@@ -254,6 +256,7 @@ export default class extends wepy.app {
 //  }
   globalData = {
     user: null,
+    openid: ''
   }
 
   /* ============= 工具方法（app没法用mixins，就再写一遍了） ============= */

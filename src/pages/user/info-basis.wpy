@@ -165,18 +165,35 @@
       u_img: "/images/dynamic.png",
       region: ['广东省', '广州市', '海珠区'],
       xingbie: 0,
+      upImg: '',
     }
     methods = {
       uploadImg() {
-        const self = this;
+        const _this = this;
         wx.chooseImage({
           count: 1, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             var tempFilePaths = res.tempFilePaths;
-            self.u_img = tempFilePaths[0];
-            self.$apply();
+            _this.u_img = tempFilePaths[0];
+            _this.$apply();
+            wx.showLoading({
+              title: '图片上传中...',
+              mask: true
+            });
+            wx.uploadFile({
+              url: 'https://www.us800.cn/plupload/upload.jsp', //仅为示例，非真实的接口地址
+              filePath: tempFilePaths[0],
+              name: 'file',
+              success: function(r){
+                // var data = res.data
+                _this.performImg = r.data;
+                _this.$apply();
+                wx.hideLoading();
+                //do something
+              }
+            })
           }
         })
       },
@@ -184,9 +201,9 @@
         this.region = e.detail.value;
       },
       formSubmit(e) {
-        const self = this;
-        self.subLoading = true;
-        console.log(e)
+        // const self = this;
+        // self.subLoading = true;
+        // console.log(e)
       },
       xingbie() {
         const self = this;
