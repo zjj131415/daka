@@ -398,7 +398,7 @@
           <view class="infoTit">照片展示</view>
           <view class="infoList">
             <view class="imgList">
-              <image wx:for="{{[1,1,1,1,1,1,1,1,1]}}" class="imgItem" mode="aspectFill" @tap="chooseImage" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+              <image wx:for="{{[1,1,1,1,1,1,1,1,1]}}" wx:key="{{index}}" class="imgItem" mode="aspectFill" @tap="chooseImage" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
             </view>
           </view>
         </view>
@@ -557,8 +557,9 @@
       } 
     }
 
-    onShow(e) {
-       const {id} = e;
+    onLoad(e) {
+      // console.log(e)
+      const {id} = e;
       //开启loading
       wx.showLoading({
         title: '加载中',
