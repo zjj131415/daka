@@ -162,12 +162,12 @@ import wepy from 'wepy'
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/user/home2', 
       'pages/circle/index',
       'pages/user/home1', 
       'pages/launched/dynamic',
       'pages/launched/notice',
       'pages/find/index',
-      'pages/user/home2', 
       'pages/user/info-yiren',
       'pages/user/info-zhichang',
       'pages/launched/index',

@@ -18,8 +18,8 @@
         filter: blur(20rpx);
       }
       .photo {
-        width: 140rpx;
-        height: 140rpx;
+        width: 160rpx;
+        height: 160rpx;
         border-radius: 100%;
       }
       .name {
@@ -29,6 +29,7 @@
         align-items: center;
         justify-content: center;
         height: 40rpx;
+        color: #fff;
         .renz {
           height: 26rpx;
           padding: 0 10rpx;
@@ -60,6 +61,66 @@
         }
       }
     }
+    .circle-info {
+      box-sizing: border-box;
+        width: 100%;
+        padding: 0 26rpx;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        z-index: 3;
+        // background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(191,191,191,.4));
+        .circle-name {
+          height: 40rpx;
+          line-height: 60rpx;
+          font-size: 34rpx;
+          color: #fff;
+          position: relative;
+          font-weight: bold;
+        }
+        .circle-action {
+          margin: 5rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          width: 698rpx;
+          /*width: 46rpx;*/
+          height: 46rpx;
+          /*border: 1px solid #fff;*/
+          border-radius: 100%;
+          font-size: 30rpx;
+          color: #fff;
+          &::before {
+            margin-right: 5rpx;
+            font-size: 30rpx;
+          }
+          .border {
+            flex: 1;
+            height: 1px;
+            background-color: rgba(255, 255, 255, .6);
+          }
+          .daka {
+            margin-left: 20rpx;
+            margin-right: 20rpx;
+          }
+        }
+        .circle-tags {
+          height:50rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .circle-tag-item {
+          margin: 0 10rpx;
+          padding: 0 22rpx;
+          border: 1px solid #fff;
+          border-radius: 12rpx;
+          color: #fff;
+          font-size: 28rpx;
+        }
+      }
     .content {
       filter: blur(0);
       .nav {
@@ -133,14 +194,35 @@
           /*padding-top: 20rpx;*/
         /*}*/
         .infoBlock {
-          margin-top: 16rpx;
+          margin-bottom: 16rpx;
           padding: 20rpx 30rpx;
           background: #fff;
+          &.noMargin {
+            margin-bottom: 0!important;
+          }
+          &.noPadding {
+            padding-bottom: 0;
+          }
+          &.noShuangPadding {
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+          &.noPaddingLR {
+            padding-left: 0;
+            padding-right: 0;
+          }
         }
         .video {
           width: 100%;
         }
+        .cell222 {
+          display: flex;
+          .cellHd {
+            width: 110rpx!important;
+          }
+        }
         .cell {
+          flex: 1;
           padding: 8rpx 0;
           display: flex;
           align-items: center;
@@ -167,13 +249,50 @@
           }
         }
         .imgList {
+          width: 100%;
           display: flex;
           flex-wrap: wrap;
+          padding: 0 5rpx;
+          box-sizing: border-box;
           image {            
-            width: 220rpx;
-            height: 220rpx;
+            width: 238.5rpx;
+            height: 238.5rpx;
             margin: 5rpx;
           }
+        }
+      }
+      .info2 {
+        .blockItem {
+          display: block;
+          margin-top: 20rpx;
+          padding: 20rpx;
+          background: #fff;
+        }
+        .blcokTit {
+          display: flex;
+          align-items: center;
+          // padding: 0 40rpx;
+          margin-bottom:10rpx;
+          font-size: 32rpx;
+          color: #333;
+        }
+        .cell {
+          display: flex;
+          align-items: center;
+          padding: 8rpx 0;
+          font-size: 30rpx;
+          color: #8a8a8a;
+        }
+        .cellHd {
+          margin-right: 10rpx;
+          font-size: 32rpx;
+          color: #dc3b23;
+        }
+        .cellBd {
+
+        }
+        .cellFt {
+          color: #545454;
         }
       }
       .info3,
@@ -237,9 +356,8 @@
             color: #cbcbcb;
           }
           .find-cont {
-            padding: 0 30rpx;
             .find-cont-text {
-              padding: 10rpx 0;
+              padding: 20rpx 0;
               font-size: 30rpx;
               color: #5f5f5f;
             }
@@ -290,59 +408,80 @@
       }
     }
   }
+  .fabItem {
+    padding: 10rpx 0;
+  }
+  .fabText {
+    font-size: 32rpx;
+    color: #333;
+  }
+  .fabTime {
+    font-size: 28rpx;
+    color: #666;
+  }
+  .hujItem {
+
+  }
 </style>
 
 <template>
   <view class="container">
     <view class="header">
-      <image class="photo" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-      <view class="name">
-        重庆某某某公司
-        <!--<text class="renz">已实名</text>-->
+      <image class="photo" mode="aspectFill" src="{{userInfo.head}}"></image>
+      <view class="circle-info">
+        <text class="circle-name">{{userInfo.name}}</text>
+        <!--<text class="circle-name">{{item.height}}</text>-->
+        <!--<text class="circle-name">{{item.prov}}</text>-->
+        <view class="circle-icon"></view>
+        <view class="circle-action">
+          <view class="border"></view>
+          <view class="daka icon-appreciate">100</view>
+          <view class="border"></view>
+        </view>
+        <view class="circle-tags">
+          <block wx:for="{{userInfo.careers}}" wx:key="{{index * 1.1}}">
+            <text class="circle-tag-item">{{item.name}}</text>
+          </block>
+        </view>
+      </view>
+      <!-- <view class="name">
+        {{userInfo.name}}
       </view>
       <view class="tags">
-        重庆 渝中 大坪
-      </view>
-      <image class="bgBanner" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+        <text wx:for="{{userInfo.careers}}" wx:key="{{index}}" class="tag">{{item.name}}</text>
+      </view> -->
+      <image class="bgBanner" mode="aspectFill" src="{{userInfo.head}}"></image>
     </view>
     <view class="content">
       <view class="nav">
         <view wx:for="{{navList}}" wx:key="{{index}}" @tap="handleNav" class="navItem {{item.id === activeNav ? 'active' : ''}}" data-id="{{item.id}}">{{item.text}}</view>
       </view>
-      <view class="info info1 {{activeNav === 1 ? 'active' : ''}}">
-        <view class="infoBlock">
-          <view class="infoTit">视频展示</view>
+       <view class="info info1 {{activeNav === 1 ? 'active' : ''}}">
+        <view class="jddjk">
+          <view class="infoList">
+             <video class="video" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"   controls></video>
+          </view>
+        </view>
+        <view class="infoBlock noMargin noPadding">
+          <view class="infoTit">公司介绍</view>
           <view class="infoList">
             <view class="cell">
-              <view class="cellBd">
-                <video class="video" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400"   controls></video>
-              </view>
+              <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
             </view>
           </view>
         </view>
-        <view class="infoBlock">
-          <view class="infoTit">企业介绍</view>
-          <view class="infoList">
-            <view class="cell">
-              <view class="cellBd">世界五百强企业，拥有强大后盾！</view>
-            </view>
-          </view>
-        </view>
-         <view class="infoBlock">
-          <view class="infoTit">照片展示</view>
+        <view class="infoBlock noPaddingLR">
           <view class="infoList">
             <view class="imgList">
-              <block wx:for="{{[1,2,3,4,5,6,1,1,1]}}" wx:key="{{index}}">
-                <image class="imgItem" mode="aspectFill" @tap="chooseImage" data-src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-              </block>
+              <image wx:for="{{[1,1,1,1,1,1,1,1,1]}}" wx:key="{{index}}" class="imgItem" mode="aspectFill" @tap="chooseImage" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
             </view>
           </view>
         </view>
-        <view class="infoBlock">
-          <view class="infoTit">公司地址</view>
+        <view class="infoBlock noMargin noPadding">
+          <view class="infoTit">公司介绍</view>
           <view class="infoList">
             <view class="cell">
-              <view class="cellBd">重庆市渝中区龙湖时代天街1号楼</view>
+              <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
             </view>
           </view>
         </view>
@@ -359,7 +498,7 @@
           </view>
           <view class="up-time">17-05-26</view>
         </view>
-         <view class="find-iem">
+        <view class="find-iem">
           <view class="find-cont">
             <view class="find-cont-text">
               <text>发个动态！</text>
@@ -386,40 +525,15 @@
             <button open-type="share" class="action-item daka icon-fenxiang2">
               分享
             </button>
-            <view class="action-item daka icon-comment">
+            <navigator class="action-item daka icon-comment" url="/pages/find/detail?id={{item.id}}">
               评论
-            </view>
-            <view class="action-item daka icon-appreciate">
+            </navigator>
+            <view class="action-item daka icon-appreciate" @tap="dianzFn" data-id="{{item.id}}">
               点赞
             </view>
-            <view class="action-item daka icon-refund" @tap="play">
+            <navigator class="action-item daka icon-refund" url="/pages/find/pay?id={{item.id}}">
               打赏
-            </view>
-          </view>
-        </view>
-        <view class="find-iem">
-          <view class="find-cont">
-            <view class="find-cont-text">
-              <text>发个动态！</text>
-            </view>
-            <view class="find-cont-img">
-              <image mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-            </view>
-          </view>
-          <view class="up-time">17-05-26</view>
-          <view class="find-actions">
-            <button open-type="share" class="action-item daka icon-fenxiang2">
-              分享
-            </button>
-            <view class="action-item daka icon-comment">
-              评论
-            </view>
-            <view class="action-item daka icon-appreciate">
-              点赞
-            </view>
-            <view class="action-item daka icon-refund" @tap="play">
-              打赏
-            </view>
+            </navigator>
           </view>
         </view>
       </view>
@@ -433,6 +547,7 @@
     config = {
       navigationBarTitleText: '企业主页'
     }
+    
     data = {
       activeNav: 1,
       navList: [
@@ -449,10 +564,39 @@
       ],
       name: 'ss'
     }
+
     methods = {
       handleNav(e) {
         const {id} = e.target.dataset;
         this.activeNav = id;
+      },
+      //点赞
+      dianzFn(e) {
+        //开启loading
+        wx.showLoading({
+          title: '发起请求中',
+          mask: true
+        });
+        console.log(this.$parent.globalData)
+        const {id} = e.target.dataset;//动态id
+        wx.request({
+          url: 'https://www.us800.cn/wechat!savePoint.action',
+          data: {
+            memberId: 1,  //用户id
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success: function(res) {
+            wx.hideLoading();
+            wx.showToast({
+              title: '点赞成功',
+              icon: 'success',
+              duration: 2000
+            });
+            console.log(res.data)
+          }
+        })
       },
       chooseImage(e) {
         const {src} = e.target.dataset; 
@@ -461,6 +605,51 @@
           urls: ['http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0', 'http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0'] // 需要预览的图片http链接列表
         })
       } 
+    }
+
+    onLoad(e) {
+      const {id} = e;
+      //开启loading
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      });
+      //请求数据
+      wx.request({
+        url: 'https://www.us800.cn/async!gotMyPerformResume.action',//个人详情
+        data: {
+          resumeId: id
+        },
+        header: {
+            'content-type': 'application/json' // 默认值
+        },
+        success: (res) => {
+          console.log(res.data)
+          // 关闭loading
+          wepy.hideLoading();
+          this.userInfo = res.data;
+          this.$apply();
+        }
+      });
+      //开启转发
+      wx.showShareMenu({
+        withShareTicket: true
+      });
+    }
+
+    //转发设置
+    onShareAppMessage (e) {
+      const {id} = e.target.dataset;
+      return {
+        title: '这个还没写完，没得数据啊，卧槽！',
+        path: `/pages/find/detail?id=${id}`,
+        success: function(res) {
+          // 转发成功
+        },
+        fail: function(res) {
+          // 转发失败
+        }
+      }
     }
   }
 </script>
