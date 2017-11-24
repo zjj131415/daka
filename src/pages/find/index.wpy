@@ -141,18 +141,18 @@
     </navigator>
     <view class="up-time">{{item.month}}-{{item.day}}</view>
     <view class="find-actions">
-      <button open-type="share" class="action-item daka icon-fenxiang2">
+      <button open-type="share" data-id="{{item.id}}" class="action-item daka icon-fenxiang2">
         分享
       </button>
-      <view class="action-item daka icon-comment">
+      <navigator class="action-item daka icon-comment" url="/pages/find/detail?id={{item.id}}">
         评论
-      </view>
-      <view class="action-item daka icon-appreciate">
+      </navigator>
+      <view class="action-item daka icon-appreciate" data-id="{{item.id}}" @tap="dianzFn">
         点赞
       </view>
-      <view class="action-item daka icon-refund" @tap="play">
+      <navigator class="action-item daka icon-refund" url="/pages/find/pay?id={{item.id}}">
         打赏
-      </view>
+      </navigator>
     </view>
   </view>
 </template>
@@ -166,7 +166,7 @@ export default class Index extends wepy.page {
           name: '追风少年',
           tags: ['模特', '演员']
         },
-        cont: {
+        cont: {  
           text: `”不那么好过的日子里要学会每天给自己一个开心的理由哪怕只是阳光很暖点亮很足“
           世界晚安👄`
         }
@@ -183,39 +183,33 @@ export default class Index extends wepy.page {
     findDetail: {} //动态详情
   }
   methods = {
-    play() {
-      wepy.requestPayment({
-        'timeStamp': '12e21',
-        'nonceStr': 'e21e',
-        'package': 'e21e',
-        'signType': 'MD5',
-        'paySign': 'e12e2',
-        'success':function(res) {
-          wepy.showModal({
-            content: '打赏成功',
-            showCancel: false,
-            success: function(res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
-          })
+    //点赞
+    dianzFn(e) {
+      //开启loading
+      wx.showLoading({
+        title: '发起请求中',
+        mask: true
+      });
+      console.log(this.$parent.globalData)
+      const {id} = e.target.dataset;//动态id
+      wx.request({
+        url: 'https://www.us800.cn/wechat!savePoint.action',
+        data: {
+          memberId: 1,  //用户id
         },
-        'fail':function(res) {
-          console.log(res)
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        success: function(res) {
+          wx.hideLoading();
+          wx.showToast({
+            title: '点赞成功',
+            icon: 'success',
+            duration: 2000
+          });
+          console.log(res.data)
         }
       })
-    },
-    //图片预览
-    preview(e) {
-      console.log(e);
-      const {images,image} = e.currentTarget.dataset || {};
-      wx.previewImage({
-        current: image,
-        urls: images
-      });
     }
   }
 
@@ -229,11 +223,12 @@ export default class Index extends wepy.page {
       title: '加载中',
       mask: true
     });
+    //拉取数据
     wx.request({
       url: 'https://www.us800.cn/async!gotCareer.action', //大咖秀列表(动态)
       data: {},
       header: {
-        'content-type': 'application/json' // 默认值
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
       },
       success: function(res) {
         //关闭loading
@@ -245,13 +240,27 @@ export default class Index extends wepy.page {
           _this.findDetail[i].images = _this.findDetail[i].images.split("|");
           _this.findDetail[i].content = decodeURI(_this.findDetail[i].content);
         }
-        console.log(_this.findDetail);
         _this.$apply();
       },
       fail() {
         wx.hideLoading();
       }
     });
+  }
+
+  //转发设置
+  onShareAppMessage (e) {
+    const {id} = e.target.dataset;
+    return {
+      title: '这个还没写完，没得数据啊，卧槽！',
+      path: `/pages/find/detail?id=${id}`,
+      success: function(res) {
+        // 转发成功
+      },
+      fail: function(res) {
+        // 转发失败
+      }
+    }
   }
 }
 </script>

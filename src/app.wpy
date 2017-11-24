@@ -163,16 +163,16 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/circle/index',
+      'pages/user/home1', 
+      'pages/launched/dynamic',
+      'pages/launched/notice',
+      'pages/find/index',
       'pages/user/home2', 
       'pages/user/info-yiren',
       'pages/user/info-zhichang',
       'pages/launched/index',
-      'pages/launched/notice',
       'pages/user/info-basis',
-      'pages/user/home1', 
-      'pages/find/index',
       'pages/find/detail',
-      'pages/launched/dynamic',
       'pages/find/pay',
       'pages/user/info-character',
       'pages/user/project',
@@ -269,7 +269,6 @@ export default class extends wepy.app {
   isUndefined(item) {
     return typeof item === 'undefined'
   }
-
   /* ========================= 更新缓存信息 ======================== */
   $updateGlobalData(name, obj) {
     // 校验: globalData

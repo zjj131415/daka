@@ -17,12 +17,14 @@
       display: flex;
       flex-wrap: wrap;
       padding: 10rpx;
+      width: 100%;
+      box-sizing: border-box;
       .uploader-file-item {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 225rpx;
-        height: 225rpx;
+        width: 223rpx;
+        height: 223rpx;
         margin: 10rpx;
         overflow: hidden;
         &.upload {
@@ -66,20 +68,20 @@
             <!--<image src="/images/upload_img.png"></image>-->
           <!--</view>-->
         <!--</block>-->
-        <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{images.length === 0}}" @tap="chooseImage">
+        <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{video.length == 0 && images.length === 0}}" @tap="chooseImage">
           <image src="/images/upload_img.png"></image>
         </view>
         <block wx:for="{{images}}" wx:key="{{index}}">
           <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{images.length !== 0}}" @tap="chooseImage">
-              <image src="{{item}}"></image>
+              <image src="{{item}}" mode="aspectFill·"></image>
           </view>
         </block>
-        <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{video.length === 0}}" @tap="chooseVideo">
+        <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{images.length == 0 && video.length === 0}}" @tap="chooseVideo">
           <image src="/images/upload_video.png"></image>
         </view>
         <block>
           <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{video.length !== 0}}">
-            <video src="{{video}}"></video>
+            <video controls="{{false}}" src="{{video}}"></video>
           </view>
         </block>
       </view>
@@ -108,7 +110,7 @@
       },
       saveDynamic() {
         var _this = this;
-        if (!_this.dynamics && !_this.imagesStr && !_this.video){
+        if (!_this.dynamics && !_this.imagesStr && !_this.video) return (
           wx.showModal({
             title: '友情提示',
             content: '发表内容不能为空！',
@@ -118,9 +120,8 @@
                 console.log('用户点击确定');
               }
             }
-          });
-          return false;
-        }
+          })
+        )
         //开启loading
         wx.showLoading({
           title: '发表中',

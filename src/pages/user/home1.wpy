@@ -263,12 +263,15 @@
       }
       .info2 {
         .blockItem {
+          display: block;
           margin-top: 20rpx;
           padding: 20rpx;
           background: #fff;
         }
         .blcokTit {
-          padding: 0 40rpx;
+          display: flex;
+          align-items: center;
+          // padding: 0 40rpx;
           margin-bottom:10rpx;
           font-size: 32rpx;
           color: #333;
@@ -353,7 +356,7 @@
           }
           .find-cont {
             .find-cont-text {
-              padding: 10rpx 0;
+              padding: 20rpx 0;
               font-size: 30rpx;
               color: #5f5f5f;
             }
@@ -435,7 +438,7 @@
           <view class="border"></view>
         </view>
         <view class="circle-tags">
-          <block wx:for="{{userInfo.careers}}" wx:key="{{index}}">
+          <block wx:for="{{userInfo.careers}}" wx:key="{{index * 1.1}}">
             <text class="circle-tag-item">{{item.name}}</text>
           </block>
         </view>
@@ -450,7 +453,7 @@
     </view>
     <view class="content">
       <view class="nav">
-        <view wx:for="{{navList}}" wx:key="{{index}}" @tap="handleNav" class="navItem {{item.id === activeNav ? 'active' : ''}}" data-id="{{item.id}}">{{item.text}}</view>
+        <view wx:for="{{navList}}" wx:key="{{index * 100}}" @tap="handleNav" class="navItem {{item.id === activeNav ? 'active' : ''}}" data-id="{{item.id}}">{{item.text}}</view>
       </view>
       <view class="info info1 {{activeNav === 1 ? 'active' : ''}}">
         <view class="jddjk">
@@ -516,7 +519,7 @@
         <view class="infoBlock">
           <view class="infoTit">演艺经历</view>
           <view class="infoList">
-            <block wx:for="{{userInfo.specialty}}" wx:key="{{index}}">
+            <block wx:for="{{userInfo.specialty}}" wx:key="{{index * 10000}}">
                <view class="fabItem">
                  <view class="fabTime">2017/05/23</view>
                  <view class="fabText">由于Page页面实际上继承自Comp</view>
@@ -534,52 +537,33 @@
         </view> -->
       </view>
       <view class="info info2 {{activeNav === 2 ? 'active' : ''}}">
-        <view class="blockItem">
-          <view class="blcokTit">活动详情</view>
-          <view class="cell">
-            <view class="cellHd daka icon-locationfill"></view>
-            <view class="cellBd">工作地点：</view>
-            <view class="cellFt">重庆 大渡口 久存</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-timefill"></view>
-            <view class="cellBd">开始时间：</view>
-            <view class="cellFt">2015.3.20</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-timefill"></view>
-            <view class="cellBd">结束时间：</view>
-            <view class="cellFt">2015.3.20</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-apps"></view>
-            <view class="cellBd">注意事项：</view>
-            <view class="cellFt">记得吃药！</view>
-          </view>
-        </view>
-        <view class="blockItem">
-          <view class="blcokTit">活动详情活动详情活动详情活动详情活动详</view>
-          <view class="cell">
-            <view class="cellHd daka icon-locationfill"></view>
-            <view class="cellBd">工作地点：</view>
-            <view class="cellFt">重庆 大渡口 久存</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-timefill"></view>
-            <view class="cellBd">开始时间：</view>
-            <view class="cellFt">2015.3.20</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-timefill"></view>
-            <view class="cellBd">结束时间：</view>
-            <view class="cellFt">2015.3.20</view>
-          </view>
-          <view class="cell">
-            <view class="cellHd daka icon-apps"></view>
-            <view class="cellBd">注意事项：</view>
-            <view class="cellFt">记得吃药！</view>
-          </view>
-        </view>
+        <checkbox-group bindchange="handleBase" data-id="0  ">
+          <block wx:for="{{[3213]}}" wx:key="{{index * 1000}}">
+            <label class="blockItem">
+              <view class="blcokTit"> <checkbox value="{{item}}" color="#dc3b23"/>活动详情</view>
+              <view class="cell">
+                <view class="cellHd daka icon-locationfill"></view>
+                <view class="cellBd">工作地点：</view>
+                <view class="cellFt">重庆 大渡口 久存</view>
+              </view>
+              <view class="cell">
+                <view class="cellHd daka icon-timefill"></view>
+                <view class="cellBd">开始时间：</view>
+                <view class="cellFt">2015.3.20</view>
+              </view>
+              <view class="cell">
+                <view class="cellHd daka icon-timefill"></view>
+                <view class="cellBd">结束时间：</view>
+                <view class="cellFt">2015.3.20</view>
+              </view>
+              <view class="cell">
+                <view class="cellHd daka icon-apps"></view>
+                <view class="cellBd">注意事项：</view>
+                <view class="cellFt">记得吃药！</view>
+              </view>
+            </label>
+          </block>
+        </checkbox-group>
       </view>
       <view class="info info3 {{activeNav === 3 ? 'active' : ''}}">
         <view class="find-iem">
@@ -596,40 +580,15 @@
             <button open-type="share" class="action-item daka icon-fenxiang2">
               分享
             </button>
-            <view class="action-item daka icon-comment">
+            <navigator class="action-item daka icon-comment" url="/pages/find/detail?id={{item.id}}">
               评论
-            </view>
-            <view class="action-item daka icon-appreciate">
+            </navigator>
+            <view class="action-item daka icon-appreciate" @tap="dianzFn" data-id="{{item.id}}">
               点赞
             </view>
-            <view class="action-item daka icon-refund" @tap="play">
+            <navigator class="action-item daka icon-refund" url="/pages/find/pay?id={{item.id}}">
               打赏
-            </view>
-          </view>
-        </view>
-        <view class="find-iem">
-          <view class="find-cont">
-            <view class="find-cont-text">
-              <text>发个动态！</text>
-            </view>
-            <view class="find-cont-img">
-              <image mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
-            </view>
-          </view>
-          <view class="up-time">17-05-26</view>
-          <view class="find-actions">
-            <button open-type="share" class="action-item daka icon-fenxiang2">
-              分享
-            </button>
-            <view class="action-item daka icon-comment">
-              评论
-            </view>
-            <view class="action-item daka icon-appreciate">
-              点赞
-            </view>
-            <view class="action-item daka icon-refund" @tap="play">
-              打赏
-            </view>
+            </navigator>
           </view>
         </view>
       </view>
@@ -645,6 +604,7 @@
     }
 
     data = {
+      chechked: [],
       userInfo: {
 
       },
@@ -668,6 +628,44 @@
         const {id} = e.target.dataset;
         this.activeNav = id;
       },
+      handleBase(e) {
+        const {id} = e.target.dataset;
+        const {value} = e.detail;
+        switch (id | 0) {
+          case 0:
+            this.chechked = value;
+            break;
+        }
+        this.$apply();
+      },
+      //点赞
+      dianzFn(e) {
+        //开启loading
+        wx.showLoading({
+          title: '发起请求中',
+          mask: true
+        });
+        console.log(this.$parent.globalData)
+        const {id} = e.target.dataset;//动态id
+        wx.request({
+          url: 'https://www.us800.cn/wechat!savePoint.action',
+          data: {
+            memberId: 1,  //用户id
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success: function(res) {
+            wx.hideLoading();
+            wx.showToast({
+              title: '点赞成功',
+              icon: 'success',
+              duration: 2000
+            });
+            console.log(res.data)
+          }
+        })
+      },
       chooseImage(e) {
         const {src} = e.target.dataset; 
         wx.previewImage({
@@ -678,7 +676,6 @@
     }
 
     onLoad(e) {
-      // console.log(e)
       const {id} = e;
       //开启loading
       wx.showLoading({
@@ -701,7 +698,26 @@
           this.userInfo = res.data;
           this.$apply();
         }
-      })
+      });
+      //开启转发
+      wx.showShareMenu({
+        withShareTicket: true
+      });
+    }
+
+    //转发设置
+    onShareAppMessage (e) {
+      const {id} = e.target.dataset;
+      return {
+        title: '这个还没写完，没得数据啊，卧槽！',
+        path: `/pages/find/detail?id=${id}`,
+        success: function(res) {
+          // 转发成功
+        },
+        fail: function(res) {
+          // 转发失败
+        }
+      }
     }
   }
 </script>

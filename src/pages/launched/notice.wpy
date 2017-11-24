@@ -219,7 +219,8 @@
       </view>
     </view>
     <view class="release">
-      <button bindtap="uploadNotice">发布</button>
+      <!-- <button bindtap="uploadNotice">发布</button> -->
+      <button class="sub-btn" bindtap="uploadNotice">发布</button>
     </view>
   </view>
 </template>
@@ -305,8 +306,9 @@
         this.$apply();
       },
       uploadNotice() {
+        const _this = this;
         const {typeArray, type, performName, startTime, endTime, performAddr, performAddrDetaild, performAddr1, performContent} = this.$data;
-        if (!type || !performName || !startTime || !endTime || !performAddr || !performContent) {
+        if (!type || !performName || !startTime || !endTime || !performAddr || !performContent) return (
           wx.showModal({
             title: '提示',
             content: '请填写完后在提交！所有内容不能为空哦！',
@@ -321,7 +323,7 @@
               }
             }
           })
-        }
+        );
         wx.showLoading({
           title: '发布中...',
           mask: true
@@ -342,17 +344,23 @@
           header: {
               'content-type': 'application/json' // 默认值
           },
-          success: (res) => {
-            this.performImg = "";
-            this.imgSrc = "";
-            this.performContent = "";
-            this.performName = "";
-            this.performAddr = "";
-            this.performAddrDetaild = "";
-            this.startTime = "";
-            this.endTime = "";
-            this.type = null;
-            this.performAddr1 = "";
+          success(res) {
+            wx.showToast({
+              title: '发布成功',
+              icon: 'success',
+              duration: 2000
+            });
+            _this.performImg = "";
+            _this.imgSrc = "";
+            _this.performContent = "";
+            _this.performName = "";
+            _this.performAddr = "";
+            _this.performAddrDetaild = "";
+            _this.startTime = "";
+            _this.endTime = "";
+            _this.type = null;
+            _this.performAddr1 = "";
+            _this.$apply();
           }
         })
       }
