@@ -419,9 +419,6 @@
     font-size: 28rpx;
     color: #666;
   }
-  .hujItem {
-
-  }
 </style>
 
 <template>

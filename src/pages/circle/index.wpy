@@ -754,7 +754,7 @@
       skip(e) {
         const { id } = e.currentTarget.dataset || {};
         wx.navigateTo({
-          url: '/pages/user/home1?id=' + id
+          url: `/pages/user/home1?id=${id}&active=1`
         })
       },
       //加载更多

@@ -1,5 +1,6 @@
 <style lang="less" scoped>
   .container {
+    padding-bottom: 120rpx;
     .header {
       height: 350rpx;
       font-size: 32rpx;
@@ -186,6 +187,9 @@
             transform: scaleY(.5);
           }
         }
+      }
+      .cellList {
+        padding-left: 60rpx;
       }
       .info1 {
         color: #666;
@@ -411,15 +415,62 @@
     padding: 10rpx 0;
   }
   .fabText {
-    font-size: 32rpx;
-    color: #333;
+    // font-size: 32rpx;
   }
   .fabTime {
     font-size: 28rpx;
-    color: #666;
   }
-  .hujItem {
-
+  .huojItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10rpx;
+    .huojItemCont {
+      flex: 1;
+      margin-left: 20rpx;
+    }
+    .huojItemImage {
+      width: 100rpx;
+      height: 100rpx;
+    }
+  }
+  .zhichangItem {
+    padding: 10rpx 0;
+    .zhichangItemCont {
+      flex: 1;
+      display: flex;
+    }
+    .zhichangItemTit {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .flexBootomBtn {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    padding: 10rpx;
+    // border-top: 1px solid #dcdcdc;
+    .daka {
+      margin-right: 10rpx;
+      font-size: 32rpx;
+    }
+    .btnGrounp {
+      display: flex;
+      .btnGrounpItem {
+        padding: 10rpx;
+        flex: 1;
+      }
+    }
+    button {
+      font-size: 30rpx;
+      color: #ffffff;
+      background-color: #DB3B23;
+    }
   }
 </style>
 
@@ -517,9 +568,21 @@
           </view>
         </view>
         <view class="infoBlock">
+          <view class="infoTit">获奖经历</view>
+          <view class="infoList">
+            <view class="huojItem">
+              <image class="huojItemImage" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+              <view class="huojItemCont">
+                <view class="">2017/5/23</view>
+                <view class="">获得国家一等奖</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="infoBlock">
           <view class="infoTit">演艺经历</view>
           <view class="infoList">
-            <block wx:for="{{userInfo.specialty}}" wx:key="{{index * 10000}}">
+            <block wx:for="{{[1,2,4,5]}}" wx:key="{{index * 10000}}">
                <view class="fabItem">
                  <view class="fabTime">2017/05/23</view>
                  <view class="fabText">由于Page页面实际上继承自Comp</view>
@@ -527,39 +590,52 @@
             </block>
           </view>
         </view>
-        <!-- <view class="infoBlock">
-          <view class="infoTit">获奖经历</view>
+        <view class="infoBlock">
+          <view class="infoTit">职场经历</view>
           <view class="infoList">
-            <view class="hujItem">
-              
+            <view class="zhichangItem">
+              <view class="zhichangItemTime">2017/05/11-2017/05/08</view>
+              <view class="zhichangItemCont">
+                <view class="zhichangItemTit">腾讯</view>
+                <view class="zhichangItemZhiw">董事长</view>
+              </view>
+            </view>
+            <view class="zhichangItem">
+              <view class="zhichangItemTime">2017/05/11-2017/05/08</view>
+              <view class="zhichangItemCont">
+                <view class="zhichangItemTit">阿里</view>
+                <view class="zhichangItemZhiw">董事长</view>
+              </view>
             </view>
           </view>
-        </view> -->
+        </view>
       </view>
       <view class="info info2 {{activeNav === 2 ? 'active' : ''}}">
         <checkbox-group bindchange="handleBase" data-id="0  ">
           <block wx:for="{{[3213]}}" wx:key="{{index * 1000}}">
             <label class="blockItem">
-              <view class="blcokTit"> <checkbox value="{{item}}" color="#dc3b23"/>活动详情</view>
-              <view class="cell">
-                <view class="cellHd daka icon-locationfill"></view>
-                <view class="cellBd">工作地点：</view>
-                <view class="cellFt">重庆 大渡口 久存</view>
-              </view>
-              <view class="cell">
-                <view class="cellHd daka icon-timefill"></view>
-                <view class="cellBd">开始时间：</view>
-                <view class="cellFt">2015.3.20</view>
-              </view>
-              <view class="cell">
-                <view class="cellHd daka icon-timefill"></view>
-                <view class="cellBd">结束时间：</view>
-                <view class="cellFt">2015.3.20</view>
-              </view>
-              <view class="cell">
-                <view class="cellHd daka icon-apps"></view>
-                <view class="cellBd">注意事项：</view>
-                <view class="cellFt">记得吃药！</view>
+              <view class="blcokTit"> <checkbox class="jfjaf" value="{{item}}" color="#dc3b23"/>活动详情</view>
+              <view class="cellList">
+                <view class="cell">
+                  <view class="cellHd daka icon-locationfill"></view>
+                  <view class="cellBd">工作地点：</view>
+                  <view class="cellFt">重庆 大渡口 久存</view>
+                </view>
+                <view class="cell">
+                  <view class="cellHd daka icon-timefill"></view>
+                  <view class="cellBd">开始时间：</view>
+                  <view class="cellFt">2015.3.20</view>
+                </view>
+                <view class="cell">
+                  <view class="cellHd daka icon-timefill"></view>
+                  <view class="cellBd">结束时间：</view>
+                  <view class="cellFt">2015.3.20</view>
+                </view>
+                <view class="cell">
+                  <view class="cellHd daka icon-apps"></view>
+                  <view class="cellBd">注意事项：</view>
+                  <view class="cellFt">记得吃药！</view>
+                </view>
               </view>
             </label>
           </block>
@@ -593,6 +669,24 @@
         </view>
       </view>
     </view>
+    <view class="flexBootomBtn">
+      <view class="btnGrounp">
+        <view class="btnGrounpItem"  wx:if="{{showBottomBtn === 1}}">
+          <button><text class="daka icon-iconjia"></text>添加到项目</button>
+        </view>
+        <view class="btnGrounpItem"  wx:if="{{showBottomBtn === 2}}">
+          <button><text class="daka icon-dianhua"></text>联系他（她）</button>
+        </view>
+      </view>
+      <view class="btnGrounp" wx:if="{{showBottomBtn !==2 && showBottomBtn!==1}}">
+        <view class="btnGrounpItem">
+          <button><text class="daka icon-bianji"></text>修改资料</button>
+        </view>
+        <view class="btnGrounpItem">
+          <button><text class="daka icon-fenxiang3">分享朋友圈</button>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -604,6 +698,7 @@
     }
 
     data = {
+      showBottomBtn: null,
       chechked: [],
       userInfo: {
 
@@ -676,7 +771,10 @@
     }
 
     onLoad(e) {
-      const {id} = e;
+      const {id, active} = e;
+      console.log(e)
+      this.showBottomBtn = active | 0;
+      this.$apply();
       //开启loading
       wx.showLoading({
         title: '加载中',
