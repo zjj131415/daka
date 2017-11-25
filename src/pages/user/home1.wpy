@@ -189,7 +189,7 @@
         }
       }
       .cellList {
-        padding-left: 60rpx;
+        padding-left: 18rpx;
       }
       .info1 {
         color: #666;
@@ -290,7 +290,7 @@
         .cellHd {
           margin-right: 10rpx;
           font-size: 32rpx;
-          color: #dc3b23;
+          color: #8a8a8a;
         }
         .cellBd {
 
@@ -582,12 +582,13 @@
         <view class="infoBlock">
           <view class="infoTit">演艺经历</view>
           <view class="infoList">
-            <block wx:for="{{[1,2,4,5]}}" wx:key="{{index * 10000}}">
-               <view class="fabItem">
-                 <view class="fabTime">2017/05/23</view>
-                 <view class="fabText">由于Page页面实际上继承自Comp</view>
-               </view>
-            </block>
+            <view class="huojItem">
+              <image class="huojItemImage" mode="aspectFill" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+              <view class="huojItemCont">
+                <view class="">2017/5/1</view>
+                <view class="">全球巡回演唱会！</view>
+              </view>
+            </view>
           </view>
         </view>
         <view class="infoBlock">
@@ -624,12 +625,12 @@
                 <view class="cell">
                   <view class="cellHd daka icon-timefill"></view>
                   <view class="cellBd">开始时间：</view>
-                  <view class="cellFt">2015.3.20</view>
+                  <view class="cellFt">2015/3/20 12:00:01</view>
                 </view>
                 <view class="cell">
                   <view class="cellHd daka icon-timefill"></view>
                   <view class="cellBd">结束时间：</view>
-                  <view class="cellFt">2015.3.20</view>
+                  <view class="cellFt">2015/3/20 12:00:01</view>
                 </view>
                 <view class="cell">
                   <view class="cellHd daka icon-apps"></view>

@@ -19,6 +19,19 @@
       -ms-transform: scaleY(.5);
       transform: scaleY(.5);
     }
+    .xing {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 5rpx;
+      font-size: 32rpx;
+      color: #eb3c3c;
+    }
+    .input {
+      text-align: right;
+      margin-left: 10rpx;
+      font-size: 32rpx;
+      color: #d5d5d5;
+    }
     .cell_bd {
       flex: 1;
       display: flex;
@@ -115,7 +128,7 @@
       <view class="cells">
         <view class="cell" @tap="uploadImg">
           <view class="cell_hd">
-            头像
+            <tetx class="xing">*</tetx>头像
           </view>
           <view class="cell_bd">
           </view>
@@ -127,7 +140,7 @@
       <view class="cells">
         <view class="cell" @tap="xingbie">
           <view class="cell_hd">
-            性别
+            <tetx class="xing">*</tetx>性别
           </view>
           <view class="cell_bd"></view>
           <view class="cell_ft">
@@ -138,7 +151,8 @@
       <view class="cells">
         <view class="cell">
           <view class="cell_hd">
-          </view>所在地
+            <tetx class="xing">*</tetx>所在地
+          </view>
           <view class="cell_bd"></view>
           <view class="cell_ft">
             <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
@@ -146,6 +160,67 @@
                {{region[0]}} {{region[1]}} {{region[2]}}
               </view>
             </picker>
+          </view>
+        </view>
+      </view>
+      <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+           <tetx class="xing">*</tetx>身高
+          </view>
+          <view class="cell_bd">
+          </view>
+          <view class="cell_ft">
+            <picker @change="heightChange" value="{{personInfo.heights.index}}" range="{{personInfo.heights.height}}">
+              <view class="picker">
+                {{personInfo.heights.height[personInfo.heights.index]}}
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            <tetx class="xing">*</tetx>体重
+          </view>
+          <view class="cell_bd">
+          </view>
+          <view class="cell_ft">
+            <picker @change="weightChange" value="{{personInfo.weights.index}}" range="{{personInfo.weights.weight}}">
+              <view class="picker">
+                {{personInfo.weights.weight[personInfo.weights.index]}}
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            三围
+          </view>
+          <view class="cell_bd">
+          </view>
+          <view class="cell_ft">
+            <picker mode="multiSelector" @change="measurementChange" value="{{personInfo.measurements.index}}" range="{{personInfo.measurements.measurement}}">
+            <view class="picker">
+              {{personInfo.measurements.measurement[0][personInfo.measurements.index[0]]}}-{{personInfo.measurements.measurement[1][personInfo.measurements.index[1]]}}-{{personInfo.measurements.measurement[2][personInfo.measurements.index[2]]}}
+            </view>
+          </picker>
+          </view>
+        </view>
+      </view>
+       <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            毕业学校
+          </view>
+          <view class="cell_bd">
+            
+          </view>
+          <view class="cell_ft">
+             <input class="input" placeholder-style="color: #d5d5d5" placeholder="毕业学校～"/>
           </view>
         </view>
       </view>
@@ -166,6 +241,20 @@
       region: ['广东省', '广州市', '海珠区'],
       xingbie: 0,
       upImg: '',
+      personInfo: {
+        heights: {
+          height: ['请选择', '100', '101', '102'],
+          index: 0
+        },
+        weights: {
+          weight: ['请选择', '100', '21', '22'],
+          index: 0
+        },
+        measurements: {
+          measurement: [['50', '51', '52'], ['40', '41', '42'], ['50', '51', '52', '53']],
+          index: [0, 0, 0]
+        }
+      }
     }
     methods = {
       uploadImg() {
@@ -218,6 +307,15 @@
             console.log(res.errMsg)
           }
         })
+      },
+      heightChange(e) {
+        this.personInfo.heights.index = e.detail.value
+      },
+      weightChange(e) {
+        this.personInfo.weights.index = e.detail.value
+      },
+      measurementChange(e) {
+        this.personInfo.measurements.index = e.detail.value
       }
     }
   }

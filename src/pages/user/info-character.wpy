@@ -148,9 +148,9 @@
       <view class="charCont">
         <view class="charTit">我的角色</view>
         <view class="charTags">
-          <block wx:for="{{selectChar.tag}}" wx:key="index">
+          <block wx:for="{{selectChar}}" wx:key="index">
             <view class="tag">
-              {{item}}
+              {{item.name}}
               <text
                 class="rm"
                 data-index="{{index}}"
@@ -162,7 +162,7 @@
       </view>
       <view class="charCont">
         <view class="charTit">自定义角色</view>
-        <view class="inptu-btn"> <input class="input" placeholder="如: 美工 建筑师"/><view class="addbtn daka icon-zengjia"></view></view>
+        <view class="inptu-btn"> <input class="input" placeholder="如: 美工 建筑师"/><view class="addbtn daka icon-zengjia" @tap="addCharacter"></view></view>
       </view>
       <view class="charCont">
         <view class="charTit">演艺角色</view>
@@ -251,6 +251,9 @@
       },
       hideModal() {
         this.modal = false;
+      },
+      addCharacter(e) {
+        console.log(e)
       }
     }
   }

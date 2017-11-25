@@ -37,6 +37,12 @@
     &:first-child {
       margin-top: 0;
     }
+    .xing {
+      display: inline-flex;
+      align-items: center;
+      font-size: 32rpx;
+      color: #eb3c3c;
+    }
     .cell_bd {
       flex: 1;
       display: flex;
@@ -50,6 +56,32 @@
       color: #d5d5d5;
     }
   }
+  .flexBootomBtn {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    padding: 10rpx;
+    // border-top: 1px solid #dcdcdc;
+    .daka {
+      margin-right: 10rpx;
+      font-size: 32rpx;
+    }
+    .btnGrounp {
+      display: flex;
+      .btnGrounpItem {
+        padding: 10rpx;
+        flex: 1;
+      }
+    }
+    button {
+      font-size: 30rpx;
+      color: #ffffff;
+      background-color: #DB3B23;
+    }
+  }
 </style>
 
 <template>
@@ -61,13 +93,14 @@
       </view>
       <view class="mediaItem video">
         <image mode="aspectFill" src="{{u_v}}" @tap="uploadVideo"></image>
-        <text class="mediaText">视频介绍</text>
+        <text class="mediaText">主页视频</text>
       </view>
     </view>
     <view class="cells">
       <block wx:for="{{m_l}}" wx:key="index">
         <navigator class="cell" url="{{item.r}}">
           <view class="cell_hd">
+            <text class="xing" wx:if="{{item.t === '基本资料' || item.t === '角色'}}">*</text>
             {{item.t}}
           </view>
           <view class="cell_bd">
@@ -76,6 +109,13 @@
           <view class="cell_ft daka icon-right"></view>
         </navigator>
       </block>
+    </view>
+    <view class="flexBootomBtn">
+      <view class="btnGrounp">
+        <view class="btnGrounpItem">
+          <button><text class="daka icon-jiabin"></text>发布</button>
+        </view>
+      </view>
     </view>
   </view>
 </template>
@@ -100,12 +140,12 @@
           f: 'icon-right',
           r: "info-character"
         },
-        {
-          t: '专业资料',
-          b: '',
-          f: 'icon-right',
-          r: 'professional'
-        },
+        // {
+        //   t: '专业资料',
+        //   b: '',
+        //   f: 'icon-right',
+        //   r: 'professional'
+        // },
         {
           t: '个人简介',
           b: ' ',
@@ -143,30 +183,27 @@
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: (res) => {
-          let tempFilePaths = res.tempFilePaths;
-           const uploadTask = wx.uploadFile({
-              url: 'https://www.us800.cn/plupload/upload.jsp', //仅为示例，非真实的接口地址
-              filePath: tempFilePaths[0],
-              name: 'file',
-              formData:{
-                  'user': 'test'
-              },
-              success: function(res){
-                var data = res.data;
-              },
-              fail: function(err) {
-                console.log(err)
-              }
-            })
-
-            uploadTask.onProgressUpdate((res) => {
-                console.log('上传进度', res.progress)
-                console.log('已经上传的数据长度', res.totalBytesSent)
-                console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-            })
-
-            this.u_i = tempFilePaths;
-            this.$apply();           
+            const {tempFilePaths} = res;
+            wx.navigateTo({
+              url: `zhanshi?tempFilePaths=${JSON.stringify(tempFilePaths)}&video=${null}`
+            });
+            // let tempFilePaths = res.tempFilePaths;
+            // const uploadTask = wx.uploadFile({
+            //   url: 'https://www.us800.cn/plupload/upload.jsp', //仅为示例，非真实的接口地址
+            //   filePath: tempFilePaths[0],
+            //   name: 'file',
+            //   formData:{
+            //       'user': 'test'
+            //   },
+            //   success: function(res){
+            //     var data = res.data;
+            //   },
+            //   fail: function(err) {
+            //     console.log(err)
+            //   }
+            // })
+            // this.u_i = tempFilePaths;
+            // this.$apply();           
           }
         })
       } ,
@@ -176,7 +213,10 @@
           maxDuration: 60,
           camera: 'back',
           success: function(res) {
-            consoel.log(res.tempFilePath)
+            const {tempFilePath} = res;
+            wx.navigateTo({
+              url: `zhanshi?tempFilePaths=${null}&video=${tempFilePath}`
+            })
           }
         })
       }

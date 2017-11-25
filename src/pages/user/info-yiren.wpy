@@ -55,19 +55,19 @@
       <view class="cells">
         <view class="cell">
           <view class="cell_hd">
-            项目名称
+            活动名称
           </view>
           <view class="cell_bd">
           </view>
           <view class="cell_ft">
-            <input placeholder="项目名称" placeholder-style="color: #d5d5d5" class="input"/>
+            <input placeholder="演艺名称" placeholder-style="color: #d5d5d5" class="input"/>
           </view>
         </view>
       </view>
       <view class="cells">
         <view class="cell" @tap="xingbie">
           <view class="cell_hd">
-            时间
+            活动时间
           </view>
           <view class="cell_bd">
           </view>
@@ -80,6 +80,16 @@
           </view>
         </view>
       </view>
+      <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            现场照片
+          </view>
+          <view class="cell_bd">
+            <image @tap="uploadImg" class="image" src="{{personInfo.imgSrc}}" mode="aspectFill"></image>
+          </view>
+        </view>
+      </view>
       <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
     </form>
   </view>
@@ -88,7 +98,7 @@
 <script>
   import wepy from "wepy";
 
-  export default class yiRen extends wepy.page {
+  export default class Winning extends wepy.page {
     config = {
       navigationBarTitleText: '获奖经历'
     }
@@ -106,7 +116,7 @@
       uploadImg() {
         var _this = this;
         wx.chooseImage({
-          count: 3, // 默认9
+          count: 1, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {

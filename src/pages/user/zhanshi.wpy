@@ -1,0 +1,94 @@
+<style lang="less" scoped>
+  .container {
+    .imgList {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 6rpx;
+      .imgItem {
+        width: 234rpx;
+        height: 234rpx;
+        margin: 6rpx;
+      }
+    }
+    .video {
+      width: 100%;
+    }
+    .flexBootomBtn {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      box-sizing: border-box;
+      background: #fff;
+      padding: 10rpx;
+      // border-top: 1px solid #dcdcdc;
+      .daka {
+        margin-right: 10rpx;
+        font-size: 32rpx;
+      }
+      .btnGrounp {
+        display: flex;
+        .btnGrounpItem {
+          padding: 10rpx;
+          flex: 1;
+        }
+      }
+      button {
+        font-size: 30rpx;
+        color: #ffffff;
+        background-color: #DB3B23;
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="imgList" wx:if="{{tempFilePaths}}">
+      <image @tap="chooseImage" mode="aspectFill" data-src="{{item}}" wx:for="{{tempFilePaths}}" wx:key="{{index}}" class="imgItem" src="{{item}}"></image>
+    </view>
+    <view class="videoList" wx:if="{{video}}">
+      <video class="video" src="{{video}}" controls></video>
+    </view>
+    <view class="flexBootomBtn">
+      <view class="btnGrounp">
+        <view class="btnGrounpItem">
+          <button bindtap="upload"><text class="daka icon-triangleupfill"></text>上传</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from "wepy";
+export default class Zhanshi extends wepy.page {
+  data = {
+    tempFilePaths: null,
+    video: null
+  }
+
+  methods = {
+    chooseImage(e) {
+      const {src} = e.target.dataset; 
+      wx.previewImage({
+        current: src, // 当前显示图片的http链接
+        urls:  this.tempFilePaths// 需要预览的图片http链接列表
+      })
+    },
+    upload() {
+      wx.showLoading({
+        title: '上传中...',
+        mask: true
+      });
+    }
+  }
+  onLoad(e) {
+    const {tempFilePaths, video} = e; 
+    let imagLists = JSON.parse(tempFilePaths);
+    this.tempFilePaths = imagLists;
+    imagLists ? this.video = null : this.video = video;
+    this.$apply();
+  }
+}
+</script>
+
+
