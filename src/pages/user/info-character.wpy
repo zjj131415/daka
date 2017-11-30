@@ -196,7 +196,7 @@
   import wepy from "wepy";
   export default class infoCharcter extends wepy.page {
     config = {
-      navigationBarTitleText: '角色·'
+      navigationBarTitleText: '角'
     }
     data = {
       modal: false,

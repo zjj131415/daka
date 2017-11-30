@@ -1,5 +1,6 @@
 <style lang="less" scoped>
   .container {
+    padding-bottom: 130rpx;
     .header {
       height: 350rpx;
       font-size: 32rpx;
@@ -197,6 +198,14 @@
           margin-bottom: 16rpx;
           padding: 20rpx 30rpx;
           background: #fff;
+          .daka {
+            margin-right: 5rpx;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32rpx;
+            color: #dc3b23;
+          }
           &.noMargin {
             margin-bottom: 0!important;
           }
@@ -357,7 +366,7 @@
           }
           .find-cont {
             .find-cont-text {
-              padding: 20rpx 0;
+              padding: 20rpx;
               font-size: 30rpx;
               color: #5f5f5f;
             }
@@ -419,6 +428,32 @@
     font-size: 28rpx;
     color: #666;
   }
+  .flexBootomBtn {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    padding: 10rpx;
+    // border-top: 1px solid #dcdcdc;
+    .daka {
+      margin-right: 10rpx;
+      font-size: 32rpx;
+    }
+    .btnGrounp {
+      display: flex;
+      .btnGrounpItem {
+        padding: 10rpx;
+        flex: 1;
+      }
+    }
+    button {
+      font-size: 30rpx;
+      color: #ffffff;
+      background-color: #DB3B23;
+    }
+  }
 </style>
 
 <template>
@@ -460,7 +495,7 @@
           </view>
         </view>
         <view class="infoBlock noMargin noPadding">
-          <view class="infoTit">公司介绍</view>
+          <view class="infoTit">公司简介</view>
           <view class="infoList">
             <view class="cell">
               <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
@@ -475,10 +510,10 @@
           </view>
         </view>
         <view class="infoBlock noMargin noPadding">
-          <view class="infoTit">公司介绍</view>
+          <view class="infoTit">公司地址</view>
           <view class="infoList">
             <view class="cell">
-              <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
+              <view class="cellBd"><text class="daka icon-locationfill"></text>重庆是渝中区龙湖时代天街1号楼</view>
             </view>
           </view>
         </view>
@@ -535,6 +570,24 @@
         </view>
       </view>
     </view>
+    <view class="flexBootomBtn">
+      <view class="btnGrounp">
+        <view class="btnGrounpItem"  wx:if="{{showBottomBtn === 1}}">
+          <button><text class="daka icon-iconjia"></text>添加到项目</button>
+        </view>
+        <view class="btnGrounpItem"  wx:if="{{showBottomBtn === 2}}">
+          <button><text class="daka icon-dianhua"></text>联系他（她）</button>
+        </view>
+      </view>
+      <view class="btnGrounp" wx:if="{{showBottomBtn !==2 && showBottomBtn!==1}}">
+        <view class="btnGrounpItem">
+          <button><text class="daka icon-bianji"></text>修改资料</button>
+        </view>
+        <view class="btnGrounpItem">
+          <button><text class="daka icon-fenxiang3">分享朋友圈</button>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -559,7 +612,9 @@
           text: '大咖秀'
         }
       ],
-      name: 'ss'
+      userInfo: {
+
+      }
     }
 
     methods = {
@@ -615,7 +670,7 @@
       wx.request({
         url: 'https://www.us800.cn/async!gotMyPerformResume.action',//个人详情
         data: {
-          resumeId: id
+          resumeId: 315
         },
         header: {
             'content-type': 'application/json' // 默认值

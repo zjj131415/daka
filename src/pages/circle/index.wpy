@@ -555,7 +555,7 @@
         <!--精准查找-->
       <!--</navigator>-->
       <view class="news">
-        <view class="news-icon daka icon-xiaoxi3-copy"></view>
+        <view class="news-icon daka icon-xiaoxi3-copy" @tap="tiaozhuan"></view>
       </view>
     </view>
     <view class="tab tab1" wx:if="{{tabFlag}}">
@@ -658,10 +658,10 @@
       artists: []
     }
     methods = {
-      haha() {
-        wx.previewImage({
-          current: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', // 当前显示图片的http链接
-          urls: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507836816256&di=7780f150b57655b77ca450442b044f16&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F1ad5ad6eddc451da226b12f6bcfd5266d0163209.jpg'] // 需要预览的图片http链接列表
+      tiaozhuan(e) {
+        console.log(e);
+        wx.navigateTo({
+          url: '/pages/user/home1'
         })
       },
       selectAddress(e) {

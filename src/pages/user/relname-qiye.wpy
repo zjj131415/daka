@@ -1,0 +1,168 @@
+<style lang="less" scoped>
+  .container {
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20rpx;
+      padding:20rpx 30rpx;
+      background:#fff;
+      .status {
+        font-size: 30rpx;
+        color: #666666;
+      }
+      .result {
+        font-size: 28rpx;
+        color: #979797;
+      }
+    }
+    .enter {
+      display: flex;
+      align-items: center;
+      padding:20rpx 30rpx;
+      background:#fff;
+      &.card {
+        margin-bottom: 20rpx;
+        border-top: 1px solid #EAEAEA;
+      }
+      .amount {
+        margin-right: 20rpx;
+        font-size: 30rpx;
+        color: #2D2D2D;
+      }
+      .enter-money {
+        flex: 1;
+        font-size: 30rpx;
+        color: #2D2D2D;
+      }
+    }
+    .upload-title {
+      padding:20rpx 30rpx;
+      background:#fff;
+      border-bottom: 1px solid #EAEAEA;
+      font-size: 30rpx;
+      color: #2D2D2D;
+    }
+    .upload-group {
+      padding:40rpx 30rpx;
+      background:#fff;
+      border-bottom: 1px solid #EAEAEA;
+      .upload-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .upload {
+          width: 200rpx;
+          height: 200rpx;
+          line-height: 200rpx;
+          text-align: center;
+          box-sizing: border-box;
+          border: 2px dashed #E2E2E2;
+          font-size: 50rpx;
+          color: #D1D1D1;
+        }
+        .upload-image {
+          width: 200rpx;
+          height: 200rpx;
+        }
+        .arrow {
+          font-size: 40rpx;
+          color: #D1D1D1;
+        }
+        .img-wrap {
+          width: 200rpx;
+          height: 240rpx;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          .sample {
+            display: block;
+            width: 200rpx;
+            height: 200rpx;
+          }
+        }
+      }
+    }
+    .description {
+      margin-top: 60rpx;
+      font-size: 28rpx;
+      color: #4C4C4C;
+    }
+    .rule {
+      margin-top: 30rpx;
+      font-size: 27rpx;
+      color: #797979;
+    }
+    .btn-wrap {
+      padding: 60rpx 30rpx 30rpx;
+      .btn {
+        background-color: #DC3A25;
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="title">
+      <view class="status">认证状态</view>
+      <view class="result">未认证</view>
+    </view>
+    <!-- <view class="enter">
+      <view class="amount">公司名字</view>
+      <input type="text" class="enter-money" placeholder="请输入身份证姓名"/>
+    </view>
+    <view class="enter card">
+      <view class="amount">证件号码</view>
+      <input type="idcard" class="enter-money" placeholder="请输入身份证号码"/>
+    </view> -->
+    <view class="upload-title">营业执照</view>
+    <view class="upload-group">
+      <view class="upload-info">
+        <view class="upload" wx:if="{{!uploadSrc}}" @tap="upload">+</view>
+        <image class="upload-image" src="{{uploadSrc}}" wx:else></image>
+        <view class="arrow">→</view>
+        <view class="img-wrap">
+          <image class="sample" src="/images/upload_img.png" mode="widthFix"></image>
+        </view>
+      </view>
+      <view class="description">证件上传要求如下：</view>
+      <!-- <view class="rule">1.持证正面照需本人手持证件，免冠未妆能辨识</view> -->
+      <view class="rule">1.证件上信息/号码/住址需清晰可见</view>
+      <view class="rule">2.照片大小5M以内</view>
+    </view>
+    <view class="btn-wrap">
+      <button type="primary" class="btn">提交审核</button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+
+  export default class RealnameQiye extends wepy.page {
+    config = {
+      navigationBarTitleText: '企业认证'
+    }
+    data = {
+      userInfo: {},
+      // uploadSrc: '../../images/avatar/avatar2.jpg'
+      uploadSrc: ''
+    }
+    methods = {
+      upload() {
+        var _this = this
+        wx.chooseImage({
+          count: 1, // 默认9
+          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+          success: function (res) {
+            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+            _this.uploadSrc = res.tempFilePaths[0]
+            _this.$apply()
+          }
+        })
+      }
+    }
+  }
+</script>
+

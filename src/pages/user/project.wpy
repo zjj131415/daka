@@ -1,31 +1,78 @@
 <style lang="less" scoped>
   .container {
-    font-size: 122;
-    .navItem {
+  .blockItem {
+      display: block;
       margin-top: 20rpx;
-      background: #fff;
       padding: 20rpx;
-      .navTit {
-        padding: 0 30rpx;
-        background: #dc3b23;
-        color: #fff;
-        font-size: 36rpx;
-      }
-      .navVal {
-        padding-left: 30rpx;
-        margin-top: 10rpx;
-        color: #878787;
-        font-size: 34rpx;
-      }
+      background: #fff;
+    }
+    .kuangk {
+      display: inline-flex;
+      width: 34rpx;
+      height: 34rpx;
+      margin-right: 10rpx;
+      background: #dc3b23;
+      color: #fff;
+      font-size: 28rpx;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .blcokTit {
+      // display: flex;
+      align-items: center;
+      // padding: 0 40rpx;
+      margin-bottom:10rpx;
+      font-size: 32rpx;
+      color: #333;
+    }
+    .cell {
+      display: flex;
+      align-items: center;
+      padding: 8rpx 0;
+      font-size: 30rpx;
+      color: #8a8a8a;
+    }
+    .cellHd {
+      margin-right: 10rpx;
+      font-size: 32rpx;
+      color: #8a8a8a;
+    }
+    .cellBd {
+
+    }
+    .cellFt {
+      color: #545454;
     }
   }
 </style>
 <template>
   <view class="container">
-    <block wx:for="{{nav}}" wx:key="{{index}}">
-      <navigator class="navItem" url="/pages/user/keep">
-        <text class="navTit">{{item.label}}</text>
-        <view class="navVal">{{item.value}}</view>
+    <block wx:for="{{[1,2]}}" wx:key="{{index * 1000}}">
+      <navigator class="blockItem" url="/pages/user/keep">
+        <view class="blcokTit"><text class="kuangk">1</text>啊时间得撒娇的叫阿三</view>
+        <view class="cellList">
+          <view class="cell">
+            <view class="cellHd daka icon-locationfill"></view>
+            <view class="cellBd">工作地点：</view>
+            <view class="cellFt">重庆 大渡口 久存</view>
+          </view>
+          <view class="cell">
+            <view class="cellHd daka icon-timefill"></view>
+            <view class="cellBd">开始时间：</view>
+            <view class="cellFt">2015/3/20 12:00:01</view>
+          </view>
+          <view class="cell">
+            <view class="cellHd daka icon-timefill"></view>
+            <view class="cellBd">结束时间：</view>
+            <view class="cellFt">2015/3/20 12:00:01</view>
+          </view>
+          <view class="cell">
+            <view class="cellHd daka icon-apps"></view>
+            <view class="cellBd">注意事项：</view>
+            <view class="cellFt">记得吃药！</view>
+          </view>
+        </view>
       </navigator>
     </block>
   </view>
@@ -36,7 +83,7 @@
 
   export default class Artist extends wepy.page {
     config = {
-      navigationBarTitleText: '旗下大咖'
+      navigationBarTitleText: '我的项目'
     }
     data = {
       nav: [

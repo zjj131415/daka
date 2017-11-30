@@ -5,14 +5,19 @@
       flex-wrap: wrap;
       padding: 0 5rpx;
       .personItem {
+        display: block;
         width: 355rpx;
         margin: 5rpx;
         overflow: hidden;
         background: #fff;
         padding-bottom: 10rpx;
-        .photo {
+        .photoImg {
           width: 345rpx;
           height: 345rpx;
+          .photo {
+            width: 345rpx;
+            height: 345rpx;
+          }
         }
         .info {
           display: flex;
@@ -98,7 +103,9 @@
     <view class="person">
       <block wx:for="{{persons}}">
          <view class="personItem">
-          <image class="photo" mode="aspectFill" src="http://upload.jianshu.io/users/upload_avatars/1132780/9c3554d323dc?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></image>
+          <navigator class="photoImg" url="/pages/user/home1?id={{315}}&active=2">
+            <image class="photo" mode="aspectFill" src="http://upload.jianshu.io/users/upload_avatars/1132780/9c3554d323dc?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></image>
+          </navigator>
           <view class="info">
             <view class="name">张三</view>
             <view class="after"><text class="ht">170</text><text class="xg">/</text><text class="add">重庆</text></view>
@@ -121,7 +128,7 @@
 
   export default class Keep extends wepy.page {
     config = {
-      navigationBarTitleText: '旗下大咖'
+      navigationBarTitleText: '我的项目'
     }
     data = {
       persons: [

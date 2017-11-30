@@ -37,7 +37,10 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      color: "#838383"
+      color: "#838383";
+      .textarea {
+        width: 100%;
+      }
     }
     .cell_ft {
       margin-left: 10rpx;
@@ -57,68 +60,13 @@
     background: #dc3b23;
     color: #fff;
   }
-  .character {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 2  ;
+  .textarea {
     width: 100%;
-    height: 100%;
+    padding: 20rpx;
+    font-size: 30rpx;
     background: #fff;
-    .close {
-      font-size: 60rpx;
-      width: 70rpx;
-      height: 70rpx;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #dc3b23;
-    }
-    .charCont {
-      padding-top: 40rpx;
-    }
-    .charTit {
-      height: 30rpx;
-      display: flex;
-      align-items: center;
-      margin: 0 40rpx;
-      padding-left: 10rpx;
-      border-left: 4rpx solid #dc3b23;
-      font-size: 28rpx;
-      color: #333;
-    }
-    .charTags {
-      padding: 20rpx 30rpx 0 30rpx;
-      display: flex;
-      flex-wrap: wrap;
-      .tag {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        height: 50rpx;
-        padding: 0 20rpx;
-        margin: 10rpx;
-        border-radius: 10rpx;
-        border: 1px solid #dcdcdc;
-        font-size: 28rpx;
-        color: #878787;
-        .rm {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 28rpx;
-          height: 28rpx;
-          border-radius: 100%;
-          background: #dcdcdc;
-          position: absolute;
-          right: -10rpx;
-          top: -12rpx;
-          font-size: 20rpx;
-          color: #5d5d5d;
-        }
-      }
-    }
+    color: #d5d5d5;
+    box-sizing: border-box
   }
 </style>
 
@@ -128,7 +76,7 @@
       <view class="cells">
         <view class="cell" @tap="uploadImg">
           <view class="cell_hd">
-            <text class="xing">*</text>头像
+            <text class="xing">*</text>公司logo
           </view>
           <view class="cell_bd">
           </view>
@@ -138,20 +86,35 @@
         </view>
       </view>
       <view class="cells">
-        <view class="cell" @tap="xingbie">
+        <view class="cell">
           <view class="cell_hd">
-            <text class="xing">*</text>性别
+            <text class="xing">*</text>公司名称
           </view>
-          <view class="cell_bd"></view>
+          <view class="cell_bd">
+
+          </view>
           <view class="cell_ft">
-            {{xingbie == 0 ? "男" : '女'}}
+              <input class="input" placeholder-style="color: #d5d5d5" placeholder="公司名称"/>
           </view>
         </view>
       </view>
       <view class="cells">
         <view class="cell">
           <view class="cell_hd">
-            <text class="xing">*</text>所在地
+            <tetx class="xing">*</tetx>简称
+          </view>
+          <view class="cell_bd">
+
+          </view>
+          <view class="cell_ft">
+              <input class="input" placeholder-style="color: #d5d5d5" placeholder="简称"/>
+          </view>
+        </view>
+      </view>
+      <view class="cells">
+        <view class="cell">
+          <view class="cell_hd">
+            <tetx class="xing">*</tetx>地址
           </view>
           <view class="cell_bd"></view>
           <view class="cell_ft">
@@ -166,63 +129,16 @@
       <view class="cells">
         <view class="cell">
           <view class="cell_hd">
-           <text class="xing">*</text>身高
+            <text class="xing">*</text>公司简介
           </view>
           <view class="cell_bd">
+
           </view>
           <view class="cell_ft">
-            <picker @change="heightChange" value="{{personInfo.heights.index}}" range="{{personInfo.heights.height}}">
-              <view class="picker">
-                {{personInfo.heights.height[personInfo.heights.index]}}
-              </view>
-            </picker>
+              
           </view>
         </view>
-      </view>
-      <view class="cells">
-        <view class="cell">
-          <view class="cell_hd">
-            <text class="xing">*</text>体重
-          </view>
-          <view class="cell_bd">
-          </view>
-          <view class="cell_ft">
-            <picker @change="weightChange" value="{{personInfo.weights.index}}" range="{{personInfo.weights.weight}}">
-              <view class="picker">
-                {{personInfo.weights.weight[personInfo.weights.index]}}
-              </view>
-            </picker>
-          </view>
-        </view>
-      </view>
-      <view class="cells">
-        <view class="cell">
-          <view class="cell_hd">
-            三围
-          </view>
-          <view class="cell_bd">
-          </view>
-          <view class="cell_ft">
-            <picker mode="multiSelector" @change="measurementChange" value="{{personInfo.measurements.index}}" range="{{personInfo.measurements.measurement}}">
-            <view class="picker">
-              {{personInfo.measurements.measurement[0][personInfo.measurements.index[0]]}}-{{personInfo.measurements.measurement[1][personInfo.measurements.index[1]]}}-{{personInfo.measurements.measurement[2][personInfo.measurements.index[2]]}}
-            </view>
-          </picker>
-          </view>
-        </view>
-      </view>
-       <view class="cells">
-        <view class="cell">
-          <view class="cell_hd">
-            毕业学校
-          </view>
-          <view class="cell_bd">
-            
-          </view>
-          <view class="cell_ft">
-             <input class="input" placeholder-style="color: #d5d5d5" placeholder="毕业学校～"/>
-          </view>
-        </view>
+        <textarea class="textarea" placeholder-style="color: #d5d5d5" placeholder="公司简介"/>
       </view>
       <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
     </form>
@@ -231,7 +147,7 @@
 
 <script>
   import wepy from "wepy";
-  export default class infoBasis extends wepy.page {
+  export default class infoBasis1 extends wepy.page {
     config = {
       navigationBarTitleText: '基本信息'
     }
