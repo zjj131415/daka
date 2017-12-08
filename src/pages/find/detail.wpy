@@ -372,7 +372,43 @@
       }
     }
 
-    onload() {
+    onload(e) {
+      console.log(312318318381);
+      return false;
+      //开启loading
+      wx.showLoading({
+        title: '发起请求中',
+        mask: true
+      });
+      //拉取论详情
+      wx.request({
+        url: 'https://www.us800.cn/async!gotCareerDetail.action', //大咖秀列表(动态)
+        data: {
+          careerId: e.id,//
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' // 默认值
+        },
+        success(res){
+          console.log(res)
+          //关闭loading
+          wepy.hideLoading();
+          //评论成功
+          if (res.data.result === "succ") {
+            _this.conText = '';
+            _this.shwoModal = false;
+            wx.showToast({
+              title: '评论成功',
+              icon: 'success',
+              duration: 2000
+            });
+          }
+          _this.$apply();
+        },
+        fail() {
+          wx.hideLoading();
+        }
+      });
       wx.showShareMenu({
         withShareTicket: true
       });

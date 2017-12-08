@@ -130,12 +130,13 @@
         wx.request({
           url: 'https://www.us800.cn/async!saveCareer.action', //保存动态
           data: {
-            memberId: 316,
+            memberId: 2541,
             content: encodeURI(_this.dynamics),
             images: _this.imagesStr,
           },
+          method: 'POST',
           header: {
-            'content-type': 'application/json' // 默认值
+            'content-type': 'application/x-www-form-urlencoded'
           },
           success: function(res) {
             // 关闭loading

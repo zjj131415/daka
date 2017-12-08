@@ -10,21 +10,21 @@ export default class userMixin extends wepy.mixin {
   /* ========================== 用户方法 ========================== */
   // 获取用户信息
   $getUserInfo(callback) {
-    // 顶级容错
-    if (!this.$parent || !this.$parent.$updateGlobalData) return
-    // 取缓存信息
-    const user = this.$parent.$updateGlobalData('user')
-    // 不重复获取用户信息
-    if (user && user.nickName) {
-      this.isFunction(callback) && callback(user)
-      this.$apply()
-      return user
-    }
-    // 首次获取用户信息
-    this.$login(() => {``
-      // 再获取用户信息
-      this._wxUserInfo(callback)
-    })
+    // // 顶级容错
+    // if (!this.$parent || !this.$parent.$updateGlobalData) return
+    // // 取缓存信息
+    // const user = this.$parent.$updateGlobalData('user')
+    // // 不重复获取用户信息
+    // if (user && user.nickName) {
+    //   this.isFunction(callback) && callback(user)
+    //   this.$apply()
+    //   return user
+    // }
+    // // 首次获取用户信息
+    // this.$login(() => {``
+    //   // 再获取用户信息
+    //   this._wxUserInfo(callback)
+    // })
   }
 
   // 进行微信登陆
@@ -40,6 +40,7 @@ export default class userMixin extends wepy.mixin {
             data: {
               code: res.code
             },
+            method: 'POST',
             header: {
                 'content-type': 'application/x-www-form-urlencoded'
             },

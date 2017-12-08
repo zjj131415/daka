@@ -307,8 +307,8 @@
       },
       uploadNotice() {
         const _this = this;
-        const {typeArray, type, performName, startTime, endTime, performAddr, performAddrDetaild, performAddr1, performContent} = this.$data;
-        if (!type || !performName || !startTime || !endTime || !performAddr || !performContent) return (
+        const {typeArray, type, performName, performImg, startTime, endTime, performAddr, performAddrDetaild, performAddr1, performContent} = this.$data;
+        if (!type || !performName || !startTime || !endTime || !performImg || !performAddr || !performContent) return (
           wx.showModal({
             title: '提示',
             content: '请填写完后在提交！所有内容不能为空哦！',
@@ -331,7 +331,8 @@
         wx.request({
           url: 'https://www.us800.cn/wechat!saveBooking.action',
           data: {
-            memberId: 315,
+            memberId: 2541,
+            performImg,
             artistTypes: typeArray[type],
             performName,
             performBeginTime: startTime,
@@ -340,9 +341,9 @@
             performAddr2: `${performAddr1}${performAddrDetaild}`,
             performContent
           },
-          // method: 'POST',
+          method: 'POST',
           header: {
-              'content-type': 'application/json' // 默认值
+             'content-type': 'application/x-www-form-urlencoded'
           },
           success(res) {
             wx.showToast({

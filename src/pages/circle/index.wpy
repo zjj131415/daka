@@ -573,9 +573,7 @@
 </template>
 <script>
   import wepy from "wepy";
-  import user from '../../mixins/user'
   export default class Indexw extends wepy.page {
-    mixins = [user]
     data = {
       bannerArray: [
         {
@@ -692,9 +690,6 @@
         //加载大咖列表
         this.bigShot();
       },
-//      tabList2(index, e) {
-//        this.activeIndex2 = index;
-//      },
       confirm() {
         this.sortVisible2 = false;
       },
@@ -792,32 +787,6 @@
     onLoad() {
       //加载大咖列表
       this.bigShot();
-      //获取用户授权；
-      this.$getUserInfo((info) => {
-        const {openid} = this.$parent.globalData;
-        const {avatarUrl} = info;
-        wx.request({
-          url: 'https://www.us800.cn/async!gotMemberInfo.action',//登陆
-          data: {
-            openid,
-            head: avatarUrl,
-            parentId: ''
-          },
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          success: function(res) {
-            console.log(res);
-            // if (!res.data.memberId) {
-            //   wx.reLaunch({url: '/pages/user/login'})
-            // };
-          },
-          fail() {
-            wx.hideLoading();
-          }
-        });
-      });
     }
     //大咖列表
     bigShot() {

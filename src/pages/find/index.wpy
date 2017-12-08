@@ -37,6 +37,7 @@
       .find-tags {
         display: flex;
         align-items: center;
+        height: 40rpx;
       }
       .find-tag {
         padding: 3rpx 15rpx;
@@ -63,19 +64,22 @@
       color: #cbcbcb;
     }
     .find-cont {
-      padding: 0 30rpx;
+      // padding: 0 30rpx;
       .find-cont-text {
         padding: 10rpx 0;
         font-size: 30rpx;
         color: #5f5f5f;
       }
       .find-cont-img {
-        display: flex;
-        justify-content: center;
-        height: 400rpx;
+       display: flex;
+       align-items: center;
+       flex-wrap: wrap;
+       padding: 6rpx;
+       padding-bottom: 0;
         image {
-          width: 100%;
-          height: 400rpx;
+          margin: 6rpx;
+          width: 234rpx;
+          height: 234rpx;
         }
       }
     }
@@ -117,31 +121,33 @@
 
 <template>
   <view class="find-iem" wx:for="{{findDetail}}" wx:for-index="idx" wx:key="{{idx}}">
-    <navigator class="find-header" url="{{'sks'}}">
+    <navigator class="find-header" url="/pages/user/home1?id={{item.memberId}}">
       <view class="find-img">
-        <image mode="aspectFill" src="/images/default.png"></image>
+        <image mode="aspectFill" src="{{item.memberHead ? item.memberHead : '/images/default.png'}}"></image>
       </view>
       <view class="find-name-tag">
-        <view class="find-name">{{item.user.name}}<text class="renz-icon daka icon-yishimingrenzheng1"></text></view>
+        <view class="find-name">{{item.memberName ? item.memberName : '追风少年'}}<text wx:if="{{!  !item.memberAuth}}" class="renz-icon daka icon-yishimingrenzheng1"></text></view>
         <view class="find-tags">
-          <text class="find-tag" wx:for="{{item.user.tags}}" wx:key="index">{{item}}</text>
+          <block wx:for="{{item.artistType}}" wx:key="index">
+            <text class="find-tag">{{item}}</text>
+          </block>
         </view>
       </view>
       <view class="down-icon daka icon-unfold"></view>
     </navigator>
-    <navigator class="find-cont" url="/pages/find/detail?id={{item.id}}">
-      <view class="find-cont-text">
+    <navigator class="find-cont" url="/pages/find/detal?id={{item.id}}">
+      <view class="find-cont-text" wx:if="{{!!item.content}}">
         <text>{{item.content}}</text>
       </view>
       <view class="find-cont-img">
-        <block wx:for="{{item.images}}" wx:key="{{index}}">
+        <block wx:for="{{item.images ? item.images : ['/images/null.png','/images/null.png','/images/null.png','/images/null.png','/images/null.png','/images/null.png']}}" wx:key="{{index}}">
           <image mode="aspectFit" src="{{item}}" data-images="{{findDetail[idx].images}}" data-image="{{item}}"></image>
         </block>
       </view>
     </navigator>
     <view class="up-time">{{item.month}}-{{item.day}}</view>
     <view class="find-actions">
-      <button open-type="share" data-id="{{item.id}}" class="action-item daka icon-fenxiang2">
+      <button open-type="share" data-id="{{item.id}}" data-title="{{item.content}}" data-name="{{item.memberName}}" data-images="{{item.images}}" class="action-item daka icon-fenxiang2">
         分享
       </button>
       <navigator class="action-item daka icon-comment" url="/pages/find/detail?id={{item.id}}">
@@ -160,27 +166,7 @@
 import wepy from "wepy";
 export default class Index extends wepy.page {
   data = {
-    findArray: [
-      {
-        user: {
-          name: '追风少年',
-          tags: ['模特', '演员']
-        },
-        cont: {  
-          text: `”不那么好过的日子里要学会每天给自己一个开心的理由哪怕只是阳光很暖点亮很足“
-          世界晚安👄`
-        }
-      }, {
-         user: {
-          name: '追风少年',
-          tags: ['模特', '演员', '歌手', '主持']
-        },
-        cont: {
-          text: `作为一个有情怀的人，总能够写出好文章\n`
-        }
-      }
-    ],
-    findDetail: {} //动态详情
+    findDetail: [] //动态详情
   }
   methods = {
     //点赞
@@ -195,6 +181,7 @@ export default class Index extends wepy.page {
       wx.request({
         url: 'https://www.us800.cn/wechat!savePoint.action',
         data: {
+          careerId: id ,//动态id
           memberId: 1,  //用户id
         },
         header: {
@@ -213,7 +200,8 @@ export default class Index extends wepy.page {
     }
   }
 
-  onLoad() {
+  onShow() {
+    console.log(this.$parent.globalData)
     var _this = this;
     wx.showShareMenu({
       withShareTicket: true
@@ -228,9 +216,11 @@ export default class Index extends wepy.page {
       url: 'https://www.us800.cn/async!gotCareer.action', //大咖秀列表(动态)
       data: {},
       header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
+        'content-type': 'application/x-www-form-urlencoded'
       },
+      method: 'POST',
       success: function(res) {
+        console.log(res)
         //关闭loading
         wepy.hideLoading();
         console.log(res.data);
@@ -239,6 +229,7 @@ export default class Index extends wepy.page {
         for (var i = 0; i < _this.findDetail.length; i++) {
           _this.findDetail[i].images = _this.findDetail[i].images.split("|");
           _this.findDetail[i].content = decodeURI(_this.findDetail[i].content);
+          _this.findDetail[i].artistType =  !!_this.findDetail[i].artistType && _this.findDetail[i].artistType.split(",");
         }
         _this.$apply();
       },
@@ -250,10 +241,12 @@ export default class Index extends wepy.page {
 
   //转发设置
   onShareAppMessage (e) {
-    const {id} = e.target.dataset;
+    const {id, title, images, name} = e.target.dataset;
+    console.log(images)
     return {
-      title: '这个还没写完，没得数据啊，卧槽！',
+      title:  title ? title : `${name}发布了新动态快来看看吧！`,
       path: `/pages/find/detail?id=${id}`,
+      imageUrl: images && images[0],
       success: function(res) {
         // 转发成功
       },

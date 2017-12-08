@@ -220,7 +220,7 @@
               <view class="btn-title">
                 <view class="title">{{item.name}}</view>
                 <view class="message">
-                  <view class="name">{{item.contactPerson}}</view>
+                  <view class="name">{{item.memberName}}</view>
                   <view class="after">
                     <text class="people">{{item.createTime}}发布</text>
                     <!--<text class="timer">12-32截止</text>-->

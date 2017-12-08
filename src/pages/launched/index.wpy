@@ -41,14 +41,11 @@
   <view class="container">
     <view class="nav-list">
       <block wx:for="{{nav}}" wx:key="index">
-        <navigator class="nav-item" url="{{item.url}}">
+        <view class="nav-item" data-id="{{item.id}}" data-url="{{item.url}}" @tap="changePath" url="{{item.url}}">
           <image src="{{item.image}}"></image>
           <view class="name">{{item.name}}</view>
-        </navigator>
+        </view>
       </block>
-      <!--<navigator class="nav-item">-->
-        <!--<image src=""></image>-->
-      <!--</navigator>-->
     </view>
   </view>
 </template>
@@ -60,14 +57,35 @@
     }
     data = {
      nav: [{
+       id: 1,
        image: '/images/notice.png',
        url: './dynamic',
        name: '发布动态'
      }, {
+       id: 2,
        image: '/images/dynamic.png',
        url: './notice',
        name: '发布需求'
      }]
+    }
+    methods = {
+      changePath({currentTarget}) {
+        const {id, url} = currentTarget.dataset;
+        const {globalData, $login} = this.$parent;
+        const {user} = globalData;
+        //如果用户信息不存在或者为null证明注册接口没有调用成功，调用登陆注册接口；
+        if (!user && user === null) return $login();
+        //如果用户没有验证手机和企业类型，跳转去注册页面验证；
+        if (user.memberType === 3 && !user.mobile) return wx.redirectTo({url: '/pages/user/login'});
+        switch (id) {
+          case 1:
+            wx.navigateTo({url: './dynamic'});
+            break;
+          case 2:
+            wx.navigateTo({url: './notice'});
+            break;
+        }
+      }
     }
   }
 </script>
