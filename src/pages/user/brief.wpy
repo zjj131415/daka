@@ -13,37 +13,73 @@
         padding: 20rpx 30rpx;
       }
     }
-    .sub-btn {
-      margin: 20rpx;
-      outline: none;
-      background: #dc3b23;
-      color: #fff;
-    }
   }
 </style>
 <template>
   <view class="container">
-    <form bindsubmit="formSubmit" >
+    <form bindsubmit="submit" >
       <view class="enter">
-        <textarea type="text" placeholder="请填写个人简介" value="{{personal}}" maxlength="-1" focus/>
+        <textarea type="text" name="content" placeholder="请填写个人简介" maxlength="-1" focus/>
       </view>
-      <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
+      <view class="fixedBtn">
+        <view class="fixedBtnGrounp">
+          <button class="btn" form-type="submit">
+            保存
+          </button>
+        </view>
+      </view>
     </form>
   </view>
 </template>
 
 <script>
   import wepy from "wepy";
-
+  import {$post} from "../../mixins/base";
   export default class Brief extends wepy.page {
     config = {
       navigationBarTitleText: '个人简介'
     }
     data = {
-      personal: ''
+      loading: false
     }
     methods = {
-
+      //提交表单
+      submit(e) {
+        const _this = this;
+        const {content} = e.detail.value;
+        const {user} = _this.$parent.globalData;
+        const {memberId} = user || {};
+        if (!content) return (
+          wepy.showModal({
+            title: '提示',
+            content: '请填写后在提交',
+            showCancel: false
+          })
+        )
+        //提交数据
+        $post('/wechat!saveMemberIntro.action', {
+          memberId,  //用户id
+          intro: content
+        }, true)
+        .then(data => {
+          //修改成功提示并且返回上一页
+          wepy.showToast({
+            title: '修改成功',
+            icon: 'success',
+            duration: 2000
+          });
+          setTimeout(wepy.navigateBack, 1000);
+        })
+        .catch(err => {
+          wepy.showToast({
+            title: '修改失败',
+            image: '/images/error.png',
+            duration: 2000
+          });
+          _this.loading = false;
+          _this.$apply();
+        })
+      }
     }
   }
 </script>

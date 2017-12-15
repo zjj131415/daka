@@ -85,7 +85,7 @@
 <template>
   <view class="container">
     <view class="person">
-      <block wx:for="{{persons}}">
+      <block wx:for="{{persons}}" wx:key="{{index}}">
          <view class="personItem">
           <image class="photo" mode="aspectFill" src="http://upload.jianshu.io/users/upload_avatars/1132780/9c3554d323dc?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></image>
           <view class="info">
@@ -111,7 +111,7 @@
 
   export default class SignUp extends wepy.page {
     config = {
-      navigationBarTitleText: '旗下大咖'
+      navigationBarTitleText: '报名人数'
     }
     data = {
       persons: [

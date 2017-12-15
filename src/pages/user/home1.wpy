@@ -253,15 +253,17 @@
           }
         }
         .imgList {
-          width: 100%;
-          display: flex;
-          flex-wrap: wrap;
-          padding: 0 5rpx;
+          width: 738rpx;
+          margin: 0 auto;
           box-sizing: border-box;
-          image {            
-            width: 238.5rpx;
-            height: 238.5rpx;
-            margin: 5rpx;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          .imgItem {
+            width: 246rpx;
+            height: 246rpx;
+            padding: 6rpx;
+            box-sizing: border-box;
           }
         }
       }
@@ -310,6 +312,7 @@
             border-radius: 100%;
             overflow: hidden;
             image {
+              margin: 0;
               width: 100%;
               height: 100%;;
             }
@@ -446,30 +449,52 @@
       text-overflow: ellipsis;
     }
   }
-  .flexBootomBtn {
+  .qrcodeCont {
+    display: none;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    box-sizing: border-box;
-    background: #fff;
-    padding: 10rpx;
-    // border-top: 1px solid #dcdcdc;
-    .daka {
-      margin-right: 10rpx;
-      font-size: 32rpx;
+    padding: 20rpx 0;
+    background: rgba(255,255,255,1);
+    &::before {
+      content: " ";
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0;
+      border-top: 1px solid #dcdcdc;
+      color: #dcdcdc;
+      -webkit-transform: scaleY(.5);
+      -ms-transform: scaleY(.5);
+      transform: scaleY(.5);
     }
-    .btnGrounp {
+    .qrcodeImg {
       display: flex;
-      .btnGrounpItem {
-        padding: 10rpx;
-        flex: 1;
+      align-items: center;
+      justify-content: center;
+      .qrcodeImgItem {
+        width: 250rpx;
+        height: 250rpx;
+        margin: 0 30rpx;
+      }
+      .qrcodeImgItem2 {
+        width: 220rpx;
+        height: 220rpx;
+        margin: 0 30rpx;
       }
     }
-    button {
+    .textCont {
+      text-align: center;
       font-size: 30rpx;
-      color: #ffffff;
-      background-color: #DB3B23;
+      color: #8b8b8b;
+      .tip {
+        margin-top: 18rpx;
+      }
+      .main {
+        margin: 10rpx 0;
+        font-size: 50rpx;
+      }
     }
   }
 </style>
@@ -480,8 +505,6 @@
       <image class="photo" mode="aspectFill" src="{{userInfo.head}}"></image>
       <view class="circle-info">
         <text class="circle-name">{{userInfo.name}}</text>
-        <!--<text class="circle-name">{{item.height}}</text>-->
-        <!--<text class="circle-name">{{item.prov}}</text>-->
         <view class="circle-icon"></view>
         <view class="circle-action">
           <view class="border"></view>
@@ -494,12 +517,6 @@
           </block>
         </view>
       </view>
-      <!-- <view class="name">
-        {{userInfo.name}}
-      </view>
-      <view class="tags">
-        <text wx:for="{{userInfo.careers}}" wx:key="{{index}}" class="tag">{{item.name}}</text>
-      </view> -->
       <image class="bgBanner" mode="aspectFill" src="{{userInfo.head}}"></image>
     </view>
     <view class="content">
@@ -543,13 +560,6 @@
               <view class="cellHd">毕业学院：</view>
               <view class="cellBd">哈佛</view>
             </view>
-            <!-- <view class="cell">
-              <view class="cellHd">角\r\n\r\n\r\n\r\n\r\n\r\n色：</view>
-              <view class="cellBd">
-                <text class="tag">演员</text>
-                <text class="tag">模特</text>
-              </view>
-            </view> -->
           </view>
         </view>
         <view class="infoBlock noMargin noPadding">
@@ -563,7 +573,7 @@
          <view class="infoBlock noPaddingLR">
           <view class="infoList">
             <view class="imgList">
-              <image wx:for="{{[1,1,1,1,1,1,1,1,1]}}" wx:key="{{index}}" class="imgItem" mode="aspectFill" @tap="chooseImage" src="http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0"></image>
+              <image class="imgItem" wx:for="{{[1,1,1,1,1,1,1,1,1]}}" wx:key="{{index}}" mode="aspectFill" @tap="chooseImage" src="https://wx.qlogo.cn/mmopen/apCiazRQDPbzdO9JaQzUeeGNQZ7oCHnH8ADZDuhCbVCf5sdwfFoZJBHGCBVibYEFsoiaOhnE0JZibCUKOPyM4G9o7v0o6T6a3TkE/0"></image>
             </view>
           </view>
         </view>
@@ -670,22 +680,44 @@
         </view>
       </view>
     </view>
-    <view class="flexBootomBtn">
-      <view class="btnGrounp">
-        <view class="btnGrounpItem"  wx:if="{{showBottomBtn === 1}}">
-          <button><text class="daka icon-iconjia"></text>添加到项目</button>
-        </view>
-        <view class="btnGrounpItem"  wx:if="{{showBottomBtn === 2}}">
-          <button><text class="daka icon-dianhua"></text>联系他（她）</button>
-        </view>
+     <view class="fixedBtn">
+      <view class="fixedBtnGrounp">
+        <button class="btn"  @tap="btnTap" data-id="0" wx:if="{{showBottomBtn === 1}}">
+          <text class="daka icon-iconjia"></text>添加到项目
+        </button>
+        <button class="btn"  @tap="btnTap" data-id="1" wx:if="{{showBottomBtn === 2}}">
+          <text class="daka icon-dianhua"></text>联系他（她）
+        </button>
       </view>
-      <view class="btnGrounp" wx:if="{{showBottomBtn !==2 && showBottomBtn!==1}}">
-        <view class="btnGrounpItem">
-          <button><text class="daka icon-bianji"></text>修改资料</button>
-        </view>
-        <view class="btnGrounpItem">
-          <button><text class="daka icon-fenxiang3">分享朋友圈</button>
-        </view>
+      <view class="fixedBtnGrounp" wx:if="{{showBottomBtn !==2 && showBottomBtn!==1}}">
+        <button class="btn"  @tap="btnTap" data-id="2" wx:if="{{activeNav === 1}}">
+          <text class="daka icon-bianji"></text>修改资料
+        </button>
+        <button class="btn"  @tap="btnTap" data-id="3" wx:if="{{activeNav === 2}}">
+          <text class="daka icon-zengjia"></text>添加
+        </button>
+        <button class="btn"  @tap="btnTap" data-id="4" wx:if="{{activeNav === 3}}">
+          <text class="daka icon-bianji"></text>发布动态
+        </button>
+      </view>
+      <view class="fixedBtnGrounp" wx:if="{{showBottomBtn !==2 && showBottomBtn!==1}}">
+        <button class="btn"  @tap="btnTap" data-id="5" wx:if="{{activeNav === 1 || activeNav === 3}}">
+          <text class="daka icon-fenxiang3"></text>分享朋友圈
+        </button>
+        <button class="btn"  @tap="btnTap" data-id="6" wx:if="{{activeNav === 2}}">
+          <text class="daka icon-shanchu"></text>删除
+        </button>
+      </view>
+    </view>
+    <view class="qrcodeCont">
+      <view class="qrcodeImg">
+        <image class="qrcodeImgItem" src="{{qrcode}}"></image>
+        <image class="qrcodeImgItem2" src="/images/fingerprint.png"></image>
+      </view>
+      <view class="textCont">
+        <view class="tip">长按 “识别图中的小程序码” 查看</view>
+        <view class="main">追风少年的大咖秀</view>
+        <view class="">专注于工作动态及作品展示传播</view>
       </view>
     </view>
   </view>
@@ -693,16 +725,16 @@
 
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base";
   export default class Home1 extends wepy.page {
     config = {
       navigationBarTitleText: '个人主页'
     }
-
     data = {
+      qrcode: 'http://alicliimg.clewm.net/weapp/2017/12/12/bd853c841dee20e459a8cfeb60a8af201513009079.png@80Q',
       showBottomBtn: null,
       chechked: [],
       userInfo: {
-
       },
       activeNav: 1,
       navList: [
@@ -736,87 +768,50 @@
       },
       //点赞
       dianzFn(e) {
-        //开启loading
-        wx.showLoading({
-          title: '发起请求中',
-          mask: true
-        });
-        console.log(this.$parent.globalData)
+        const _this = this;
         const {id} = e.target.dataset;//动态id
-        wx.request({
-          url: 'https://www.us800.cn/wechat!savePoint.action',
-          data: {
-            memberId: 1,  //用户id
-          },
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          success: function(res) {
-            wx.hideLoading();
-            wx.showToast({
-              title: '点赞成功',
-              icon: 'success',
-              duration: 2000
-            });
-            console.log(res.data)
-          }
+        const {memberId} = _this.$parent.globalData;
+        $post('/async!gotMyPerformResume.action', {
+          id,//动态id
+          memberId,  //用户id
+        }, true)
+        .thsen(data => {
+          wepy.showToast({
+            title: '点赞成功',
+            icon: 'success',
+            duration: 2000
+          });
         })
       },
       chooseImage(e) {
         const {src} = e.target.dataset; 
-        wx.previewImage({
+        wepy.previewImage({
           current: src, // 当前显示图片的http链接
           urls: ['http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0', 'http://wx.qlogo.cn/mmopen/zGaPXIgJCwibxIcYRrWthrWgVC8iblia7LvpsecZZOKLvKfoHvv4qtq8vBErjd2AQvjHfwCtjFic5SeBx3uoxDNJMiaJcbFHU7cul/0'] // 需要预览的图片http链接列表
         })
       } 
     }
 
-    onLoad(e) {
-      const {id, active} = e;
-      console.log(e)
-      this.showBottomBtn = active | 0;
-      this.$apply();
-      //开启loading
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      });
-      //请求数据
-      wx.request({
-        url: 'https://www.us800.cn/async!gotMyPerformResume.action',//个人详情
-        data: {
-          resumeId: id
-        },
-        header: {
-            'content-type': 'application/json' // 默认值
-        },
-        success: (res) => {
-          console.log(res.data)
-          // 关闭loading
-          wepy.hideLoading();
-          this.userInfo = res.data;
-          this.$apply();
-        }
-      });
-      //开启转发
-      wx.showShareMenu({
-        withShareTicket: true
-      });
+    $looadInfo(id) {
+      const _this = this;
+      //获取用户信息
+      $post('/async!gotMyPerformResume.action', {
+        resumeId: id,
+      }, true)
+      .then(data => {
+        _this.userInfo = data;
+        _this.$apply();
+      })
     }
 
-    //转发设置
-    onShareAppMessage (e) {
-      const {id} = e.target.dataset;
-      return {
-        title: '这个还没写完，没得数据啊，卧槽！',
-        path: `/pages/find/detail?id=${id}`,
-        success: function(res) {
-          // 转发成功
-        },
-        fail: function(res) {
-          // 转发失败
-        }
-      }
+    onLoad(e) {
+      const _this = this;
+      const {id, active, activeNav} = e;
+      _this.showBottomBtn = active | 1;
+      _this.activeNav = activeNav | 1;
+      _this.$apply();
+      //加载用户信息
+      _this.$looadInfo(id);
     }
   }
 </script>

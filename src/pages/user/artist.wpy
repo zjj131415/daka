@@ -143,6 +143,7 @@
         </navigator>
       </block>
     </view>
+    <button class="">分享朋友圈</button>
   </view>
 </template>
 

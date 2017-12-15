@@ -124,7 +124,7 @@
   import wepy from "wepy";
   export default class EditInfo2 extends wepy.page {
     config = {
-      navigationBarTitleText: '修改企业信息'
+      navigationBarTitleText: '企业信息'
     }
     data = {
       "m_l": [

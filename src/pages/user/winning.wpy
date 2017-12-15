@@ -1,243 +1,214 @@
 <style lang="less" scoped>
- .cell {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 30rpx 20rpx;
-    font-size: 30rpx;
-    color: #666;
-    position: relative;
-    &::before {
-      content: " ";
-      position: absolute;
-      width: 100%;
-      left: 0;
-      bottom: 0;
-      border-top: 1px solid #dcdcdc;
-      color: #dcdcdc;
-      -webkit-transform: scaleY(.5);
-      -ms-transform: scaleY(.5);
-      transform: scaleY(.5);
+  .container {
+    .cells {
+      margin-bottom: 40rpx;
+      .cell:last-child::before {
+        content: none;
+      }
     }
-    .cell_bd {
-      flex: 1;
+    .cell {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      color: "#838383"
+      box-sizing: border-box;
+      padding: 26rpx 20rpx;
+      position: relative;
+      background: #fff;
+      &::before {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        border-top: 1px solid #dcdcdc;
+        color: #dcdcdc;
+        -webkit-transform: scaleY(.5);
+        -ms-transform: scaleY(.5);
+        transform: scaleY(.5);
+      }
+      .cellHd {
+        display: flex;
+        align-items: center;
+        font-size: 30rpx;
+        color: #666;
+        .dec {
+          width: 18rpx;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          font-size: 30rpx;
+          color: #dc3b23;
+        }
+      }
+      .cellBd {
+        flex: 1;
+      }
+      .cellFt {
+        font-size: 28rpx;
+        color: #666;
+        .headImg {
+          width: 90rpx;
+          height: 90rpx;
+          // border-radius: 100%;
+        }
+        .input {
+          width: 400rpx;
+          font-size: 30rpx;
+          color: #666;
+          text-align: right;
+        }
+        .picker {
+          width: 400rpx;
+          text-align: right;
+        }
+      }
     }
-    .cell_ft {
-      margin-left: 10rpx;
-      font-size: 32rpx;
-      color: #d5d5d5;
-    }
-    .input {
-      text-align: right;
-      margin-left: 10rpx;
-      font-size: 32rpx;
-      color: #d5d5d5;
-    }
-    .image {
-      height: 100rpx;
-      width: 100rpx;
-    }
-  }
-  .sub-btn {
-    margin: 20rpx;
-    outline: none;
-    background: #dc3b23;
-    color: #fff;
   }
 </style>
+
 <template>
-  <view>
-    <form bindsubmit="formSubmit" >
+ <view class="container">
+    <form bindsubmit="submit">
       <view class="cells">
         <view class="cell">
-          <view class="cell_hd">
-            获得奖项
+          <view class="cellHd">
+            <!-- <view class="dec">*</view> -->
+            <text>获得奖项</text>
           </view>
-          <view class="cell_bd">
-          </view>
-          <view class="cell_ft">
-            <input placeholder="请填写奖项名称" placeholder-style="color: #d5d5d5" class="input"/>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <input class="input" name="name" placeholder="获得奖项名称" value="{{name}}" placeholder-style="color: #ccc"/>
           </view>
         </view>
-      </view>
-      <view class="cells">
-        <view class="cell" @tap="xingbie">
-          <view class="cell_hd">
-            时间
+        <view class="cell">
+          <view class="cellHd">
+            <!-- <text class="dec">*</text> -->
+            <text>获奖时间</text></text>
           </view>
-          <view class="cell_bd">
-          </view>
-          <view class="cell_ft">
-             <picker mode="date" value="{{personInfo.date}}" @change="dateChange">
-              <view class="picker">
-                {{personInfo.date}}
-              </view>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <picker class="picker" mode="date" value="{{date}}" bindchange="handleTap" data-id="0">
+             {{date}}
             </picker>
           </view>
         </view>
-      </view>
-      <view class="cells">
-        <view class="cell">
-          <view class="cell_hd">
-            获奖证书
+        <view class="cell" @tap="handleTap" data-id="1">
+          <view class="cellHd">
+            <!-- <text class="dec">*</text> -->
+            <text>获奖证书</text>
           </view>
-          <view class="cell_bd">
-            <image @tap="uploadImg" class="image" src="{{personInfo.imgSrc}}" mode="aspectFill"></image>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <image class="headImg" mode="aspectFill" src="{{upImg}}"></image>
           </view>
         </view>
       </view>
-      <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
+      <view class="fixedBtn">
+        <view class="fixedBtnGrounp">
+          <button class="btn" form-type="submit">
+            保存
+          </button>
+        </view>
+      </view>
     </form>
   </view>
 </template>
 
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base";
 
   export default class Winning extends wepy.page {
     config = {
       navigationBarTitleText: '获奖经历'
     }
     data = {
-      personInfo: {
-        date: '请选择',
-        imgSrc: ['/images/upload_img.png']
+      date: '选择日期',
+      upImg: '/images/upload_img.png',
+      head: ''
+    }
+
+    methods = {
+      //修改cell值
+      handleTap(e) {
+        const _this = this;
+        const {id} = e.currentTarget.dataset;
+        const {value} = e.detail;
+        switch (id | 0) {
+          case 0:
+            _this.date = value;
+            break;
+          case 1:
+            _this.$uploadImg();
+            break;
+        }
+        _this.$apply();
+      },
+       //提交表单
+      submit(e) {
+        const _this = this;
+        const {name} = e.detail.value;
+        const {date, head} = _this.$data;
+        const {user} = _this.$parent.globalData;
+        const {memberId} = user;
+        if (date === "选择日期" || !head || !name) return (
+          wepy.showModal({
+            title: '提示',
+            content: '填写完整才能提交哦！',
+            showCancel: false
+          })
+        )
+        //提交数据
+        $post('/wechat!saveMemberCert.action', {
+          memberId,
+            type: 1,
+            image: head,
+            issueTime: date,
+            companyName: name
+        }, true)
+        .then(data => {
+          //修改成功提示并且返回上一页
+          wepy.showToast({
+            title: '修改成功',
+            icon: 'success',
+            duration: 2000
+          });
+          setTimeout(wepy.navigateBack, 1000);
+        })
+        .catch(err => {
+          wepy.showToast({
+            title: '修改失败',
+            image: '/images/error.png',
+            duration: 2000
+          });
+        })
       }
     }
-    methods = {
-      dateChange(e) {
-        this.personInfo.date = e.detail.value
-      },
-      //上传图片
-      uploadImg() {
-        var _this = this;
-        wx.chooseImage({
-          count: 1, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            _this.personInfo.imgSrc = res.tempFilePaths;
-            console.log(_this.personInfo.imgSrc);
-            _this.$apply();
-          }
-        })
-      },
-      //保存基本信息
-      saveInformation() {
-        wx.request({
-          url: 'https://www.us800.cn/async!saveResumeStep1.aciton', //保存基本信息
-          data: {
-            resumeType: '2',//2-演艺简历
-            mobile: '',//
-            name: '',//
-            provId: '',//
-            cityId: '',//
-            gender: '',//
-            birth: '',//
-            height: '',//
-            workYear: '',//
-            xueli: '',//
-            email: '',//
-            imgsServerPath: ''//头像地址
-          },
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function(res) {
-            console.log(res.data);
-            //_this.$apply();
-          },
-          fail() {
-          }
-        });
-      },
-      //保存工作简历
-      saveResume() {
-        wx.request({
-          url: 'https://www.us800.cn/async!saveResumeJob.action', //保存工作简历
-          data: {
-            resumeId: '',//简历ID
-            companyName: '',//公司名称
-            positionName: '',//职位名称
-            salary: '',//薪水
-            beginTime: '',//开始时间
-            endTime: '',//结束时间
-            jobContent: ''//工作内容
-          },
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function(res) {
-            console.log(res.data);
-            //_this.$apply();
-          },
-          fail() {
-          }
-        });
-      },
-      //删除工作简历
-      delResume() {
-        wx.request({
-          url: 'https://www.us800.cn/async!removeResumeJob.action', //删除工作简历
-          data: {
-            resumeJobId: ''//简历工作ID
-          },
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function(res) {
-            console.log(res.data);
-            //_this.$apply();
-          },
-          fail() {
-          }
-        });
-      },
-      //保存简历获得证书
-      saveResumeCertificate() {
-        wx.request({
-          url: 'https://www.us800.cn/async!saveResumeCertificate.action', //保存简历获得证书
-          data: {
-            resumeId: '',//简历ID
-            name: '',//证书名称
-            institution: '',//发证机构
-            issueTime: '',//发证时间
-            serverImgPath: ''//证书图片
-          },
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function(res) {
-            console.log(res.data);
-            //_this.$apply();
-          },
-          fail() {
-          }
-        });
-      },
-      //删除获得证书
-      delResumeCertificate() {
-        wx.request({
-          url: 'https://www.us800.cn/async!removeResumeCertificate.action', //删除获得证书
-          data: {
-            resumeCertificateId: ''//证书ID
-          },
-          header: {
-            'content-type': 'application/json'
-          },
-          success: function(res) {
-            console.log(res.data);
-            //_this.$apply();
-          },
-          fail() {
-          }
-        });
-      }
+
+    //图片上传
+    $uploadImg() {
+      const _this = this;
+      wepy.chooseImage({
+         count: 1, // 默认9
+         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+         success(res) {
+          const tempFilePaths = res.tempFilePaths;
+          wepy.showLoading({title: '图片上传中...'});
+          wepy.uploadFile({
+            url: 'https://www.us800.cn/plupload/upload.jsp', //上传图片地址
+            filePath: tempFilePaths[0],
+            name: 'file',
+            success: function(r){
+              wepy.hideLoading();
+              //上传成功改变data
+              const {data} = r;
+              _this.head = data.trim();
+              _this.upImg = tempFilePaths[0];
+              _this.$apply();
+            }
+          })
+         }
+      })
     }
   }
 </script>

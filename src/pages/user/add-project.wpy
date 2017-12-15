@@ -1,6 +1,5 @@
 <style lang="less" scoped>
   .container {
-    padding-bottom: 120rpx;
     .uploadImg {
       display: flex;
       align-items: center;
@@ -124,23 +123,17 @@
         }
       }
     }
+
   }
 </style>
 
 <template>
   <view class="container">
-    <view class="uploadImg" @tap="uploadImage">
-      <view class="bg" wx:if="{{!imgSrc}}">
-        <image src="../../images/upload_img.png" mode="aspectFill" class="img"></image>
-        <view class="detail">上传需求封面图尺寸比例750*340</view>
-      </view>
-      <image src="{{imgSrc}}" class="bgImg" mode="aspectFill" wx:else></image>
-    </view>
     <view class="list-wrap">
       <view class="list">
         <view class="daka icon-zhuti icon"></view>
         <view class="option flex1">
-          <input placeholder="通告主题" value="{{performName}}" data-id="3" bindinput="bindPickerChange" placeholder-style="color:#AFAFAF" maxlength="30"/>
+          <input placeholder="项目名称" value="{{performName}}" data-id="3" bindinput="bindPickerChange" placeholder-style="color:#AFAFAF" maxlength="30"/>
         </view>
       </view>
       <view class="list">
@@ -154,13 +147,13 @@
         </view>
         <view class="daka icon-right"></view>
       </view>
-      <view class="list">
+      <!-- <view class="list">
         <view class="daka detail icon"></view>
         <view class="option flex1">
           <input placeholder="详细地址" placeholder-style="color:#AFAFAF" bindchange="bindPickerChange" data-id="5" valeu="{{performAddrDetaild ? performAddrDetaild : '详细地址'}}" maxlength="30"/>
         </view>
         <view class="daka icon-right"></view>
-      </view>
+      </view> -->
       <view class="list">
         <view class="daka icon-timefill icon"></view>
         <view class="option flex1">
@@ -183,30 +176,20 @@
         </view>
         <view class="daka icon-right"></view>
       </view>
-      <view class="list">
-        <view class="daka icon-leixing icon"></view>
-        <view class="option flex1">
-          <picker bindchange="bindPickerChange" mode="selector" range-key="title" data-id="2" value="{{type}}" range="{{typeArray}}">
-            <view class="picker">
-              {{type ? type : '通告类型'}}
-            </view>
-        </picker>
-        </view>
-        <view class="daka icon-right"></view>
-      </view>
     </view>
     <view class="announce">
       <view class="detail">
         <view class="daka icon-jianjie"></view>
         <view class="option flex1">
-          <textarea placeholder-style="color:#AFAFAF" value="{{performContent}}" data-id="4" bindinput="bindPickerChange" placeholder="通告详细说明，如：剧组简介、条件要求、薪资待遇等"/>
+          <textarea placeholder-style="color:#AFAFAF" value="{{performContent}}" data-id="4" bindinput="bindPickerChange" placeholder="项目详细说明，如：剧组简介、条件要求、薪资待遇等"/>
         </view>
       </view>
     </view>
     <view class="fixedBtn">
       <view class="fixedBtnGrounp">
-        <button class="btn" bindtap="uploadNotice">
-          保存
+        <button class="btn" @tap="btnTap" data-id="0">
+          <text class="daka icon-iconjia"></text>
+          确认新建
         </button>
       </view>
     </view>
@@ -214,10 +197,9 @@
 </template>
 <script>
   import wepy from "wepy";
-  import {$post} from "../../mixins/base";
-  export default class Notice extends wepy.page {
+  export default class AddProject extends wepy.page {
     config = {
-      navigationBarTitleText: '发通告'
+      navigationBarTitleText: '新建项目'
     }
     data = {
       performImg: '',
@@ -254,9 +236,10 @@
               name: 'file',
               success: function(r){
                 // var data = res.data
-                _this.performImg = r.data.trim();
+                _this.performImg = r.data;
                 _this.$apply();
                 wx.hideLoading();
+                //do something
               }
             })
           }
@@ -269,36 +252,32 @@
         this.$apply();
       },
       bindPickerChange(e) {
-        const _this = this;
         const {value} = e.detail;
         const {id} = e.target.dataset;
-        const {typeArray} = _this.$data;
         switch (id | 0) {
           case 0:
-            _this.startTime = value;
+            this.startTime = value;
             break;
           case 1:
-            _this.endTime = value;
+            this.endTime = value;
             break;
           case 2:
-            _this.type = typeArray[value].title;
+            this.type = value;
             break;
           case 3:
-            _this.performName = value;
+            this.performName = value;
             break;
           case 4:
-            _this.performContent = value;
+            this.performContent = value;
             break;
           case 5:
-            _this.performAddrDetaild = value;
+            this.performAddrDetaild = value;
             break;
         }
-        _this.$apply();
+        this.$apply();
       },
       uploadNotice() {
         const _this = this;
-        const {user} = _this.$parent.globalData;
-        const {memberId} = user;
         const {typeArray, type, performName, performImg, startTime, endTime, performAddr, performAddrDetaild, performAddr1, performContent} = this.$data;
         if (!type || !performName || !startTime || !endTime || !performImg || !performAddr || !performContent) return (
           wx.showModal({
@@ -323,9 +302,9 @@
         wx.request({
           url: 'https://www.us800.cn/wechat!saveBooking.action',
           data: {
-            memberId,
+            memberId: 2541,
             performImg,
-            artistTypes: type,
+            artistTypes: typeArray[type],
             performName,
             performBeginTime: startTime,
             performEndTime: endTime,
@@ -343,26 +322,20 @@
               icon: 'success',
               duration: 2000
             });
-            wepy.navigateTo({url: '/pages/notice/index'})
+            _this.performImg = "";
+            _this.imgSrc = "";
+            _this.performContent = "";
+            _this.performName = "";
+            _this.performAddr = "";
+            _this.performAddrDetaild = "";
+            _this.startTime = "";
+            _this.endTime = "";
+            _this.type = null;
+            _this.performAddr1 = "";
+            _this.$apply();
           }
         })
       }
-    }
-
-    onLoad(e) {
-      const _this = this;
-      //加载一级分类
-      _this.$loadTypes();
-    }
-
-    //一级分类
-    $loadTypes() {
-      const _this = this;
-      $post('/async!gotNoticeType.action')
-      .then(data => {
-        _this.typeArray = data;
-        _this.$apply();
-      })
     }
   }
 </script>

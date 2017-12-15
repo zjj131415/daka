@@ -38,9 +38,10 @@
           // margin: 0 10rpx;
           font-size: 28rpx;
           color: #737373;
-          .daka {
-            font-size: 50rpx;
-            color: #E9989E;
+          .optionIcon {
+            width: 80rpx;
+            height: 80rpx;
+            margin-bottom: 20rpx;
           }
         }
       }
@@ -414,17 +415,14 @@
       <swiper class="swiperMenu">
         <block wx:for="{{typeChoose}}" wx:key="index">
           <swiper-item class="menu">
-            <view class="option" wx:for="{{item}}" wx:key="index">
-              <view class="daka {{item.icon}}"></view>
-              {{item.value}}
+            <view class="option" wx:for="{{item}}" wx:key="index" data-id="{{item.id}}" @tap="changeType">
+              <image class="optionIcon" src="{{item.icon}}"></image>
+              <view class="text">{{item.title}}</view>
             </view>
           </swiper-item>
         </block>
       </swiper>
       <view class="tab">
-        <!--<view class="tab-list flex1 {{activeIndex == index ? 'active' : '' }}" id="{{index}}" wx:for="{{sort}}" wx:key="{{index}}" @tap="tabList">-->
-          <!--{{item}}<text class="daka icon-triangledownfill"></text>-->
-        <!--</view>-->
         <view class="tab-list flex1 {{sortTab ? 'active' : '' }}" data-index="0" @tap="tabList">
           {{sortName}}<text class="daka icon-triangledownfill"></text>
         </view>
@@ -437,17 +435,14 @@
       </view>
       <view class="works">
         <block wx:for="{{artists}}" wx:key="index">
-          <view class="circle-item" @tap="skip" data-id="{{item.id}}">
+          <view class="circle-item" @tap="skip" data-id="{{item.resumeId}}">
             <view class="circle-img"><image src="{{item.head}}" mode="aspectFill"></image></view>
-            <!--<view class="circle-img"><image src="/images/avatar/avatar1.jpg"></image></view>-->
             <view class="circle-info">
               <text class="circle-name">{{item.name}}</text>
-              <!--<text class="circle-name">{{item.height}}</text>-->
-              <!--<text class="circle-name">{{item.prov}}</text>-->
               <view class="circle-icon"></view>
               <view class="circle-action">
                 <view class="border"></view>
-                <view class="daka icon-appreciate">100</view>
+                <view class="daka icon-appreciate">{{item.pointer ? item.pointer : 0}}</view>
                 <view class="border"></view>
               </view>
               <view class="circle-tags">
@@ -458,32 +453,6 @@
             </view>
           </view>
         </block>
-        <!--<view class="works-list">-->
-          <!--<view class="image-box">-->
-            <!--<image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>-->
-            <!--<view class="flag">摄影</view>-->
-          <!--</view>-->
-          <!--<view class="content">-->
-            <!--<view class="title">摄影、写真拍摄</view>-->
-            <!--<view class="detail">-->
-              <!--<view class="price">￥500.00/单</view>-->
-              <!--<view class="location"><text class="daka icon-locationfill"></text>重庆市</view>-->
-            <!--</view>-->
-          <!--</view>-->
-        <!--</view>-->
-        <!--<view class="works-list">-->
-          <!--<view class="image-box">-->
-            <!--<image class="img" src="/images/avatar/avatar1.jpg" mode="widthFix"></image>-->
-            <!--<view class="flag">摄影2</view>-->
-          <!--</view>-->
-          <!--<view class="content">-->
-            <!--<view class="title">摄影、写真拍摄</view>-->
-            <!--<view class="detail">-->
-              <!--<view class="price">￥500.00/单</view>-->
-              <!--<view class="location"><text class="daka icon-locationfill"></text>重庆市</view>-->
-            <!--</view>-->
-          <!--</view>-->
-        <!--</view>-->
       </view>
     </scroll-view>
     <view class="sort" wx:if="{{sortVisible1}}">
@@ -506,14 +475,9 @@
         <checkbox-group class="service-container" @change="checkboxChange">
           <view class="service-list {{checkboxArr.length == 0 ? 'active' : '' }}" @tap="resetAll">全部</view>
           <label class="checkbox service-list {{item.checked == true ? 'active' : '' }}" wx:for="{{checkMenu}}" wx:key="{{index}}" @tap="checkOption" data-index="{{index}}">
-            <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+            <checkbox value="{{item.title}}" checked="{{item.checked}}"/>{{item.title}}
           </label>
         </checkbox-group>
-        <!--<view class="service-container">-->
-          <!--<block wx:for="{{sort2}}" wx:key="{{index}}">-->
-            <!--<view class="service-list {{activeIndex2 == index ? 'active' : '' }}" @tap="tabList2({{index}})">{{item}}</view>-->
-          <!--</block>-->
-        <!--</view>-->
         <view class="btn-group">
           <view class="btn" @tap="resetAll">重置</view>
           <view class="btn active" @tap="confirm">确定</view>
@@ -550,10 +514,6 @@
         <text class="daka icon-search"></text>
         精准查找
       </navigator>
-      <!--<navigator class="search-open" url="/pages/circle/search">-->
-        <!--<text class="daka icon-search"></text>-->
-        <!--精准查找-->
-      <!--</navigator>-->
       <view class="news">
         <view class="news-icon daka icon-xiaoxi3-copy" @tap="tiaozhuan"></view>
       </view>
@@ -573,6 +533,7 @@
 </template>
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base"
   export default class Indexw extends wepy.page {
     data = {
       bannerArray: [
@@ -588,35 +549,11 @@
         }
       ],
       typeChoose: [
-        [
-          {value: '电商网红', icon: 'icon-wanghongmote'},
-          {value: '活动直播', icon: 'icon-zhibo'},
-          {value: '主持', icon: 'icon-zhuchiren'},
-          {value: '模特', icon: 'icon-icon-test'}
-        ],
-        [
-          {value: '歌舞表演', icon: 'icon-gewuyulechangsuofuzhi-copy'},
-          {value: '特技绝活', icon: 'icon-weibiaoti3'},
-          {value: '广告代言', icon: 'icon-daiyanren'},
-          {value: '礼仪', icon: 'icon-liyi'}
-        ],
-        [
-          {value: '配音', icon: 'icon-peiyin1'},
-          {value: '游戏私教', icon: 'icon-youxi'},
-          {value: 'K歌私教', icon: 'icon-quanminkge'},
-          {value: '摄影', icon: 'icon-sheying-'}
-        ],
-        [
-          {value: '戏曲', icon: 'icon-xiqu'},
-          {value: '节目嘉宾', icon: 'icon-jiabin'}
-        ]
       ],
       sortVisible1: false,
       sortVisible2: false,
       sortVisible3: false,
       region: ['广东省'],
-      // sort: ["智能排序", "服务类型", "筛选"],
-      // activeIndex: 0,
       sortName: "智能排序",
       sorted: 'createTime',//排序字段
       gender: '',//性别
@@ -630,22 +567,8 @@
       activeIndex1: 0,
       sort2: ['全部', '电商网红', '活动直播', '主持', '模特', '歌舞表演', '特技绝活', '广告代言', '礼仪', '配音', '游戏私教', 'K歌私教', '摄影', '戏曲', '节目嘉宾'],
       checkMenu: [
-        {name: '电商网红', value: '电商网红', checked: false},
-        {name: '活动直播', value: '活动直播'},
-        {name: '主持', value: '主持'},
-        {name: '模特', value: '模特'},
-        {name: '歌舞表演', value: '歌舞表演'},
-        {name: '特技绝活', value: '特技绝活'},
-        {name: '广告代言', value: '广告代言'},
-        {name: '礼仪', value: '礼仪'},
-        {name: '配音', value: '配音'},
-        {name: '游戏私教', value: '游戏私教'},
-        {name: 'K歌私教', value: 'K歌私教'},
-        {name: '摄影', value: '摄影'},
-        {name: '戏曲', value: '戏曲'},
-        {name: '节目嘉宾', value: '节目嘉宾'}
+        {id: 133, title: "电视主持"}
       ],
-//      activeIndex2: 0,
       activeIndex3: 0,
       sort3: ['不限', '男', '女'],
       activeIndex4: 0,
@@ -656,8 +579,20 @@
       artists: []
     }
     methods = {
+      //改变一级类型
+      changeType(e) {
+        const _this = this;
+        const {id} = e.currentTarget.dataset;
+        if (id === 'jigou') return wepy.navigateTo({url: '/pages/circle/jigou'});
+        $post('/async!gotSecondArtistType.action',{
+          firstArtisyTypeId: id
+        })
+        .then(data => {
+          _this.checkMenu = data;
+          _this.$apply();
+        })
+      },
       tiaozhuan(e) {
-        console.log(e);
         wx.navigateTo({
           url: '/pages/user/home1'
         })
@@ -667,7 +602,6 @@
       },
       tabList(e) {
         const {index} = e.currentTarget.dataset || {};
-        //this.activeIndex = e.target.id;
         switch (index) {
           case '0':
             this.sortVisible1 = true;
@@ -749,7 +683,7 @@
       skip(e) {
         const { id } = e.currentTarget.dataset || {};
         wx.navigateTo({
-          url: `/pages/user/home1?id=${id}&active=1`
+          url: `/pages/user/home1?id=${id}&active=1&activeNav=1`
         })
       },
       //加载更多
@@ -787,37 +721,46 @@
     onLoad() {
       //加载大咖列表
       this.bigShot();
+      //一级艺人类型
+      this.$getOneTypes();
+      //启动转发
+      wepy.showShareMenu();
     }
+
+    //一级艺人类型
+    $getOneTypes() {
+      const _this = this;
+      //post
+      $post('/async!gotFirstArtistType.action')
+      .then(data => {
+        const newArray = [];
+        data.unshift({id: 'jigou', title: '机构', icon: 'https://www.us800.cn/xcx/images/icon/wd.png'});
+        if (data instanceof Array) {
+          for (let i = 0; i < data.length; i+=4) {
+            newArray.push(data.slice(i,i+4));
+          }
+          _this.typeChoose = newArray;
+          _this.$apply();
+        }
+      })
+    }
+
     //大咖列表
     bigShot() {
       var _this = this;
-      //开启loading
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      });
-      wx.request({
-        url: 'https://www.us800.cn/wechat!gotArtist.action',//大咖列表
-        data: {
-          sorted: _this.sorted,
-          size: "10",
-          gender: _this.gender
-        },
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success: function(res) {
-          //关闭loading
-          wepy.hideLoading();
-          _this.artists = res.data;
-          for (var i = 0; i < _this.artists.length; i++) {
-            _this.artists[i].types = _this.artists[i].types.split(",");
-          }
-          _this.$apply();
-        },
-        fail() {
-          wx.hideLoading();
+      //发起请求
+      $post('/wechat!gotArtist.action', {
+        sorted: _this.sorted,
+        size: "10",
+        gender: _this.gender,
+        prov: ''
+      }, true)
+      .then(data => {
+        _this.artists = data;
+        for (var i = 0; i < _this.artists.length; i++) {
+          _this.artists[i].types = _this.artists[i].types.split(",");
         }
+        _this.$apply();
       });
     }
   }

@@ -93,6 +93,7 @@
 </template>
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base";
   export default class Dynamic extends wepy.page {
     config = {
       navigationBarTitleText: '发布动态'
@@ -110,6 +111,8 @@
       },
       saveDynamic() {
         var _this = this;
+        const {user} = _this.$parent.globalData;
+        const {memberId} = user;
         if (!_this.dynamics && !_this.imagesStr && !_this.video) return (
           wx.showModal({
             title: '友情提示',
@@ -130,7 +133,7 @@
         wx.request({
           url: 'https://www.us800.cn/async!saveCareer.action', //保存动态
           data: {
-            memberId: 2541,
+            memberId,
             content: encodeURI(_this.dynamics),
             images: _this.imagesStr,
           },

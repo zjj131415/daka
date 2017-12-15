@@ -1,259 +1,249 @@
 <style lang="less" scoped>
-  .find-iem {
+  .findItem {
+    margin-bottom: 20rpx;
     background: #fff;
-    margin-bottom: 10rpx;
-    .find-header {
+    .findUser {
       display: flex;
       align-items: center;
-      padding: 20rpx 30rpx;
-      border-bottom: 1px solid #eaeaea;
-    }
-    .find-img {
-      width: 90rpx;
-      height: 90rpx;
-      border-radius: 100%;
+      background: #fff;
+      padding: 20rpx;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      position: relative;
       overflow: hidden;
-      image {
-        width: 100%;
-        height: 100%;;
+      &::after {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        content: ' ';
+        width: 200%;
+        border-bottom: 1px solid #dcdcdc;
+        transform: scaleY(.5);
       }
-    }
-    .find-name-tag {
-      flex: 1;
-      padding: 0 10rpx;
-      .find-name {
-        display: flex;
-        align-items: center;
-        padding-left: 10rpx;
-        margin-bottom: 10rpx;
-        font-size: 28rpx;
-        color: #416194;
-        .renz-icon {
-          margin-left: 10rpx;
-          font-size: 30rpx;
-          color: #f89b1a;
-        }
+      .photo {
+        width: 90rpx;
+        height: 90rpx;
+        margin-right: 6rpx;
+        border-radius: 100%;
       }
-      .find-tags {
-        display: flex;
-        align-items: center;
-        height: 40rpx;
-      }
-      .find-tag {
-        padding: 3rpx 15rpx;
-        margin: 0 10rpx;
-        background: #eee;
-        border-radius: 8rpx;
-        font-size: 26rpx;
-        color: #808080;
-      }
-    }
-    .up-time {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      height: 60rpx;
-      padding: 0 30rpx;
-      font-size: 24rpx;
-      color: #cbcbcb;
-    }
-    .down-icon {
-      display: flex;
-      height: 100%;
-      font-size: 32rpx;
-      color: #cbcbcb;
-    }
-    .find-cont {
-      // padding: 0 30rpx;
-      .find-cont-text {
-        padding: 10rpx 0;
-        font-size: 30rpx;
-        color: #5f5f5f;
-      }
-      .find-cont-img {
-       display: flex;
-       align-items: center;
-       flex-wrap: wrap;
-       padding: 6rpx;
-       padding-bottom: 0;
-        image {
-          margin: 6rpx;
-          width: 234rpx;
-          height: 234rpx;
-        }
-      }
-    }
-    .find-actions {
-      height: 70rpx;
-      border-top: 1px solid #eaeaea;
-      border-bottom: 1px solid #eaeaea;
-      display: flex;
-      align-items: center;
-      .action-item {
+      .detail {
         flex: 1;
+        overflow: hidden;
+      }
+      .name {
+        padding: 0 10rpx;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 30rpx;
+        color: #333;
+      }
+      .tags {
         height: 46rpx;
-        border-right: 1px solid #eaeaea;
+        display: flex;
+        align-items: center;
+        .tag {
+          width: 90rpx;
+          height: 38rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 10rpx;
+          background: #eee;
+          border-radius: 6rpx;
+          font-size: 26rpx;
+          color: #808080;
+        }
+      }
+      .down {
+        font-size: 36rpx;
+        color: #ccc;
+      }
+    }
+    .findDetails {
+      padding: 6rpx 0;
+      .text {
+        padding: 12rpx;
+        font-size: 30rpx;
+        color: #666;
+      }
+      .imgList {
+        display: flex;
+        flex-wrap: wrap;
+        width: 738rpx;
+        margin: 0 auto;
+        box-sizing: border-box;
+        .imgItm {
+          width: 246rpx;
+          height: 246rpx;
+          padding: 6rpx;
+          box-sizing: border-box;
+        }
+      }
+      .timer {
+        padding: 12rpx;
+        font-size: 24rpx;
+        color: #ccc;
+        text-align: right;
+      }
+    }
+    .findAction {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 20rpx 0;
+      overflow: hidden;
+      &::after {
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: ' ';
+        width: 200%;
+        border-bottom: 1px solid #dcdcdc;
+        transform: scaleY(.5);
+      }
+      .actionItem {
+        width: 25%;
+        height: 44rpx;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 26rpx;
-        color: #898989;
+        border-right: 1px solid #dcdcdc;
+        outline: none;
         background: transparent;
-        position: static;
         border-radius: 0;
-        margin:0;
-        padding:0;
-        &::before {
-          margin-right: 10rpx;
-          font-size: 32rpx;
-          color: #898989;
+        font-size: 28rpx;
+        color: #666;
+        &:last-child {
+          border: none;
         }
         &::after {
           content: none;
         }
-        &:last-child {
-          border: none;
-        }
       }
     }
   }
+  
 </style>
 
 <template>
-  <view class="find-iem" wx:for="{{findDetail}}" wx:for-index="idx" wx:key="{{idx}}">
-    <navigator class="find-header" url="/pages/user/home1?id={{item.memberId}}">
-      <view class="find-img">
-        <image mode="aspectFill" src="{{item.memberHead ? item.memberHead : '/images/default.png'}}"></image>
-      </view>
-      <view class="find-name-tag">
-        <view class="find-name">{{item.memberName ? item.memberName : '追风少年'}}<text wx:if="{{!  !item.memberAuth}}" class="renz-icon daka icon-yishimingrenzheng1"></text></view>
-        <view class="find-tags">
-          <block wx:for="{{item.artistType}}" wx:key="index">
-            <text class="find-tag">{{item}}</text>
-          </block>
+  <view class="container">
+    <view class="findList">
+      <block wx:for="{{findList}}" wx:key="{{index}}">
+        <view class="findItem">
+          <navigator class="findUser" url="/pages/user/home1?id={{item.id}}">
+            <image class="photo" mode="aspectFill" src="{{item.memberHead}}"></image>
+            <view class="detail">
+              <view class="name">{{item.memberName}}</view>
+              <view class="tags">
+                <view class="tag" wx:for="{{item.artistType}}" wx:key="{{index}}">{{item}}</view>
+              </view>
+            </view>
+            <view class="down daka icon-unfold"></view>
+          </navigator>
+          <view class="findDetails">
+            <view class="text" wx:if="{{item.content}}">
+              {{item.content}}
+            </view>
+            <view class="imgList" wx:if="{{item.images.length}}">
+              <image class="imgItm" mode="aspectFill" wx:for="{{item.images}}" wx:for-item="itm" wx:key="{{index}}" src="{{itm}}" @tap="tap" data-id="1" data-urls="{{item.images}}" data-current="{{itm}}"></image>
+            </view>
+            <view class="timer">
+              {{item.month}}/{{item.day}}
+            </view>
+          </view>
+          <view class="findAction">
+            <button open-type="share" class="actionItem">分享</button>
+            <navigator class="actionItem" url="/pages/find/detail?id={{item.id}}">评论</navigator>
+            <view class="actionItem" @tap="tap" data-id="0" data-nid="{{item.id}}">点赞</view>
+            <navigator class="actionItem" url="/pages/find/pay?id={{item.id}}">打赏</navigator>
+          </view>
         </view>
-      </view>
-      <view class="down-icon daka icon-unfold"></view>
-    </navigator>
-    <navigator class="find-cont" url="/pages/find/detal?id={{item.id}}">
-      <view class="find-cont-text" wx:if="{{!!item.content}}">
-        <text>{{item.content}}</text>
-      </view>
-      <view class="find-cont-img">
-        <block wx:for="{{item.images ? item.images : ['/images/null.png','/images/null.png','/images/null.png','/images/null.png','/images/null.png','/images/null.png']}}" wx:key="{{index}}">
-          <image mode="aspectFit" src="{{item}}" data-images="{{findDetail[idx].images}}" data-image="{{item}}"></image>
-        </block>
-      </view>
-    </navigator>
-    <view class="up-time">{{item.month}}-{{item.day}}</view>
-    <view class="find-actions">
-      <button open-type="share" data-id="{{item.id}}" data-title="{{item.content}}" data-name="{{item.memberName}}" data-images="{{item.images}}" class="action-item daka icon-fenxiang2">
-        分享
-      </button>
-      <navigator class="action-item daka icon-comment" url="/pages/find/detail?id={{item.id}}">
-        评论
-      </navigator>
-      <view class="action-item daka icon-appreciate" data-id="{{item.id}}" @tap="dianzFn">
-        点赞
-      </view>
-      <navigator class="action-item daka icon-refund" url="/pages/find/pay?id={{item.id}}">
-        打赏
-      </navigator>
+      </block>
     </view>
+    <pagenull wx:if="{{!findList}}"></pagenull>
   </view>
 </template>
 <script>
 import wepy from "wepy";
+import {$post} from "../../mixins/base"
+import PageNull from "../../components/page-null"
 export default class Index extends wepy.page {
   data = {
-    findDetail: [] //动态详情
+    findList: null
   }
+
+  components = {
+    pagenull: PageNull
+  }
+
   methods = {
-    //点赞
-    dianzFn(e) {
-      //开启loading
-      wx.showLoading({
-        title: '发起请求中',
-        mask: true
-      });
-      console.log(this.$parent.globalData)
-      const {id} = e.target.dataset;//动态id
-      wx.request({
-        url: 'https://www.us800.cn/wechat!savePoint.action',
-        data: {
-          careerId: id ,//动态id
-          memberId: 1,  //用户id
-        },
-        header: {
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        success: function(res) {
-          wx.hideLoading();
-          wx.showToast({
-            title: '点赞成功',
-            icon: 'success',
-            duration: 2000
-          });
-          console.log(res.data)
-        }
-      })
+    tap(e) {
+      const _this = this;
+      const {id, nid, current, urls} = e.currentTarget.dataset;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
+      switch (id | 0) {
+        case 0:
+          _this.$dianzan(memberId, nid);
+          break;
+        case 1:
+          _this.$previewImage(current, urls);
+          break;
+      }
     }
   }
 
   onShow() {
-    console.log(this.$parent.globalData)
     var _this = this;
-    wx.showShareMenu({
-      withShareTicket: true
-    });
-    //开启loading
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    });
-    //拉取数据
-    wx.request({
-      url: 'https://www.us800.cn/async!gotCareer.action', //大咖秀列表(动态)
-      data: {},
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'POST',
-      success: function(res) {
-        console.log(res)
-        //关闭loading
-        wepy.hideLoading();
-        console.log(res.data);
-        _this.findDetail = res.data;
-        //转换为图片数组
-        for (var i = 0; i < _this.findDetail.length; i++) {
-          _this.findDetail[i].images = _this.findDetail[i].images.split("|");
-          _this.findDetail[i].content = decodeURI(_this.findDetail[i].content);
-          _this.findDetail[i].artistType =  !!_this.findDetail[i].artistType && _this.findDetail[i].artistType.split(",");
-        }
-        _this.$apply();
-      },
-      fail() {
-        wx.hideLoading();
-      }
-    });
+    //获取动态列表
+    _this.$getFindList();
   }
 
-  //转发设置
-  onShareAppMessage (e) {
-    const {id, title, images, name} = e.target.dataset;
-    console.log(images)
-    return {
-      title:  title ? title : `${name}发布了新动态快来看看吧！`,
-      path: `/pages/find/detail?id=${id}`,
-      imageUrl: images && images[0],
-      success: function(res) {
-        // 转发成功
-      },
-      fail: function(res) {
-        // 转发失败
+  //点赞
+  $dianzan(memberId, careerId) {
+    $post('/wechat!savePoint.action', {
+      memberId,  //用户id
+      careerId ,//动态id
+    }, true)
+    .then(data => {
+      wepy.showToast({
+        title: '点赞成功',
+        icon: 'success',
+        duration: 2000
+      });
+    })
+    .catch(err => {
+      wepy.showToast({
+        title: '点赞失败',
+        image: '/images/error.png',
+        duration: 2000
+      });
+    })
+  }
+
+  //获取动态列表
+  $getFindList() {
+    const _this = this;
+    $post('/async!gotCareer.action')
+    .then(data => {
+      _this.findList = data;
+      for (let i = 0; i <  data.length; i++) {
+         _this.findList[i].images =  !!data[i].images ? data[i].images.split("|") : [];
+         _this.findList[i].content = decodeURI(data[i].content);
+         _this.findList[i].artistType =  !!data[i].artistType && data[i].artistType.split(",");
       }
-    }
+      _this.$apply();
+    })
+  }
+
+  //图片预览
+  $previewImage(current, urls) {
+    wepy.previewImage({
+      current, // 当前显示图片的http链接
+      urls, // 需要预览的图片http链接列表
+    })
   }
 }
 </script>

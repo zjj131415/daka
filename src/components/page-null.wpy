@@ -1,0 +1,29 @@
+<style lang="less">
+  .pageNull {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .pageIcon {
+      padding-top: 100rpx;
+      font-size: 300rpx;
+      color: #d5d5d5;
+    }
+    .pageText {
+      margin-top: 40rpx;
+      font-size: 32rpx;
+      color: #666;
+    }
+  }
+</style>
+<template>
+  <view class="pageNull" wx:if="{{!findList}}">
+    <view class="pageIcon daka icon-empty-page-o"></view>
+    <view class="pageText">页面空空如也，什么都没有！</view>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  export default class PageNull extends wepy.component {
+  }
+</script>

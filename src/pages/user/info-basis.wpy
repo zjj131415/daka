@@ -1,121 +1,64 @@
 <style lang="less" scoped>
-  .cell {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 30rpx 20rpx;
-    font-size: 30rpx;
-    color: #666;
-    position: relative;
-    &::before {
-      content: " ";
-      position: absolute;
-      width: 100%;
-      left: 0;
-      bottom: 0;
-      border-top: 1px solid #dcdcdc;
-      color: #dcdcdc;
-      -webkit-transform: scaleY(.5);
-      -ms-transform: scaleY(.5);
-      transform: scaleY(.5);
+  .container {
+    .cells {
+      margin-bottom: 40rpx;
+      .cell:last-child::before {
+        content: none;
+      }
     }
-    .xing {
-      display: inline-flex;
-      align-items: center;
-      margin-right: 5rpx;
-      font-size: 32rpx;
-      color: #eb3c3c;
-    }
-    .input {
-      text-align: right;
-      margin-left: 10rpx;
-      font-size: 32rpx;
-      color: #d5d5d5;
-    }
-    .cell_bd {
-      flex: 1;
+    .cell {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      color: "#838383"
-    }
-    .cell_ft {
-      margin-left: 10rpx;
-      font-size: 32rpx;
-      color: #d5d5d5;
-    }
-  }
-  .u_img {
-    width: 80rpx;
-    height: 80rpx;
-    border-radius: 100%;
-    overflow: hidden;
-  }
-  .sub-btn {
-    margin: 20rpx;
-    outline: none;
-    background: #dc3b23;
-    color: #fff;
-  }
-  .character {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 2  ;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    .close {
-      font-size: 60rpx;
-      width: 70rpx;
-      height: 70rpx;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #dc3b23;
-    }
-    .charCont {
-      padding-top: 40rpx;
-    }
-    .charTit {
-      height: 30rpx;
-      display: flex;
-      align-items: center;
-      margin: 0 40rpx;
-      padding-left: 10rpx;
-      border-left: 4rpx solid #dc3b23;
-      font-size: 28rpx;
-      color: #333;
-    }
-    .charTags {
-      padding: 20rpx 30rpx 0 30rpx;
-      display: flex;
-      flex-wrap: wrap;
-      .tag {
+      box-sizing: border-box;
+      padding: 26rpx 20rpx;
+      position: relative;
+      background: #fff;
+      &::before {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        border-top: 1px solid #dcdcdc;
+        color: #dcdcdc;
+        -webkit-transform: scaleY(.5);
+        -ms-transform: scaleY(.5);
+        transform: scaleY(.5);
+      }
+      .cellHd {
         display: flex;
         align-items: center;
-        justify-content: center;
-        position: relative;
-        height: 50rpx;
-        padding: 0 20rpx;
-        margin: 10rpx;
-        border-radius: 10rpx;
-        border: 1px solid #dcdcdc;
-        font-size: 28rpx;
-        color: #878787;
-        .rm {
+        font-size: 30rpx;
+        color: #666;
+        .dec {
+          width: 18rpx;
+          height: 100%;
           display: flex;
           align-items: center;
-          justify-content: center;
-          width: 28rpx;
-          height: 28rpx;
+          font-size: 30rpx;
+          color: #dc3b23;
+        }
+      }
+      .cellBd {
+        flex: 1;
+      }
+      .cellFt {
+        font-size: 28rpx;
+        color: #666;
+        .headImg {
+          width: 90rpx;
+          height: 90rpx;
           border-radius: 100%;
-          background: #dcdcdc;
-          position: absolute;
-          right: -10rpx;
-          top: -12rpx;
-          font-size: 20rpx;
-          color: #5d5d5d;
+        }
+        .input {
+          width: 400rpx;
+          font-size: 30rpx;
+          color: #666;
+          text-align: right;
+        }
+        .picker {
+          width: 400rpx;
+          text-align: right;
         }
       }
     }
@@ -123,200 +66,263 @@
 </style>
 
 <template>
-  <view>
-    <form bindsubmit="formSubmit" >
+  <view class="container">
+    <form bindsubmit="submit">
       <view class="cells">
-        <view class="cell" @tap="uploadImg">
-          <view class="cell_hd">
-            <text class="xing">*</text>头像
+        <view class="cell" @tap="handleTap" data-id="0">
+          <view class="cellHd">
+            <text class="dec">*</text>
+            <text>头像</text>
           </view>
-          <view class="cell_bd">
-          </view>
-          <view class="cell_ft">
-            <image class="u_img" src="{{u_img}}"></image>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <image class="headImg" mode="aspectFill" src="{{upImg}}"></image>
           </view>
         </view>
-      </view>
-      <view class="cells">
-        <view class="cell" @tap="xingbie">
-          <view class="cell_hd">
-            <text class="xing">*</text>性别
-          </view>
-          <view class="cell_bd"></view>
-          <view class="cell_ft">
-            {{xingbie == 0 ? "男" : '女'}}
-          </view>
-        </view>
-      </view>
-      <view class="cells">
         <view class="cell">
-          <view class="cell_hd">
-            <text class="xing">*</text>所在地
+          <view class="cellHd">
+            <view class="dec">*</view>
+            <text>昵称</text>
           </view>
-          <view class="cell_bd"></view>
-          <view class="cell_ft">
-            <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
-              <view class="picker">
-               {{region[0]}} {{region[1]}} {{region[2]}}
-              </view>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <input class="input" name="name" placeholder="填写昵称" value="{{name}}" placeholder-style="color: #ccc"/>
+          </view>
+        </view>
+        <view class="cell" @tap="handleTap" data-id="1">
+          <view class="cellHd">
+            <text class="dec">*</text>
+            <text>性别</text></text>
+          </view>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            {{gender === 1 ? '男' : '女'}}
+          </view>
+        </view>
+        <view class="cell">
+          <view class="cellHd">
+            <text class="dec">*</text>
+            <text>所在地</text></text>
+          </view>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <picker class="picker" mode="region" bindchange="handleTap" data-id="2">
+              {{address === '选择所在地' ? address : (address[0] + ' ' + address[1] +' '+ address[2])}}
             </picker>
           </view>
         </view>
-      </view>
-      <view class="cells">
         <view class="cell">
-          <view class="cell_hd">
-           <text class="xing">*</text>身高
+          <view class="cellHd">
+            <text class="dec">*</text>
+            <text>身高</text></text>
           </view>
-          <view class="cell_bd">
-          </view>
-          <view class="cell_ft">
-            <picker @change="heightChange" value="{{personInfo.heights.index}}" range="{{personInfo.heights.height}}">
-              <view class="picker">
-                {{personInfo.heights.height[personInfo.heights.index]}}
-              </view>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <picker class="picker" mode="selector" range="{{heightList}}" valeu="{{heightValue}}" bindchange="handleTap"  data-id="3">
+              {{heightValue}}
             </picker>
           </view>
         </view>
-      </view>
-      <view class="cells">
         <view class="cell">
-          <view class="cell_hd">
-            <text class="xing">*</text>体重
+          <view class="cellHd">
+            <text class="dec">*</text>
+            <text>体重</text></text>
           </view>
-          <view class="cell_bd">
-          </view>
-          <view class="cell_ft">
-            <picker @change="weightChange" value="{{personInfo.weights.index}}" range="{{personInfo.weights.weight}}">
-              <view class="picker">
-                {{personInfo.weights.weight[personInfo.weights.index]}}
-              </view>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <picker class="picker" mode="selector" range="{{weightList}}" valeu="{{weightValue}}" bindchange="handleTap"  data-id="4">
+              {{weightValue}}
             </picker>
           </view>
         </view>
-      </view>
-      <view class="cells">
         <view class="cell">
-          <view class="cell_hd">
-            三围
+          <view class="cellHd">
+            <text class="dec"></text>
+            <text>三围</text></text>
           </view>
-          <view class="cell_bd">
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <picker class="picker" mode="multiSelector" range="{{[bustList,waistList,hipsList]}}" valeu="{{weightValue}}" bindchange="handleTap"  data-id="5">
+              {{bustValue === '选择三围' ? bustValue : bustList[bustValue] + ' ' + waistList[waistValue] + ' ' + hipsList[hipsValue]}}
+            </picker>
           </view>
-          <view class="cell_ft">
-            <picker mode="multiSelector" @change="measurementChange" value="{{personInfo.measurements.index}}" range="{{personInfo.measurements.measurement}}">
-            <view class="picker">
-              {{personInfo.measurements.measurement[0][personInfo.measurements.index[0]]}}-{{personInfo.measurements.measurement[1][personInfo.measurements.index[1]]}}-{{personInfo.measurements.measurement[2][personInfo.measurements.index[2]]}}
-            </view>
-          </picker>
+        </view>
+        <view class="cell">
+          <view class="cellHd">
+            <text class="dec"></text>
+            <text>毕业学校</text></text>
+          </view>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <input class="input" name="xueli" placeholder="毕业学校" value="{{xueli}}" placeholder-style="color: #ccc"/>
           </view>
         </view>
       </view>
-       <view class="cells">
-        <view class="cell">
-          <view class="cell_hd">
-            毕业学校
-          </view>
-          <view class="cell_bd">
-            
-          </view>
-          <view class="cell_ft">
-             <input class="input" placeholder-style="color: #d5d5d5" placeholder="毕业学校～"/>
-          </view>
+      <view class="fixedBtn">
+        <view class="fixedBtnGrounp">
+          <button class="btn" form-type="submit">
+            保存
+          </button>
         </view>
       </view>
-      <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
     </form>
   </view>
 </template>
 
 <script>
   import wepy from "wepy";
+  import {$post} from '../../mixins/base'
   export default class infoBasis extends wepy.page {
     config = {
-      navigationBarTitleText: '基本信息'
+      navigationBarTitleText: '修改基本信息'
     }
+
     data = {
-      subLoading: false,
-      u_img: "/images/dynamic.png",
-      region: ['广东省', '广州市', '海珠区'],
-      xingbie: 0,
-      upImg: '',
-      personInfo: {
-        heights: {
-          height: ['请选择', '100', '101', '102'],
-          index: 0
+      upImg: '/images/default.png',
+      head: '',
+      name: '',
+      gender: 1,
+      address: '选择所在地',
+      heightList: [100,101,102,103],
+      heightValue: '选择身高',
+      weightList: [100, 200],
+      weightValue: '选择体重',
+      bustList: [1,2,3,4,5],
+      bustValue: '选择三围',
+      waistList: [11,12,13,14],
+      waistValue: '',
+      hipsList: [22,23,24],
+      hipsValue: '',
+      xueli: ''
+    }
+
+    $uploadImg() {
+      const _this = this;
+      wepy.chooseImage({
+         count: 1, // 默认9
+         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+         success(res) {
+          const tempFilePaths = res.tempFilePaths;
+          wepy.showLoading({title: '图片上传中...'});
+          wepy.uploadFile({
+            url: 'https://www.us800.cn/plupload/upload.jsp', //上传图片地址
+            filePath: tempFilePaths[0],
+            name: 'file',
+            success: function(r){
+              wepy.hideLoading();
+              //上传成功改变data
+              const {data} = r;
+              _this.head = data.trim();
+              _this.upImg = tempFilePaths[0];
+              _this.$apply();
+            }
+          })
+         }
+      })
+    }
+
+    $changeGender() {
+      const _this = this;
+      const itemList = ['男', '女'];
+      wepy.showActionSheet({
+        itemList,
+        success(res) {
+          _this.gender = ++res.tapIndex;
+          _this.$apply();
         },
-        weights: {
-          weight: ['请选择', '100', '21', '22'],
-          index: 0
-        },
-        measurements: {
-          measurement: [['50', '51', '52'], ['40', '41', '42'], ['50', '51', '52', '53']],
-          index: [0, 0, 0]
+        fail(err) {
+          console.log(err)
         }
-      }
+      })
     }
     methods = {
-      uploadImg() {
+      //修改cell值
+      handleTap(e) {
         const _this = this;
-        wx.chooseImage({
-          count: 1, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-            var tempFilePaths = res.tempFilePaths;
-            _this.u_img = tempFilePaths[0];
-            _this.$apply();
-            wx.showLoading({
-              title: '图片上传中...',
-              mask: true
-            });
-            wx.uploadFile({
-              url: 'https://www.us800.cn/plupload/upload.jsp', //仅为示例，非真实的接口地址
-              filePath: tempFilePaths[0],
-              name: 'file',
-              success: function(r){
-                // var data = res.data
-                _this.performImg = r.data;
-                _this.$apply();
-                wx.hideLoading();
-                //do something
-              }
-            })
-          }
+        const {id} = e.currentTarget.dataset;
+        const {value} = e.detail;
+        switch (id | 0) {
+          case 0:
+            _this.$uploadImg();
+            break;
+          case 1:
+            _this.$changeGender();
+            break;
+          case 2:
+            _this.address = value;
+            break;
+          case 3:
+            _this.heightValue = _this.heightList[value];
+            break;
+          case 4:
+            _this.weightValue = _this.weightList[value];
+            break;
+          case 5:
+            _this.bustValue = value[0];
+            _this.waistValue = value[1];
+            _this.hipsValue = value[2];
+            break;
+        }
+        _this.$apply();
+      },
+      //提交表单
+      submit(e) {
+        const _this = this;
+        const {user} = _this.$parent.globalData;
+        const {memberId} = user || {};
+        const {name, xueli} = e.detail.value;
+        const {head, gender, address, heightValue, weightValue, bustList, bustValue, waistList, waistValue, hipsList, hipsValue} = _this.$data;
+        if (!name || address === '选择所在地' || heightValue === '选择身高' || weightValue === '选择体重' ) return (
+          wepy.showModal({
+            title: '提示',
+            content: '填写完整才能提交哦！',
+            showCancel: false
+          })
+        )
+        //提交数据
+        $post('/wechat!saveArtistBaseInfo.action', {
+          memberId,  //用户id
+          head,
+          name,
+          gender,
+          prov: address[0],
+          city: address[1],
+          county: address[2],
+          height: heightValue,
+          weight: weightValue,
+          bust: bustList[bustValue],
+          waist: waistList[waistValue],
+          hips: hipsList[hipsValue],
+          school: xueli,
+        }, true)
+        .then(data => {
+          //修改成功提示并且返回上一页
+          wepy.showToast({
+            title: '修改成功',
+            icon: 'success',
+            duration: 2000
+          });
+          setTimeout(wepy.navigateBack, 1000);
         })
-      },
-      bindRegionChange(e) {
-        this.region = e.detail.value;
-      },
-      formSubmit(e) {
-        // const self = this;
-        // self.subLoading = true;
-        // console.log(e)
-      },
-      xingbie() {
-        const self = this;
-        wx.showActionSheet({
-          itemList: ['男', '女'],
-          success: function(res) {
-            self.setData({
-              xingbie: res.tapIndex
-            })
-          },
-          fail: function(res) {
-            console.log(res.errMsg)
-          }
+        .catch(err => {
+          wepy.showToast({
+            title: '修改失败',
+            image: '/images/error.png',
+            duration: 2000
+          });
         })
-      },
-      heightChange(e) {
-        this.personInfo.heights.index = e.detail.value
-      },
-      weightChange(e) {
-        this.personInfo.weights.index = e.detail.value
-      },
-      measurementChange(e) {
-        this.personInfo.measurements.index = e.detail.value
       }
+    }
+
+    onLoad(e) {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {head, memberName, gender} = user || {}; 
+      _this.upImg = head ? head : '/images/default.png';
+      _this.name = memberName ? memberName : '';
+      _this.gender = gender ? (gender | 0) : 1;
+      _this.$apply();
     }
   }
 </script>

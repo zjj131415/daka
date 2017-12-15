@@ -76,7 +76,7 @@
         //如果用户信息不存在或者为null证明注册接口没有调用成功，调用登陆注册接口；
         if (!user && user === null) return $login();
         //如果用户没有验证手机和企业类型，跳转去注册页面验证；
-        if (user.memberType === 3 && !user.mobile) return wx.redirectTo({url: '/pages/user/login'});
+        if (user.memberType === 3 && !user.mobile) return wx.navigateTo({url: '/pages/user/login'});
         switch (id) {
           case 1:
             wx.navigateTo({url: './dynamic'});

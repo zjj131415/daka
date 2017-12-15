@@ -234,10 +234,10 @@
         <button open-type="share" class="action-item daka icon-fenxiang2">
           分享
         </button>
-        <view @tap="handleModal" data-id="0" class="action-item daka icon-comment">
+        <view @tap="tap" data-id="0" class="action-item daka icon-comment">
           评论
         </view>
-        <view class="action-item daka icon-appreciate" @tap="dianzFn" data-id="{{id}}">
+        <view class="action-item daka icon-appreciate" @tap="tap" data-id="4">
           点赞
         </view>
         <navigator class="action-item daka icon-refund" url="/pages/find/pay?id={{item.id}}">
@@ -265,169 +265,130 @@
     <view class="modalFixed {{shwoModal ? 'active' : ''}}">
       <view class="modal">
         <view class="modalHd">
-          <view @tap="handleModal" data-id="1" class="modal1">取消</view>
+          <view @tap="tap" data-id="1" class="modal1">取消</view>
           <view class="modal2">评论</view>
-          <view class="modal3" @tap="publish">发表</view>
+          <view class="modal3" @tap="tap" data-id="3">发表</view>
         </view>
          <view class="modalCont">
-           <textarea bindinput="handleModal" data-id="2" value="{{conText}}" placeholder="我也说一句..." />
+           <textarea bindinput="tap" data-id="2" value="{{conText}}" placeholder="我也说一句..." />
          </view>
       </view>
     </view>
+    <pagenull wx:if="{{!findList}}"></pagenull>
   </view>
 </template>
 
 <script>
-  import wepy from "wepy";
-  export default class FindeDetail extends wepy.page {
-    data = {
-      shwoModal: false,
-      conText: ''
-    }
-
-    methods = {
-      handleModal(e) {
-        const {id} = e.target.dataset;
-        const {value} = e.detail;
-        console.log(e)
-        switch (id | 0) {
-          case 0:
-            this.shwoModal = true;
-            break;
-          case 1:
-            this.shwoModal = false;
-            break; 
-          case 2:
-            this.conText = value;
-            break; 
-        }
-        this.$apply();
-      },
-      publish() {
-        const _this = this;
-        const {conText} = this.$data;
-        //开启loading
-        wx.showLoading({
-          title: '发起请求中',
-          mask: true
-        });
-        wx.request({
-          url: 'https://www.us800.cn/wechat!saveComment.action', //大咖秀列表(动态)
-          data: {
-            toMemberId: 1,//
-            fromMemberId: 2,//评论人id
-            content: conText//评论内容·
-          },
-          header: {
-            'content-type': 'application/x-www-form-urlencoded' // 默认值
-          },
-          success(res){
-            console.log(res)
-            //关闭loading
-            wepy.hideLoading();
-            //评论成功
-            if (res.data.result === "succ") {
-              _this.conText = '';
-              _this.shwoModal = false;
-              wx.showToast({
-                title: '评论成功',
-                icon: 'success',
-                duration: 2000
-              });
-            }
-            _this.$apply();
-          },
-          fail() {
-            wx.hideLoading();
-          }
-        });
-      },
-      //点赞
-      dianzFn(e) {
-        //开启loading
-        wx.showLoading({
-          title: '发起请求中',
-          mask: true
-        });
-        console.log(this.$parent.globalData)
-        const {id} = e.target.dataset;//动态id
-        wx.request({
-          url: 'https://www.us800.cn/wechat!savePoint.action',
-          data: {
-            memberId: 1,  //用户id
-          },
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          success: function(res) {
-            wx.hideLoading();
-            wx.showToast({
-              title: '点赞成功',
-              icon: 'success',
-              duration: 2000
-            });
-            console.log(res.data)
-          }
-        })
-      }
-    }
-
-    onload(e) {
-      console.log(312318318381);
-      return false;
-      //开启loading
-      wx.showLoading({
-        title: '发起请求中',
-        mask: true
-      });
-      //拉取论详情
-      wx.request({
-        url: 'https://www.us800.cn/async!gotCareerDetail.action', //大咖秀列表(动态)
-        data: {
-          careerId: e.id,//
-        },
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' // 默认值
-        },
-        success(res){
-          console.log(res)
-          //关闭loading
-          wepy.hideLoading();
-          //评论成功
-          if (res.data.result === "succ") {
-            _this.conText = '';
-            _this.shwoModal = false;
-            wx.showToast({
-              title: '评论成功',
-              icon: 'success',
-              duration: 2000
-            });
-          }
-          _this.$apply();
-        },
-        fail() {
-          wx.hideLoading();
-        }
-      });
-      wx.showShareMenu({
-        withShareTicket: true
-      });
-    }
-
-    //转发设置
-    onShareAppMessage (e) {
-      const {id} = e.target.dataset;
-      return {
-        title: '这个还没写完，没得数据啊，卧槽！',
-        path: `/pages/find/detail?id=${id}`,
-        success: function(res) {
-          // 转发成功
-        },
-        fail: function(res) {
-          // 转发失败
-        }
-      }
-    }
+import wepy from "wepy";
+import {$post} from "../../mixins/base"
+import PageNull from "../../components/page-null"
+export default class FindeDetail extends wepy.page {
+  data = {
+    shwoModal: false,
+    conText: ''
   }
+
+  components = {
+    pagenull: PageNull
+  }
+
+  methods = {
+    //点击事件
+    tap(e) {
+      const _this = this;
+      const {id} = e.target.dataset;
+      const {value} = e.detail;
+      switch (id | 0) {
+        //0:打开评论框
+        case 0:
+          _this.shwoModal = true;
+          break;
+        //1:关闭评论框
+        case 1:
+          _this.shwoModal = false;
+          break; 
+        //2:context
+        case 2:
+          _this.conText = value;
+          break;
+        //3:发布
+        case 3:
+          _this.$publis();
+          break;
+        //4:点赞
+        case 4:
+          _this.$dianzan();
+          break;
+      }
+      _this.$apply();
+    },
+  }
+
+  onLoad(e) {
+    const _this = this;
+    const {id} = e;
+    //加载详情
+    _this.$loadDetail(id);
+  }
+
+  //加载详情
+  $loadDetail(careerId) {
+    $post('/async!gotCareerDetail.action', {
+      careerId
+    })
+    .then(data => {
+      console.log(data)
+    }).catch(err => console.log(err))
+  }
+
+  //点赞（用户id， 动态id）
+  $dianzan(memberId, careerId) {
+    $post('/wechat!savePoint.action', {
+      memberId,  //用户id
+      careerId ,//动态id
+    }, true)
+    .then(data => {
+      wepy.showToast({
+        title: '点赞成功',
+        icon: 'success',
+        duration: 2000
+      });
+    })
+    .catch(err => {
+      wepy.showToast({
+        title: '点赞失败',
+        image: '/images/error.png',
+        duration: 2000
+      });
+    })
+  }
+  
+  //评论（动态id，评论人ID， 内容）
+  $publis() {
+    const _this =this;
+    $post('/wechat!saveComment.action', {
+      id: 1,//动态id
+      fromMemberId: memberId,//评论人id
+      content: conText//评论内容·
+    })
+    .then(data => {
+      wepy.showToast({
+        title: '评论成功',
+        icon: 'success',
+        duration: 2000
+      });
+      //评论成功重新加载数据
+      _this.$loadDetail(id);
+    })
+    .catch(err => {
+      //评论失败
+      wepy.showToast({
+        title: '点赞失败',
+        image: '/images/error.png',
+        duration: 2000
+      });
+    })
+  }
+}
 </script>
 

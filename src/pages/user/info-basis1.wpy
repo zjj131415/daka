@@ -1,238 +1,276 @@
 <style lang="less" scoped>
-  .cell {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 30rpx 20rpx;
-    font-size: 30rpx;
-    color: #666;
-    position: relative;
-    &::before {
-      content: " ";
-      position: absolute;
-      width: 100%;
-      left: 0;
-      bottom: 0;
-      border-top: 1px solid #dcdcdc;
-      color: #dcdcdc;
-      -webkit-transform: scaleY(.5);
-      -ms-transform: scaleY(.5);
-      transform: scaleY(.5);
-    }
-    .xing {
-      display: inline-flex;
-      align-items: center;
-      margin-right: 5rpx;
-      font-size: 32rpx;
-      color: #eb3c3c;
-    }
-    .input {
-      text-align: right;
-      margin-left: 10rpx;
-      font-size: 32rpx;
-      color: #d5d5d5;
-    }
-    .cell_bd {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      color: "#838383";
-      .textarea {
-        width: 100%;
+  .container {
+    .cells {
+      margin-bottom: 40rpx;
+      .cell:last-child::before {
+        content: none;
       }
     }
-    .cell_ft {
-      margin-left: 10rpx;
-      font-size: 32rpx;
-      color: #d5d5d5;
+    .cell {
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 26rpx 20rpx;
+      position: relative;
+      background: #fff;
+      &::before {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        border-top: 1px solid #dcdcdc;
+        color: #dcdcdc;
+        -webkit-transform: scaleY(.5);
+        -ms-transform: scaleY(.5);
+        transform: scaleY(.5);
+      }
+      .cellHd {
+        display: flex;
+        align-items: center;
+        font-size: 30rpx;
+        color: #666;
+        .dec {
+          width: 18rpx;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          font-size: 30rpx;
+          color: #dc3b23;
+        }
+      }
+      .cellBd {
+        flex: 1;
+      }
+      .cellFt {
+        font-size: 28rpx;
+        color: #666;
+        .headImg {
+          width: 90rpx;
+          height: 90rpx;
+          border-radius: 100%;
+        }
+        .input {
+          width: 400rpx;
+          font-size: 30rpx;
+          color: #666;
+          text-align: right;
+        }
+        .picker {
+          width: 400rpx;
+          text-align: right;
+        }
+      }
     }
-  }
-  .u_img {
-    width: 80rpx;
-    height: 80rpx;
-    border-radius: 100%;
-    overflow: hidden;
-  }
-  .sub-btn {
-    margin: 20rpx;
-    outline: none;
-    background: #dc3b23;
-    color: #fff;
-  }
-  .textarea {
-    width: 100%;
-    padding: 20rpx;
-    font-size: 30rpx;
-    background: #fff;
-    color: #d5d5d5;
-    box-sizing: border-box
+    .textarea {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 200rpx;
+      padding: 20rpx 30rpx;
+      background: #fff;
+      font-size: 30rpx;
+      color: #666;
+    }
   }
 </style>
 
 <template>
-  <view>
-    <form bindsubmit="formSubmit" >
+  <view class="container">
+    <form bindsubmit="submit">
       <view class="cells">
-        <view class="cell" @tap="uploadImg">
-          <view class="cell_hd">
-            <text class="xing">*</text>公司logo
+        <view class="cell" @tap="handleTap" data-id="0">
+          <view class="cellHd">
+            <text class="dec">*</text>
+            <text>公司logo</text>
           </view>
-          <view class="cell_bd">
-          </view>
-          <view class="cell_ft">
-            <image class="u_img" src="{{u_img}}"></image>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <image class="headImg" mode="aspectFill" src="{{upImg}}"></image>
           </view>
         </view>
-      </view>
-      <view class="cells">
         <view class="cell">
-          <view class="cell_hd">
-            <text class="xing">*</text>公司名称
+          <view class="cellHd">
+            <view class="dec">*</view>
+            <text>公司名称</text>
           </view>
-          <view class="cell_bd">
-
-          </view>
-          <view class="cell_ft">
-              <input class="input" placeholder-style="color: #d5d5d5" placeholder="公司名称"/>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <input class="input" name="name" placeholder="公司名称" value="{{name}}" placeholder-style="color: #ccc"/>
           </view>
         </view>
-      </view>
-      <view class="cells">
         <view class="cell">
-          <view class="cell_hd">
-            <tetx class="xing">*</tetx>简称
+          <view class="cellHd">
+            <view class="dec">*</view>
+            <text>公司简称</text>
           </view>
-          <view class="cell_bd">
-
-          </view>
-          <view class="cell_ft">
-              <input class="input" placeholder-style="color: #d5d5d5" placeholder="简称"/>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <input class="input" name="jianc" placeholder="公司简称" placeholder-style="color: #ccc"/>
           </view>
         </view>
-      </view>
-      <view class="cells">
         <view class="cell">
-          <view class="cell_hd">
-            <tetx class="xing">*</tetx>地址
+          <view class="cellHd">
+            <text class="dec">*</text>
+            <text>地址</text></text>
           </view>
-          <view class="cell_bd"></view>
-          <view class="cell_ft">
-            <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
-              <view class="picker">
-               {{region[0]}} {{region[1]}} {{region[2]}}
-              </view>
+          <view class="cellBd"></view>
+          <view class="cellFt">
+            <picker class="picker" mode="region" bindchange="handleTap" data-id="1">
+              {{address === '公司地址' ? address : (address[0] + ' ' + address[1] +' '+ address[2])}}
             </picker>
           </view>
         </view>
-      </view>
-      <view class="cells">
         <view class="cell">
-          <view class="cell_hd">
-            <text class="xing">*</text>公司简介
+          <view class="cellHd">
+            <text class="dec">*</text>
+            <text>公司简介</text></text>
           </view>
-          <view class="cell_bd">
-
-          </view>
-          <view class="cell_ft">
-              
+          <view class="cellBd"></view>
+          <view class="cellFt">
           </view>
         </view>
-        <textarea class="textarea" placeholder-style="color: #d5d5d5" placeholder="公司简介"/>
+        <textarea class="textarea" type="text" name="content" placeholder="公司简介" placeholder-style="color: #ccc" maxlength="-1"/>
       </view>
-      <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
+      <view class="fixedBtn">
+        <view class="fixedBtnGrounp">
+          <button class="btn" form-type="submit">
+            保存
+          </button>
+        </view>
+      </view>
     </form>
   </view>
 </template>
 
 <script>
   import wepy from "wepy";
-  export default class infoBasis1 extends wepy.page {
+  export default class infoBasis extends wepy.page {
     config = {
-      navigationBarTitleText: '基本信息'
+      navigationBarTitleText: '修改基本信息'
     }
+
     data = {
-      subLoading: false,
-      u_img: "/images/dynamic.png",
-      region: ['广东省', '广州市', '海珠区'],
-      xingbie: 0,
-      upImg: '',
-      personInfo: {
-        heights: {
-          height: ['请选择', '100', '101', '102'],
-          index: 0
-        },
-        weights: {
-          weight: ['请选择', '100', '21', '22'],
-          index: 0
-        },
-        measurements: {
-          measurement: [['50', '51', '52'], ['40', '41', '42'], ['50', '51', '52', '53']],
-          index: [0, 0, 0]
+      loading: false,
+      upImg: '/images/default.png',
+      head: '',
+      address: '公司地址'
+    }
+
+    $uploadImg() {
+      const _this = this;
+      wepy.chooseImage({
+         count: 1, // 默认9
+         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+         success(res) {
+          const tempFilePaths = res.tempFilePaths;
+          wepy.showLoading({title: '图片上传中...'});
+          wepy.uploadFile({
+            url: 'https://www.us800.cn/plupload/upload.jsp', //上传图片地址
+            filePath: tempFilePaths[0],
+            name: 'file',
+            success: function(r){
+              wepy.hideLoading();
+              //上传成功改变data
+              const {data} = r;
+              _this.head = data.trim();
+              _this.upImg = tempFilePaths[0];
+              _this.$apply();
+            }
+          })
+         }
+      })
+    }
+
+    methods = {
+      //修改cell值
+      handleTap(e) {
+        const _this = this;
+        const {id} = e.currentTarget.dataset;
+        const {value} = e.detail;
+        switch (id | 0) {
+          case 0:
+            _this.$uploadImg();
+            break;
+          case 1:
+            _this.address = value;
+            break;
         }
+        _this.$apply();
+      },
+      //提交表单
+      submit(e) {
+        const _this = this;
+        const {user} = _this.$parent.globalData;
+        const {memberId} = user || {};
+        const {name, jianc, content} = e.detail.value;
+        const {head, gender, address, heightValue, weightValue, bustList, bustValue, waistList, waistValue, hipsList, hipsValue} = _this.$data;
+        if (!name || address === '公司地址' || !jianc || !content) return (
+          wepy.showModal({
+            title: '提示',
+            content: '填写完整才能提交哦！',
+            showCancel: false
+          })
+        )
+        //开启loding
+        _this.loading = true;
+        _this.$apply();
+        //提交数据
+        wepy.request({
+          url: 'https://www.us800.cn/wechat!savePoint.action',
+          data: {
+            memberId,  //用户id
+            head,
+            name,
+            jianc,
+            prov: address[0],
+            city: address[1],
+            county: address[2],
+            content
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success(res) {
+            //修改失败
+            if (res.data.result === "err")  {
+              wepy.showToast({
+                title: '修改失败',
+                image: '/images/error.png',
+                duration: 2000
+              });
+              _this.loading = false;
+              _this.$apply();
+              return false;
+            }
+            //修改成功提示并且返回上一页
+            wepy.showToast({
+              title: '修改成功',
+              icon: 'success',
+              duration: 2000
+            });
+            setTimeout(wepy.navigateBack, 1000);
+          },
+          fail(err) {
+            wepy.showToast({
+              title: '修改失败',
+              image: '/images/error.png',
+              duration: 2000
+            });
+            _this.loading = false;
+            _this.$apply();
+          }
+        })
       }
     }
-    methods = {
-      uploadImg() {
-        const _this = this;
-        wx.chooseImage({
-          count: 1, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-            var tempFilePaths = res.tempFilePaths;
-            _this.u_img = tempFilePaths[0];
-            _this.$apply();
-            wx.showLoading({
-              title: '图片上传中...',
-              mask: true
-            });
-            wx.uploadFile({
-              url: 'https://www.us800.cn/plupload/upload.jsp', //仅为示例，非真实的接口地址
-              filePath: tempFilePaths[0],
-              name: 'file',
-              success: function(r){
-                // var data = res.data
-                _this.performImg = r.data;
-                _this.$apply();
-                wx.hideLoading();
-                //do something
-              }
-            })
-          }
-        })
-      },
-      bindRegionChange(e) {
-        this.region = e.detail.value;
-      },
-      formSubmit(e) {
-        // const self = this;
-        // self.subLoading = true;
-        // console.log(e)
-      },
-      xingbie() {
-        const self = this;
-        wx.showActionSheet({
-          itemList: ['男', '女'],
-          success: function(res) {
-            self.setData({
-              xingbie: res.tapIndex
-            })
-          },
-          fail: function(res) {
-            console.log(res.errMsg)
-          }
-        })
-      },
-      heightChange(e) {
-        this.personInfo.heights.index = e.detail.value
-      },
-      weightChange(e) {
-        this.personInfo.weights.index = e.detail.value
-      },
-      measurementChange(e) {
-        this.personInfo.measurements.index = e.detail.value
-      }
+
+    onLoad(e) {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {head, memberName, gender} = user || {}; 
+      _this.upImg = head ? head : '/images/default.png';
+      _this.name = memberName ? memberName : '';
+      _this.$apply();
     }
   }
 </script>

@@ -56,32 +56,6 @@
       color: #d5d5d5;
     }
   }
-  .flexBootomBtn {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    box-sizing: border-box;
-    background: #fff;
-    padding: 10rpx;
-    // border-top: 1px solid #dcdcdc;
-    .daka {
-      margin-right: 10rpx;
-      font-size: 32rpx;
-    }
-    .btnGrounp {
-      display: flex;
-      .btnGrounpItem {
-        padding: 10rpx;
-        flex: 1;
-      }
-    }
-    button {
-      font-size: 30rpx;
-      color: #ffffff;
-      background-color: #DB3B23;
-    }
-  }
 </style>
 
 <template>
@@ -110,11 +84,12 @@
         </navigator>
       </block>
     </view>
-    <view class="flexBootomBtn">
-      <view class="btnGrounp">
-        <view class="btnGrounpItem">
-          <button><text class="daka icon-jiabin"></text>发布</button>
-        </view>
+    <view class="fixedBtn">
+      <view class="fixedBtnGrounp">
+        <button class="btn" data-id="0">
+          <text class="daka icon-jiabin"></text>
+          发布主页
+        </button>
       </view>
     </view>
   </view>
@@ -177,7 +152,6 @@
     methods = {
       uploadImg() {
         const self = this;
-        
         wx.chooseImage({
           count: 9, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有

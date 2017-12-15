@@ -90,12 +90,6 @@
       font-size: 27rpx;
       color: #797979;
     }
-    .btn-wrap {
-      padding: 60rpx 30rpx 30rpx;
-      .btn {
-        background-color: #DC3A25;
-      }
-    }
   }
 </style>
 <template>
@@ -127,8 +121,12 @@
       <view class="rule">2.证件上信息/号码/住址需清晰可见</view>
       <view class="rule">3.照片大小5M以内</view>
     </view>
-    <view class="btn-wrap">
-      <button type="primary" class="btn">提交审核</button>
+    <view class="fixedBtn">
+      <view class="fixedBtnGrounp">
+        <button class="btn" form-type="submit">
+          保存
+        </button>
+      </view>
     </view>
   </view>
 </template>

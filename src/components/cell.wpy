@@ -1,0 +1,23 @@
+<style type="less">
+  .group {}
+</style>
+<template>
+  <view class="group" @tap="tap">  
+  dasdasd
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  export default class Group extends wepy.component {
+    props = {
+      grouplist: {},
+      index: {}
+    }
+
+    methods = {
+      tap () {
+        console.log(this.props)
+      }
+    }
+  }
+</script>

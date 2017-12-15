@@ -58,9 +58,10 @@
           // margin: 0 10rpx;
           font-size: 28rpx;
           color: #737373;
-          .daka {
-            font-size: 50rpx;
-            color: #E9989E;
+          .optionIcon {
+            width: 80rpx;
+            height: 80rpx;
+            margin-bottom: 20rpx;
           }
         }
       }
@@ -81,6 +82,7 @@
         width: 84rpx;
         height: 84rpx;
         margin-right: 18rpx;
+        border-radius: 100%;
       }
       .notice-top-info {
         position: relative;
@@ -171,15 +173,11 @@
     }
   }
 </style>
-
 <template>
   <view class="container">
     <view class="header-block">
-      <!--<scroll-view scroll-x class="scroll-head">-->
-        <!--<text class="scroll-view {{activeOption == index ? 'active' : '' }}" plain id="{{index}}" wx:for="{{optionList}}" wx:key="{{index}}" @tap="switchOption">{{item}}</text>-->
-      <!--</scroll-view>-->
       <swiper class="swiper" indicator-dots autoplay interval="5000" indicator-color="rgba(255,255,255, .3)" indicator-active-color="rgba(255, 0, 0, .6)">
-        <block wx:for="{{bannerArray}}" wx:key="index">
+        <block wx:for="{{bannerList}}" wx:key="index">
           <swiper-item class="swiper-item">
             <navigator url="{{item.url}}">
               <image src="{{item.image}}"></image>
@@ -191,32 +189,24 @@
     <swiper class="swiperMenu">
       <block wx:for="{{typeChoose}}" wx:key="index">
         <swiper-item class="menu">
-          <view class="option" wx:for="{{item}}" wx:key="index">
-            <view class="daka {{item.icon}}"></view>
-            {{item.value}}
+          <view class="option" wx:for="{{item}}" wx:key="index" data-name="{{item.title}}" @tap="chanegType">
+            <image class="optionIcon" src="{{item.icon}}"></image>
+            <view>{{item.title}}</view>
           </view>
         </swiper-item>
       </block>
     </swiper>
     <view class="notice-list">
       <block wx:for="{{notice}}" wx:key="{{index}}">
-        <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}&active=1">
+        <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}&active={{memberId == item.publishId ? '3' : '1'}}">
           <view class="notice-top-info">
             <view class="notice-img">
               <image src="{{item.image}}"></image>
             </view>
-            <!--<view class="notice-cover">-->
-              <!--<view class="tags">-->
-                <!--<block wx:fro="{{item.tags}}" wx:item="tag" wx:key="{{index}}">-->
-                  <!--<text class="tag-item">{{tag}}</text>-->
-                <!--</block>-->
-              <!--</view>-->
-              <!--<view class="title">{{item.title}}</view>-->
-            <!--</view>-->
           </view>
           <view class="notice-bottom">
             <view class="before">
-              <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+              <image class="before-img" src="{{item.head}}"></image>
               <view class="btn-title">
                 <view class="title">{{item.name}}</view>
                 <view class="message">
@@ -236,77 +226,83 @@
 </template>
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base";
   export default class Index extends wepy.page {
     data = {
-      optionList: ['全职招聘', '演绎活动', '剧组招聘', '婚庆招聘', '运动时尚', '兼职招聘'],
-      activeOption: 0,
-      bannerArray: [
-        {
-          image: 'https://m.360buyimg.com/mobilecms/s720x322_jfs/t10987/257/742226751/36437/9a4fa128/59df3c62Nefa5f69e.jpg!q70.jpg',
-          url: '/pages/user/home'
-        }, {
-          image: 'https://img1.360buyimg.com/da/jfs/t10744/133/1282383625/152573/9998e66d/59decd78N65b1c54a.jpg',
-          url: '/pages/user/home'
-        }, {
-          image: 'https://m.360buyimg.com/mobilecms/s720x322_jfs/t10987/257/742226751/36437/9a4fa128/59df3c62Nefa5f69e.jpg!q70.jpg',
-          url: '/pages/user/home'
-        }
-      ],
-      notice: [],
       typeChoose: [
         [
-          {value: '电商网红', icon: 'icon-wanghongmote'},
-          {value: '活动直播', icon: 'icon-zhibo'},
-          {value: '主持', icon: 'icon-zhuchiren'},
-          {value: '模特', icon: 'icon-icon-test'}
-        ],
-        [
-          {value: '歌舞表演', icon: 'icon-gewuyulechangsuofuzhi-copy'},
-          {value: '特技绝活', icon: 'icon-weibiaoti3'},
-          {value: '广告代言', icon: 'icon-daiyanren'},
-          {value: '礼仪', icon: 'icon-liyi'}
-        ],
-        [
-          {value: '配音', icon: 'icon-peiyin1'},
-          {value: '游戏私教', icon: 'icon-youxi'},
-          {value: 'K歌私教', icon: 'icon-quanminkge'},
-          {value: '摄影', icon: 'icon-sheying-'}
-        ],
-        [
-          {value: '戏曲', icon: 'icon-xiqu'},
-          {value: '节目嘉宾', icon: 'icon-jiabin'}
+          {id: null, title: '加载中', icon: '/images/null.png'}
         ]
+      ],
+      memberId: null,
+      notice: [],
+      bannerList: [
+        {
+          id: 'nll',
+          image: 'https://img1.360buyimg.com/da/jfs/t10744/133/1282383625/152573/9998e66d/59decd78N65b1c54a.jpg'
+        }
       ],
     };
 
     methods = {
-      switchOption(e) {
-        this.activeOption = e.target.id;
-      },
+      chanegType(e) {
+        const _this = this;
+        const {name} = e.currentTarget.dataset || '';
+        _this.$loadingNotice(name);
+      }
     }
-    onLoad() {
-      var _this = this;
-      //开启loading
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      });
-      wx.request({
-        url: 'https://www.us800.cn/wechat!gotBooking.action', //所有通告
-        data: {},
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function(res) {
-          //关闭loading
-          wepy.hideLoading();
-          _this.notice = res.data;
+
+    onShow() {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
+      _this.memberId = memberId;
+      //获取banner
+      _this.$loadBaner();
+      //获取一级分类
+      _this.$loadTypes();
+      //加载数据,参数为空代表所有数据；
+      _this.$loadingNotice('');
+    }
+
+    //一级分类
+    $loadTypes() {
+      const _this = this;
+      $post('/async!gotNoticeType.action')
+      .then(data => {
+        const newArray = [];
+        if (data instanceof Array) {
+          for (let i = 0; i < data.length; i+=4) {
+            newArray.push(data.slice(i,i+4));
+          }
+          _this.typeChoose = newArray;
           _this.$apply();
-        },
-        fail() {
-          wx.hideLoading();
         }
-      });
+      })
+    }
+
+    //banner图
+    $loadBaner() {
+      const _this = this;
+      $post('/wechat!gotAdvert.action', {
+        position: 2,
+      })
+      .then(data => {
+        _this.bannerList = data;
+        _this.$apply();
+      })
+    }
+
+    //加载通告列表
+    $loadingNotice(activeTypeId) {
+      const _this = this;
+      $post('/wechat!gotBooking.action', {
+        firstArtistTypeId: activeTypeId,
+      }, true)
+      .then(data => {
+        _this.notice = data;
+        _this.$apply();
+      })
     }
   }
 </script>

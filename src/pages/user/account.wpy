@@ -92,7 +92,7 @@
   <view class="container">
     <view class="header">
       <view class="description">余额账户（元）</view>
-      <view class="balance">385.00</view>
+      <view class="balance">{{detail.balance}}</view>
     </view>
     <view class="cells">
       <navigator class="cell-link" url="/pages/user/recharge">
@@ -118,41 +118,57 @@
       <!--</navigator>-->
     </view>
     <view class="detail-title">支付明细</view>
-    <block wx:for="{{detail}}" wx:key="{{key}}">
-      <view class="detail">
-        <view class="transaction">
-          <view class="type">{{item.type}}</view>
-          <view class="date">{{item.date}}</view>
+      <block wx:for="{{detail.items}}" wx:key="{{index}}">
+        <view class="detail">
+          <view class="transaction">
+            <view class="type">{{item.desc}}</view>
+            <view class="date">{{item.time}}</view>
+          </view>
+          <view class="money">
+            <view class="balance"> </view>
+            <view class="charge">{{item.amount}}</view>
+          </view>
         </view>
-        <view class="money">
-          <view class="balance">余额：{{item.balance}}</view>
-          <view class="charge">{{item.charge}}</view>
-        </view>
-      </view>
-    </block>
-  </view>
+      </block>
+    </view>
 </template>
 
 <script>
   import wepy from "wepy";
-
+  import {$post} from '../../mixins/base'
   export default class Account extends wepy.page {
     config = {
-      navigationBarTitleText: '余额'
+      navigationBarTitleText: '我的账户'
     }
     data = {
-      userInfo: {},
-      detail: [
-        {type: '转账', date: '2017-10-10', balance: '0.00', charge: '-197.33'},
-        {type: '转账', date: '2017-10-10', balance: '197.33', charge: '-802.37'},
-        {type: '转账', date: '2017-10-10', balance: '1000.00', charge: '-2000.00'},
-        {type: '在线支付', date: '2017-10-10', balance: '3000.00', charge: '+3000.00'}
-      ]
+      detail: {
+        items: []
+      }
     }
     methods = {
       tabList(e) {
         this.activeIndex = e.target.id;
       }
+    }
+
+    onLoad() {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
+      //加载数据
+      _this.$loadInfo(memberId)
+    }
+
+    //加载数据
+    $loadInfo(memberId) {
+      const _this = this;
+      $post('/wechat!gotFee.action', {
+        memberId
+      }, true)
+      .then(data => {
+        _this.detail = data;
+        _this.$apply();
+      })
     }
   }
 </script>

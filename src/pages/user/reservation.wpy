@@ -1,0 +1,319 @@
+<style lang="less" scoped>
+  .container {
+    .prejectList {
+      .prejectItem {
+        display: block;
+        padding: 20rpx 0;
+        margin-bottom: 20rpx;
+        background: #fff;
+        .title {
+          padding: 0 20rpx;
+          font-size: 32rpx;
+          color: #333;
+          .count {
+            display: inline-flex;
+            width: 34rpx;
+            height: 34rpx;
+            margin-right: 10rpx;
+            background: #dc3b23;
+            color: #fff;
+            font-size: 28rpx;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+          }
+        }
+        .cellList {
+          padding: 0 20rpx;
+          .cell {
+            display: flex;
+            align-items: center;
+            padding: 8rpx 0;
+            font-size: 30rpx;
+            color: #8a8a8a;
+            .cellHd {
+              margin-right: 10rpx;
+              font-size: 32rpx;
+              color: #8a8a8a;
+            }
+            .cellFt {
+              color: #545454;
+            }
+          }
+        }
+        .actions {
+          .btns {
+            display: flex;
+            margin-top: 20rpx;
+            .btn {
+              flex: 1; 
+              height: 80rpx;
+              margin: 0 20rpx;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              outline: none;
+              background: #ccc;
+              font-size: 32rpx;
+              color: #fff;
+              // &.resolve {
+              //   background: #e84a3c;
+              // }
+              // &.reject {
+              //   background: #d1d5d8;
+              // }
+            }
+          }
+          .status {
+            height: 80rpx;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10rpx;
+            margin: 20rpx 20rpx 0 20rpx;
+            background: #ccc;
+            font-size: 32rpx;
+            color: #fff;
+          }
+        }
+      }
+    }
+    .modalBox{
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 20;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .5);
+      .modal {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 20;
+        width: 100%;
+        background: #fff;
+        box-sizing: border-box;
+        overflow: hidden;
+        padding: 50rpx 20rpx;
+        &::after {
+          position: absolute;
+          left: 0;
+          top: 0;
+          content: ' ';
+          width: 200%;
+          border-bottom: 1px solid #dcdcdc;
+          transform: scaleY(.6);
+        }
+        .radioGroup {
+          .radio {
+            height: 80rpx;
+            display: flex;
+            margin: 10rpx 0;
+            align-items: center;
+            color: #666;
+            font-size: 30rpx;
+          }
+        }
+        .inputBox {
+          display: flex;
+          height: 70rpx;
+          margin: 10rpx 0;
+          padding-left: 58rpx;
+          align-items: center;
+          font-size: 30rpx;
+          color: #666;
+          .fuhao {
+            font-size: 34rpx;
+            margin-right: 10rpx;
+          }
+          .input {
+            height: 60rpx;
+            padding: 0 20rpx;
+            border-radius: 6rpx;
+            border: 1px solid #dcdcdc;
+          }
+        }
+        .actions {
+          margin-top: 40rpx;
+          display: flex;
+          .btn {
+            flex:1;
+            height:80rpx;
+            margin:0 20rpx;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            outline:none;
+            background:#ccc;
+            font-size:32rpx;
+            color:#fff;
+            &.resolve {
+              background: #dc3b23;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="prejectList">
+      <block wx:for="{{prejectList}}" wx:key="{{index}}">
+        <view class="prejectItem">
+          <view class="title">项目{{index}}</view>
+          <view class="cellList">
+            <view class="cell">
+              <view class="cellHd daka icon-locationfill"></view>
+              <view class="cellBd">工作地点：</view>
+              <view class="cellFt">重庆 大渡口 久存</view>
+            </view>
+            <view class="cell">
+              <view class="cellHd daka icon-timefill"></view>
+              <view class="cellBd">开始时间：</view>
+              <view class="cellFt">2015/3/20 12:00:01</view>
+            </view>
+            <view class="cell">
+              <view class="cellHd daka icon-timefill"></view>
+              <view class="cellBd">结束时间：</view>
+              <view class="cellFt">2015/3/20 12:00:01</view>
+            </view>
+            <view class="cell">
+              <view class="cellHd daka icon-apps"></view>
+              <view class="cellBd">活动内容：</view>
+              <view class="cellFt">内容</view>
+            </view>
+          </view>
+          <view class="actions">
+            <view class="btns">
+              <button class="btn resolve" data-id="0" data-val="0" @tap="tap">同意</button>
+              <button class="btn reject" data-id="1" data-val="0" @tap="tap">放弃</button>
+            </view>
+            <view class="status">
+              已付款
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="modalBox" wx:if="{{showModal}}">
+      <view class="modal"> 
+        <form class="" bindsubmit="submit">
+          <radio-group class="radioGroup" data-id="4" bindchange="tap">
+            <label class="radio" wx:for="{{radioList}}" wx:key="{{index}}">
+              <radio value="{{item.value}}" checked="{{item.value == radio}}" color="#dc3b23"/>{{item.text}}
+            </label>
+          </radio-group>
+          <view class="inputBox">
+            合作价格：<text class="fuhao">¥</text><input class="input" value="{{money}}" data-id="3" bindinput="tap" placeholder="输入价格" type="number"/>
+          </view>
+          <view class="actions">
+            <button class="btn" formType="reset" data-id="2" @tap="tap">取消</button>
+            <button class="btn resolve" formType="submit">确认</button>
+          </view>
+        </form>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from "wepy";
+import {$post} from "../../mixins/base";
+export default class Reservation extends wepy.page {
+  config = {
+    navigationBarTitleText: '项目预约'
+  }
+
+  data = {
+    prejectList: [1,2,4],
+    radioList: [
+      {
+        id: 1,
+        text: '需预付演出费，平台担保结算',
+        value: 1
+      }, {
+        id: 2,
+        text: '不需预付演出费，现场结算',
+        value: 2
+      }
+    ],
+    checkeId: '',
+    radio: '',
+    money: '',
+    showModal: false
+  }
+
+  methods = {
+    submit(e) {
+      const _this = this;
+      const {checkeId, money, radio} = _this.$data;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
+      if (!money || !radio || !checkeId) return (
+        wepy.showModal({
+          title: '提示',
+          content: '填写完整才能提交哦！',
+          showCancel: false
+        })
+      );
+      //发起请求
+      $post('/fsfsd', {
+        memberId,
+        checkeId,
+        money,
+        radio
+      }, true)
+      .then(data => {
+
+      })
+    },
+    tap(e) {
+      const _this = this;
+      const {id, val} = e.currentTarget.dataset;
+      const {value} = e.detail;
+      switch (id | 0) {
+        //0:同意
+        case 0:
+          _this.showModal = true;
+          _this.checkeId = val;
+          break;
+        //1:放弃(value: 项目id)
+        case 1:
+          _this.$reject(val);
+          break;
+        //2:modai取消按钮,关闭modal并清空checkeId；
+        case 2:
+          _this.showModal = false;
+          _this.checkeId = '';
+          _this.money = '';
+          _this.radio = '';
+          break;
+        //3:改变输入框值
+        case 3:
+          _this.money = value;
+          break;
+        //4:radio
+        case 4:
+          _this.radio = value;
+          break;
+      }
+      _this.$apply();
+    }
+  }
+
+  $reject(id) {
+    const _this = this;
+    console.log(id)
+    $post('/fsfsd', {
+
+    }, true)
+    .then(data => {
+      console.log(data)
+    })
+  }
+
+}
+</script>
+
+

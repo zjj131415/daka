@@ -135,43 +135,47 @@
       color: #666;
       font-size: 80rpx;
     }
-    .sub-btn {
-      outline: none;
-      background: #dc3b23;
-      color: #fff;
-    }
   }
 </style>
 <template>
   <view>
      <view class="character">
-      <view class="charCont">
-        <view class="charTit">我的角色</view>
-        <view class="charTags">
-          <block wx:for="{{selectChar}}" wx:key="index">
-            <view class="tag">
-              {{item.name}}
-              <text
-                class="rm"
-                data-index="{{index}}"
-                data-text="item"
-                @tap="rmTag">×</text>
-            </view>
-          </block>
+      <form bindsubmit="submit">
+        <view class="charCont">
+          <view class="charTit">我的角色</view>
+          <view class="charTags">
+            <block wx:for="{{selectChar}}" wx:key="index">
+              <view class="tag">
+                {{item.name}}
+                <text
+                  class="rm"
+                  data-index="{{index}}"
+                  data-text="item"
+                  @tap="rmTag">×</text>
+              </view>
+            </block>
+          </view>
         </view>
-      </view>
-      <view class="charCont">
-        <view class="charTit">自定义角色</view>
-        <view class="inptu-btn"> <input class="input" placeholder="如: 美工 建筑师"/><view class="addbtn daka icon-zengjia" @tap="addCharacter"></view></view>
-      </view>
-      <view class="charCont">
-        <view class="charTit">演艺角色</view>
-        <view class="charTags">
-          <block wx:for="{{character}}" wx:key="index">
-            <view @tap="showModal" class="tag {{true ? '12' : '55'}}">{{item.name}}</view>
-          </block>
+        <view class="charCont">
+          <view class="charTit">自定义角色</view>
+          <view class="inptu-btn"> <input class="input" placeholder="如: 美工 建筑师"/><view class="addbtn daka icon-zengjia" @tap="addCharacter"></view></view>
         </view>
-      </view>
+        <view class="charCont">
+          <view class="charTit">演艺角色</view>
+          <view class="charTags">
+            <block wx:for="{{character}}" wx:key="index">
+              <view @tap="showModal" class="tag {{true ? '12' : '55'}}">{{item.name}}</view>
+            </block>
+          </view>
+        </view>
+        <view class="fixedBtn">
+          <view class="fixedBtnGrounp">
+            <button class="btn" form-type="submit">
+              保存
+            </button>
+          </view>
+        </view>
+      </form>
       <view class="sub-tags-box" wx:if="{{modal}}">
         <view class="sub-tags">
           <view class="tag">1级演员</view>
@@ -185,15 +189,13 @@
         </view>
         <view @tap="hideModal" class="close daka icon-chafuben"></view>
       </view>
-      <view class="btnBox">
-        <button class="sub-btn"  loading="{{subLoading}}" formType="submit">保存</button>
-      </view>
     </view>
   </view>
 </template>
 
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base"
   export default class infoCharcter extends wepy.page {
     config = {
       navigationBarTitleText: '角'
@@ -252,8 +254,32 @@
       hideModal() {
         this.modal = false;
       },
-      addCharacter(e) {
-        console.log(e)
+      submit(e) {
+        const _this = this;
+        const {user} = _this.$parent.globalData;
+        const {memberId} = user || {};
+        //提交数据
+        $post('/wechat!saveArtistType.action', {
+          memberId,
+          secondArtistTypeIds: '121,122,137',
+          customType: '大大'
+        }, true)
+        .then(data => {
+          //修改成功提示并且返回上一页
+          wepy.showToast({
+            title: '修改成功',
+            icon: 'success',
+            duration: 2000
+          });
+          setTimeout(wepy.navigateBack, 1000);
+        })
+        .catch(err => {
+          wepy.showToast({
+            title: '修改失败',
+            image: '/images/error.png',
+            duration: 2000
+          });
+        })
       }
     }
   }

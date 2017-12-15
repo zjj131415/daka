@@ -1,0 +1,128 @@
+<style lang="less" scoped>
+  .container {
+    .head {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40rpx 0;
+      .headIm {
+        width: 120rpx;
+        height: 120rpx;
+        border-radius: 16rpx;
+      }
+      .version {
+        margin-top: 10rpx;
+        font-size: 28rpx;
+        color: #666;
+      }
+    }
+    .cells {
+      padding: 0 20rpx;
+      margin-bottom: 40rpx;
+      background: #fff;
+      .cell {
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 26rpx 0;
+        position: relative;
+        background: #fff;
+        &:last-child::before {
+          content: none;
+        }
+        &::before {
+          content: " ";
+          position: absolute;
+          width: 100%;
+          left: 0;
+          bottom: 0;
+          border-top: 1px solid #dcdcdc;
+          color: #dcdcdc;
+          -webkit-transform: scaleY(.5);
+          -ms-transform: scaleY(.5);
+          transform: scaleY(.5);
+        }
+        .cellHd {
+          display: flex;
+          align-items: center;
+          font-size: 28rpx;
+          color: #282828;
+        }
+        .cellBd {
+          flex: 1;
+        }
+        .cellFt {
+          font-size: 36rpx;
+          color: #dedede;
+        }
+      }
+    }
+    .copy {
+      position: absolute;
+      bottom: 40rpx;
+      left: 0;
+      width: 100%;
+      font-size: 26rpx;
+      color: #676767;
+      text-align: center;
+      .text {
+        height: 32rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="head">
+      <image class="headIm" mode="aspectFill" src="/images/logo.jpg"></image>
+      <text class="version">大咖 v1.0.0</text>
+    </view>
+    <view class="cells">
+      <view class="cell">
+        <view class="cellHd">官网www.baidu.com</view>
+        <view class="cellBd"></view>
+        <view class="cellFt daka icon-right"></view>
+      </view>
+      <view class="cell">
+        <view class="cellHd">官网www.baidu.com</view>
+        <view class="cellBd"></view>
+        <view class="cellFt daka icon-right"></view>
+      </view>
+    </view>
+    <view class="cells">
+      <view class="cell">
+        <view class="cellHd">官网www.baidu.com</view>
+        <view class="cellBd"></view>
+        <view class="cellFt daka icon-right"></view>
+      </view>
+      <view class="cell">
+        <view class="cellHd">官网www.baidu.com</view>
+        <view class="cellBd"></view>
+        <view class="cellFt daka icon-right"></view>
+      </view>
+      <view class="cell">
+        <view class="cellHd">官网www.baidu.com</view>
+        <view class="cellBd"></view>
+        <view class="cellFt daka icon-right"></view>
+      </view>
+    </view>
+    <view class="copy">
+      <view class="text">大咖秀（重庆）网络科技有限公司 版权所有</view>
+      <view class="text">Copyright © 2012-2017 Tencent. All Rights Reserved.</view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from "wepy";
+export default class Service extends wepy.page  {
+  config = {
+      navigationBarTitleText: '关于我们'
+  }
+}
+</script>
+
+

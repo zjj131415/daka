@@ -1,6 +1,6 @@
 <style lang="less" scoped>
   .container {
-    padding-bottom: 110rpx;
+    padding-bottom: 140rpx;
     .head {
       padding: 0 20rpx 20rpx 20rpx;
       background-color: #ffffff;
@@ -276,7 +276,7 @@
           <view class="btn-title">
             <view class="aaa-title">{{detail.name}}</view>
             <view class="message">
-              <view class="name">{{detail.contactPerson}}</view>
+              <view class="name">{{detail.publisherName}}</view>
               <view class="after">
                 <text class="people">{{detail.createTime}}发布</text>
                 <!--<text class="timer">12-32截止</text>-->
@@ -292,9 +292,7 @@
       </view>
       <view class="tag">
         <text class="daka icon-leixing"></text>
-        <text class="address">通告类型</text>
-        <text class="movies">影视组讯</text>
-        <text class="movies">设备组讯</text>
+        <text class="movies">{{detail.artistTypes}}</text>
       </view>
       <view class="tag">
         <text class="daka icon-timefill"></text>
@@ -313,7 +311,7 @@
         <text class="address">已报名</text>
         <text class="city">{{detail.count}}人</text>
       </view>
-      <scroll-view class="avatar-group" scroll-x>
+      <scroll-view class="avatar-group" scroll-x wx:if="{{detail.heads}}">
         <block wx:for="{{detail.heads}}" wx:key="{{index}}">
           <image class="avatar" src="{{item}}"></image>
         </block>
@@ -327,28 +325,43 @@
       <view class="describe">
         <text class="word">{{detail.content}}</text>
         <view class="footer">
-          <view class="word">来源：第三方平台</view>
+          <!-- <view class="word">来源：第三方平台</view> -->
           <!-- <view class="word">联系我时，请说是在红演圈上看到的，谢谢！</view> -->
           <view class="word tip">温馨提示：如果涉及交费要求，请谨慎识别</view>
         </view>
       </view>
     </view>
-    <view class="release" wx:if="{{active == 1}}">
+    <!-- <view class="release" wx:if="{{active == 1}}">
       <view class="btn" @tap="sginUp">
         <text class="baoming daka icon-woyaobaoming"></text>
         <view>我要报名</view>
       </view>
-    </view>
-    <navigator wx:if="{{active == 3}}" class="release" url="/pages/user/sign-up">
       <view class="btn" @tap="sginUp">
         <text class="baoming daka icon-chakan"></text>
-        <view>查看报名</view>
+        <view>分享朋友圈</view>
       </view>
-    </navigator>
+    </view> -->
+    <view class="fixedBtn" wx:if="{{active == 3}}">
+      <view class="fixedBtnGrounp">
+        <button class="btn" @tap="tap" data-id="0" data-nid="{{detail.id}}">
+          <text class="daka icon-chakan"></text>
+          查看报名
+        </button>
+      </view>
+    </view>
+    <view class="fixedBtn" wx:if="{{active == 1}}">
+      <view class="fixedBtnGrounp">
+        <button class="btn" @tap="tap" data-id="1" data-nid="{{detail.id}}">
+          <text class="daka icon-woyaobaoming"></text>
+          我要报名
+        </button>
+      </view>
+    </view>
   </view>
 </template>
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base"
   export default class Detail extends wepy.page {
     config = {
       navigationBarTitleText: '通告详情'
@@ -356,74 +369,79 @@
     data = {
       active: 1,
       detail: {},
-      optionList: ['全职招聘', '演绎活动', '剧组招聘', '婚庆招聘', '运动时尚', '兼职招聘'],
-      avatars: [
-        '../../images/avatar/avatar1.jpg',
-        '../../images/avatar/avatar2.jpg',
-        '../../images/avatar/avatar3.jpg',
-        '../../images/avatar/avatar1.jpg',
-        '../../images/avatar/avatar2.jpg',
-        '../../images/avatar/avatar3.jpg',
-        '../../images/avatar/avatar1.jpg',
-        '../../images/avatar/avatar2.jpg',
-        '../../images/avatar/avatar3.jpg'
-      ]
     };
 
     methods = {
-      sginUp() {
+      tap(e) {
+        console.log(e)
         const _this = this;
-        wx.request({
-          url: 'https://www.us800.cn/wechat!saveArtistNotice.action', //通告报名
-          data: {
-            bookingId: _this.detail.id,
-            artistId: 300
-          },
-          header: {
-            'content-type': 'application/json' // 默认值
-          },
-          success: function(res) {
-            console.log(res);
-            if (res.data.result === 'err') return console.log('报名失败');
-            if (res.data.result === 'succ') return console.log('报名成功');
-            if (res.data.result === 'exist') return console.log('已报名');
-          },
-          fail() {
-            wx.hideLoading();
-          }
-        });
+        const {id, nid} = e.currentTarget.dataset;
+
+        switch (id | 0) {
+          case 0:
+            wepy.navigateTo({url: `/pages/user/sign-up?id=${nid}`});
+            break;
+          case 1:
+            _this.$sginUp(nid);
+            break;
+        }
       }
     };
+
     onLoad(e) {
       const _this = this;
       const {id, active} = e;
       _this.active = active;
-      //开启loading
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      });
-      wx.request({
-        url: 'https://www.us800.cn/wechat!gotBookingDetail.action', //通告详情
-        data: {
-          bookingId: id
-        },
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function(res) {
-          //关闭loading
-          wepy.hideLoading();
-          _this.detail = res.data;
-          console.log(_this.detail.heads);
-          _this.detail.heads = _this.detail.heads.split(",");
-          //console.log(_this.detail.heads);
-          _this.$apply();
-        },
-        fail() {
-          wx.hideLoading();
+      //加载详情
+      _this. $loadDetail(id);
+    }
+
+    //报名
+    $sginUp(id) {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
+      $post('/wechat!saveArtistNotice.action', {
+        artistId: memberId,
+        bookingId: id
+      }, true)
+      .then(data => {
+        if (data.result === 'succ') {
+          wepy.showToast({
+            title: '报名成功',
+            icon: 'success',
+            duration: 2000
+          });
+          _this.$loadDetail(id);
         }
-      });
+        if (data.result === 'exist') {
+          wepy.showToast({
+            title: '已报名',
+            icon: 'success',
+            duration: 2000
+          });
+        }
+      })
+      .catch(err => {
+        wepy.showToast({
+          title: '报名失败',
+          icon: 'success',
+          duration: 2000
+        });
+      })
+    }
+
+    //加载详情
+    $loadDetail(id) {
+      const _this = this;
+      $post('/wechat!gotBookingDetail.action', {
+        bookingId: id
+      }, true)
+      .then(data => {
+        _this.detail = data;
+        _this.detail.heads = _this.detail.heads.split(",");
+        _this.$apply();
+      })
     }
   }
 </script>

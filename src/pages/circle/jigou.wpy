@@ -1,0 +1,36 @@
+<style lang="less" scoped>
+  .container {
+    .perList {
+      .perItem {
+
+        background: #fff;
+        // .head {
+        //   width: ;
+        // }
+      }
+    }
+  }
+</style>
+<template>
+  <view class="container">
+     <view class="perList">
+      <view class="perItem">
+        <image class="head" src="https://wx.qlogo.cn/mmopen/vi_32/eRDsVfuFyb7dbibKjCS71K6lia5vUNxLpQfbGuxxwPicBJnO97nQJLwAbZGVeYF5kRGibaX91KthZu51tzE66ghRsQ/0"></image>
+        <view class="nameAddres">阿里巴巴<text class="addres">重庆</text></view>
+        <view class="tags">
+          <view class="tag">演员</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+import wepy from "wepy";
+export default class Jigou extends wepy.page {
+  data = {
+    name: 'ss'
+  }
+}
+</script>
+
+
