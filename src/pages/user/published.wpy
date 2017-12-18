@@ -103,32 +103,23 @@
 </style>
 <template>
   <view class="container">
-    <view class="notice-list">
-      <block wx:for="{{notice}}" wx:key="{{index}}">
-        <navigator class="notice-item" url="/pages/notice/detail?active=3">
+    <view class="notice-list" wx:if="{{publishLis.length > 0}}">
+      <block wx:for="{{publishLis}}" wx:key="{{index}}">
+        <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}active=3">
           <view class="notice-top-info">
             <view class="notice-img">
-              <image src="{{item.image}}"></image>
+              <image src="{{item.image ? item.image : '/images/null.jpg'}}"></image>
             </view>
-            <!--<view class="notice-cover">-->
-              <!--<view class="tags">-->
-                <!--<block wx:fro="{{item.tags}}" wx:item="tag" wx:key="{{index}}">-->
-                  <!--<text class="tag-item">{{tag}}</text>-->
-                <!--</block>-->
-              <!--</view>-->
-              <!--<view class="title">{{item.title}}</view>-->
-            <!--</view>-->
           </view>
           <view class="notice-bottom">
             <view class="before">
-              <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+              <image class="before-img" src="/images/default.png"></image>
               <view class="btn-title">
-                <view class="title">Hot造星计划全宇宙招聘HitHotdwqdwqdqjdwqdqwdjwqjdqwj</view>
+                <view class="title">{{item.performName}}</view>
                 <view class="message">
                   <view class="name">一人统筹阿超</view>
                   <view class="after">
                     <text class="people">06-13发布</text>
-                    <!--<text class="timer">12-32截止</text>-->
                   </view>
                 </view>
               </view>
@@ -137,6 +128,7 @@
         </navigator>
       </block>
     </view>
+    <pagenull wx:else></pagenull>
   </view>
 </template>
 
@@ -145,21 +137,16 @@
   import {$post} from "../../mixins/base"
   import PageNull from "../../components/page-null"
   export default class Published extends wepy.page {
+    config = {
+      navigationBarTitleText: '我发布的'
+    }
+
     data = {
-       notice: [{
-        image: 'https://img.hotyq.com/recruit/2017/074/1499167078881.jpg',
-        title: '优酷Hit-Hot造星计划全宇宙招聘HitHot Star!优酷Hit-Hot造星计划全宇宙招聘HitHot Star!',
-        tags: ['影视剧组', '培训招生']
-      }, {
-        image: 'https://img.hotyq.com/recruit/2017/068/1496919314135.png',
-        title: '优酷Hit-Hot造星计划全宇宙招聘HitHot Star!',
-        tags: ['影视剧组', '培训招生'],
-        target: {
-          name: '艺人统筹阿超',
-          peopleNum: 100,
-          endTimer: '12-31'
-        }
-      }]
+      publishLis: []
+    }
+
+    components = {
+      pagenull: PageNull
     }
 
     onShow() {
@@ -172,12 +159,15 @@
 
     //加载数据
     $loadDetail(memberId) {
+      const _this = this;
       $post('/wechat!gotMyBrokerBooking.action', {
         memberId
       })
       .then(data => {
-        console.log(data)
+        _this.publishLis = data;
+        _this.$apply();
       })
+      .catch(err => console.log(err))
     }
   }
 </script>

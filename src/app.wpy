@@ -192,6 +192,7 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/circle/index',
+      'pages/user/published',
       'pages/notice/index',
       'pages/find/index',
       'pages/circle/jigou',
@@ -233,7 +234,6 @@ export default class extends wepy.app {
       'pages/user/certification',
       'pages/user/realname',
       'pages/user/registered',
-      'pages/user/published',
       'pages/user/detail',
       'pages/user/recharge',
       'pages/user/cash',

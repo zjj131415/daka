@@ -293,6 +293,10 @@ import wepy from "wepy";
 import {$post} from "../../mixins/base"
 import PageNull from "../../components/page-null"
 export default class FindeDetail extends wepy.page {
+  config = {
+    navigationBarTitleText: '动态详情'
+  }
+
   data = {
     id: null,
     findDetail: null,
