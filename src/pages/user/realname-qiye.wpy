@@ -101,14 +101,6 @@
       <view class="status">认证状态</view>
       <view class="result">未认证</view>
     </view>
-    <!-- <view class="enter">
-      <view class="amount">公司名字</view>
-      <input type="text" class="enter-money" placeholder="请输入身份证姓名"/>
-    </view>
-    <view class="enter card">
-      <view class="amount">证件号码</view>
-      <input type="idcard" class="enter-money" placeholder="请输入身份证号码"/>
-    </view> -->
     <view class="upload-title">营业执照</view>
     <view class="upload-group">
       <view class="upload-info">
@@ -136,15 +128,17 @@
 
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base"
   export default class RealnameQiye extends wepy.page {
     config = {
       navigationBarTitleText: '企业认证'
     }
+
     data = {
       userInfo: {},
-      // uploadSrc: '../../images/avatar/avatar2.jpg'
       uploadSrc: ''
     }
+
     methods = {
       upload() {
         var _this = this
@@ -159,6 +153,33 @@
           }
         })
       }
+    }
+
+    //图片上传
+    $uploadImg() {
+      const _this = this;
+      wepy.chooseImage({
+         count: 1, // 默认9
+         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+         success(res) {
+          const tempFilePaths = res.tempFilePaths;
+          wepy.showLoading({title: '图片上传中...'});
+          wepy.uploadFile({
+            url: 'https://www.us800.cn/plupload/upload.jsp', //上传图片地址
+            filePath: tempFilePaths[0],
+            name: 'file',
+            success: function(r){
+              wepy.hideLoading();
+              //上传成功改变data
+              const {data} = r;
+              _this.head = data.trim();
+              _this.upImg = tempFilePaths[0];
+              _this.$apply();
+            }
+          })
+         }
+      })
     }
   }
 </script>

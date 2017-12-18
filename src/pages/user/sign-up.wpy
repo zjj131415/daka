@@ -84,7 +84,7 @@
 </style>
 <template>
   <view class="container">
-    <view class="person">
+    <view class="person" wx:if="{{persons.length > 0}}">
       <block wx:for="{{persons}}" wx:key="{{index}}">
          <view class="personItem">
           <image class="photo" mode="aspectFill" src="http://upload.jianshu.io/users/upload_avatars/1132780/9c3554d323dc?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></image>
@@ -103,25 +103,30 @@
         </view>
       </block>
     </view>
+     <pagenull wx:else></pagenull>
   </view>
 </template>
 
 <script>
   import wepy from "wepy";
-
+  import {$post} from "../../mixins/base"
+  import PageNull from "../../components/page-null"
   export default class SignUp extends wepy.page {
     config = {
       navigationBarTitleText: '报名人数'
     }
+
+    components = {
+      pagenull: PageNull
+    }
+    
     data = {
       persons: [
-        's',
-        's',
-        's',
-        's',
-        's'
+
       ]
     }
+
+    
   }
 </script>
 

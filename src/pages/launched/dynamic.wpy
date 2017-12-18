@@ -44,16 +44,6 @@
       }
     }
   }
-  .release {
-    margin-top: 40rpx;
-    padding: 20rpx;
-    background-color: #FFFFFF;
-    button {
-      font-size: 30rpx;
-      color: #ffffff;
-      background-color: #DB3B23;
-    }
-  }
 </style>
 
 <template>
@@ -63,11 +53,6 @@
         <textarea maxlength="500" auto-focus show-confirm-bar="{{false}}" placeholder-style="color: #b3b3b3" placeholder="沉积是金，发布最新工作状态～" value="{{dynamics}}" @input="inputDynamics"></textarea>
       </view>
       <view class="uploader-files">
-        <!--<block wx:for="{{files}}" wx:key="*this">-->
-          <!--<view class="uploader-file-item" @tap="previewImage" id="{{item}}">-->
-            <!--<image src="/images/upload_img.png"></image>-->
-          <!--</view>-->
-        <!--</block>-->
         <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{video.length == 0 && images.length === 0}}" @tap="chooseImage">
           <image src="/images/upload_img.png"></image>
         </view>
@@ -85,8 +70,12 @@
           </view>
         </block>
       </view>
-      <view class="release">
-        <button @tap="saveDynamic">发布</button>
+      <view class="fixedBtn">
+        <view class="fixedBtnGrounp">
+          <button class="btn" bindtap="uploadNotice">
+            发布
+          </button>
+        </view>
       </view>
     </form>
   </view>

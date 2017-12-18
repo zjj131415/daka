@@ -80,6 +80,12 @@
           padding: 6rpx;
           box-sizing: border-box;
         }
+        .imgItmMax {
+          width: 100%;
+          height: 400rpx;
+          padding: 6rpx;
+          box-sizing: border-box;
+        }
       }
       .timer {
         padding: 12rpx;
@@ -124,7 +130,6 @@
       }
     }
   }
-  
 </style>
 
 <template>
@@ -146,8 +151,11 @@
             <view class="text" wx:if="{{item.content}}">
               {{item.content}}
             </view>
-            <view class="imgList" wx:if="{{item.images.length}}">
+            <view class="imgList" wx:if="{{item.images.length > 1}}">
               <image class="imgItm" mode="aspectFill" wx:for="{{item.images}}" wx:for-item="itm" wx:key="{{index}}" src="{{itm}}" @tap="tap" data-id="1" data-urls="{{item.images}}" data-current="{{itm}}"></image>
+            </view>
+            <view class="imgList" wx:else>
+              <image class="imgItmMax" mode="aspectFill" wx:for="{{item.images}}" wx:for-item="itm" wx:key="{{index}}" src="{{itm}}" @tap="tap" data-id="1" data-urls="{{item.images}}" data-current="{{itm}}"></image>
             </view>
             <view class="timer">
               {{item.month}}/{{item.day}}

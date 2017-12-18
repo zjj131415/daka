@@ -142,19 +142,27 @@
 
 <script>
   import wepy from "wepy";
-
+  import {$post} from "../../mixins/base"
+  import PageNull from "../../components/page-null"
   export default class Registered extends wepy.page {
     config = {
       navigationBarTitleText: '我报名的'
     }
+
+    components = {
+      pagenull: PageNull
+    }
+
     data = {
        notice: [],
     }
+
     methods = {
       tabList(e) {
         this.activeIndex = e.target.id;
       }
     }
+    
     onLoad() {
       var _this = this;
       //开启loading

@@ -17,7 +17,7 @@
   }
 </style>
 <template>
-  <view class="pageNull" wx:if="{{!findList}}">
+  <view class="pageNull">
     <view class="pageIcon daka icon-empty-page-o"></view>
     <view class="pageText">页面空空如也，什么都没有！</view>
   </view>

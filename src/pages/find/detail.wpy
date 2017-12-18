@@ -1,113 +1,131 @@
 <style lang="less" scoped>
-  .find-iem {
+  .findItem {
+    margin-bottom: 20rpx;
     background: #fff;
-    .find-header {
+    .findUser {
       display: flex;
       align-items: center;
-      padding: 20rpx 30rpx;
-      border-bottom: 1px solid #eaeaea;
-    }
-    .find-img {
-      width: 90rpx;
-      height: 90rpx;
-      border-radius: 100%;
+      background: #fff;
+      padding: 20rpx;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      position: relative;
       overflow: hidden;
-      image {
-        width: 100%;
-        height: 100%;;
+      &::after {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        content: ' ';
+        width: 200%;
+        border-bottom: 1px solid #dcdcdc;
+        transform: scaleY(.5);
       }
-    }
-    .find-name-tag {
-      flex: 1;
-      padding: 0 10rpx;
-      .find-name {
+      .photo {
+        width: 90rpx;
+        height: 90rpx;
+        margin-right: 6rpx;
+        border-radius: 100%;
+      }
+      .detail {
+        flex: 1;
+        overflow: hidden;
+      }
+      .name {
+        padding: 0 10rpx;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 30rpx;
+        color: #333;
+      }
+      .tags {
+        height: 46rpx;
         display: flex;
         align-items: center;
-        padding-left: 10rpx;
-        margin-bottom: 10rpx;
-        font-size: 28rpx;
-        color: #416194;
-        .renz-icon {
-          margin-left: 10rpx;
-          font-size: 30rpx;
-          color: #f89b1a;
+        .tag {
+          width: 90rpx;
+          height: 38rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 10rpx;
+          background: #eee;
+          border-radius: 6rpx;
+          font-size: 26rpx;
+          color: #808080;
         }
       }
-      .find-tags {
-        display: flex;
-        align-items: center;
-      }
-      .find-tag {
-        padding: 3rpx 15rpx;
-        margin: 0 10rpx;
-        background: #eee;
-        border-radius: 8rpx;
-        font-size: 26rpx;
-        color: #808080;
+      .down {
+        font-size: 36rpx;
+        color: #ccc;
       }
     }
-    .up-time {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      height: 60rpx;
-      padding: 0 30rpx;
-      font-size: 24rpx;
-      color: #cbcbcb;
-    }
-    .down-icon {
-      display: flex;
-      height: 100%;
-      font-size: 32rpx;
-      color: #cbcbcb;
-    }
-    .find-cont {
-      padding: 0 30rpx;
-      .find-cont-text {
-        padding: 10rpx 0;
+    .findDetails {
+      padding: 6rpx 0;
+      .text {
+        padding: 12rpx;
         font-size: 30rpx;
-        color: #5f5f5f;
+        color: #666;
       }
-      .find-cont-img {
+      .imgList {
         display: flex;
-        justify-content: center;
-        height: 400rpx;
-        image {
+        flex-wrap: wrap;
+        width: 738rpx;
+        margin: 0 auto;
+        box-sizing: border-box;
+        .imgItm {
+          width: 246rpx;
+          height: 246rpx;
+          padding: 6rpx;
+          box-sizing: border-box;
+        }
+        .imgItmMax {
           width: 100%;
           height: 400rpx;
+          padding: 6rpx;
+          box-sizing: border-box;
         }
       }
+      .timer {
+        padding: 12rpx;
+        font-size: 24rpx;
+        color: #ccc;
+        text-align: right;
+      }
     }
-    .find-actions {
-      height: 70rpx;
-      border-top: 1px solid #eaeaea;
-      border-bottom: 1px solid #eaeaea;
+    .findAction {
       display: flex;
       align-items: center;
-      .action-item {
-        flex: 1;
-        height: 46rpx;
-        border-right: 1px solid #eaeaea;
+      position: relative;
+      padding: 20rpx 0;
+      overflow: hidden;
+      &::after {
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: ' ';
+        width: 200%;
+        border-bottom: 1px solid #dcdcdc;
+        transform: scaleY(.5);
+      }
+      .actionItem {
+        width: 25%;
+        height: 44rpx;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 26rpx;
-        color: #898989;
+        border-right: 1px solid #dcdcdc;
+        outline: none;
         background: transparent;
-        position: static;
         border-radius: 0;
-        margin:0;
-        padding:0;
-        &::before {
-          margin-right: 10rpx;
-          font-size: 32rpx;
-          color: #898989;
+        font-size: 28rpx;
+        color: #666;
+        &:last-child {
+          border: none;
         }
         &::after {
           content: none;
-        }
-        &:last-child {
-          border: none;
         }
       }
     }
@@ -206,75 +224,67 @@
 
 <template>
   <view class="container">
-    <view class="find-iem">
-      <navigator class="find-header">
-        <view class="find-img">
-          <image mode="aspectFill" src="/images/default.png"></image>
-        </view>
-        <view class="find-name-tag">
-          <view class="find-name">{{item.user.name}}<text class="renz-icon daka icon-yishimingrenzheng1"></text></view>
-          <view class="find-tags">
-            <text class="find-tag" wx:for="{{item.user.tags}}" wx:key="index">{{item}}</text>
+    <view class="findeDetail" wx:if="{{findDetail}}">
+      <view class="findItem">
+        <navigator class="findUser" url="/pages/user/home1?id={{findDetail.id}}">
+          <image class="photo" mode="aspectFill" src="{{findDetail.memberHead}}"></image>
+          <view class="detail">
+            <view class="name">{{findDetail.memberName}}</view>
+            <view class="tags">
+              <view class="tag" wx:for="{{findDetail.artistType}}" wx:key="{{index}}">{{item}}</view>
+            </view>
           </view>
-        </view>
-        <view class="down-icon daka icon-unfold"></view>
-      </navigator>
-      <view class="find-cont">
-        <view class="find-cont-text">
-          <text>{{item.content}}</text>
-        </view>
-        <view class="find-cont-img">
-          <block wx:for="{{item.images}}" wx:key="{{index}}">
-            <image mode="aspectFit" src="{{item}}" @tap="preview" data-images="{{findDetail[idx].images}}" data-image="{{item}}"></image>
-          </block>
-        </view>
-      </view>
-      <view class="up-time">{{item.month}}-{{item.day}}</view>
-      <view class="find-actions">
-        <button open-type="share" class="action-item daka icon-fenxiang2">
-          分享
-        </button>
-        <view @tap="tap" data-id="0" class="action-item daka icon-comment">
-          评论
-        </view>
-        <view class="action-item daka icon-appreciate" @tap="tap" data-id="4">
-          点赞
-        </view>
-        <navigator class="action-item daka icon-refund" url="/pages/find/pay?id={{item.id}}">
-          打赏
+          <view class="down daka icon-unfold"></view>
         </navigator>
-      </view>
-    </view>
-    <view class="dianzList">
-      
-    </view>
-    <view class="comment">
-      <view class="commentItem">
-        <view class="commentUser">
-          <image class="commentUserImg" mode="aspectFill" src="/images/default.png"></image>
-          <view class="commentUserNameTime">
-            <view class="commentUserName">夏至未至</view>
-            <view class="commentUserTime">昨天21:28</view>
+        <view class="findDetails">
+          <view class="text" wx:if="{{findDetail.content}}">
+            {{findDetail.content}}
+          </view>
+          <view class="imgList" wx:if="{{findDetail.images.length > 1}}">
+            <image class="imgItm" mode="aspectFill" wx:for="{{findDetail.images}}" wx:for-item="itm" wx:key="{{index}}" src="{{itm}}" @tap="tap" data-id="1" data-urls="{{item.images}}" data-current="{{itm}}"></image>
+          </view>
+          <view class="imgList" wx:else>
+            <image class="imgItmMax" mode="aspectFill" wx:for="{{findDetail.images}}" wx:for-item="itm" wx:key="{{index}}" src="{{itm}}" @tap="tap" data-id="1" data-urls="{{item.images}}" data-current="{{itm}}"></image>
+          </view>
+          <view class="timer">
+            {{findDetail.month}}/{{findDetail.day}}
           </view>
         </view>
-        <view class="commentCont">
-          dwadjs
+        <view class="findAction">
+          <button open-type="share" class="actionItem">分享</button>
+          <view class="actionItem" @tap="tap" data-id="0">评论</view>
+          <view class="actionItem" @tap="tap" data-id="4" data-nid="{{findDetail.id}}">点赞</view>
+          <navigator class="actionItem" url="/pages/find/pay?id={{findDetail.id}}">打赏</navigator>
+        </view>
+      </view>
+      <view class="comment">
+        <view class="commentItem">
+          <view class="commentUser">
+            <image class="commentUserImg" mode="aspectFill" src="/images/default.png"></image>
+            <view class="commentUserNameTime">
+              <view class="commentUserName">夏至未至</view>
+              <view class="commentUserTime">昨天21:28</view>
+            </view>
+          </view>
+          <view class="commentCont">
+            dwadjs
+          </view>
+        </view>
+      </view>
+      <view class="modalFixed {{shwoModal ? 'active' : ''}}">
+        <view class="modal">
+          <view class="modalHd">
+            <view @tap="tap" data-id="1" class="modal1">取消</view>
+            <view class="modal2">评论</view>
+            <view class="modal3" @tap="tap" data-id="3">发表</view>
+          </view>
+          <view class="modalCont">
+            <textarea bindinput="tap" data-id="2" value="{{conText}}" placeholder="我也说一句..." />
+          </view>
         </view>
       </view>
     </view>
-    <view class="modalFixed {{shwoModal ? 'active' : ''}}">
-      <view class="modal">
-        <view class="modalHd">
-          <view @tap="tap" data-id="1" class="modal1">取消</view>
-          <view class="modal2">评论</view>
-          <view class="modal3" @tap="tap" data-id="3">发表</view>
-        </view>
-         <view class="modalCont">
-           <textarea bindinput="tap" data-id="2" value="{{conText}}" placeholder="我也说一句..." />
-         </view>
-      </view>
-    </view>
-    <pagenull wx:if="{{!findList}}"></pagenull>
+    <pagenull wx:else></pagenull>
   </view>
 </template>
 
@@ -284,6 +294,8 @@ import {$post} from "../../mixins/base"
 import PageNull from "../../components/page-null"
 export default class FindeDetail extends wepy.page {
   data = {
+    id: null,
+    findDetail: null,
     shwoModal: false,
     conText: ''
   }
@@ -296,8 +308,11 @@ export default class FindeDetail extends wepy.page {
     //点击事件
     tap(e) {
       const _this = this;
+      const {findDetail, conText} = _this.$data;
       const {id} = e.target.dataset;
       const {value} = e.detail;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
       switch (id | 0) {
         //0:打开评论框
         case 0:
@@ -311,13 +326,15 @@ export default class FindeDetail extends wepy.page {
         case 2:
           _this.conText = value;
           break;
-        //3:发布
+        //3:发表
         case 3:
-          _this.$publis();
+        //评论（动态id，评论人ID， 内容）
+          _this.$publis(findDetail.id, memberId, conText);
           break;
         //4:点赞
         case 4:
-          _this.$dianzan();
+        //（用户id， 动态id）
+          _this.$dianzan(memberId, findDetail.id);
           break;
       }
       _this.$apply();
@@ -327,22 +344,33 @@ export default class FindeDetail extends wepy.page {
   onLoad(e) {
     const _this = this;
     const {id} = e;
-    //加载详情
+    _this.id = id;
+  }
+
+  onShow() {
+    const _this = this;
+    const {id} = _this.$data;
+     //加载详情
     _this.$loadDetail(id);
   }
 
   //加载详情
   $loadDetail(careerId) {
+    const _this = this;
     $post('/async!gotCareerDetail.action', {
       careerId
     })
     .then(data => {
-      console.log(data)
+      _this.findDetail = data;
+      _this.findDetail.content = decodeURI(data.content);
+      _this.findDetail.images =  !!data.images ? data.images.split("|") : [];
+      _this.$apply();
     }).catch(err => console.log(err))
   }
 
   //点赞（用户id， 动态id）
   $dianzan(memberId, careerId) {
+    const _this = this;
     $post('/wechat!savePoint.action', {
       memberId,  //用户id
       careerId ,//动态id
@@ -364,12 +392,12 @@ export default class FindeDetail extends wepy.page {
   }
   
   //评论（动态id，评论人ID， 内容）
-  $publis() {
+  $publis(careerId, memberId, content) {
     const _this =this;
     $post('/wechat!saveComment.action', {
-      id: 1,//动态id
-      fromMemberId: memberId,//评论人id
-      content: conText//评论内容·
+      memberId,//动态id
+      careerId,//评论人id
+      content,//评论内容·
     })
     .then(data => {
       wepy.showToast({
@@ -377,10 +405,14 @@ export default class FindeDetail extends wepy.page {
         icon: 'success',
         duration: 2000
       });
+      _this.shwoModal = false;
+      _this.conText = '';
+      _this.$apply();
       //评论成功重新加载数据
-      _this.$loadDetail(id);
+      _this.$loadDetail(careerId);
     })
     .catch(err => {
+      console.log(err)
       //评论失败
       wepy.showToast({
         title: '点赞失败',

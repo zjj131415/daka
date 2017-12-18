@@ -82,7 +82,7 @@
       <text class="version">大咖 v1.0.0</text>
     </view>
     <view class="cells">
-      <view class="cell">
+      <view class="cell" @tap="tap" data-id="0">
         <view class="cellHd">官网www.baidu.com</view>
         <view class="cellBd"></view>
         <view class="cellFt daka icon-right"></view>
@@ -120,7 +120,27 @@
 import wepy from "wepy";
 export default class Service extends wepy.page  {
   config = {
-      navigationBarTitleText: '关于我们'
+    navigationBarTitleText: '关于我们'
+  }
+
+  methods = {
+    tap(e) {
+      const _this = this;
+      const {id} = e.currentTarget.dataset;
+      switch (id | 0) {
+        //0:打电话
+        case 0:
+          _this.$makePhoneCall();
+          break;
+      }
+    }
+  }
+  
+  //打电话
+  $makePhoneCall() {
+    wepy.makePhoneCall({
+      phoneNumber: '18623233442' 
+    })    
   }
 }
 </script>

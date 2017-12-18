@@ -141,7 +141,9 @@
 </template>
 
 <script>
-  import wepy from 'wepy'
+  import wepy from "wepy";
+  import {$post} from "../../mixins/base"
+  import PageNull from "../../components/page-null"
   export default class Published extends wepy.page {
     data = {
        notice: [{
@@ -158,6 +160,24 @@
           endTimer: '12-31'
         }
       }]
+    }
+
+    onShow() {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
+      //加载数据
+      _this.$loadDetail(memberId);
+    }
+
+    //加载数据
+    $loadDetail(memberId) {
+      $post('/wechat!gotMyBrokerBooking.action', {
+        memberId
+      })
+      .then(data => {
+        console.log(data)
+      })
     }
   }
 </script>

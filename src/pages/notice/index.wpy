@@ -291,6 +291,7 @@
         _this.bannerList = data;
         _this.$apply();
       })
+      .catch(err => console.log(err))
     }
 
     //加载通告列表
@@ -303,6 +304,7 @@
         _this.notice = data;
         _this.$apply();
       })
+      .catch(err => console.log(err))
     }
   }
 </script>
