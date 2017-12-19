@@ -131,10 +131,10 @@
   <view class="container">
     <view class="uploadImg" @tap="uploadImage">
       <view class="bg" wx:if="{{!imgSrc}}">
-        <image src="../../images/upload_img.png" mode="aspectFill" class="img"></image>
+        <image mode="aspectFill" src="../../images/upload_img.png" mode="aspectFill" class="img"></image>
         <view class="detail">上传需求封面图尺寸比例750*340</view>
       </view>
-      <image src="{{imgSrc}}" class="bgImg" mode="aspectFill" wx:else></image>
+      <image mode="aspectFill" src="{{imgSrc}}" class="bgImg" mode="aspectFill" wx:else></image>
     </view>
     <view class="list-wrap">
       <view class="list">

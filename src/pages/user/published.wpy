@@ -13,6 +13,7 @@
         width: 90rpx;
         height: 90rpx;
         margin-right: 10rpx;
+        border-radius: 100%;
       }
       .notice-top-info {
         position: relative;
@@ -108,18 +109,18 @@
         <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}active=3">
           <view class="notice-top-info">
             <view class="notice-img">
-              <image src="{{item.image ? item.image : '/images/null.jpg'}}"></image>
+              <image mode="aspectFill" src="{{item.image ? item.image : '/images/null.jpg'}}"></image>
             </view>
           </view>
           <view class="notice-bottom">
             <view class="before">
-              <image class="before-img" src="/images/default.png"></image>
+              <image class="before-img" mode="aspectFill" src="{{item.head ? item.head : '/images/default.png'}}"></image>
               <view class="btn-title">
-                <view class="title">{{item.performName}}</view>
+                <view class="title">{{item.name}}</view>
                 <view class="message">
-                  <view class="name">一人统筹阿超</view>
+                  <view class="name">{{item.memberName}}</view>
                   <view class="after">
-                    <text class="people">06-13发布</text>
+                    <text class="people">{{item.createTime}}发布</text>
                   </view>
                 </view>
               </view>
@@ -160,7 +161,7 @@
     //加载数据
     $loadDetail(memberId) {
       const _this = this;
-      $post('/wechat!gotMyBrokerBooking.action', {
+      $post('/wechat!gotBooking.action', {
         memberId
       })
       .then(data => {

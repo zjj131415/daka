@@ -267,12 +267,12 @@
   <view class="container">
     <view class="noticeDetail" wx:if="{{detail}}">
       <view class="notice-img">
-        <image src="{{detail.image}}"></image>
+        <image mode="aspectFill" src="{{detail.image}}"></image>
       </view>
       <view class="head">
         <view class="notice-bottom">
           <view class="before">
-            <image class="before-img" src="{{detail.pubisherHead}}"></image>
+            <image class="before-img" mode="aspectFill" src="{{detail.pubisherHead}}"></image>
             <view class="btn-title">
               <view class="aaa-title">{{detail.name}}</view>
               <view class="message">
@@ -313,7 +313,7 @@
         </view>
         <scroll-view class="avatar-group" scroll-x wx:if="{{detail.heads}}">
           <block wx:for="{{detail.heads}}" wx:key="{{index}}">
-            <image class="avatar" src="{{item}}"></image>
+            <image class="avatar" mode="aspectFill" src="{{item}}"></image>
           </block>
         </scroll-view>
       </view>

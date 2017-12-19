@@ -140,6 +140,7 @@
       .commentUserImg {
         width: 90rpx;
         height: 90rpx;
+        border-radius: 100%;
       }
       .commentUserNameTime {
         flex: 1;
@@ -258,18 +259,20 @@
         </view>
       </view>
       <view class="comment">
-        <view class="commentItem">
-          <view class="commentUser">
-            <image class="commentUserImg" mode="aspectFill" src="/images/default.png"></image>
-            <view class="commentUserNameTime">
-              <view class="commentUserName">夏至未至</view>
-              <view class="commentUserTime">昨天21:28</view>
+        <block wx:if="{{findDetail.comments}}" wx:for="{{findDetail.comments}}" wx:key="{{index}}">
+            <view class="commentItem">
+              <view class="commentUser">
+                <image class="commentUserImg" mode="aspectFill" src="{{item.head ? item.head : '/images/default.png'}}"></image>
+                <view class="commentUserNameTime">
+                  <view class="commentUserName">{{item.name}}</view>
+                  <view class="commentUserTime">{{item.time}}</view>
+                </view>
+              </view>
+              <view class="commentCont">
+                {{item.content}}
+              </view>
             </view>
-          </view>
-          <view class="commentCont">
-            dwadjs
-          </view>
-        </view>
+        </block>
       </view>
       <view class="modalFixed {{shwoModal ? 'active' : ''}}">
         <view class="modal">

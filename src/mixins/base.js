@@ -46,7 +46,7 @@ const $post = (url, data = {}, loading = false) => {
  * 单个图片上传函数
  * @param {*} filePath 
  */
-const $upload = (filePath) => new Promise((resolve, reject) => {
+const $upload = (filePath, i) => new Promise((resolve, reject) => {
   wepy.uploadFile({
     url: 'https://www.us800.cn/plupload/upload.jsp',
     filePath,
@@ -75,19 +75,24 @@ const $uploadImg = (count = 1, ) => new Promise((resolve, reject) => {
     success(res) {
       const tempFilePaths = res.tempFilePaths;
       const imgUrls = [];
-      if (tempFilePaths instanceof Array) {
-        for(let i = 0; i < tempFilePaths.length; i++) {
-          $upload(tempFilePaths[i])
-          .then(data => {
-            console.log(data)
-            imgUrls.push(data);
-          })
-          .catch(err => {
-            reject(err)
-          })
-        }
-        resolve(imgUrls)
+      let _index = 0;
+      const uploadFn = () => {
+        $upload(tempFilePaths[_index])
+        .then(data => {
+          _index++;
+          console.log(data)
+          imgUrls.push(data.trim());
+          if (_index < tempFilePaths.length) {
+            uploadFn();
+          }else {
+            console.log(imgUrls)
+          }
+        })
+        .catch(err => {
+          reject(err)
+        })
       }
+      uploadFn();
     }
   })
 })

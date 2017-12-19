@@ -180,7 +180,7 @@
         <block wx:for="{{bannerList}}" wx:key="index">
           <swiper-item class="swiper-item">
             <navigator url="{{item.url}}">
-              <image src="{{item.image}}"></image>
+              <image mode="aspectFill" src="{{item.image}}"></image>
             </navigator>
           </swiper-item>
         </block>
@@ -190,7 +190,7 @@
       <block wx:for="{{typeChoose}}" wx:key="index">
         <swiper-item class="menu">
           <view class="option" wx:for="{{item}}" wx:key="index" data-name="{{item.title}}" @tap="chanegType">
-            <image class="optionIcon" src="{{item.icon}}"></image>
+            <image class="optionIcon" mode="aspectFill" src="{{item.icon}}"></image>
             <view>{{item.title}}</view>
           </view>
         </swiper-item>
@@ -201,12 +201,12 @@
         <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}&active={{memberId == item.publishId ? '3' : '1'}}">
           <view class="notice-top-info">
             <view class="notice-img">
-              <image src="{{item.image}}"></image>
+              <image mode="aspectFill" src="{{item.image}}"></image>
             </view>
           </view>
           <view class="notice-bottom">
             <view class="before">
-              <image class="before-img" src="{{item.head}}"></image>
+              <image class="before-img" mode="aspectFill" src="{{item.head}}"></image>
               <view class="btn-title">
                 <view class="title">{{item.name}}</view>
                 <view class="message">

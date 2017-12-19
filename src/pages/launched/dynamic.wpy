@@ -54,15 +54,15 @@
       </view>
       <view class="uploader-files">
         <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{video.length == 0 && images.length === 0}}" @tap="chooseImage">
-          <image src="/images/upload_img.png"></image>
+          <image mode="aspectFill" src="/images/upload_img.png"></image>
         </view>
         <block wx:for="{{images}}" wx:key="{{index}}">
           <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{images.length !== 0}}" @tap="chooseImage">
-              <image src="{{item}}" mode="aspectFill·"></image>
+              <image mode="aspectFill" src="{{item}}" mode="aspectFill·"></image>
           </view>
         </block>
         <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{images.length == 0 && video.length === 0}}" @tap="chooseVideo">
-          <image src="/images/upload_video.png"></image>
+          <image mode="aspectFill" src="/images/upload_video.png"></image>
         </view>
         <block>
           <view class="uploader-file-item upload" hover-class="upload-hover" wx:if="{{video.length !== 0}}">

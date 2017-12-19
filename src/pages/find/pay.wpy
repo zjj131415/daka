@@ -70,88 +70,38 @@
 </template>
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base"
   export default class FindPay extends wepy.page {
     methods = {
       formSubmit(e) {
-        const {money, comment} = e.detail.value;
-        if (!money|| !comment) return (
-          wx.showModal({
-            title: '提示',
-            content: '信息填写不完整！请填写完整在提交',
-            showCancel: false,
-            confirmText: '好的',
-            mask: true,
-            success: function(res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
-          })
-        )
-        //开启loading
-        wx.showLoading({
-          title: '发起请求中',
-          mask: true
-        });
-        wx.request({
-          url: 'https://www.us800.cn/async!gotCareer.action', //大咖秀列表(动态)
-          data: {},
-          header: {
-            'content-type': 'application/x-www-form-urlencoded' // 默认值
-          },
-          success: function(res) {
-            wx.hideLoading();
-           //请求成功发起微信支付
-            wx.requestPayment({
-              timeStamp: '',
-              nonceStr: '',
-              package: '',
-              signType: 'MD5',
-              paySign: '',
-              success: (res) => {
-                console.log(res)
-              },
-              fail: (err) => {
-                console.log(err)
-                wx.showModal({
-                  title: '支付提示',
-                  content: '支付失败，请重新支付！',
-                  showCancel: false,
-                  confirmText: '好的',
-                  mask: true,
-                  success: function(res) {
-                    if (res.confirm) {
-                      console.log('用户点击确定')
-                    } else if (res.cancel) {
-                      console.log('用户点击取消')
-                    }
-                  }
-                })
-              }
-            })
-          },
-          fail() {
-            wx.hideLoading();
-            wx.showModal({
-              title: '提示',
-              content: '服务起请求失败，请稍后在试！',
-              showCancel: false,
-              confirmText: '好的',
-              mask: true,
-              success: function(res) {
-                if (res.confirm) {
-                  console.log('用户点击确定')
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
-            })
-          }
-        });
-        console.log(money, comment)
+        const _this = this;
+        _this.$dsPay();
       }
+    }
+
+    //打赏支付
+    $dsPay() {
+      $post('/wechat!gotXcxPayData.action', {
+        payType: 2,
+        total_fee: 0.01,
+        body: ''
+      }, true)
+      .thnen(data => {
+        wepy.requestPayment({
+          timeStamp: '',
+          nonceStr: '',
+          package: '',
+          signType: 'MD5',
+          paySign: '',
+          success(res) {
+            console.log(res)
+          },
+          fail(err) {
+            console.log(err)
+          }
+        })
+      })
+      .catch(err => console.log(err))
     }
   }
 </script>

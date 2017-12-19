@@ -84,7 +84,7 @@
   <view class="container">
     <navigator url="{{userInfo ? (userInfo.memberType === 3 ? '/pages/user/login' : (userInfo.memberType === 1 ? '/pages/user/editInfo1' : '/pages/user/editInfo2')) : ''}}" class="user-head">
       <view class="avatar">
-        <image class="avatar-img" src="{{userInfo.head ? userInfo.head : '/images/default.png'}}"></image>
+        <image class="avatar-img" mode="aspectFill" src="{{userInfo.head ? userInfo.head : '/images/default.png'}}"></image>
         <view class="user-name-money">
           <view class="name">{{userInfo.name ? userInfo.name : '大咖秀'}}</view>
           <view class="money">余额：¥{{userInfo.balance ? user.balance : 0}}</view>
@@ -102,14 +102,14 @@
       </navigator>
       <navigator class="cell-link" url="{{userInfo.memberType === 3 ? '/pages/user/login' : item.url}}" wx:for="{{list}}" wx:key="{{index}}">
         <view class="cell">
-          <view class="cell-hd"><image src="{{item.image}}"></image></view>
+          <view class="cell-hd"><image mode="aspectFill" src="{{item.image}}"></image></view>
           <view class="cell-bd">{{item.title}}</view>
           <view class="cell-ft daka icon-right"></view>
         </view>
       </navigator>
       <navigator class="cell-link" url="/pages/user/service">
         <view class="cell">
-          <view class="cell-hd"><image src="/images/icons/service.png"></image></view>
+          <view class="cell-hd"><image mode="aspectFill" src="/images/icons/service.png"></image></view>
           <view class="cell-bd">关于我们</view>
           <view class="cell-ft daka icon-right"></view>
         </view>

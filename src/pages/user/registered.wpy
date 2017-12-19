@@ -13,6 +13,7 @@
         width: 90rpx;
         height: 90rpx;
         margin-right: 10rpx;
+        border-radius: 100%;
       }
       .notice-top-info {
         position: relative;
@@ -104,30 +105,22 @@
 <template>
   <view class="container">
     <view class="notice-list">
-      <block wx:for="{{notice}}" wx:key="{{index}}">
+      <block wx:for="{{registerList}}" wx:key="{{index}}">
         <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}&active=0">
           <view class="notice-top-info">
             <view class="notice-img">
-              <image src="{{item.image}}"></image>
+              <image mode="aspectFill" src="{{item.image}}"></image>
             </view>
-            <!--<view class="notice-cover">-->
-              <!--<view class="tags">-->
-                <!--<block wx:fro="{{item.tags}}" wx:item="tag" wx:key="{{index}}">-->
-                  <!--<text class="tag-item">{{tag}}</text>-->
-                <!--</block>-->
-              <!--</view>-->
-              <!--<view class="title">{{item.title}}</view>-->
-            <!--</view>-->
           </view>
           <view class="notice-bottom">
             <view class="before">
-              <image class="before-img" src="https://avatars3.githubusercontent.com/u/18258268?v=4&s=40"></image>
+              <image class="before-img" mode="aspectFill" src="{{item.memberHead ? item.memberHead : '/images/default.png'}}"></image>
               <view class="btn-title">
                 <view class="title">{{item.name}}</view>
                 <view class="message">
-                  <view class="name">{{item.contactPerson}}</view>
+                  <view class="name">{{item.memberName}}</view>
                   <view class="after">
-                    <text class="people">{{item.createTime}}发布</text>
+                    <text class="people">{{item.date}}发布</text>
                     <!--<text class="timer">12-32截止</text>-->
                   </view>
                 </view>
@@ -154,7 +147,7 @@
     }
 
     data = {
-       notice: [],
+      registerList: []
     }
 
     methods = {
@@ -164,29 +157,26 @@
     }
     
     onLoad() {
-      var _this = this;
-      //开启loading
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      });
-      wx.request({
-        url: 'https://www.us800.cn/wechat!gotBooking.action', //所有通告
-        data: {},
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success: function(res) {
-          //关闭loading
-          wepy.hideLoading();
-          console.log(res.data);
-          _this.notice = res.data;
-          _this.$apply();
-        },
-        fail() {
-          wx.hideLoading();
-        }
-      });
+      
+    }
+
+    onShow() {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
+      //获取列表
+      _this.$loadDetail(memberId);
+    }
+
+    //获取报名列表
+    $loadDetail(memberId) {
+      const _this = this;
+      $post('/wechat!gotMyBrokerBooking.action', {memberId})
+      .then(data => {
+        _this.registerList = data;
+        _this.$apply();
+      })
+      .catch(err => console.log(err))
     }
   }
 </script>
