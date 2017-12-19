@@ -566,7 +566,7 @@
           <view class="infoTit">个人简介</view>
           <view class="infoList">
             <view class="cell">
-              <view class="cellBd">第我 i 的委屈㷣的气温将低级趣味的我前进的气温</view>
+              <view class="cellBd">{{userInfo.intro}}</view>
             </view>
           </view>
         </view>

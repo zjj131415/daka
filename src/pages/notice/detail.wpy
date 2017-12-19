@@ -311,7 +311,7 @@
           <text class="address">已报名</text>
           <text class="city">{{detail.count}}人</text>
         </view>
-        <scroll-view class="avatar-group" scroll-x wx:if="{{detail.heads}}">
+        <scroll-view class="avatar-group" scroll-x wx:if="{{detail.heads > 0}}">
           <block wx:for="{{detail.heads}}" wx:key="{{index}}">
             <image class="avatar" mode="aspectFill" src="{{item}}"></image>
           </block>

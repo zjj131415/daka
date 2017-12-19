@@ -1,12 +1,34 @@
 <style lang="less" scoped>
   .container {
     .perList {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 5rpx;
+      justify-content: center;
+      align-items: center;
       .perItem {
-
+        width: 360rpx;
+        margin: 5rpx;
+        box-sizing: border-box;
+        overflow: hidden;
         background: #fff;
-        // .head {
-        //   width: ;
-        // }
+        .head {
+          width: 360rpx;
+          height: 360rpx;
+        }
+         .tags {
+          height:50rpx;
+          display: flex;
+          align-items: center;
+          .tagItem {
+            margin: 0 10rpx;
+            padding: 0 22rpx;
+            border: 1px solid #000;
+            border-radius: 12rpx;
+            color: #000;
+            font-size: 28rpx;
+          }
+        }
       }
     }
   }
@@ -15,10 +37,17 @@
   <view class="container">
      <view class="perList">
       <view class="perItem">
-        <image class="head" src="https://wx.qlogo.cn/mmopen/vi_32/eRDsVfuFyb7dbibKjCS71K6lia5vUNxLpQfbGuxxwPicBJnO97nQJLwAbZGVeYF5kRGibaX91KthZu51tzE66ghRsQ/0"></image>
+        <image class="head" mode="aspectFill" src="https://wx.qlogo.cn/mmopen/vi_32/eRDsVfuFyb7dbibKjCS71K6lia5vUNxLpQfbGuxxwPicBJnO97nQJLwAbZGVeYF5kRGibaX91KthZu51tzE66ghRsQ/0"></image>
         <view class="nameAddres">阿里巴巴<text class="addres">重庆</text></view>
         <view class="tags">
-          <view class="tag">演员</view>
+          <view class="tagItem">演员</view>
+        </view>
+      </view>
+      <view class="perItem">
+        <image class="head" mode="aspectFill" src="https://wx.qlogo.cn/mmopen/vi_32/eRDsVfuFyb7dbibKjCS71K6lia5vUNxLpQfbGuxxwPicBJnO97nQJLwAbZGVeYF5kRGibaX91KthZu51tzE66ghRsQ/0"></image>
+        <view class="nameAddres">阿里巴巴<text class="addres">重庆</text></view>
+        <view class="tags">
+          <view class="tagItem">演员</view>
         </view>
       </view>
     </view>
