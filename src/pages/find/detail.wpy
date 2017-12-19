@@ -133,6 +133,19 @@
 
   .comment {
     background: #fff;
+    .commentItem {
+      position: relative;
+      overflow: hidden;
+      &::after {
+        position: absolute;
+        left: 0;
+        top: 0;
+        content: ' ';
+        width: 200%;
+        border-bottom: 1px solid #dcdcdc;
+        transform: scaleY(.5);
+      }
+    }
     .commentUser {
       display: flex;
       align-items: center;
