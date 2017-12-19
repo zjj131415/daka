@@ -84,12 +84,12 @@
 </style>
 <template>
   <view class="container">
-    <view class="person" wx:if="{{persons.length > 0}}">
-      <block wx:for="{{persons}}" wx:key="{{index}}">
+    <view class="person" wx:if="{{personList.length > 0}}">
+      <block wx:for="{{personList}}" wx:key="{{index}}">
          <view class="personItem">
           <image class="photo" mode="aspectFill" src="http://upload.jianshu.io/users/upload_avatars/1132780/9c3554d323dc?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></image>
           <view class="info">
-            <view class="name">张三</view>
+            <view class="name">{{item.name}}</view>
             <view class="after"><text class="ht">170</text><text class="xg">/</text><text class="add">重庆</text></view>
           </view>
           <view class="tags">
@@ -121,11 +121,40 @@
     }
     
     data = {
-      persons: [
+      bookingId: null,
+      personList: [
 
       ]
     }
 
+    onLoad(e) {
+      const _this = this;
+      //获取页面参数；
+      const {id} = e;
+      _this.bookingId = id;
+    }
+
+    onShow() {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
+      const {bookingId} = _this.$data;
+      //加载数据
+      _this.$loadList(bookingId);
+    }
+
+    //加载数据
+    $loadList(bookingId) {
+      const _this = this;
+      $post('/wechat!gotBookingArtist.action', {
+        bookingId
+      })
+      .then(data => {
+        _this.personList = data;
+        _this.$apply();
+      })
+      .catch(err => console.log(err))
+    }
     
   }
 </script>

@@ -64,7 +64,13 @@
         <view class="contTit">明信片</view>
         <textarea name="comment" data-id="2" placeholder="说说对他的感觉如何（20个字以内）" placeholder-style="color: #ccc"/>
       </view>
-      <button class="sub-btn" formType="submit">打赏</button>
+      <view class="fixedBtn">
+        <view class="fixedBtnGrounp">
+          <button class="btn" form-type="submit">
+            打赏
+          </button>
+        </view>
+      </view>
     </form>
   </view>
 </template>
@@ -75,24 +81,28 @@
     methods = {
       formSubmit(e) {
         const _this = this;
-        _this.$dsPay();
+        const {user} = _this.$parent.globalData;
+        const {memberId} = user
+        _this.$dsPay(memberId);
       }
     }
 
     //打赏支付
-    $dsPay() {
+    $dsPay(memberId) {
       $post('/wechat!gotXcxPayData.action', {
+        memberId,
         payType: 2,
-        total_fee: 0.01,
-        body: ''
+        total_fee: 1,
+        body: '大大说'
       }, true)
-      .thnen(data => {
+      .then(data => {
+        const {timeStamp, nonceStr, package, signType, paySign} = data;
         wepy.requestPayment({
-          timeStamp: '',
-          nonceStr: '',
-          package: '',
-          signType: 'MD5',
-          paySign: '',
+          timeStamp,
+          nonceStr,
+          package,
+          signType,
+          paySign,
           success(res) {
             console.log(res)
           },

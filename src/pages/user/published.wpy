@@ -106,7 +106,7 @@
   <view class="container">
     <view class="notice-list" wx:if="{{publishLis.length > 0}}">
       <block wx:for="{{publishLis}}" wx:key="{{index}}">
-        <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}active=3">
+        <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}&active=3">
           <view class="notice-top-info">
             <view class="notice-img">
               <image mode="aspectFill" src="{{item.image ? item.image : '/images/null.jpg'}}"></image>

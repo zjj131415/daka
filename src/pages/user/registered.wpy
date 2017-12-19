@@ -104,7 +104,7 @@
 </style>
 <template>
   <view class="container">
-    <view class="notice-list">
+    <view class="notice-list" wx:if="{{registerList.length > 0}}">
       <block wx:for="{{registerList}}" wx:key="{{index}}">
         <navigator class="notice-item" url="/pages/notice/detail?id={{item.id}}&active=0">
           <view class="notice-top-info">
@@ -130,6 +130,7 @@
         </navigator>
       </block>
     </view>
+    <pagenull wx:else></pagenull>
   </view>
 </template>
 
