@@ -109,8 +109,8 @@
     <view class="upload-title">上传持证照</view>
     <view class="upload-group">
       <view class="upload-info">
-        <view class="upload" wx:if="{{!uploadSrc}}" @tap="upload">+</view>
-        <image class="upload-image" src="{{uploadSrc}}" wx:else></image>
+        <view class="upload" @tap="tap" data-id="0">+</view>
+        <image class="upload-image" tap="tap" data-id="0"></image>
         <view class="arrow">→</view>
         <view class="img-wrap">
           <image class="sample" src="../../images/sample.jpg" mode="widthFix"></image>
@@ -133,30 +133,36 @@
 
 <script>
   import wepy from "wepy";
-
+  import {$post, $uploadImg} from '../../mixins/base'
   export default class Realname extends wepy.page {
     config = {
       navigationBarTitleText: '实名认证'
     }
+
     data = {
-      userInfo: {},
-      // uploadSrc: '../../images/avatar/avatar2.jpg'
-      uploadSrc: ''
+      
     }
+
     methods = {
-      upload() {
-        var _this = this
-        wx.chooseImage({
-          count: 1, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            _this.uploadSrc = res.tempFilePaths[0]
-            _this.$apply()
-          }
-        })
-      }
+       tap(e) {
+         console.log(e)
+         const _this = this;
+         const {id} = e.currentTarget.dataset;
+         switch (id | 0) {
+           case 0:
+             _this.$imgUpload();
+             break;
+         }
+         console.log(e)
+       }
+    }
+
+    //图片上传
+    $imgUpload() {
+      $uploadImg(9)
+      .then(data => {
+        console.log(data)
+      })
     }
   }
 </script>
