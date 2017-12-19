@@ -191,8 +191,8 @@ import {$post} from './mixins/base'
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/circle/jigou',
       'pages/circle/index',
+      'pages/circle/jigou',
       'pages/user/realname',
       'pages/user/published',
       'pages/notice/index',

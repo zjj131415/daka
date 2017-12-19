@@ -96,7 +96,6 @@
       padding: 20rpx;
       background-color: #ffffff;
       .tag {
-        margin-bottom: 20rpx;
         font-size: 28rpx;
         .daka {
           margin-right: 20rpx;
@@ -122,6 +121,7 @@
         box-sizing:border-box;
         white-space:nowrap;
         padding:20rpx 0;
+        margin-top: 20rpx;
         background:#fff;
         .avatar {
           width: 90rpx;
@@ -311,7 +311,7 @@
           <text class="address">已报名</text>
           <text class="city">{{detail.count}}人</text>
         </view>
-        <scroll-view class="avatar-group" scroll-x wx:if="{{detail.heads > 0}}">
+        <scroll-view class="avatar-group" scroll-x wx:if="{{detail.heads.length > 0}}">
           <block wx:for="{{detail.heads}}" wx:key="{{index}}">
             <image class="avatar" mode="aspectFill" src="{{item}}"></image>
           </block>
@@ -435,7 +435,7 @@
       }, true)
       .then(data => {
         _this.detail = data;
-        _this.detail.heads = _this.detail.heads.split(",");
+        _this.detail.heads = _this.detail.heads ? _this.detail.heads.split(",") : [];
         _this.$apply();
       })
     }
