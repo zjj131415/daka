@@ -192,8 +192,8 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/circle/index',
-      'pages/find/pay',
       'pages/circle/jigou',
+      'pages/find/pay',
       'pages/user/realname',
       'pages/user/published',
       'pages/notice/index',
@@ -323,7 +323,7 @@ export default class extends wepy.app {
   }
 
   //获取用户信息，并且检测用户时候注册，没有注册直接注册返回用户信息
-  $getUserInfo(code, parentId, cb) {
+  $getUserInfo(code, parentId = '', cb) {
     const _this = this;
     wepy.getUserInfo({
       success({userInfo}) {
@@ -343,6 +343,8 @@ export default class extends wepy.app {
             parentId
           })
           .then(data => {
+            //清除本地缓存parentId；
+            wepy.removeStorage({key: 'parentId'})
             //成功获取信息并存储为全局对象，方便其他页面调用！
             if(typeof data === 'object') {
               _this.$updateGlobalData('user', data);
@@ -366,8 +368,9 @@ export default class extends wepy.app {
               wepy.openSetting && wepy.openSetting({
                 success: ({authSetting}) => {
                   if (authSetting['scope.userInfo']) {
+                    const parentId = wepy.getStorageSync('parentId') ? wepy.getStorageSync('parentId') : '';
                     // 用户打开设置，重新获取信息
-                    _this.$getUserInfo(code)
+                    _this.$getUserInfo(code, parentId);
                   }
                 }
               })
@@ -388,12 +391,14 @@ export default class extends wepy.app {
     })
   }
 
-  onLaunch(e) {
+  onShow(e) {
     const _this = this;
     //获取parentid
-    const {parentId} = e.query || '';
+    const {id} = e.query || {};
+    console.log(e)
+    wepy.setStorageSync('parentId', id);
     //登陆获取code换取openid
-    _this.$login(parentId);
+    _this.$login(id);
   }
 }
 </script>

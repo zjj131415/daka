@@ -3,30 +3,46 @@
     .perList {
       display: flex;
       flex-wrap: wrap;
+      width: 740rpx;
+      margin: 0 auto;
       padding: 0 5rpx;
-      justify-content: center;
-      align-items: center;
+      overflow: hidden;
       .perItem {
         width: 360rpx;
-        margin: 5rpx;
         box-sizing: border-box;
         overflow: hidden;
+        margin: 5rpx;
+        padding-bottom: 10rpx;
         background: #fff;
         .head {
           width: 360rpx;
           height: 360rpx;
         }
-         .tags {
+        .tags {
+          margin-top: 10rpx;
+          padding: 0 30rpx;
           height:50rpx;
           display: flex;
           align-items: center;
+          justify-content: space-between;
           .tagItem {
-            margin: 0 10rpx;
             padding: 0 22rpx;
-            border: 1px solid #000;
+            border: 1px solid #ccc;
             border-radius: 12rpx;
-            color: #000;
+            color: #ccc;
             font-size: 28rpx;
+          }
+        }
+        .nameAddres {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 10rpx;
+          font-size: 30rpx;
+          color: #333;
+          .addres {
+            font-size:24rpx;
+            color:#ccc;
           }
         }
       }
@@ -36,20 +52,16 @@
 <template>
   <view class="container">
      <view class="perList">
-      <view class="perItem">
-        <image class="head" mode="aspectFill" src="https://wx.qlogo.cn/mmopen/vi_32/eRDsVfuFyb7dbibKjCS71K6lia5vUNxLpQfbGuxxwPicBJnO97nQJLwAbZGVeYF5kRGibaX91KthZu51tzE66ghRsQ/0"></image>
-        <view class="nameAddres">阿里巴巴<text class="addres">重庆</text></view>
-        <view class="tags">
-          <view class="tagItem">演员</view>
-        </view>
-      </view>
-      <view class="perItem">
-        <image class="head" mode="aspectFill" src="https://wx.qlogo.cn/mmopen/vi_32/eRDsVfuFyb7dbibKjCS71K6lia5vUNxLpQfbGuxxwPicBJnO97nQJLwAbZGVeYF5kRGibaX91KthZu51tzE66ghRsQ/0"></image>
-        <view class="nameAddres">阿里巴巴<text class="addres">重庆</text></view>
-        <view class="tags">
-          <view class="tagItem">演员</view>
-        </view>
-      </view>
+      <block wx:for="{{[1,1,1]}}" wx:key="{{index}}">
+        <navigator class="perItem">
+          <image class="head" mode="aspectFill" src="https://wx.qlogo.cn/mmopen/vi_32/eRDsVfuFyb7dbibKjCS71K6lia5vUNxLpQfbGuxxwPicBJnO97nQJLwAbZGVeYF5kRGibaX91KthZu51tzE66ghRsQ/0"></image>
+          <view class="nameAddres">阿里巴巴<text class="addres">重庆</text></view>
+          <view class="tags">
+            <view class="tagItem">演员</view>
+            <view class="tagItem">演员</view>
+          </view>
+        </navigator>
+      </block>
     </view>
   </view>
 </template>

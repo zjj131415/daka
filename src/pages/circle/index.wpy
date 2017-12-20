@@ -724,7 +724,27 @@
       //一级艺人类型
       this.$getOneTypes();
       //启动转发
-      wepy.showShareMenu();
+      wepy.showShareMenu({
+        withShareTicket: true
+      });
+    }
+
+    //转发设置
+    onShareAppMessage() {
+      const _this = this;
+      const {user} = _this.$parent.globalData || {};
+      console.log(user)
+      const {memberId} = user;
+      return {
+        path: '/pages/circle/index?id=' + memberId,
+        shareTickets: true,
+        success: function(res) {
+          // 转发成功
+        },
+        fail: function(res) {
+          // 转发失败
+        }
+      }
     }
 
     //一级艺人类型
@@ -763,5 +783,6 @@
         _this.$apply();
       });
     }
+
   }
 </script>
