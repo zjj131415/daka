@@ -192,6 +192,7 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/circle/index',
+      'pages/find/pay',
       'pages/circle/jigou',
       'pages/user/realname',
       'pages/user/published',
@@ -217,7 +218,6 @@ export default class extends wepy.app {
       'pages/user/info-yiren',
       'pages/user/info-zhichang',
       'pages/find/detail',
-      'pages/find/pay',
       'pages/user/info-character',
       'pages/user/keep',
       'pages/user/sign-up',
@@ -323,7 +323,7 @@ export default class extends wepy.app {
   }
 
   //获取用户信息，并且检测用户时候注册，没有注册直接注册返回用户信息
-  $getUserInfo(code, cb) {
+  $getUserInfo(code, parentId, cb) {
     const _this = this;
     wepy.getUserInfo({
       success({userInfo}) {
@@ -340,7 +340,7 @@ export default class extends wepy.app {
             nickName,
             gender,
             head: avatarUrl,
-            parentId: ''
+            parentId
           })
           .then(data => {
             //成功获取信息并存储为全局对象，方便其他页面调用！
@@ -390,8 +390,10 @@ export default class extends wepy.app {
 
   onLaunch(e) {
     const _this = this;
+    //获取parentid
+    const {parentId} = e.query || '';
     //登陆获取code换取openid
-    _this.$login();
+    _this.$login(parentId);
   }
 }
 </script>

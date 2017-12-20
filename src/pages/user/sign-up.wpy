@@ -1,18 +1,23 @@
 <style lang="less" scoped>
   .container {
     .person {
+      width: 750rpx;
+      box-sizing: border-box;
       display: flex;
       flex-wrap: wrap;
       padding: 0 5rpx;
+      margin: 0 auto;
+      overflow: hidden;
+      align-items: center;
       .personItem {
-        width: 355rpx;
+        width: 360rpx;
         margin: 5rpx;
         overflow: hidden;
         background: #fff;
         padding-bottom: 10rpx;
         .photo {
-          width: 345rpx;
-          height: 345rpx;
+          width: 360rpx;
+          height: 360rpx;
         }
         .info {
           display: flex;
@@ -87,7 +92,7 @@
     <view class="person" wx:if="{{personList.length > 0}}">
       <block wx:for="{{personList}}" wx:key="{{index}}">
          <view class="personItem">
-          <image class="photo" mode="aspectFill" src="http://upload.jianshu.io/users/upload_avatars/1132780/9c3554d323dc?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></image>
+          <image class="photo" mode="aspectFill" src="{{item.head}}"></image>
           <view class="info">
             <view class="name">{{item.name}}</view>
             <view class="after"><text class="ht">170</text><text class="xg">/</text><text class="add">重庆</text></view>

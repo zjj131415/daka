@@ -240,27 +240,6 @@
       }
     }
   }
-  .release {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #FFFFFF;
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 90rpx;
-      background: #dc3b23;
-      color: #fff;
-      font-size: 34rpx;
-      .baoming {
-        margin-right: 6rpx;
-        font-size: 42rpx;
-        color: #fff;
-      }
-    }
-  }
 </style>
 
 <template>
@@ -340,12 +319,14 @@
         </view>
       </view>
       <view class="fixedBtn" wx:if="{{active == 1}}">
-        <view class="fixedBtnGrounp">
-          <button class="btn" @tap="tap" data-id="1" data-nid="{{detail.id}}">
-            <text class="daka icon-woyaobaoming"></text>
-            我要报名
-          </button>
-        </view>
+        <form bindsubmit="tap" data-id="1" data-nid="{{detail.id}}" report-submit="true">
+          <view class="fixedBtnGrounp">
+            <button class="btn" form-type="submit">
+              <text class="daka icon-woyaobaoming"></text>
+              我要报名
+            </button>
+          </view>
+        </form>
       </view>
     </view>
     <pagenull wx:else></pagenull>
@@ -365,7 +346,7 @@
     }
 
     data = {
-      active: 1,
+      active: 2,
       detail: null,
     };
 
@@ -373,12 +354,13 @@
       tap(e) {
         const _this = this;
         const {id, nid} = e.currentTarget.dataset;
+        const {formId} = e.detail;
         switch (id | 0) {
           case 0:
             wepy.navigateTo({url: `/pages/user/sign-up?id=${nid}`});
             break;
           case 1:
-            _this.$sginUp(nid);
+            _this.$sginUp(nid, formId);
             break;
         }
       }
@@ -393,13 +375,15 @@
     }
 
     //报名
-    $sginUp(id) {
+    $sginUp(id, formId) {
       const _this = this;
       const {user} = _this.$parent.globalData;
       const {memberId} = user;
       $post('/wechat!saveArtistNotice.action', {
         artistId: memberId,
-        bookingId: id
+        bookingId: id,
+        formId,
+        page: `/pages/user/sign-up?id=${id}`
       }, true)
       .then(data => {
         if (data.result === 'succ') {
