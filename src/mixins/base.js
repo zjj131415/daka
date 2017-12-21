@@ -29,6 +29,8 @@ const $post = (url, data = {}, loading = false) => {
         if (result === 'err') {
           //错误
           reject(result);
+        }else if(result === 'succ') {
+          resolve(result);
         }else {
           resolve(data);
         }
