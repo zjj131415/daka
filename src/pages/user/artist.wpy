@@ -143,13 +143,12 @@
         </navigator>
       </block>
     </view>
-    <button class="">分享朋友圈</button>
   </view>
 </template>
 
 <script>
   import wepy from "wepy";
-
+  import {$post} from "../../mixins/base";
   export default class Artist extends wepy.page {
     config = {
       navigationBarTitleText: '旗下大咖'
@@ -179,6 +178,24 @@
           {value: '节目嘉宾', icon: 'icon-jiabin'}
         ]
       ],
+    }
+
+    onShow() {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {memberId} = user;
+      //获取旗下大咖
+      _this.$loadList(memberId);
+    }
+    //加载旗下大咖列表
+    $loadList(firstTypeId) {
+      $post('/wechat!gotBrokerArtist.action', {
+        firstTypeId
+      })
+      .then(data => {
+        console.log(dataß)
+      })
+      .catch(err => console.log(err))
     }
   }
 </script>
