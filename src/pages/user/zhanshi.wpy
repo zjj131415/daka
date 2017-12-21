@@ -52,7 +52,7 @@
     <view class="flexBootomBtn">
       <view class="btnGrounp">
         <view class="btnGrounpItem">
-          <button bindtap="upload"><text class="daka icon-triangleupfill"></text>上传</button>
+          <button @tap="upload"><text class="daka icon-triangleupfill"></text>上传</button>
         </view>
       </view>
     </view>
@@ -60,6 +60,7 @@
 </template>
 <script>
 import wepy from "wepy";
+import {$upload} from "../../mixins/base";
 export default class Zhanshi extends wepy.page {
   data = {
     tempFilePaths: null,
@@ -75,10 +76,24 @@ export default class Zhanshi extends wepy.page {
       })
     },
     upload() {
-      wx.showLoading({
-        title: '上传中...',
-        mask: true
-      });
+      const _this = this;
+      let _index = 0;
+      const imgUrls = [];
+      const {tempFilePaths} = _this.$data;
+      const uploadFn = () => {
+        $upload(tempFilePaths[_index])
+        .then(data => {
+          _index++;
+          imgUrls.push(data.trim());
+          if (_index < tempFilePaths.length) {
+            uploadFn();
+          }else {
+            console.log(tempFilePaths, imgUrls)
+          }
+        })
+        .catch(err => console.log(err))
+      }
+      uploadFn();
     }
   }
   onLoad(e) {
@@ -92,3 +107,4 @@ export default class Zhanshi extends wepy.page {
 </script>
 
 
+　

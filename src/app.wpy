@@ -191,6 +191,8 @@ import {$post} from './mixins/base'
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/user/editInfo1',
+      'pages/user/zhanshi', 
       'pages/circle/index',
       'pages/user/add-project',
       'pages/user/realname',
@@ -205,7 +207,6 @@ export default class extends wepy.app {
       'pages/user/home1', 
       'pages/user/service',
       'pages/notice/detail',
-      'pages/user/editInfo1',
       'pages/user/editInfo2',
       'pages/user/info-basis',
       'pages/launched/index',
@@ -213,7 +214,6 @@ export default class extends wepy.app {
       'pages/user/artist',
       'pages/user/realname-qiye',
       'pages/user/info-basis1',
-      'pages/user/zhanshi', 
       'pages/launched/dynamic',
       'pages/launched/notice',
       'pages/user/info-yiren',
