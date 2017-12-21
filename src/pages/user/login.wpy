@@ -41,6 +41,9 @@
     }
     .btn {
       margin-top: 50rpx;
+      font-size: 32rpx;
+      background: #dc3b23;
+      color: #fff;
     }
     .hide-input {
       display: none;
@@ -49,17 +52,17 @@
 </style>
 <template>
   <view class="container">
-    <form bindsubmit="handleSubmit">
+    <form bindsubmit="submit">
       <view class="form-item">
-        <input class="input" name="phone" maxlength="11" type="number" value="{{phone}}" bindinput="bindInput" data-id="0" placeholder="请输入手机号码(暂只支持中国大陆)" placeholder-style="color:#b3b3b3"/>
+        <input class="input" name="phone" maxlength="11" type="number" value="{{phone}}" bindinput="change" data-id="2" placeholder="请输入手机号码(暂只支持中国大陆)" placeholder-style="color:#b3b3b3"/>
       </view>
       <view class="form-item">
-        <input class="input" name="code" type="number" value="{{code}}" bindinput="bindInput" data-id="1"  maxlength="6" placeholder="输入验证码~" placeholder-style="color:#b3b3b3"/>
-        <view class="get-code active" @tap="getCode">{{getCodeText}}</view>
+        <input class="input" name="code" type="number" value="{{code}}" data-id="1"  maxlength="6" placeholder="输入验证码~" placeholder-style="color:#b3b3b3"/>
+        <view class="get-code active" @tap="change" data-id="1">获取验证码</view>
       </view>
       <view class="form-item">
         <input class="hide-input" name="type" type="text" value="{{type}}"/>
-        <view class="input {{type ? '' : 'active'}}" @tap="handleType">{{type ? type : ' 选择类型'}}</view>
+        <view class="input {{type ? '' : 'active'}}" @tap="change" data-id="0">{{type ? type : ' 选择类型'}}</view>
       </view>
       <button class="btn" type="warn" form-type="submit" size="default">注册</button>
     </form>
@@ -68,150 +71,138 @@
 
 <script>
   import wepy from "wepy";
+  import {$post} from "../../mixins/base";
   export default class Login extends wepy.page {
     config = {
       navigationBarTitleText: '注册'
     };
+
     data = {
-      getCodeText: '获取验证码',
-      isGetcode: true,
-      timer: 60,
-      phone: '',
-      code: '',
+      mobile: '',
       type: '',
       types: [
         '个人',
         '企业'
       ]
     };
+
     methods = {
-      bindInput(e) {
+      change(e) {
+        const _this = this;
+        const {mobile} = _this.$data;
+        const {id} = e.currentTarget.dataset;
         const {value} = e.detail;
-        const {id} = e.target.dataset;
         switch (id | 0) {
+          //改变类型
           case 0:
-            this.phone = value;
+            _this.$changeType();
             break;
+          //获取验证码
           case 1:
-            this.code = value;
+            _this.$getCode(mobile);
+            break;
+          //输入手机号码
+          case 2:
+            _this.mobile = value;
             break;
         }
-        this.$apply();
+        _this.$apply();
       },
-      //改变类型
-      handleType() {
+      submit(e) {
         const _this = this;
-        wepy.showActionSheet({
-          itemList: _this.types,
-          success: function(res) {
-            _this.type = _this.types[res.tapIndex]
-            _this.$apply();
-          },
-          fail: function(res) {
-            console.log(res.errMsg)
-          }
-        })
-      },
-      //监听input改变事件
-      handleSubmit(e) {
-        const {phone, type, code} = this.$data;
-        const {openid} = this.$parent.globalData;
-        let __type = type === "个人" ? 1 : 2;
-        //验证手机
-        if(!/^1[34578]\d{9}$/.test(phone)) return (
-          wx.showModal({
-            title: '手机号码错误',
-            content: '手机号码格式不正确，请输入正确手机号码在试！',
-            showCancel: false,
-            confirmText: '好的',
-            mask: true,
-            success: function(res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
-          })
-        )
-        //验证code和类型
-        if(!type || !code) return (
-          wx.showModal({
+        const {user} = _this.$parent.globalData;
+        const {memberId} = user;
+        const {phone, code, type} = e.detail.value;
+        console.log(phone, code, type)
+        const reg = /^(((13[0-9]{1})|(15[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if (!reg.test(phone)) {
+          wepy.showModal({
             title: '提示',
-            content: '验证码或者类型错误，请重新选择！',
-            showCancel: false,
-            confirmText: '好的',
-            mask: true,
-            success: function(res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
-          })
-        )
-        // 提交注册
-        wx.request({
-          url: 'https://www.us800.cn/async!doReg.action',//注册
-          data: {
-            mobile: phone,
-            wxOpenId: openid,
-            validCode: code,
-            memberType: __type
-          },
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          success: function(res) {
-            if (res.data.memberId) {
-              this.$parent.$updateGlobalData('user', r.data);
-              this.$apply();
-            }
-          },
-          fail() {
-            wx.hideLoading();
-          }
-        });
+            content: '请输入正确的手机号码',
+            showCancel: false
+          });
+          return false;
+        }
+        if (!code) {
+          wepy.showModal({
+            title: '提示',
+            content: '请输入正确的手机验证码',
+            showCancel: false
+          });
+          return false;
+        }
+         if (!type) {
+          wepy.showModal({
+            title: '提示',
+            content: '请选择类型',
+            showCancel: false
+          });
+          return false;
+        }
+        //发送请求
+        $post('/async!doReg.action', {
+          memberId,
+          mobile: phone,
+          validCode: code,
+          memberType: (type === '企业' ? 2 : 1)
+        }, true)
+        .then(data => {
+          console.log(data)
+        })
+        .catch(err => console.log(err))
       },
-      getCode() {
-        const {phone} = this.$data;
-        //获取验证码
-        wx.request({
-          url: 'https://www.us800.cn/async!sendMobileValidCode.action',//登陆
-          data: {
-            mobile: phone
-          },
-          method: 'POST',
-          header: {
-            'content-type': 'application/json' // 默认值
-          },
-          success: function(res) {
-            console.log(res)
-            // const {result} = res;
-            // console.log(!!result)
-            // if (!result) {
-            //   wx.reLaunch({url: '/pages/user/login'})
-            // };
-          },
-          fail() {
-            wx.hideLoading();
-          }
-        });
-        // if (!this.isGetcode) return false;
-        // this.setData({isGetcode: false});
-        // let  timerout = null;
-        // timerout = setInterval(() => {
-        //   console.log(78)
-        //   this.setData({timer: --this.timer});
-        //   if (this.timer >= 0) {
-        //     clearInterval(timerout);
-        //     this.setData({timer: 4, isGetcode: true});
-        //   }
-        // }, 1000);
-        // console.log('h')
+    }
+
+    //改变type
+    $changeType() {
+      const _this = this;
+      wepy.showActionSheet({
+        itemList: _this.types,
+        success: function(res) {
+          _this.type = _this.types[res.tapIndex]
+          _this.$apply();
+        },
+        fail: function(res) {
+        }
+      })
+    }
+    //获取验证码
+    $getCode(mobile) {
+      const reg = /^(((13[0-9]{1})|(15[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+      if (!reg.test(mobile)) {
+        wepy.showModal({
+          title: '提示',
+          content: '请输入正确的手机号码',
+          showCancel: false
+        })
+        return false;
       }
+      $post('/async!sendMobileValidCode.action',  {
+        mobile
+      })
+      .then(data => {
+        const {result} = data;
+        if (result == 1) {
+          wepy.showToast({
+            title: '发送成功',
+            icon: 'success',
+            duration: 2000
+          });
+        } else {
+           wepy.showToast({
+            title: '已发送，请稍后再试',
+            image: '/images/error.png',
+            duration: 2000
+          });
+        }
+      })
+      .catch(err => { 
+        wepy.showToast({
+          title: '发送失败',
+          image: '/images/error.png',
+          duration: 2000
+        });
+      })
     }
   }
 </script>
