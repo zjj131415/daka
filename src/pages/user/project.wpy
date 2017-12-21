@@ -111,6 +111,7 @@
 </template>
 <script>
 import wepy from "wepy";
+import {$post} from "../../mixins/base";
 export default class Reservation extends wepy.page {
   config = {
     navigationBarTitleText: '我的项目'
@@ -129,6 +130,20 @@ export default class Reservation extends wepy.page {
           break;
       }
     }
+  }
+
+  onShow() {
+    const _this = this;
+    const {user} = _this.$parent.globalData;
+    const {memberId} = user;
+    //加载项目列表
+    _this.$loadList(memberId);
+  }
+
+  $loadList(memberId) {
+    $post('/wechat!gotMemberProjectList.action', {
+      memberId
+    })
   }
 
 }
