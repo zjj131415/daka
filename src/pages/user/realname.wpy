@@ -94,40 +94,42 @@
 </style>
 <template>
   <view class="container">
-    <view class="title">
-      <view class="status">认证状态</view>
-      <view class="result">未认证</view>
-    </view>
-    <view class="enter">
-      <view class="amount">真实姓名</view>
-      <input type="text" class="enter-money" placeholder="请输入身份证姓名"/>
-    </view>
-    <view class="enter card">
-      <view class="amount">证件号码</view>
-      <input type="idcard" class="enter-money" placeholder="请输入身份证号码"/>
-    </view>
-    <view class="upload-title">上传持证照</view>
-    <view class="upload-group">
-      <view class="upload-info">
-        <view class="upload" @tap="tap" data-id="0">+</view>
-        <image class="upload-image" tap="tap" data-id="0"></image>
-        <view class="arrow">→</view>
-        <view class="img-wrap">
-          <image class="sample" src="../../images/sample.jpg" mode="widthFix"></image>
+    <form bindsubmit="submit">
+      <view class="title">
+        <view class="status">认证状态</view>
+        <view class="result">{{userInfo.auth === 1 ? '已认证' : '未认证'}}</view>
+      </view>
+      <view class="enter">
+        <view class="amount">真实姓名</view>
+        <input type="text" class="enter-money" name="name" placeholder="请输入身份证姓名"/>
+      </view>
+      <view class="enter card">
+        <view class="amount">证件号码</view>
+        <input type="idcard" class="enter-money" name="idcard" placeholder="请输入身份证号码"/>
+      </view>
+      <view class="upload-title">上传持证照</view>
+      <view class="upload-group">
+        <view class="upload-info">
+          <view class="upload" @tap="tap" data-id="0"  wx:if="{{!imgUrl}}">+</view>
+          <image class="upload-image" @tap="tap" data-id="0" src="{{imgUrl}}" wx:if="{{imgUrl}}"></image>
+          <view class="arrow">→</view>
+          <view class="img-wrap">
+            <image class="sample" src="../../images/sample.jpg" mode="widthFix"></image>
+          </view>
+        </view>
+        <view class="description">证件上传要求如下：</view>
+        <view class="rule">1.持证正面照需本人手持证件，免冠未妆能辨识</view>
+        <view class="rule">2.证件上信息/号码/住址需清晰可见</view>
+        <view class="rule">3.照片大小5M以内</view>
+      </view>
+      <view class="fixedBtn">
+        <view class="fixedBtnGrounp">
+          <button class="btn" form-type="submit">
+            认证  
+          </button>
         </view>
       </view>
-      <view class="description">证件上传要求如下：</view>
-      <view class="rule">1.持证正面照需本人手持证件，免冠未妆能辨识</view>
-      <view class="rule">2.证件上信息/号码/住址需清晰可见</view>
-      <view class="rule">3.照片大小5M以内</view>
-    </view>
-    <view class="fixedBtn">
-      <view class="fixedBtnGrounp">
-        <button class="btn" form-type="submit">
-          保存
-        </button>
-      </view>
-    </view>
+    </form>
   </view>
 </template>
 
@@ -140,28 +142,123 @@
     }
 
     data = {
-      
+      userInfo: {},
+      imgUrl: '',
+      upImp: ''
     }
 
     methods = {
-       tap(e) {
-         console.log(e)
-         const _this = this;
-         const {id} = e.currentTarget.dataset;
-         switch (id | 0) {
-           case 0:
-             _this.$imgUpload();
-             break;
-         }
-         console.log(e)
-       }
+      tap(e) {
+        console.log(e)
+        const _this = this;
+        const {id} = e.currentTarget.dataset;
+        switch (id | 0) {
+          case 0:
+            _this.$imgUpload();
+            break;
+        }
+       },
+      submit(e) {
+        const _this = this;
+        const {user} = _this.$parent.globalData;
+        const {memberId} = user;
+        const {name, idcard} = e.detail.value;
+        const {upImp} = _this.$data;
+        const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        if (!reg.test(idcard)) {
+          wepy.showModal({
+            title: '提示',
+            content: '身份证号码不合法，请核对再试',
+            showCancel: false
+          })
+          return false;
+        }
+        if (!name || !upImp) {
+          wepy.showModal({
+            title: '提示',
+            content: '填写完整才能提交哦！',
+            showCancel: false
+          })
+          return false;
+        }
+        //提交数据
+        $post('/wechat!saveAuth.action', {
+          memberId,
+          realName: name,
+          idcard,
+          idcardImage: upImp
+        }, true)
+        .then(data => {
+          if (data.result === 'succ') {
+            //修改成功提示并且返回上一页
+            wepy.showToast({
+              title: '修改成功',
+              icon: 'success',
+              duration: 2000
+            });
+            setTimeout(wepy.navigateBack, 1000);
+          }else {
+            wepy.showToast({
+              title: '认证失败',
+              image: '/images/error.png',
+              duration: 2000
+            });
+          }
+        })
+        .catch(err => {
+          wepy.showToast({
+            title: '认证失败',
+            image: '/images/error.png',
+            duration: 2000
+          });
+        })
+      }
+    }
+
+    onShow() {
+      const _this = this;
+      const {user} = _this.$parent.globalData;
+      const {resumeId} = user;
+      //获取用户信息
+      _this.$looadInfo(resumeId);
     }
 
     //图片上传
     $imgUpload() {
-      $uploadImg(9)
+      const _this =this;
+      $uploadImg(1)
       .then(data => {
-        console.log(data)
+        const {imgUrls, tempFilePaths} = data;
+        _this.upImp = imgUrls[0];
+        _this.imgUrl = tempFilePaths[0];
+        _this.$apply();
+      })
+      .catch(err => {
+        wepy.showToast({
+          title: '图片上传失败',
+          image: '/images/error.png',
+          duration: 2000
+        });
+      })
+    }
+
+    //获取用户信息
+    $looadInfo(resumeId) {
+      const _this = this;
+      //获取用户信息
+      $post('/async!gotMyPerformResume.action', {
+        resumeId
+      })
+      .then(data => { 
+        _this.userInfo = data;
+        _this.$apply();
+      })
+      .catch(err => {
+        wepy.showToast({
+          title: '获取用户信息失败！',
+          image: '/images/error.png',
+          duration: 2000
+        });
       })
     }
   }

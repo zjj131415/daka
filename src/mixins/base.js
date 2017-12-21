@@ -66,7 +66,10 @@ const $upload = (filePath, i) => new Promise((resolve, reject) => {
   })
 })
 
-
+/**
+ * 　图片上传函数
+ * @param {*} count 图片张数
+ */
 const $uploadImg = (count = 1, ) => new Promise((resolve, reject) => {
   wepy.chooseImage({
     count,
@@ -80,12 +83,11 @@ const $uploadImg = (count = 1, ) => new Promise((resolve, reject) => {
         $upload(tempFilePaths[_index])
         .then(data => {
           _index++;
-          console.log(data)
           imgUrls.push(data.trim());
           if (_index < tempFilePaths.length) {
             uploadFn();
           }else {
-            console.log(imgUrls)
+            resolve({imgUrls, tempFilePaths})
           }
         })
         .catch(err => {
