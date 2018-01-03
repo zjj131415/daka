@@ -1,0 +1,33 @@
+<style lang="less" scoped>
+  .page {
+    background: red;
+  }
+</style>
+
+<template>
+  <view class="searchBox" @tap="formSubmit">
+    <form bindsubmit="formSubmit">
+      大大说
+    </form>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  
+  export default class Search extends wepy.component {
+    props = {
+      hahah: {}
+    }
+    onLoad() {
+      console.log(this.hahah)
+    }
+    methods = {
+      formSubmit() {
+        this.hahah.haha();
+      }
+    }
+  }
+  
+</script>
+

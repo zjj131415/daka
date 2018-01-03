@@ -756,8 +756,8 @@
         const newArray = [];
         data.unshift({id: 'jigou', title: '机构', icon: 'https://www.us800.cn/xcx/images/icon/wd.png'});
         if (data instanceof Array) {
-          for (let i = 0; i < data.length; i+=4) {
-            newArray.push(data.slice(i,i+4));
+          for (let i = 0; i < data.length; i+=5) {
+            newArray.push(data.slice(i,i+5));
           }
           _this.typeChoose = newArray;
           _this.$apply();

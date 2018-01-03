@@ -31,7 +31,7 @@
         position: relative;
         height: 50rpx;
         padding: 0 30rpx;
-        margin: 10rpx;
+        margin: 9rpx;
         border-radius: 10rpx;
         border: 1px solid #dcdcdc;
         font-size: 28rpx;
@@ -47,7 +47,7 @@
           position: absolute;
           right: -10rpx;
           top: -12rpx;
-          font-size: 20rpx;
+          font-size: 24rpx;
           color: #5d5d5d;
         }
       }
@@ -82,6 +82,9 @@
         border: 1px solid #f4f4f4;
         font-size: 30rpx;;
         color: #878787;
+        &.active {
+          border-color: #dc3b23;
+        }
       }
     }
     .inptu-btn {
@@ -144,27 +147,26 @@
         <view class="charCont">
           <view class="charTit">我的角色</view>
           <view class="charTags">
-            <block wx:for="{{selectChar}}" wx:key="index">
+            <block wx:for="{{selectTypeOne}}" wx:key="{{index}}">
               <view class="tag">
-                {{item.name}}
-                <text
-                  class="rm"
-                  data-index="{{index}}"
-                  data-text="item"
-                  @tap="rmTag">×</text>
+                {{item}}
+                <text class="rm">×</text>
               </view>
             </block>
           </view>
         </view>
         <view class="charCont">
           <view class="charTit">自定义角色</view>
-          <view class="inptu-btn"> <input class="input" placeholder="如: 美工 建筑师"/><view class="addbtn daka icon-zengjia" @tap="addCharacter"></view></view>
+          <view class="inptu-btn">
+            <input class="input" value="{{diyType}}" bindinput="tap" data-id="3" placeholder="如: 美工 建筑师"/>
+            <view class="addbtn daka icon-zengjia" @tap="tap" data-id="2"></view>
+          </view>
         </view>
         <view class="charCont">
           <view class="charTit">演艺角色</view>
           <view class="charTags">
-            <block wx:for="{{character}}" wx:key="index">
-              <view @tap="showModal" class="tag {{true ? '12' : '55'}}">{{item.name}}</view>
+            <block wx:for="{{typeOne}}" wx:key="{{index}}">
+              <view class="tag" @tap="tap" data-id="0" data-tagid="{{item.id}}" data-tagname="{{item.title}}">{{item.title}}</view>
             </block>
           </view>
         </view>
@@ -176,18 +178,13 @@
           </view>
         </view>
       </form>
-      <view class="sub-tags-box" wx:if="{{modal}}">
+      <view class="sub-tags-box" wx:if="{{showModa}}">
         <view class="sub-tags">
-          <view class="tag">1级演员</view>
-          <view class="tag">1级演员</view>
-          <view class="tag">1级演员</view>
-          <view class="tag">1级演员</view>
-          <view class="tag">1级演员</view>
-          <view class="tag">1级演员</view>
-          <view class="tag">1级演员</view>
-          <view class="tag">1级演员</view>
+          <block wx:for="{{typeTwo}}" wx:key="{{index}}">
+            <view class="tag {{item.selecetd ? 'active' : ''}}" @tap="tap" data-id="4" data-tagid="{{item.id}}">{{item.title}}</view>
+          </block>
         </view>
-        <view @tap="hideModal" class="close daka icon-chafuben"></view>
+        <view @tap="tap" data-id="1" class="close daka icon-chafuben"></view>
       </view>
     </view>
   </view>
@@ -197,90 +194,117 @@
   import wepy from "wepy";
   import {$post} from "../../mixins/base"
   export default class infoCharcter extends wepy.page {
+
     config = {
-      navigationBarTitleText: '角'
-    }
-    data = {
-      modal: false,
-      selectChar: [
-        {name: '演员', child: ['']}
-      ],
-      character: [
-        {
-          name: "演员",
-          child: [
-            '1号演员',
-            '2号演员',
-            '3号演员'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }, {
-          name: "演员",
-          child: [
-            'childname'
-          ]
-        }
-      ]
+      navigationBarTitleText: '角色'
     }
 
-    methods={
-      showModal() {
-        this.modal = true;
-      },
-      hideModal() {
-        this.modal = false;
-      },
-      submit(e) {
+    data = {
+      showModa: false,
+      selectTypeOne: [],
+      selectTypeTow: [121],
+      typeOne: [],
+      typeTwo: [],
+      diyType: ''
+    }
+
+    methods = {
+      tap(e) {
         const _this = this;
-        const {user} = _this.$parent.globalData;
-        const {memberId} = user || {};
-        //提交数据
-        $post('/wechat!saveArtistType.action', {
-          memberId,
-          secondArtistTypeIds: '121,122,137',
-          customType: '大大'
-        }, true)
-        .then(data => {
-          //修改成功提示并且返回上一页
-          wepy.showToast({
-            title: '修改成功',
-            icon: 'success',
-            duration: 2000
-          });
-          setTimeout(wepy.navigateBack, 1000);
-        })
-        .catch(err => {
-          wepy.showToast({
-            title: '修改失败',
-            image: '/images/error.png',
-            duration: 2000
-          });
-        })
+        const {selectTypeOne, selectTypeTow, diyType, typeTwo} = _this.$data;
+        const selectTypeTow1 = selectTypeTow;
+        const {id, tagid, tagname} = e.currentTarget.dataset;
+        const {value} = e.detail;
+        switch (id | 0) {
+          //点击一级类型,获取二级类型
+          case 0:
+            _this.showModa = true;
+            _this.$getTypeTwo(tagid);
+            if (selectTypeOne.length < 4 && !~selectTypeOne.indexOf(tagname)) _this.selectTypeOne.push(tagname);
+            break;
+          //关闭moda
+          case 1:
+            _this.showModa = false;
+            break;
+          //自定义添加按钮
+          case 2:
+            if (selectTypeOne.length < 4 && !~selectTypeOne.indexOf(diyType)) {
+              _this.selectTypeOne.push(diyType);
+              _this.diyType = '';
+            }
+            break;
+          //自定input
+          case 3:
+            _this.diyType = value;
+            break;
+          //二级类型选择
+          case 4:
+            if (~selectTypeTow.indexOf(tagid)) {
+              for (let i = 0; i < selectTypeTow.length; i++) {
+                if (selectTypeTow[i] === tagid) {
+                  selectTypeTow1.splice(i,1);
+                  _this.selectTypeTow = selectTypeTow1;
+                  _this.$addSelecetd(typeTwo, false);
+                  _this.$apply();
+                }
+              }
+            }else {
+              _this.selectTypeTow.push(tagid);
+              _this.$apply();
+              _this.$addSelecetd(typeTwo, true);
+            }
+            break;
+        }
+        _this.$apply();
       }
+    }
+
+    onShow() {
+      const _this = this;
+      //获取一级分类
+      _this.$getTypeOne();
+    }
+
+    //二级类型添加selecetd属性
+    $addSelecetd(typeTwo, anti) {
+      const _this = this;
+      const typeTwo1 = typeTwo;
+      const {selectTypeTow} = _this.$data;
+      for (let i = 0; i < typeTwo.length; i++) {
+        for (let j = 0; j < selectTypeTow.length; j++) {
+          if (typeTwo[i].id === selectTypeTow[j]) {
+            typeTwo1[i].selecetd = anti;
+          }
+        }
+      }
+      console.log(typeTwo1)
+      _this.typeTwo = typeTwo1;
+      _this.$apply();
+    }
+
+    //获取一级分类
+    $getTypeOne() {
+      const _this = this;
+      $post('/async!gotFirstArtistType.action')
+      .then(data => {
+        _this.typeOne = data;
+        _this.$apply();
+      })
+      .catch(err => console.log(err))
+    }
+
+    //获取二级分类
+    $getTypeTwo(firstArtisyTypeId) {
+      const _this = this;
+      $post('/async!gotSecondArtistType.action', {
+        firstArtisyTypeId
+      }, true)
+      .then(data => {
+        _this.typeTwo = data;
+        _this.$addSelecetd(data, true);
+        _this.$apply();
+      })
+      .catch(err => console.log(err))
     }
   }
 </script>

@@ -183,7 +183,7 @@ export default class Index extends wepy.page {
   }
 
   components = {
-    pagenull: PageNull
+    pagenull: PageNull,
   }
 
   methods = {
