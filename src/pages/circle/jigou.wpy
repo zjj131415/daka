@@ -51,7 +51,7 @@
 </style>
 <template>
   <view class="container">
-    <form bindsubmit="srarch">
+    <form bindsubmit="search">
       <view class="searchBox">
           <view class="inputBox">
             <text class="formIcon daka icon-search"/>
@@ -61,10 +61,10 @@
       </view>
     </form>
     <view class="perList">
-      <block wx:for="{{[1,1,1,1,1,1,1,1,1,1,1,1,1,1]}}" wx:key="{{index}}">
+      <block wx:for="{{personList}}" wx:key="{{index}}">
         <navigator class="perItem">
-          <image class="head" mode="aspectFill" src="https://wx.qlogo.cn/mmopen/vi_32/eRDsVfuFyb7dbibKjCS71K6lia5vUNxLpQfbGuxxwPicBJnO97nQJLwAbZGVeYF5kRGibaX91KthZu51tzE66ghRsQ/0"></image>
-          <view class="nameAddres">阿里巴巴<text class="addres">重庆</text></view>
+          <image class="head" mode="aspectFill" src="{{item.head}}"></image>
+          <view class="nameAddres">{{item.name}}<text class="addres">{{item.prov}}</text></view>
           <view class="tags">
             <view class="tagItem">演员</view>
             <view class="tagItem">演员</view>
@@ -72,31 +72,47 @@
         </navigator>
       </block>
     </view>
+    <pagenull wx:if="{{!personList}}"></pagenull>
   </view>
 </template>
 <script>
 import wepy from "wepy";
 import {$post} from "../../mixins/base"
+import PageNull from "../../components/page-null"
 export default class Jigou extends wepy.page {
+  config = {
+    navigationBarTitleText: '机构'
+  }
+
+  components = {
+    pagenull: PageNull,
+  }
+
   data = {
-    name: 'ss'
+    personList: null
   }
 
   methods = {
-    srarch(e) {
-      const {name} = e.detail.value;
-      this.$search(name);
+    search(e) {
+      const {search} = e.detail.value;
+      this.$search(search); 
     }
+  }
+
+  onLoad() {
+    //首次加载数据
+    this.$search('');
   }
 
   //搜素
   $search(name) {
     const _this = this;
-    $post('/sss', {
+    $post('/wechat!gotCompany.action', {
       name
     }, true)
     .then(data => {
-      console.log(data)
+      _this.personList = data;
+      _this.$apply();
     })
     .catch(err => console.log(err))
   }

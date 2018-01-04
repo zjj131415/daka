@@ -236,7 +236,7 @@
           });
           return false;
         }
-        $post('/wechat!saveBooking.action', {
+        $post('/wechat!saveProject.action', {
           memberId,
           performName: name,
           performBeginTime: startTime,

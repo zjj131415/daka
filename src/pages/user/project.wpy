@@ -71,23 +71,23 @@
   <view class="container">
     <view class="prejectList">
       <block wx:for="{{prejectList}}" wx:key="{{index}}">
-        <navigator class="prejectItem" url="/pages/user/keep?id={{1}}">
-          <view class="title"><text class="count">1</text>项目1</view>
+        <navigator class="prejectItem" url="/pages/user/keep?id={{item.id}}">
+          <view class="title"><text class="count">{{index + 1}}</text>{{item.name}}</view>
           <view class="cellList">
             <view class="cell">
               <view class="cellHd daka icon-locationfill"></view>
               <view class="cellBd">工作地点：</view>
-              <view class="cellFt">重庆 大渡口 久存</view>
+              <view class="cellFt">{{item.addr}}</view>
             </view>
             <view class="cell">
               <view class="cellHd daka icon-timefill"></view>
               <view class="cellBd">开始时间：</view>
-              <view class="cellFt">2015/3/20 12:00:01</view>
+              <view class="cellFt">{{item.beginTime}}</view>
             </view>
             <view class="cell">
               <view class="cellHd daka icon-timefill"></view>
               <view class="cellBd">结束时间：</view>
-              <view class="cellFt">2015/3/20 12:00:01</view>
+              <view class="cellFt">{{item.endTime}}</view>
             </view>
             <view class="cell">
               <view class="cellHd daka icon-apps"></view>
@@ -108,17 +108,23 @@
       </view>
     </view>
   </view>
+  <pagenull wx:if="{{!prejectList}}"></pagenull>
 </template>
 <script>
 import wepy from "wepy";
 import {$post} from "../../mixins/base";
+import PageNull from "../../components/page-null"
 export default class Reservation extends wepy.page {
   config = {
     navigationBarTitleText: '我的项目'
   }
   
+  components = {
+    pagenull: PageNull,
+  }
+
   data = {
-    prejectList: [1,2,4,3,3]
+    prejectList: null
   }
 
   methods = {
@@ -141,9 +147,15 @@ export default class Reservation extends wepy.page {
   }
 
   $loadList(memberId) {
+    const _this = this;
     $post('/wechat!gotMemberProjectList.action', {
       memberId
     })
+    .then(data => {
+      _this.prejectList = data;
+      _this.$apply();
+    })
+    .catch(err => console.log(err));
   }
 
 }
