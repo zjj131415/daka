@@ -736,7 +736,7 @@
       chechked: [],
       userInfo: {
       },
-      activeNav: 1,
+      activeNav: 2,
       navList: [
         {
           id: 1,

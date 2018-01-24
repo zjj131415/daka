@@ -128,7 +128,7 @@
     data = {
       bookingId: null,
       personList: [
-
+        1,2,23,4,56
       ]
     }
 
@@ -155,7 +155,7 @@
         bookingId
       })
       .then(data => {
-        _this.personList = data;
+        // _this.personList = data;
         _this.$apply();
       })
       .catch(err => console.log(err))
